@@ -10,10 +10,11 @@ Built on [pret/pokefirered](https://github.com/pret/pokefirered), with the Andro
 host and dual-screen interface adapted from
 [Goldoire/pokeemerald-dualscreen](https://github.com/Goldoire/pokeemerald-dualscreen).
 
-> **Status: experimental, source-only publication.** Early-game play, the first
-> rival battle, saving, and loading have been tested on an AYN Thor. A complete
-> playthrough and other devices have not been validated. No downloadable APK is
-> published with this initial source release.
+> **Status: experimental — v0.1.0.** [Download the Android APK](https://github.com/venom13/pokefirered-dualscreen/releases/tag/v0.1.0).
+> Your own FireRed Rev 1 ROM is required. Early-game play, the first rival battle,
+> saving, and loading have been tested on an AYN Thor during development.
+> A complete playthrough and other devices have not been validated.
+> See the release notes for release-specific test coverage.
 
 ## Features
 
@@ -61,9 +62,11 @@ bug-free FireRed playthrough.
 
 ## Getting started
 
-1. Follow [the Android build guide](docs/BUILD_ANDROID.md).
-2. Install the locally built debug APK on a compatible Android device.
-3. Launch **Pokemon FireRed Dual Screen**.
+1. Download the APK from [Releases](https://github.com/venom13/pokefirered-dualscreen/releases),
+   or follow [the Android build guide](docs/BUILD_ANDROID.md) to build from source.
+2. Install it on a compatible Android device with 32-bit ARM support.
+3. Launch **Pokemon FireRed Dual Screen**. The release APK asks for your own
+   extracted FireRed Rev 1 `.gba` file (not a ZIP).
 4. Use the lower screen's PARTY, BAG, CARD, and settings tabs. Battle choices
    appear there when the game requests an action.
 
@@ -81,11 +84,18 @@ The reference ROM for this port is:
 **Do not upload your game ROM, saves, or locally built APKs to this repository.**
 
 The current development build compiles the decompilation's game data into the
-native library and therefore opens directly. A ROM-selection / asset-restoration
-gate is inherited from the Emerald port, but it only activates when a matching
-`asset_manifest.bin` is packaged. An asset-stripped FireRed release pipeline is
-**not included or validated yet**; merely running `assembleRelease` does not make
-an asset-free distribution.
+native library and therefore opens directly. The public release removes data
+ranges matching the reference ROM and packages an `asset_manifest.bin` to
+restore those ranges from the user's own verified ROM. Packaging checks that
+restoration reproduces the original library byte for byte. The ROM hash is
+checked on each launch; a missing/mismatched manifest or failed restoration
+prevents game startup.
+
+Compiled code and unmatched upstream resources remain in the APK. This is not
+a claim that every copyrighted asset is removed. Merely running
+`assembleRelease` does not create the public package; follow
+[the release packaging guide](docs/RELEASING.md). Only the processed, signed
+release APK is intended for the release download.
 
 This repository retains upstream decompilation resources and small upstream
 multiboot payloads under `data/`. It is not presented as a repository containing

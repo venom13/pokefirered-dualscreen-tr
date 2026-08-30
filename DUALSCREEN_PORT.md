@@ -69,8 +69,10 @@ For a clean-clone build, follow [BUILD_ANDROID.md](docs/BUILD_ANDROID.md).
 - [ ] Longer playthrough and more devices / display sizes.
 - [ ] Broader double-battle, switching, item-use, and special-battle validation.
 - [ ] ARM64 native build.
-- [ ] Audited asset-stripped packaging, matching manifest generation, signing,
-      and release distribution.
+- [x] ROM-matching data removal, exact-restoration check, manifest generation,
+      and dedicated APK signing; see [release packaging](docs/RELEASING.md).
+- [ ] On-device validation of the signed ROM-gated release APK and broader
+      asset-coverage audit (the matching process is not a copyright audit).
 - [ ] In-app save import/export UI (file-copy workflow currently supported).
 
 Link cable / RFU multiplayer, ROM hacks, LeafGreen, and a desktop or 3D/voxel

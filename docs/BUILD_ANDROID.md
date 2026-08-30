@@ -1,6 +1,7 @@
 # Building FireRed Dual Screen for Android
 
-This produces a **local development APK**, not an asset-stripped public release.
+This produces a **local development APK**, not the processed public release.
+For ROM-gated release packaging and signing, see [RELEASING.md](RELEASING.md).
 The documented environment is macOS with a POSIX shell; the preparation script
 also uses standard Python/Make tooling, but Linux has not been device-validated.
 
@@ -96,7 +97,8 @@ before considering uninstalling anything; do not clear application data as a
 routine build step.
 
 The source also defines the release identity `com.pokefirered.dualscreen`.
-No release signing key, signing password, or ready-to-publish APK is included.
+No release signing key or signing password is included in the repository.
+Signed APKs are distributed separately through GitHub Releases.
 Do not upload development APKs or native libraries: they contain compiled game
 data.
 

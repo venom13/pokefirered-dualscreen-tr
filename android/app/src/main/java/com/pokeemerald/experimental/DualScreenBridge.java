@@ -130,7 +130,7 @@ public final class DualScreenBridge {
     public static native int[] nativeGetTrainerPic(int gender);
 
     /** Fills asset holes from files/baserom.gba; called by the ROM gate. */
-    public static native void nativeFillAssets(String filesDir);
+    public static native boolean nativeFillAssets(String filesDir);
 
     public static native int nativeGetPlatformSetting(int setting);
 

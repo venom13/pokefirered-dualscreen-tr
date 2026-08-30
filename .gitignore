@@ -80,6 +80,8 @@ local.properties
 *.so
 *.jks
 *.keystore
+*.p12
+*.pfx
 *.pem
 *.key
 .env

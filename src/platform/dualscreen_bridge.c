@@ -166,75 +166,138 @@ static int GetOwnBuildId(unsigned char *out, int outSize)
     return 0;
 }
 
-void DualScreen_FillAssets(const char *prefPath)
+// Restore the original segment permissions, including GNU_RELRO, after
+// filling each page. .rodata can share a page with executable .text.
+static int AssetPageProtection(const unsigned char *base, uintptr_t page, long pageSize)
+{
+    const ElfW(Ehdr) *ehdr = (const ElfW(Ehdr) *)base;
+    const ElfW(Phdr) *phdrs = (const ElfW(Phdr) *)(base + ehdr->e_phoff);
+    uintptr_t mask = (uintptr_t)pageSize - 1;
+    int i, prot = 0;
+    for (i = 0; i < ehdr->e_phnum; i++)
+    {
+        uintptr_t lo = ((uintptr_t)base + phdrs[i].p_vaddr) & ~mask;
+        uintptr_t hi = ((uintptr_t)base + phdrs[i].p_vaddr + phdrs[i].p_memsz + mask) & ~mask;
+        if (phdrs[i].p_type != PT_LOAD || page < lo || page >= hi)
+            continue;
+        if (phdrs[i].p_flags & PF_R) prot |= PROT_READ;
+        if (phdrs[i].p_flags & PF_W) prot |= PROT_WRITE;
+        if (phdrs[i].p_flags & PF_X) prot |= PROT_EXEC;
+    }
+    for (i = 0; i < ehdr->e_phnum; i++)
+    {
+        uintptr_t lo = ((uintptr_t)base + phdrs[i].p_vaddr) & ~mask;
+        uintptr_t hi = ((uintptr_t)base + phdrs[i].p_vaddr + phdrs[i].p_memsz) & ~mask;
+        if (phdrs[i].p_type == PT_GNU_RELRO && page >= lo && page < hi)
+            prot &= ~PROT_WRITE;
+    }
+    return prot;
+}
+
+static bool32 AssetRangeValid(const unsigned char *base, u32 addr, u32 size)
+{
+    const ElfW(Ehdr) *ehdr = (const ElfW(Ehdr) *)base;
+    const ElfW(Phdr) *phdrs = (const ElfW(Phdr) *)(base + ehdr->e_phoff);
+    int i;
+    for (i = 0; i < ehdr->e_phnum; i++)
+    {
+        if (phdrs[i].p_type == PT_LOAD && addr >= phdrs[i].p_vaddr
+         && addr - phdrs[i].p_vaddr <= phdrs[i].p_filesz
+         && size <= phdrs[i].p_filesz - (addr - phdrs[i].p_vaddr))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+bool32 DualScreen_FillAssets(const char *prefPath)
 {
     char path[1024];
-    FILE *manifest;
-    FILE *romFile;
-    unsigned char *rom;
+    FILE *manifest = NULL, *romFile = NULL;
+    unsigned char *rom = NULL, *base;
+    u32 (*entries)[3] = NULL;
     Dl_info info;
-    unsigned char *base;
-    unsigned char header[44];
-    unsigned char ownBuildId[20];
+    unsigned char header[44], ownBuildId[20];
     u32 count, i;
+    bool32 success = FALSE;
     long pageSize = sysconf(_SC_PAGESIZE);
+    uintptr_t mask;
 
-    snprintf(path, sizeof(path), "%sasset_manifest.bin", prefPath);
+    if (pageSize <= 0 || (pageSize & (pageSize - 1)) != 0)
+        return FALSE;
+    mask = (uintptr_t)pageSize - 1;
+    if (snprintf(path, sizeof(path), "%sasset_manifest.bin", prefPath) >= sizeof(path))
+        return FALSE;
     manifest = fopen(path, "rb");
     if (manifest == NULL)
-        return; // development build: assets are compiled in
-    snprintf(path, sizeof(path), "%sbaserom.gba", prefPath);
+        return FALSE; // Debug builds bypass this function in Java.
+    if (snprintf(path, sizeof(path), "%sbaserom.gba", prefPath) >= sizeof(path))
+        goto cleanup;
     romFile = fopen(path, "rb");
     if (romFile == NULL)
-    {
-        fclose(manifest);
-        printf("[Assets] manifest present but baserom.gba missing\n");
-        return;
-    }
+        goto cleanup;
     rom = malloc(BASEROM_SIZE);
     if (rom == NULL || fread(rom, 1, BASEROM_SIZE, romFile) != BASEROM_SIZE
+     || fgetc(romFile) != EOF || ferror(romFile)
      || fread(header, 1, sizeof(header), manifest) != sizeof(header)
      || dladdr((void *)DualScreen_FillAssets, &info) == 0)
-    {
-        free(rom);
-        fclose(manifest);
-        fclose(romFile);
-        return;
-    }
+        goto cleanup;
     base = (unsigned char *)info.dli_fbase;
 
-    // Never fill a library the manifest was not generated for.
+    // Java verifies the ROM hash on every launch. This additionally binds
+    // the manifest to the exact native library before any memory is changed.
     if (GetOwnBuildId(ownBuildId, sizeof(ownBuildId)) != 20
      || memcmp(ownBuildId, header + 20, 20) != 0)
-    {
-        printf("[Assets] manifest build id mismatch; refusing to fill\n");
-        free(rom);
-        fclose(manifest);
-        fclose(romFile);
-        return;
-    }
+        goto cleanup;
 
     count = header[40] | (header[41] << 8) | (header[42] << 16) | ((u32)header[43] << 24);
+    if (count == 0 || count > BASEROM_SIZE / sizeof(*entries))
+        goto cleanup;
+    entries = malloc(count * sizeof(*entries));
+    if (entries == NULL || fread(entries, sizeof(*entries), count, manifest) != count
+     || fgetc(manifest) != EOF || ferror(manifest))
+        goto cleanup;
+
+    // Validate ALL entries first. ARMv7 and the manifest are little-endian.
     for (i = 0; i < count; i++)
     {
-        u32 entry[3];
-        unsigned char *dest;
-        uintptr_t pageStart;
-        size_t protLen;
-        if (fread(entry, 1, sizeof(entry), manifest) != sizeof(entry))
-            break;
-        if (entry[2] + entry[1] > BASEROM_SIZE)
-            continue;
-        dest = base + entry[0];
-        pageStart = (uintptr_t)dest & ~(pageSize - 1);
-        protLen = ((uintptr_t)dest + entry[1] + pageSize - 1 - pageStart) & ~(pageSize - 1);
-        mprotect((void *)pageStart, protLen, PROT_READ | PROT_WRITE);
-        memcpy(dest, rom + entry[2], entry[1]);
+        u32 addr = entries[i][0], size = entries[i][1], offset = entries[i][2];
+        if (size == 0 || offset > BASEROM_SIZE || size > BASEROM_SIZE - offset
+         || !AssetRangeValid(base, addr, size)
+         || (i > 0 && (addr < entries[i - 1][0]
+             || addr - entries[i - 1][0] < entries[i - 1][1])))
+            goto cleanup;
     }
+    for (i = 0; i < count; i++)
+    {
+        unsigned char *dest = base + entries[i][0];
+        const unsigned char *source = rom + entries[i][2];
+        size_t remaining = entries[i][1];
+        while (remaining)
+        {
+            uintptr_t page = (uintptr_t)dest & ~mask;
+            size_t amount = pageSize - ((uintptr_t)dest - page);
+            int prot = AssetPageProtection(base, page, pageSize);
+            if (amount > remaining) amount = remaining;
+            if (!(prot & PROT_READ)
+             || mprotect((void *)page, pageSize, prot | PROT_WRITE) != 0)
+                goto cleanup;
+            memcpy(dest, source, amount);
+            if (mprotect((void *)page, pageSize, prot) != 0)
+                goto cleanup;
+            dest += amount;
+            source += amount;
+            remaining -= amount;
+        }
+    }
+    success = TRUE;
     printf("[Assets] filled %u asset ranges from baserom\n", (unsigned)count);
+cleanup:
+    if (!success) printf("[Assets] restoration failed; game launch refused\n");
+    free(entries);
     free(rom);
-    fclose(manifest);
-    fclose(romFile);
+    if (manifest != NULL) fclose(manifest);
+    if (romFile != NULL) fclose(romFile);
+    return success;
 }
 #endif // __ANDROID__
 
@@ -1236,17 +1299,18 @@ const char *DualScreen_GetSnapshotJson(void)
 
 // Called by RomGateActivity right after System.loadLibrary, so asset holes
 // are filled before anything else in the process can read (and cache) them.
-// The fill in main() then re-copies the same bytes, which is harmless.
-JNIEXPORT void JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeFillAssets(JNIEnv *env, jclass clazz, jstring filesDir)
+JNIEXPORT jboolean JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeFillAssets(JNIEnv *env, jclass clazz, jstring filesDir)
 {
     const char *dir = (*env)->GetStringUTFChars(env, filesDir, NULL);
     char prefPath[1024];
+    bool32 success = FALSE;
     if (dir != NULL)
     {
-        snprintf(prefPath, sizeof(prefPath), "%s/", dir);
-        DualScreen_FillAssets(prefPath);
+        if (snprintf(prefPath, sizeof(prefPath), "%s/", dir) < sizeof(prefPath))
+            success = DualScreen_FillAssets(prefPath);
         (*env)->ReleaseStringUTFChars(env, filesDir, dir);
     }
+    return success ? JNI_TRUE : JNI_FALSE;
 }
 
 // Enqueue synthetic button states, one entry per frame (0 = release).
