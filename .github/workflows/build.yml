@@ -7,6 +7,8 @@ on:
 
 jobs:
   build:
+    # Retained upstream ROM CI; this is not the native Android pipeline.
+    if: github.repository == 'pret/pokefirered'
     runs-on: ubuntu-latest
     env:
       GAME_VERSION: FIRERED

@@ -10,6 +10,9 @@
 #include "pokemon_storage_system.h"
 #include "gba/flash_internal.h"
 #include "sloopsvc.h"
+#ifdef PLATFORM_SDL2
+#include "platform.h"
+#endif
 
 static u8 HandleWriteSector(u16 sectorId, const struct SaveSectorLocation *locations);
 static u8 TryWriteSector(u8 sectorNum, u8 *data);
@@ -94,12 +97,30 @@ COMMON_DATA u16 gSaveAttemptStatus = 0;
 EWRAM_DATA struct SaveSector gSaveDataBuffer = {0};
 EWRAM_DATA u32 gSaveUnusedVar2 = 0;
 
+static void CommitSaveFile(void)
+{
+#ifdef PLATFORM_SDL2
+    if (gDamagedSaveSectors == 0 && !Platform_CommitSaveFile())
+    {
+        // Reuse the game's save-error/retry flow for host I/O failures.
+        // Roll back the rotation so a retry rewrites this same save slot.
+        u16 sector = gLastWrittenSector + NUM_SECTORS_PER_SLOT * (gSaveCounter % NUM_SAVE_SLOTS);
+        gDamagedSaveSectors |= 1u << sector;
+        gLastWrittenSector = gLastKnownGoodSector;
+        gSaveCounter = gLastSaveCounter;
+    }
+#endif
+}
+
 void ClearSaveData(void)
 {
     u16 i;
 
     for (i = 0; i < SECTORS_COUNT; i++)
         EraseFlashSector(i);
+#ifdef PLATFORM_SDL2
+    Platform_StoreSaveFile();
+#endif
 }
 
 void Save_ResetSaveCounters(void)
@@ -332,7 +353,8 @@ static u8 HandleReplaceSector(u16 sectorId, const struct SaveSectorLocation *loc
     // write new save data, excluding the signature and counter fields
     for (i = 0; i < SECTOR_SIGNATURE_OFFSET; i++)
     {
-        if (ProgramFlashByte(sectorNum, i, gSaveDataBufferPtr->data[i]))
+        // This includes the footer, beyond the data[] member of the sector.
+        if (ProgramFlashByte(sectorNum, i, ((u8 *)gSaveDataBufferPtr)[i]))
         {
             status = SAVE_STATUS_ERROR;
             break;
@@ -448,6 +470,9 @@ static u8 CopySaveSlotData(u16 sectorId, const struct SaveSectorLocation *locati
     {
         ReadFlashSector(i + sector, gSaveDataBufferPtr);
         id = gSaveDataBufferPtr->id;
+        // An erased sector has id 0xFFFF; never use it as an array index.
+        if (gSaveDataBufferPtr->signature != SECTOR_SIGNATURE || id >= NUM_SECTORS_PER_SLOT)
+            continue;
         if (id == 0)
             gLastWrittenSector = i;
 
@@ -481,7 +506,7 @@ static u8 GetSaveValidStatus(const struct SaveSectorLocation *locations)
     for (sector = 0; sector < NUM_SECTORS_PER_SLOT; sector++)
     {
         ReadFlashSector(sector, gSaveDataBufferPtr);
-        if (gSaveDataBufferPtr->signature == SECTOR_SIGNATURE)
+        if (gSaveDataBufferPtr->signature == SECTOR_SIGNATURE && gSaveDataBufferPtr->id < NUM_SECTORS_PER_SLOT)
         {
             signatureValid = TRUE;
             checksum = CalculateChecksum(gSaveDataBufferPtr->data, locations[gSaveDataBufferPtr->id].size);
@@ -509,7 +534,7 @@ static u8 GetSaveValidStatus(const struct SaveSectorLocation *locations)
     for (sector = 0; sector < NUM_SECTORS_PER_SLOT; sector++)
     {
         ReadFlashSector(NUM_SECTORS_PER_SLOT + sector, gSaveDataBufferPtr);
-        if (gSaveDataBufferPtr->signature == SECTOR_SIGNATURE)
+        if (gSaveDataBufferPtr->signature == SECTOR_SIGNATURE && gSaveDataBufferPtr->id < NUM_SECTORS_PER_SLOT)
         {
             signatureValid = TRUE;
             checksum = CalculateChecksum(gSaveDataBufferPtr->data, locations[gSaveDataBufferPtr->id].size);
@@ -653,6 +678,10 @@ u8 HandleSavingData(u8 saveType)
     u32 *backupPtr = gMain.vblankCounter1;
     u8 *tempAddr;
 
+#ifdef PLATFORM_SDL2
+    gLastKnownGoodSector = gLastWrittenSector;
+    gLastSaveCounter = gSaveCounter;
+#endif
     gMain.vblankCounter1 = NULL;
     UpdateSaveAddresses();
     switch (saveType)
@@ -692,6 +721,7 @@ u8 HandleSavingData(u8 saveType)
         break;
     }
     gMain.vblankCounter1 = backupPtr;
+    CommitSaveFile();
 #if REVISION >= 0xA
     svc_FinishSave();
 #endif
@@ -755,6 +785,7 @@ bool8 LinkFullSave_ReplaceLastSector(void)
 bool8 LinkFullSave_SetLastSectorSignature(void)
 {
     CopySectorSignatureByte(NUM_SECTORS_PER_SLOT, gRamSaveSectorLocations);
+    CommitSaveFile();
     if (gDamagedSaveSectors)
         DoSaveFailedScreen(SAVE_NORMAL);
 
@@ -794,6 +825,8 @@ bool8 WriteSaveBlock1Sector(void)
         WriteSectorSignatureByte(sectorId, gRamSaveSectorLocations);
         finished = TRUE;
     }
+    if (finished)
+        CommitSaveFile();
     if (gDamagedSaveSectors)
         DoSaveFailedScreen(SAVE_LINK);
 
@@ -875,6 +908,10 @@ u32 TryWriteSpecialSaveSector(u8 sector, u8 *src)
 
     if (ProgramFlashSectorAndVerify(sector, savDataBuffer) != 0)
         return SAVE_STATUS_ERROR;
+#ifdef PLATFORM_SDL2
+    if (!Platform_CommitSaveFile())
+        return SAVE_STATUS_ERROR;
+#endif
 
     return SAVE_STATUS_OK;
 }

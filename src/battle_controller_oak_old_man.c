@@ -18,6 +18,10 @@
 #include "constants/songs.h"
 #include "constants/items.h"
 
+#ifdef PLATFORM_SDL2
+#include "platform/dualscreen.h"
+#endif
+
 static void OakOldManHandleGetMonData(void);
 static void OakOldManHandleGetRawMonData(void);
 static void OakOldManHandleSetMonData(void);
@@ -161,6 +165,32 @@ static void OakOldManDummy(void)
 {
 }
 
+#ifdef PLATFORM_SDL2
+s32 DualScreen_FirstBattleActionBattler(void)
+{
+    u32 i;
+
+    if (!(gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE))
+        return -1;
+    for (i = 0; i < gBattlersCount && i < MAX_BATTLERS_COUNT; i++)
+        if (gBattlerControllerFuncs[i] == HandleInputChooseAction)
+            return i;
+    return -1;
+}
+
+s32 DualScreen_FirstBattleMoveBattler(void)
+{
+    u32 i;
+
+    if (!(gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE))
+        return -1;
+    for (i = 0; i < gBattlersCount && i < MAX_BATTLERS_COUNT; i++)
+        if (gBattlerControllerFuncs[i] == OakOldManHandleInputChooseMove)
+            return i;
+    return -1;
+}
+#endif
+
 void SetControllerToOakOrOldMan(void)
 {
     gBattlerControllerFuncs[gActiveBattler] = OakOldManBufferRunCommand;
@@ -209,6 +239,22 @@ static void HandleInputChooseAction(void)
         }
         OakOldManBufferExecCompleted();
     }
+#ifdef PLATFORM_SDL2
+    else if (DualScreen_BattleUiActive() && JOY_NEW(DPAD_ANY))
+    {
+        u32 direction = JOY_NEW(DPAD_UP) ? 0 : JOY_NEW(DPAD_DOWN) ? 1
+                      : JOY_NEW(DPAD_LEFT) ? 2 : 3;
+        s32 next = DualScreen_ActionCursorStep(gActionSelectionCursor[gActiveBattler], direction);
+
+        if (next >= 0)
+        {
+            PlaySE(SE_SELECT);
+            ActionSelectionDestroyCursorAt(gActionSelectionCursor[gActiveBattler]);
+            gActionSelectionCursor[gActiveBattler] = next;
+            ActionSelectionCreateCursorAt(gActionSelectionCursor[gActiveBattler], 0);
+        }
+    }
+#endif
     else if (JOY_NEW(DPAD_LEFT))
     {
         if (gActionSelectionCursor[gActiveBattler] & 1) // if is B_ACTION_USE_ITEM or B_ACTION_RUN

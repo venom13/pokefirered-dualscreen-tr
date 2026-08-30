@@ -16,6 +16,9 @@
 #include "save_failed_screen.h"
 #include "quest_log.h"
 #include "sloopsvc.h"
+#ifdef PORTABLE
+extern void SDL_Log(const char *fmt, ...);
+#endif
 
 extern u32 intr_main[];
 
@@ -86,6 +89,9 @@ static IntrFunc * const sTimerIntrFunc = gIntrTable + 0x7;
 
 EWRAM_DATA u8 gDecompressionBuffer[0x4000] = {0};
 EWRAM_DATA u16 gTrainerId = 0;
+#ifdef PORTABLE
+u8 gHeap[HEAP_SIZE] __attribute__((aligned(4)));
+#endif
 
 static void UpdateLinkAndCallCallbacks(void);
 static void InitMainCallbacks(void);
@@ -99,10 +105,16 @@ void EnableVCountIntrAtLine150(void);
 
 void AgbMain()
 {
+#ifdef PORTABLE
+#define PORT_BOOT_LOG(step) SDL_Log("[FireRed boot] %s", step)
+    PORT_BOOT_LOG("AgbMain entered");
+#else
+#define PORT_BOOT_LOG(step) ((void)0)
+#endif
 #if REVISION >= 0xA
     svc_stubbed();
 #endif
-#if MODERN
+#if MODERN && !defined(PORTABLE)
     // Modern compilers are liberal with the stack on entry to this function,
     // so RegisterRamReset may crash if it resets IWRAM.
     RegisterRamReset(RESET_ALL & ~RESET_IWRAM);
@@ -140,19 +152,42 @@ void AgbMain()
     *(vu16 *)BG_PLTT = RGB_WHITE;
 #endif
     InitGpuRegManager();
+#ifdef PORTABLE
+    // The GBA starts affine backgrounds with an identity transform. The
+    // portable register buffer is zero-initialized, which otherwise collapses
+    // affine layers (such as Oak's trainer picture) to a single texel.
+    SetGpuReg(REG_OFFSET_BG2PA, 0x100);
+    SetGpuReg(REG_OFFSET_BG2PD, 0x100);
+    SetGpuReg(REG_OFFSET_BG3PA, 0x100);
+    SetGpuReg(REG_OFFSET_BG3PD, 0x100);
+#endif
+    PORT_BOOT_LOG("GPU registers initialized");
     REG_WAITCNT = WAITCNT_PREFETCH_ENABLE | WAITCNT_WS0_S_1 | WAITCNT_WS0_N_3;
     InitKeys();
     InitIntrHandlers();
+    PORT_BOOT_LOG("interrupt handlers initialized");
+#ifndef PORTABLE
     m4aSoundInit();
+#else
+    SOUND_INFO_PTR = &gSoundInfo;
+#endif
+    PORT_BOOT_LOG("sound initialized");
     EnableVCountIntrAtLine150();
+    PORT_BOOT_LOG("vcount initialized");
+#ifndef PORTABLE
     InitRFU();
+#endif
     CheckForFlashMemory();
+    PORT_BOOT_LOG("flash checked");
     InitMainCallbacks();
+    PORT_BOOT_LOG("main callbacks initialized");
     InitMapMusic();
+    PORT_BOOT_LOG("map music initialized");
     ClearDma3Requests();
     ResetBgs();
     InitHeap(gHeap, HEAP_SIZE);
     SetDefaultFontsPointer();
+    PORT_BOOT_LOG("heap and fonts initialized");
 
     gSoftResetDisabled = FALSE;
     gHelpSystemEnabled = FALSE;
@@ -160,7 +195,7 @@ void AgbMain()
     SetNotInSaveFailedScreen();
 
     // Revision 10 has no calls into libisagbprn except this one.
-#if !defined(NDEBUG) || REVISION >= 0xA
+#if (!defined(NDEBUG) || REVISION >= 0xA) && !defined(PORTABLE)
 #if (LOG_HANDLER == LOG_HANDLER_MGBA_PRINT)
     (void) MgbaOpen();
 #elif (LOG_HANDLER == LOG_HANDLER_AGB_PRINT)
@@ -169,14 +204,22 @@ void AgbMain()
 #endif
 
 #if REVISION >= 1
+#ifndef PORTABLE
     if (gFlashMemoryPresent != TRUE)
         SetMainCallback2(NULL);
 #endif
+#endif
 
     gLinkTransferringData = FALSE;
+    PORT_BOOT_LOG("entering main loop");
 
+    u32 portableFrame = 0;
     for (;;)
     {
+#ifdef PORTABLE
+        if (++portableFrame % 300 == 0)
+            SDL_Log("[FireRed boot] frame %u callback=%p", portableFrame, gMain.callback2);
+#endif
         ReadKeys();
 
         if (gSoftResetDisabled == FALSE
@@ -231,6 +274,11 @@ static void InitMainCallbacks(void)
     SetMainCallback2(CB2_InitCopyrightScreenAfterBootup);
     gSaveBlock2Ptr = &gSaveBlock2;
     gSaveBlock1Ptr = &gSaveBlock1;
+#ifdef PORTABLE
+    // The copyright screen loads all save sectors before the title screen
+    // calls SetSaveBlocksPointers. PC-box sectors also need a valid target.
+    gPokemonStoragePtr = &gPokemonStorage;
+#endif
     gSaveBlock2.encryptionKey = 0;
     gQuestLogPlaybackState = QL_PLAYBACK_STATE_STOPPED;
 #if REVISION >= 0xA
@@ -295,7 +343,11 @@ void InitKeys(void)
 
 static void ReadKeys(void)
 {
+#ifndef PORTABLE
     u16 keyInput = REG_KEYINPUT ^ KEYS_MASK;
+#else
+    u16 keyInput = Platform_GetKeyInput();
+#endif
     gMain.newKeysRaw = keyInput & ~gMain.heldKeysRaw;
     gMain.newKeys = gMain.newKeysRaw;
     gMain.newAndRepeatedKeys = gMain.newKeysRaw;
@@ -461,10 +513,14 @@ static void IntrDummy(void)
 
 static void WaitForVBlank(void)
 {
+#ifdef PORTABLE
+    VBlankIntrWait();
+#else
     gMain.intrCheck &= ~INTR_FLAG_VBLANK;
 
     while (!(gMain.intrCheck & INTR_FLAG_VBLANK))
         ;
+#endif
 }
 
 void SetVBlankCounter1Ptr(u32 *ptr)

@@ -24,6 +24,10 @@
 #include "constants/songs.h"
 #include "constants/sound.h"
 
+#ifdef PLATFORM_SDL2
+#include "platform/dualscreen.h"
+#endif
+
 static void PlayerHandleGetMonData(void);
 static void PlayerHandleSetMonData(void);
 static void PlayerHandleSetRawMonData(void);
@@ -82,6 +86,7 @@ static void PlayerHandleCmd55(void);
 static void PlayerCmdEnd(void);
 
 static void PlayerBufferRunCommand(void);
+static void HandleInputChooseAction(void);
 static void HandleInputChooseTarget(void);
 static void MoveSelectionDisplayPpNumber(void);
 static void MoveSelectionDisplayPpString(void);
@@ -177,6 +182,29 @@ void BattleControllerDummy(void)
 {
 }
 
+#ifdef PLATFORM_SDL2
+s32 DualScreen_PlayerActionBattler(void)
+{
+    u32 i;
+    for (i = 0; i < gBattlersCount && i < MAX_BATTLERS_COUNT; i++)
+        if (gBattlerControllerFuncs[i] == HandleInputChooseAction)
+            return i;
+    return DualScreen_FirstBattleActionBattler();
+}
+
+s32 DualScreen_PlayerMoveBattler(void)
+{
+    u32 i;
+    for (i = 0; i < gBattlersCount && i < MAX_BATTLERS_COUNT; i++)
+        if (gBattlerControllerFuncs[i] == HandleInputChooseMove)
+            return i;
+    return DualScreen_FirstBattleMoveBattler();
+}
+
+u32 DualScreen_PlayerAtActionSelect(void) { return DualScreen_PlayerActionBattler() >= 0; }
+u32 DualScreen_PlayerAtMoveSelect(void) { return DualScreen_PlayerMoveBattler() >= 0; }
+#endif
+
 void SetControllerToPlayer(void)
 {
     gBattlerControllerFuncs[gActiveBattler] = PlayerBufferRunCommand;
@@ -243,6 +271,22 @@ static void HandleInputChooseAction(void)
         }
         PlayerBufferExecCompleted();
     }
+#ifdef PLATFORM_SDL2
+    else if (DualScreen_BattleUiActive() && JOY_NEW(DPAD_ANY))
+    {
+        u32 direction = JOY_NEW(DPAD_UP) ? 0 : JOY_NEW(DPAD_DOWN) ? 1
+                      : JOY_NEW(DPAD_LEFT) ? 2 : 3;
+        s32 next = DualScreen_ActionCursorStep(gActionSelectionCursor[gActiveBattler], direction);
+
+        if (next >= 0)
+        {
+            PlaySE(SE_SELECT);
+            ActionSelectionDestroyCursorAt(gActionSelectionCursor[gActiveBattler]);
+            gActionSelectionCursor[gActiveBattler] = next;
+            ActionSelectionCreateCursorAt(gActionSelectionCursor[gActiveBattler], 0);
+        }
+    }
+#endif
     else if (JOY_NEW(DPAD_LEFT))
     {
         if (gActionSelectionCursor[gActiveBattler] & 1) // if is B_ACTION_USE_ITEM or B_ACTION_RUN

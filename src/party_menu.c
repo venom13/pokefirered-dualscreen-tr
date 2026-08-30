@@ -456,6 +456,24 @@ void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCursorPos, 
     }
 }
 
+#ifdef PLATFORM_SDL2
+const u8 *DualScreen_GetPartySlotTilemap(u32 kind, u32 *width, u32 *height)
+{
+    *width = kind <= 1 ? 10 : 18;
+    *height = kind <= 1 ? 7 : 3;
+    switch (kind)
+    {
+    case 0: return sSlotTilemap_Main;
+    case 1: return sSlotTilemap_MainNoHP;
+    case 2: return sSlotTilemap_Wide;
+    case 3: return sSlotTilemap_WideNoHP;
+    default: return sSlotTilemap_WideEmpty;
+    }
+}
+const u32 *DualScreen_GetHeldItemGfx(void) { return (const u32 *)sSpriteSheet_HeldItem.data; }
+const u16 *DualScreen_GetHeldItemPal(void) { return sSpritePalette_HeldItem.data; }
+#endif
+
 static void CB2_UpdatePartyMenu(void)
 {
     RunTasks();

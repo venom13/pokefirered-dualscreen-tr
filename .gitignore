@@ -10,6 +10,8 @@
 *.exe
 *.fwjpnfont
 *.gba
+baserom.gba
+pokefirered_rev1.gba
 !data/*.gba
 *.sgm
 *.sa1
@@ -67,3 +69,35 @@ build-cmake-*/
 .cache/
 CMakeLists.txt
 compile_commands.json
+
+# Android local build state and distributable binaries
+.gradle/
+.cxx/
+.externalNativeBuild/
+local.properties
+*.apk
+*.aab
+*.so
+*.jks
+*.keystore
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+*.sav
+*.srm
+*.state
+*.state.*
+*.zip
+*.7z
+*.orig
+*.rej
+*.log
+__pycache__/
+*.py[cod]
+artifacts/
+dist/
+
+# The native Android build recipe is source, not a generated CMake file.
+!/android/app/src/main/cpp/CMakeLists.txt

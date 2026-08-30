@@ -31,6 +31,9 @@
 
 #define CpuFastCopy(src, dest, size) CpuFastSet(src, dest, ((size)/(32/8) & 0x1FFFFF))
 
+#ifdef PORTABLE
+extern void DmaSet(int dmaNum, const void *src, void *dest, u32 control);
+#else
 #define DmaSet(dmaNum, src, dest, control)        \
 {                                                 \
     vu32 *dmaRegs = (vu32 *)REG_ADDR_DMA##dmaNum; \
@@ -39,6 +42,7 @@
     dmaRegs[2] = (vu32)(control);                 \
     dmaRegs[2];                                   \
 }
+#endif
 
 #define DMA_FILL(dmaNum, value, dest, size, bit)                                              \
 {                                                                                             \
@@ -75,8 +79,13 @@
            (DMA_ENABLE | DMA_START_NOW | DMA_##bit##BIT | DMA_SRC_INC | DMA_DEST_INC) << 16 \
          | ((size)/(bit/8)))
 
+#ifdef PORTABLE
+#define DmaCopy16(dmaNum, src, dest, size) CpuCopy16(src, dest, size)
+#define DmaCopy32(dmaNum, src, dest, size) CpuCopy32(src, dest, size)
+#else
 #define DmaCopy16(dmaNum, src, dest, size) DMA_COPY(dmaNum, src, dest, size, 16)
 #define DmaCopy32(dmaNum, src, dest, size) DMA_COPY(dmaNum, src, dest, size, 32)
+#endif
 
 #define DmaStop(dmaNum)                                         \
 {                                                               \

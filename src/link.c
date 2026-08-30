@@ -242,6 +242,12 @@ static const u8 sLinkErrorTextColor[] = { 0x00, 0x01, 0x02 };
 
 bool8 IsWirelessAdapterConnected(void)
 {
+#ifdef PORTABLE
+    // No GBA RFU adapter exists on the host. Probing its serial registers
+    // waits forever when the main menu checks it before CONTINUE.
+    SetWirelessCommType0_Internal();
+    return FALSE;
+#else
     if (QL_IS_PLAYBACK_STATE)
         return FALSE;
 
@@ -258,6 +264,7 @@ bool8 IsWirelessAdapterConnected(void)
     CloseLink();
     RestoreSerialTimer3IntrHandlers();
     return FALSE;
+#endif
 }
 
 void Task_DestroySelf(u8 taskId)

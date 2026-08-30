@@ -1,0 +1,186 @@
+package com.pokeemerald.experimental;
+
+import android.graphics.Rect;
+import android.hardware.display.DisplayManager;
+import android.os.Bundle;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
+import android.view.WindowManager;
+
+import java.util.Arrays;
+
+import org.libsdl.app.SDLActivity;
+
+public class PokeEmeraldActivity extends SDLActivity {
+    private static final long SNAPSHOT_INTERVAL_MS = 120;
+
+    private DualScreenPresentation presentation;
+    private final Handler snapshotHandler = new Handler(Looper.getMainLooper());
+    private final Runnable snapshotPump = new Runnable() {
+        @Override
+        public void run() {
+            // Self-heal: the Thor's system UI can steal the bottom display and
+            // dismiss the presentation; re-show it whenever it is gone.
+            if (presentation == null || !presentation.isShowing()) {
+                presentation = null;
+                showBottomScreen();
+            }
+            if (presentation != null && presentation.isShowing()) {
+                String json = DualScreenBridge.nativeGetSnapshotJson();
+                presentation.updateState(DualScreenState.parse(json));
+            }
+            // The overlay paints letterbox bars from the live setting. On a
+            // release cold start DualScreen_FillAssets runs before the config
+            // is read, so the first draw sees widescreen=0 and those bars
+            // stick until something invalidates this view.
+            if (controls != null) {
+                controls.postInvalidate();
+            }
+            snapshotHandler.postDelayed(this, SNAPSHOT_INTERVAL_MS);
+        }
+    };
+
+    private GbaControlsView controls;
+
+    // Button presses for an open battle takeover panel. The native side
+    // queues them off the game's own input; this just hands them over,
+    // faster than the snapshot pump so the panel keeps up with a held d-pad.
+    private static final long NAV_INTERVAL_MS = 33;
+    private final Handler navHandler = new Handler(Looper.getMainLooper());
+    private final Runnable navPump = new Runnable() {
+        @Override
+        public void run() {
+            if (presentation != null) {
+                int action;
+                while ((action = DualScreenBridge.nativeDrainNavKey()) >= 0) {
+                    presentation.navigate(action);
+                }
+            }
+            navHandler.postDelayed(this, NAV_INTERVAL_MS);
+        }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Hide the bars before the first layout so SDL's SurfaceView is
+        // sized to the full display, not inset and then resized.
+        applyImmersiveFlags();
+        controls = new GbaControlsView(this);
+        mLayout.addView(controls, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showBottomScreen();
+        snapshotHandler.removeCallbacks(snapshotPump);
+        snapshotHandler.postDelayed(snapshotPump, SNAPSHOT_INTERVAL_MS);
+        navHandler.removeCallbacks(navPump);
+        navHandler.postDelayed(navPump, NAV_INTERVAL_MS);
+    }
+
+    @Override
+    protected void onPause() {
+        snapshotHandler.removeCallbacks(snapshotPump);
+        navHandler.removeCallbacks(navPump);
+        dismissBottomScreen();
+        super.onPause();
+    }
+
+    private void applyImmersiveFlags() {
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // setSystemUiVisibility is deprecated from API 30 and does not stop
+            // the decor insetting the content here, which is what shrank the
+            // SurfaceView. setDecorFitsSystemWindows(false) is the call that
+            // actually gives the content the whole window.
+            window.setDecorFitsSystemWindows(false);
+            WindowInsetsController controller = window.getInsetsController();
+            if (controller != null) {
+                controller.hide(WindowInsets.Type.systemBars());
+                controller.setSystemBarsBehavior(
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            }
+        } else {
+            window.getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        }
+    }
+
+    private void showBottomScreen() {
+        if (presentation != null && presentation.isShowing()) {
+            return;
+        }
+        DisplayManager displayManager = (DisplayManager) getSystemService(DISPLAY_SERVICE);
+        Display[] displays = displayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION);
+        if (displays.length == 0) {
+            return; // Single-display device; game stays fullscreen.
+        }
+        presentation = new DualScreenPresentation(this, displays[0]);
+        presentation.setSettingsListener(() -> {
+            if (controls != null) {
+                controls.postInvalidate();
+            }
+        });
+        presentation.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        try {
+            presentation.show();
+        } catch (WindowManager.InvalidDisplayException e) {
+            presentation = null;
+        }
+    }
+
+    private void dismissBottomScreen() {
+        if (presentation != null) {
+            presentation.dismiss();
+            presentation = null;
+        }
+    }
+
+    @Override
+    public void setOrientationBis(int width, int height, boolean resizable, String hint) {
+        // The manifest already keeps this activity in sensor landscape mode.
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (!hasFocus) {
+            return;
+        }
+
+        // Re-applied on every focus gain because IMMERSIVE_STICKY only hides
+        // the bars again after the user swipes them back in.
+        applyImmersiveFlags();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && mSurface != null) {
+            mSurface.post(() -> {
+                int width = mSurface.getWidth();
+                int height = mSurface.getHeight();
+                mSurface.setSystemGestureExclusionRects(Arrays.asList(
+                        new Rect(0, height / 2, width / 5, height),
+                        new Rect(width * 4 / 5, height / 2, width, height)));
+            });
+        }
+    }
+
+    @Override
+    protected String[] getLibraries() {
+        return new String[] { "SDL2", "main" };
+    }
+}

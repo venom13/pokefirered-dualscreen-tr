@@ -5,6 +5,9 @@ static const char AgbLibFlashVersion[] = "FLASH1M_V103";
 
 const struct FlashSetupInfo * const sSetupInfos[] =
 {
+#ifdef PORTABLE
+    &DUMMY_SAVE,
+#endif
     &MX29L010,
     &LE26FV10N1TS,
     &DefaultFlash
@@ -18,9 +21,11 @@ u16 IdentifyFlash(void)
 
     REG_WAITCNT = (REG_WAITCNT & ~WAITCNT_SRAM_MASK) | WAITCNT_SRAM_8;
 
-    flashId = ReadFlashId();
-
     setupInfo = sSetupInfos;
+#ifdef PORTABLE
+    result = 0;
+#else
+    flashId = ReadFlashId();
     result = 1;
 
     for (;;)
@@ -36,6 +41,7 @@ u16 IdentifyFlash(void)
 
         setupInfo++;
     }
+#endif
 
     ProgramFlashByte = (*setupInfo)->programFlashByte;
     ProgramFlashSector = (*setupInfo)->programFlashSector;

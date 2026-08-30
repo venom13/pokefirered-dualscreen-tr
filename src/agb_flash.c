@@ -1,5 +1,9 @@
 #include "gba/gba.h"
 #include "gba/flash_internal.h"
+#ifdef PORTABLE
+#include <string.h>
+#include "platform.h"
+#endif
 
 static u8 sTimerNum;
 static u16 sTimerCount;
@@ -139,6 +143,10 @@ void ReadFlash_Core(vu8 *src, u8 *dest, u32 size)
 
 void ReadFlash(u16 sectorNum, u32 offset, void *dest, u32 size)
 {
+#ifdef PORTABLE
+    Platform_ReadFlash(sectorNum, offset, dest, size);
+    return;
+#else
     u8 *src;
     u16 i;
     vu16 readFlash_Core_Buffer[0x40];
@@ -171,6 +179,7 @@ void ReadFlash(u16 sectorNum, u32 offset, void *dest, u32 size)
     src = FLASH_BASE + (sectorNum << gFlash->sector.shift) + offset;
 
     readFlash_Core(src, dest, size);
+#endif
 }
 
 u32 VerifyFlashSector_Core(u8 *src, u8 *tgt, u32 size)
@@ -186,6 +195,13 @@ u32 VerifyFlashSector_Core(u8 *src, u8 *tgt, u32 size)
 
 u32 VerifyFlashSector(u16 sectorNum, u8 *src)
 {
+#ifdef PORTABLE
+    // Android cannot execute the GBA verifier copied onto the stack. The
+    // portable flash is one contiguous RAM buffer, including both banks.
+    if (gFlash == NULL || src == NULL || sectorNum >= gFlash->sector.count)
+        return 1;
+    return memcmp(src, FLASH_BASE + (sectorNum << gFlash->sector.shift), gFlash->sector.size) != 0;
+#else
     u16 i;
     vu16 verifyFlashSector_Core_Buffer[0x80];
     vu16 *funcSrc;
@@ -220,10 +236,16 @@ u32 VerifyFlashSector(u16 sectorNum, u8 *src)
     size = gFlash->sector.size;
 
     return verifyFlashSector_Core(src, tgt, size); // return 0 if verified.
+#endif
 }
 
 u32 VerifyFlashSectorNBytes(u16 sectorNum, u8 *src, u32 n)
 {
+#ifdef PORTABLE
+    if (gFlash == NULL || src == NULL || sectorNum >= gFlash->sector.count || n > gFlash->sector.size)
+        return 1;
+    return memcmp(src, FLASH_BASE + (sectorNum << gFlash->sector.shift), n) != 0;
+#else
     u16 i;
     vu16 verifyFlashSector_Core_Buffer[0x80];
     vu16 *funcSrc;
@@ -256,6 +278,7 @@ u32 VerifyFlashSectorNBytes(u16 sectorNum, u8 *src, u32 n)
     tgt = FLASH_BASE + (sectorNum << gFlash->sector.shift);
 
     return verifyFlashSector_Core(src, tgt, n);
+#endif
 }
 
 u32 ProgramFlashSectorAndVerify(u16 sectorNum, u8 *src)

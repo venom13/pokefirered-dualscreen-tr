@@ -630,6 +630,15 @@ bool8 IsBattleTransitionDone(void)
     u8 taskId = FindTaskIdByFunc(Task_BattleTransition);
     if (gTasks[taskId].tTransitionDone)
     {
+        // Transition callbacks run on the portable renderer thread. Stop them
+        // before releasing sTransitionData, then wait for any callback that
+        // was already in flight to finish.
+        SetVBlankCallback(NULL);
+        SetHBlankCallback(NULL);
+        DmaStop(0);
+#ifdef PORTABLE
+        VBlankIntrWait();
+#endif
         InitTransitionData();
         FREE_AND_SET_NULL(sTransitionData);
         DestroyTask(taskId);

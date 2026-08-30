@@ -2,6 +2,12 @@
 #define GUARD_GLOBAL_H
 
 #include "config.h"
+#ifdef PORTABLE
+#include <stdio.h>
+#define DBGPRINTF(...) printf(__VA_ARGS__)
+#else
+#define DBGPRINTF(...)
+#endif
 #include "gba/gba.h"
 #include <string.h>
 #include "constants/global.h"

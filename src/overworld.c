@@ -1487,6 +1487,13 @@ static void CB2_Overworld(void)
         SetFieldVBlankCallback();
 }
 
+#ifdef PORTABLE
+bool32 IsOverworldRunning(void)
+{
+    return gMain.callback2 == CB2_Overworld || gMain.callback2 == CB2_OverworldBasic;
+}
+#endif
+
 void SetMainCallback1(MainCallback cb)
 {
     gMain.callback1 = cb;
@@ -2042,7 +2049,17 @@ static bool32 ReturnToFieldLink(u8 *state)
 
 static void DoMapLoadLoop(u8 *state)
 {
+#ifdef PORTABLE
+    // On hardware, VBlank interrupts can run while this loop is waiting and
+    // drain the queued tileset DMA copies. The portable game thread drives
+    // VBlank explicitly, so a tight loop deadlocks once map loading reaches
+    // FreeTempTileDataBuffersIfPossible(). Yield a frame between loading
+    // steps to let the renderer process those requests.
+    while (!LoadMapInStepsLocal(state, FALSE))
+        VBlankIntrWait();
+#else
     while (!LoadMapInStepsLocal(state, FALSE)) ;
+#endif
 }
 
 static void MoveSaveBlocks_ResetHeap_(void)
@@ -2240,7 +2257,13 @@ static void CB2_LoadMapForQLPlayback(void)
 static void DoLoadMap_QLPlayback(u8 *state)
 {
     while (!LoadMap_QLPlayback(state))
+#ifdef PORTABLE
+        // Quest-log playback loads its map synchronously, just like a new
+        // game. Yield so queued tileset DMA copies can finish on the host.
+        VBlankIntrWait();
+#else
         ;
+#endif
 }
 
 static bool32 LoadMap_QLPlayback(u8 *state)

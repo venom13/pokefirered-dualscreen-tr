@@ -183,8 +183,8 @@ static const u8 sFontNormalCopy1LatinGlyphWidths[] =
 };
 static const u16 sFontTallJapaneseGlyphs[] = INCBIN_U16("graphics/fonts/japanese_tall.fwjpnfont");
 
-static const u16 sFontNormalLatinGlyphs[] = INCBIN_U16("graphics/fonts/latin_normal.fwlatfont");
-static const u8 sFontNormalLatinGlyphWidths[] =
+const u16 sFontNormalLatinGlyphs[] = INCBIN_U16("graphics/fonts/latin_normal.fwlatfont");
+const u8 sFontNormalLatinGlyphWidths[] =
 {
      6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,
      6,  6,  8,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,

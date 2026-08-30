@@ -451,6 +451,11 @@ static void VBlankCB_TrainerCard(void)
         DmaCopy16(3, &gScanlineEffectRegBuffers[0], &gScanlineEffectRegBuffers[1], 0x140);
 }
 
+#ifdef PLATFORM_SDL2
+const u16 *DualScreen_GetBadgesPal(void) { return sKantoTrainerCardBadges_Pal; }
+const u32 *DualScreen_GetBadgesGfxLZ(void) { return sKantoTrainerCardBadges_Gfx; }
+#endif
+
 static void HBlankCB_TrainerCard(void)
 {
     u16 backup;

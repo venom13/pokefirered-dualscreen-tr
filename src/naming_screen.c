@@ -720,6 +720,10 @@ static bool8 MainState_Exit(void)
     {
         if (sNamingScreen->templateNum == NAMING_SCREEN_PLAYER)
             SeedRngAndSetTrainerId();
+        // The naming-screen task frees its state from inside RunTasks. Stop
+        // its VBlank callback before releasing that state; the portable main
+        // loop may otherwise run the callback once more during this frame.
+        SetVBlankCallback(NULL);
         SetMainCallback2(sNamingScreen->returnCallback);
         DestroyTask(FindTaskIdByFunc(Task_NamingScreen));
         FreeAllWindowBuffers();
@@ -2000,6 +2004,10 @@ static void PrintControls(void)
 static void CB2_NamingScreen(void)
 {
     RunTasks();
+    // MainState_Exit can free sNamingScreen while RunTasks is executing.
+    // None of the naming-screen sprite callbacks are valid after that point.
+    if (sNamingScreen == NULL)
+        return;
     AnimateSprites();
     BuildOamBuffer();
     UpdatePaletteFade();
@@ -2018,6 +2026,8 @@ static void SetVBlank(void)
 
 static void VBlankCB_NamingScreen(void)
 {
+    if (sNamingScreen == NULL)
+        return;
     LoadOam();
     ProcessSpriteCopyRequests();
     TransferPlttBuffer();

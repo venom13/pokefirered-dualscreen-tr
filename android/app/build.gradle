@@ -1,0 +1,72 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Monotonic versionCode derived from the dotted version, so a sideloaded
+// update installs over the previous release instead of being refused as a
+// downgrade: a.b.c -> a*1_000_000 + b*10_000 + c*100. Components stay < 100.
+def dualScreenVersion = '0.5.0'
+def dualScreenVersionCode = {
+    def parts = dualScreenVersion.tokenize('.').collect { it.isInteger() ? it.toInteger() : 0 }
+    while (parts.size() < 3) parts << 0
+    parts[0] * 1_000_000 + parts[1] * 10_000 + parts[2] * 100
+}()
+
+android {
+    // The Java package stays as it was; only the installed identity changes.
+    namespace 'com.pokeemerald.experimental'
+    compileSdk 36
+    ndkVersion '26.3.11579264'
+
+    defaultConfig {
+        // Distinct from upstream pokeemerald-multiplatform's
+        // com.pokeemerald.experimental: sharing an applicationId with a
+        // differently signed APK makes each refuse to install over the other,
+        // so both ports can be installed side by side.
+        applicationId 'com.pokefirered.dualscreen'
+        minSdk 21
+        targetSdk 36
+        versionCode dualScreenVersionCode
+        versionName dualScreenVersion
+
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+
+        externalNativeBuild {
+            cmake {
+                arguments '-DANDROID_STL=c++_static'
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            // Keep local development builds separate from the signed release
+            // so installing from source never replaces the user's game/save.
+            applicationIdSuffix '.debug'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.22.1'
+        }
+    }
+
+    sourceSets.main.java.srcDirs += '../SDL2/android-project/app/src/main/java'
+    sourceSets.main.assets.srcDir(layout.buildDirectory.dir('generated/borderAssets'))
+}
+
+tasks.register('copyBorderAsset', Sync) {
+    from(rootProject.file('..')) {
+        include 'BG*.png'
+        include 'Border.png'
+    }
+    into layout.buildDirectory.dir('generated/borderAssets')
+}
+
+tasks.named('preBuild').configure {
+    dependsOn tasks.named('copyBorderAsset')
+}

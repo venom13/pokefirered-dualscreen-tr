@@ -1,0 +1,26 @@
+diff --git a/src/render/SDL_render.c b/src/render/SDL_render.c
+index f7fcc52..6139285 100644
+--- a/src/render/SDL_render.c
++++ b/src/render/SDL_render.c
+@@ -958,4 +957,0 @@ SDL_Renderer *SDL_CreateRenderer(SDL_Window *window, int index, Uint32 flags)
+-#if defined(__ANDROID__)
+-    Android_ActivityMutex_Lock_Running();
+-#endif
+-
+@@ -1105,3 +1100,0 @@ SDL_Renderer *SDL_CreateRenderer(SDL_Window *window, int index, Uint32 flags)
+-#if defined(__ANDROID__)
+-    Android_ActivityMutex_Unlock();
+-#endif
+@@ -1112,3 +1104,0 @@ error:
+-#if defined(__ANDROID__)
+-    Android_ActivityMutex_Unlock();
+-#endif
+diff --git a/src/video/android/SDL_androidwindow.c b/src/video/android/SDL_androidwindow.c
+index 2624331..764ccb9 100644
+--- a/src/video/android/SDL_androidwindow.c
++++ b/src/video/android/SDL_androidwindow.c
+@@ -44 +43,0 @@ int Android_CreateWindow(_THIS, SDL_Window *window)
+-    Android_ActivityMutex_Lock_Running();
+@@ -101,2 +99,0 @@ endfunction:
+-    SDL_UnlockMutex(Android_ActivityMutex);
+-
