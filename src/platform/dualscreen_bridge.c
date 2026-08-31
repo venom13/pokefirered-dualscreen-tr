@@ -78,6 +78,8 @@ static char sBuffers[2][SNAPSHOT_CAPACITY];
 static int sFrontBuffer;
 static SDL_mutex *sSnapshotMutex;
 static u32 sFrameCounter;
+static bool32 sSnapshotInBattle;
+static bool32 sSnapshotBattleReady;
 
 static u16 sVirtualKeys[VIRTUAL_KEY_QUEUE_SIZE];
 static SDL_SpinLock sVirtualKeyLock;
@@ -450,6 +452,99 @@ void DualScreen_ClearBattleMenu(void)
     sBattleChoicePending = FALSE;
     ClearNavQueue();
     SDL_AtomicUnlock(&sBattleMenuLock);
+}
+
+u32 DualScreen_PollBattleItemChoice(u16 *itemId)
+{
+    s32 choice, target;
+    u32 result;
+
+    if (!DualScreen_TakeBattleChoice(&choice, &target))
+        return FALSE;
+    if (choice == -1 || choice == ITEM_NONE)
+    {
+        *itemId = ITEM_NONE;
+        DualScreen_ClearBattleMenu();
+        return TRUE;
+    }
+    // Validate before narrowing the JNI values. PP choices encode the move
+    // as (slot + 1) in the high byte, with the field party index below it.
+    if (choice < ITEM_NONE || choice >= ITEMS_COUNT || target < -1 || target >= 0x500)
+        result = DS_BMENU_RESULT_CANT_USE;
+    else
+        result = DualScreen_UseBattleItem(choice, target < 0 ? -1 : target & 0xFF,
+                                         target < 0 ? -1 : (target >> 8) - 1);
+    if (result != DS_BMENU_RESULT_USED)
+    {
+        DualScreen_SetBattleMenuResult(result);
+        return FALSE;
+    }
+    *itemId = choice;
+    DualScreen_ClearBattleMenu();
+    return TRUE;
+}
+
+u32 DualScreen_TryOpenBattlePartyMenu(void)
+{
+    u8 caseId = gBattleBufferA[gActiveBattler][1] & 0xF;
+    s32 i;
+
+    if (!DualScreen_BattleUiActive()
+     || (gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_POKEDUDE | BATTLE_TYPE_FIRST_BATTLE))
+     || (caseId == PARTY_ACTION_SEND_OUT && !DualScreen_BottomScreenLive())
+     || !DualScreen_TakeBattleTakeover(2))
+        return FALSE;
+
+    gBattlerInMenuId = gActiveBattler;
+    gBattleStruct->battlerPreventingSwitchout = gBattleBufferA[gActiveBattler][1] >> 4;
+    gBattleStruct->playerPartyIdx = gBattleBufferA[gActiveBattler][2];
+    gBattleStruct->abilityPreventingSwitchout = gBattleBufferA[gActiveBattler][3];
+    for (i = 0; i < 3; ++i)
+        gBattlePartyCurrentOrder[i] = gBattleBufferA[gActiveBattler][4 + i];
+    DualScreen_SetBattleMenuOpen(2, caseId, gActiveBattler);
+    return TRUE;
+}
+
+u32 DualScreen_PollBattleMonChoice(u8 *monId)
+{
+    s32 choice, unused;
+    u8 caseId = gBattleBufferA[gActiveBattler][1] & 0xF;
+    u32 result = DS_BMENU_RESULT_BAD_TARGET;
+    s32 i;
+
+    if (!DualScreen_TakeBattleChoice(&choice, &unused))
+        return FALSE;
+    if (choice == -1 && caseId != PARTY_ACTION_SEND_OUT)
+    {
+        *monId = PARTY_SIZE;
+        DualScreen_ClearBattleMenu();
+        return TRUE;
+    }
+    if (caseId != PARTY_ACTION_CHOOSE_MON && caseId != PARTY_ACTION_SEND_OUT)
+    {
+        result = DS_BMENU_RESULT_CANT_USE;
+        goto reject;
+    }
+    // Validate signed JNI input before narrowing or indexing the party.
+    if (choice < 0 || choice >= PARTY_SIZE
+     || GetMonData(&gPlayerParty[choice], MON_DATA_SPECIES) == SPECIES_NONE
+     || GetMonData(&gPlayerParty[choice], MON_DATA_IS_EGG)
+     || GetMonData(&gPlayerParty[choice], MON_DATA_HP) == 0
+     || choice == gBattleStruct->playerPartyIdx)
+        goto reject;
+    for (i = 0; i < gBattlersCount; ++i)
+    {
+        if (GetBattlerSide(i) == B_SIDE_PLAYER && choice == gBattlerPartyIndexes[i])
+            goto reject;
+    }
+    DualScreen_BattleSwitchOrder(choice);
+    *monId = choice;
+    DualScreen_ClearBattleMenu();
+    return TRUE;
+
+reject:
+    DualScreen_SetBattleMenuResult(result);
+    return FALSE;
 }
 
 u32 DualScreen_BattleMenuInfo(u32 *caseId, u32 *battler, u32 *result, u32 *seq)
@@ -1088,7 +1183,7 @@ static void BuildSnapshot(char *buffer, int capacity)
 
         WriteBagJson(w);
 
-        if (gMain.inBattle && gBattlersCount > 0 && gBattlersCount <= MAX_BATTLERS_COUNT)
+        if (DualScreen_BattleDataReady())
         {
             u8 playerBattler;
             u8 enemyBattler = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
@@ -1128,7 +1223,7 @@ static void BuildSnapshot(char *buffer, int capacity)
                     JsonPut(w, "\"sub\":%u,\"subCase\":%u,\"subResult\":%u,\"subSeq\":%u,",
                             sub, subCase, subResult, subSeq);
                     JsonPut(w, "\"active\":[%d,%d],\"prevSel\":%d,", act0, act1,
-                            PARTY_SIZE);
+                            sub == 2 ? gBattleStruct->playerPartyIdx : PARTY_SIZE);
                 }
 
                 // Current foes, for the per-move effectiveness hints and the
@@ -1201,6 +1296,7 @@ static void BuildSnapshot(char *buffer, int capacity)
 void DualScreen_FrameHook(void)
 {
     int backBuffer;
+    bool32 battleDataReady = DualScreen_BattleDataReady();
 
     if (sSnapshotMutex == NULL)
     {
@@ -1214,7 +1310,7 @@ void DualScreen_FrameHook(void)
     // art is never shown at all (BG0 scroll selects which band of the battle
     // textbox is visible), and the "What will {x} do?" prompt is printed
     // into the message window by BattlePutTextOnWindow.
-    if (DualScreen_BattleUiActive() && gMain.inBattle
+    if (DualScreen_BattleUiActive() && battleDataReady
      && (DualScreen_PlayerAtMoveSelect() || DualScreen_PlayerAtActionSelect()))
         gBattle_BG0_Y = 0;
 
@@ -1224,7 +1320,7 @@ void DualScreen_FrameHook(void)
     // them here would replay the tap as a button press inside the very panel
     // it just opened. Directions use the game's repeat, so a held d-pad
     // scrolls at the rate its own menus do; confirm and cancel do not repeat.
-    if (sBattleMenuMode != 0 && sVirtualKeyCount == 0
+    if (battleDataReady && sBattleMenuMode != 0 && sVirtualKeyCount == 0
      && sFrameCounter - sVirtualInputFrame > 4)
     {
         u16 repeated = gMain.newAndRepeatedKeys;
@@ -1248,7 +1344,7 @@ void DualScreen_FrameHook(void)
     // the bottom screen draws its cursor ring from.
     {
         int packed = -1;
-        if (gMain.inBattle && gBattlersCount > 0 && gBattlersCount <= MAX_BATTLERS_COUNT)
+        if (battleDataReady)
         {
             u8 battler;
             int menu = ResolveBattleMenu(&battler);
@@ -1271,11 +1367,17 @@ void DualScreen_FrameHook(void)
         SDL_AtomicSet(&sBattleCursor, packed);
     }
 
-    if (++sFrameCounter % SNAPSHOT_FRAME_INTERVAL != 0)
+    // Drop old cards immediately on battle entry/exit; publish the new cards
+    // as soon as the intro has loaded them, without waiting another 8 frames.
+    if (++sFrameCounter % SNAPSHOT_FRAME_INTERVAL != 0
+     && sSnapshotInBattle == gMain.inBattle
+     && sSnapshotBattleReady == battleDataReady)
         return;
 
     backBuffer = sFrontBuffer ^ 1;
     BuildSnapshot(sBuffers[backBuffer], SNAPSHOT_CAPACITY);
+    sSnapshotInBattle = gMain.inBattle;
+    sSnapshotBattleReady = battleDataReady;
 
     SDL_LockMutex(sSnapshotMutex);
     sFrontBuffer = backBuffer;
@@ -1343,41 +1445,28 @@ JNIEXPORT void JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_native
 }
 
 // Submits the pending battle choice. Bag wait: a = item id, b = target
-// party slot (-1 when the item targets the active mon or needs no target).
+// party slot (-1 for no target), optionally ORed with ((PP move + 1) << 8).
 // Party wait: a = party slot. a = -1 cancels back to the action menu.
 JNIEXPORT void JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeBattleSubmit(JNIEnv *env, jclass clazz, jint a, jint b)
 {
     SDL_AtomicLock(&sBattleMenuLock);
-    sBattleChoiceA = a;
-    sBattleChoiceB = b;
-    sBattleChoicePending = TRUE;
+    if (sBattleMenuMode != 0 && !sBattleChoicePending)
+    {
+        sBattleChoiceA = a;
+        sBattleChoiceB = b;
+        sBattleChoicePending = TRUE;
+    }
     SDL_AtomicUnlock(&sBattleMenuLock);
 }
 
 // How an item can be used from the battle bag: 0 not usable, 1 ball,
 // 2 medicine (pick a target mon), 3 self/no target (X items, Guard Spec),
-// 4 escape item (wild battles only), 5 PP restore (pick a target mon).
+// 4 escape item (wild only), 5 all-move PP, 6 single-move PP, 7 Poke Flute.
 // Mirrors the classification DualScreen_UseBattleItem applies.
 JNIEXPORT jint JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeGetItemBattleCategory(JNIEnv *env, jclass clazz, jint itemId)
 {
-    ItemUseFunc func;
-
-    if (itemId <= ITEM_NONE || itemId >= ITEMS_COUNT || GetItemBattleUsage(itemId) == 0)
-        return 0;
-    func = GetItemBattleFunc(itemId);
-    if (func == BattleUseFunc_PokeBallEtc)
-        return 1;
-    if (func == BattleUseFunc_Medicine)
-        return 2;
-    if (func == BattleUseFunc_StatBooster)
-        return 3;
-    if (func == BattleUseFunc_PokeDoll)
-        return 4;
-    if (func == BattleUseFunc_Ether)
-        return 5;
-    if (func == ItemUseInBattle_EnigmaBerry)
-        return 2;
-    return 0;
+    return itemId > ITEM_NONE && itemId < ITEMS_COUNT
+         ? DualScreen_BattleItemCategory(itemId) : 0;
 }
 
 // One queued button press for an open takeover panel, or -1 when the queue is

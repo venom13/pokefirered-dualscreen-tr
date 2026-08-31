@@ -23,6 +23,10 @@ bool32 DualScreen_FillAssets(const char *prefPath);
 // through the virtual key queue.
 u32 DualScreen_BattleUiActive(void);
 
+// Frame-thread only: all active battlers have been loaded for this encounter.
+// inBattle alone becomes true while gBattleMons still holds the previous fight.
+u32 DualScreen_BattleDataReady(void);
+
 // One frame's worth of synthetic GBA button state, consumed by
 // Platform_GetKeyInput. Returns 0 when the queue is empty.
 u16 DualScreen_ConsumeVirtualKeys(void);
@@ -62,8 +66,8 @@ enum {
 };
 
 // Implemented in dualscreen_bridge.c: the pending-choice mailbox.
-// Consumes the armed takeover intent (1 bag, 2 party); FALSE when not armed
-// (or the arm expired), in which case the classic GBA menu must open.
+// Consumes an armed takeover (1 bag, 2 party), or uses a live bottom screen
+// for physical-button entry. FALSE preserves the classic GBA menu.
 u32 DualScreen_TakeBattleTakeover(u32 mode);
 // The controller reports entering/leaving its bottom-screen wait state.
 void DualScreen_SetBattleMenuOpen(u32 mode, u32 caseId, u32 battler);
@@ -74,6 +78,13 @@ u32 DualScreen_BattleMenuInfo(u32 *caseId, u32 *battler, u32 *result, u32 *seq);
 u32 DualScreen_TakeBattleChoice(s32 *a, s32 *b);
 // Reports a rejected submission; the wait state stays open.
 void DualScreen_SetBattleMenuResult(u32 result);
+// Returns TRUE only on cancel or accepted item use. Rejections keep waiting.
+u32 DualScreen_PollBattleItemChoice(u16 *itemId);
+// Opens the party wait before fading out the battle, including forced send-out.
+// FALSE leaves the controller's classic menu path intact.
+u32 DualScreen_TryOpenBattlePartyMenu(void);
+// Returns TRUE for a valid field party index, or PARTY_SIZE on allowed cancel.
+u32 DualScreen_PollBattleMonChoice(u8 *monId);
 // Whether the bottom screen has fetched a snapshot recently (it polls ~8/s
 // while its Presentation is actually showing). Flows that install a
 // bottom-screen wait with no arming tap (forced send-out) must require this,
@@ -86,7 +97,10 @@ u32 DualScreen_BottomScreenLive(void);
 // DS_BMENU_RESULT_* code; on DS_BMENU_RESULT_USED the caller returns the
 // item id to the battle engine, whose own scripts (ball throw, "used item"
 // message, run-away) then run unchanged.
-u32 DualScreen_UseBattleItem(u16 itemId, s32 targetPartyId);
+u32 DualScreen_UseBattleItem(u16 itemId, s32 targetPartyId, s32 moveSlot);
+// Matches Java's battle bag: 0 unavailable, 1 ball, 2 medicine, 3 X item,
+// 4 escape, 5 all-move PP recovery, 6 single-move PP recovery, 7 Poke Flute.
+u32 DualScreen_BattleItemCategory(u16 itemId);
 
 // Implemented in party_menu.c: the battle-order bookkeeping that
 // TrySwitchInPokemon performs for a switch choice, for a mon given as a

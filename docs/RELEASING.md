@@ -24,9 +24,10 @@ The raw `app-release-unsigned.apk` is an intermediate artifact, **not** the
 public download. Do not upload it. Release builds refuse to start without the
 packaged asset manifest; debug builds without a manifest still open directly.
 
-The public v0.1.1 release uses version code **10401**, above local test build
-v0.1.4's **10400**. Keep the internal code increasing independently of the
-display version so updates preserve existing installations and saves.
+The public v0.1.2 release uses version code **10402**, following v0.1.1's
+**10401** and local test build v0.1.4's **10400**. Keep the internal code increasing
+independently of the display version so updates preserve existing installations
+and saves.
 
 ## Signing key
 
@@ -53,7 +54,7 @@ Do not use a debug library or guess the build-id directory.
   --build-tools "$ANDROID_HOME/build-tools/36.0.0" \
   --keystore /private/path/release.p12 \
   --alias pokefirered-dualscreen \
-  --out dist/releases/v0.1.1/Pokemon-FireRed-Dual-Screen-0.1.1.apk
+  --out dist/releases/v0.1.2/Pokemon-FireRed-Dual-Screen-0.1.2.apk
 ```
 
 The expected ROM is 16,777,216 bytes, SHA-1
@@ -69,6 +70,10 @@ the native target remains ARMv7 and requires 32-bit ARM compatibility.
 
 - Run `python3 tools/dualscreen/test_prepare_android.py` and
   `python3 tools/dualscreen/test_asset_loader.py`.
+- Run the menu and battle regressions in `tools/dualscreen/`:
+  `test_bag_menu_init.py`, `test_battle_bag.py`, `test_battle_party.py`,
+  `test_battle_snapshot.py`, and `test_battle_switch_return.py`.
+  The BAG/party tests also compile Java methods; set `JAVA_HOME` to JDK 17.
 - Check APK package, version name/code, ARMv7 ABI, release signature, ZIP alignment,
   and absence of personal files.
 - Device-test a fresh launch without a ROM, wrong-ROM rejection, correct-ROM

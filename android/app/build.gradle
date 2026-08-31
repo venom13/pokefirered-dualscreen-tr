@@ -2,11 +2,11 @@ plugins {
     id 'com.android.application'
 }
 
-// Public release numbering resumes at 0.1.1 after local test builds through
+// Public release numbering resumed at 0.1.1 after local test builds through
 // 0.1.4 (10400). Keep versionCode independent and increase it on every release
 // so those installations can update in place without losing saves/settings.
-def dualScreenVersion = '0.1.1'
-def dualScreenVersionCode = 10401
+def dualScreenVersion = '0.1.2'
+def dualScreenVersionCode = 10402
 
 android {
     buildFeatures { buildConfig true }

@@ -1915,9 +1915,35 @@ static void OakOldManHandleChooseMove(void)
     }
 }
 
+#ifdef PLATFORM_SDL2
+static void DualScreen_WaitForItemChoice(void)
+{
+    u16 itemId;
+
+    if (!DualScreen_PollBattleItemChoice(&itemId))
+        return;
+    gSpecialVar_ItemId = itemId;
+    BtlController_EmitOneReturnValue(1, itemId);
+    OakOldManBufferExecCompleted();
+}
+#endif
+
 static void OakOldManHandleChooseItem(void)
 {
     s32 i;
+
+#ifdef PLATFORM_SDL2
+    // Interactive first rival battle only; the Old Man tutorial stays scripted.
+    if (DualScreen_BattleUiActive() && DualScreen_TakeBattleTakeover(1))
+    {
+        gBattlerInMenuId = gActiveBattler;
+        for (i = 0; i < 3; ++i)
+            gBattlePartyCurrentOrder[i] = gBattleBufferA[gActiveBattler][1 + i];
+        gBattlerControllerFuncs[gActiveBattler] = DualScreen_WaitForItemChoice;
+        DualScreen_SetBattleMenuOpen(1, 0, gActiveBattler);
+        return;
+    }
+#endif
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
     gBattlerControllerFuncs[gActiveBattler] = OpenBagAndChooseItem;

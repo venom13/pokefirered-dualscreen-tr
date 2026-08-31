@@ -39,6 +39,13 @@
 #include "constants/songs.h"
 #include "constants/field_weather.h"
 
+#ifdef PLATFORM_SDL2
+#include "platform/dualscreen.h"
+#include "battle_interface.h"
+#include "battle_gfx_sfx_util.h"
+#include "constants/species.h"
+#endif
+
 static EWRAM_DATA void (*sItemUseOnFieldCB)(u8 taskId) = NULL;
 
 static void FieldCB_FadeInFromBlack(void);
@@ -923,3 +930,117 @@ void ItemUse_SetQuestLogEvent(u8 eventId, struct Pokemon *pokemon, u16 itemId, u
     SetQuestLogEvent(eventId, (void *)data);
     Free(data);
 }
+
+#ifdef PLATFORM_SDL2
+// Keep classification shared with JNI so the bottom bag asks for precisely
+// the target (and PP move) that the native item handler needs.
+u32 DualScreen_BattleItemCategory(u16 itemId)
+{
+    ItemUseFunc func;
+    const u8 *effect;
+
+    if (itemId <= ITEM_NONE || itemId >= ITEMS_COUNT || !ItemId_GetBattleUsage(itemId))
+        return 0;
+    func = ItemId_GetBattleFunc(itemId);
+    if (func == BattleUseFunc_PokeBallEtc) return 1;
+    if (func == BattleUseFunc_Medicine) return 2;
+    if (func == BattleUseFunc_StatBooster) return 3;
+    if (func == BattleUseFunc_PokeDoll) return 4;
+    if (func == BattleUseFunc_PokeFlute) return 7;
+    if (func == ItemUseInBattle_EnigmaBerry)
+    {
+        switch (GetItemEffectType(itemId))
+        {
+        case ITEM_EFFECT_X_ITEM: return 3;
+        case ITEM_EFFECT_HEAL_HP:
+        case ITEM_EFFECT_CURE_POISON:
+        case ITEM_EFFECT_CURE_SLEEP:
+        case ITEM_EFFECT_CURE_BURN:
+        case ITEM_EFFECT_CURE_FREEZE:
+        case ITEM_EFFECT_CURE_PARALYSIS:
+        case ITEM_EFFECT_CURE_CONFUSION:
+        case ITEM_EFFECT_CURE_INFATUATION:
+        case ITEM_EFFECT_CURE_ALL_STATUS: return 2;
+        case ITEM_EFFECT_HEAL_PP: break;
+        default: return 0;
+        }
+    }
+    else if (func != BattleUseFunc_Ether)
+        return 0;
+    effect = itemId == ITEM_ENIGMA_BERRY ? gSaveBlock1Ptr->enigmaBerry.itemEffect
+                                       : gItemEffectTable[itemId - ITEM_POTION];
+    return effect && (effect[4] & ITEM4_HEAL_PP_ONE) ? 6 : 5;
+}
+
+u32 DualScreen_UseBattleItem(u16 itemId, s32 targetPartyId, s32 moveSlot)
+{
+    u32 category = DualScreen_BattleItemCategory(itemId);
+    u8 savedOrder[3];
+    u8 savedBattler = gActiveBattler;
+    bool8 noEffect;
+    s32 i;
+
+    if (!gMain.inBattle || !category || !CheckBagHasItem(itemId, 1)
+     || gBattlerInMenuId >= gBattlersCount
+     || GetBattlerSide(gBattlerInMenuId) != B_SIDE_PLAYER)
+        return DS_BMENU_RESULT_CANT_USE;
+    if (category == 1)
+    {
+        if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER) || IsPlayerPartyAndPokemonStorageFull())
+            return DS_BMENU_RESULT_CANT_USE;
+        RemoveBagItem(itemId, 1);
+        return DS_BMENU_RESULT_USED; // the battle script throws the ball
+    }
+    if (category == 4)
+    {
+        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+            return DS_BMENU_RESULT_CANT_USE;
+        RemoveBagItem(itemId, 1);
+        ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, NULL, itemId, 0xFFFF);
+        return DS_BMENU_RESULT_USED;
+    }
+    if (category == 7)
+        return DS_BMENU_RESULT_USED; // Poke Flute is reusable; its script wakes everyone
+    if (category == 3)
+        targetPartyId = gBattlerPartyIndexes[gBattlerInMenuId];
+    if (targetPartyId < 0 || targetPartyId >= PARTY_SIZE
+     || !GetMonData(&gPlayerParty[targetPartyId], MON_DATA_SPECIES)
+     || GetMonData(&gPlayerParty[targetPartyId], MON_DATA_IS_EGG))
+        return DS_BMENU_RESULT_BAD_TARGET;
+    if (category == 6 && (moveSlot < 0 || moveSlot >= MAX_MON_MOVES
+     || GetMonData(&gPlayerParty[targetPartyId], MON_DATA_MOVE1 + moveSlot) == MOVE_NONE))
+        return DS_BMENU_RESULT_BAD_TARGET;
+    if (GetItemEffectType(itemId) == ITEM_EFFECT_HP_EV
+     && GetMonData(&gPlayerParty[targetPartyId], MON_DATA_SPECIES) == SPECIES_SHEDINJA)
+        return DS_BMENU_RESULT_NO_EFFECT;
+
+    // FireRed's GBA party menu physically reorders the party. This panel does
+    // not, so helpers used by Revive and low-HP audio must see identity order.
+    memcpy(savedOrder, gBattlePartyCurrentOrder, sizeof(savedOrder));
+    for (i = 0; i < 3; ++i)
+        gBattlePartyCurrentOrder[i] = (i * 2 << 4) | (i * 2 + 1);
+    noEffect = ExecuteTableBasedItemEffect(&gPlayerParty[targetPartyId], itemId,
+                                          targetPartyId, category == 6 ? moveSlot : 0);
+    if (!noEffect)
+    {
+        if (itemId == ITEM_BLUE_FLUTE || itemId == ITEM_RED_FLUTE || itemId == ITEM_YELLOW_FLUTE)
+            PlaySE(SE_GLASS_FLUTE);
+        else
+        {
+            PlaySE(SE_USE_ITEM);
+            RemoveBagItem(itemId, 1);
+        }
+        if (category == 5 || category == 6)
+            ItemUse_SetQuestLogEvent(QL_EVENT_USED_ITEM, &gPlayerParty[targetPartyId], itemId, 0xFFFF);
+        // No battle-screen rebuild occurs, so refresh the visible HP/status.
+        for (i = 0; i < gBattlersCount; ++i)
+            if (GetBattlerSide(i) == B_SIDE_PLAYER && gBattlerPartyIndexes[i] == targetPartyId
+             && !(gAbsentBattlerFlags & (1 << i)))
+                UpdateHealthboxAttribute(gHealthboxSpriteIds[i], &gPlayerParty[targetPartyId], HEALTHBOX_ALL);
+        HandleBattleLowHpMusicChange();
+    }
+    memcpy(gBattlePartyCurrentOrder, savedOrder, sizeof(savedOrder));
+    gActiveBattler = savedBattler;
+    return noEffect ? DS_BMENU_RESULT_NO_EFFECT : DS_BMENU_RESULT_USED;
+}
+#endif

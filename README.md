@@ -10,7 +10,7 @@ Built on [pret/pokefirered](https://github.com/pret/pokefirered), with the Andro
 host and dual-screen interface adapted from
 [Goldoire/pokeemerald-dualscreen](https://github.com/Goldoire/pokeemerald-dualscreen).
 
-> **Status: experimental — v0.1.1.** [Download the Android APK](https://github.com/venom13/pokefirered-dualscreen/releases/tag/v0.1.1).
+> **Status: experimental — v0.1.2.** [Download the Android APK](https://github.com/venom13/pokefirered-dualscreen/releases/tag/v0.1.2).
 > Your own FireRed Rev 1 ROM is required. Early-game play, the first rival battle,
 > saving, and loading have been tested on an AYN Thor during development.
 > A complete playthrough and other devices have not been validated.
@@ -26,6 +26,9 @@ host and dual-screen interface adapted from
   moves, PP, and experience progress.
 - **Touch battle menus:** Fight, Bag, Pokémon, and Run, plus move selection.
   The classic top-screen battle menus remain selectable in settings.
+- **Battle bag and party selection:** the lower-screen bag stays open until
+  use or cancel, with Pokémon/move targeting for items. After a Pokémon faints,
+  choose its replacement below while the battle remains visible above.
 - **HP for both sides:** player and opponent cards show current / maximum HP.
 - **Experience progress:** the player's battle card includes an EXP bar and
   `Next Level: current progress / required EXP`.
@@ -34,6 +37,8 @@ host and dual-screen interface adapted from
 - **Readable move details:** move names occupy their own line; type and PP appear
   underneath without overlapping.
 - **Optional battle hints:** move-effectiveness markers and opponent weaknesses.
+- **Full lower-screen map:** Kanto and Sevii maps fill the area above the tabs,
+  with location markers.
 - **Fast forward:** 2×, 3×, or 4×, with a separate choice to keep music at normal
   speed or accelerate it too.
 - **Restored audio:** music, sound effects, and Pokémon cries through the native

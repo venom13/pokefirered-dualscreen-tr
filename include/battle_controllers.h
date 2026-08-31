@@ -231,7 +231,8 @@ void BtlController_EmitStatusIconUpdate(u8 bufferId, u32 status1, u32 status2);
 void BtlController_EmitStatusAnimation(u8 bufferId, bool8 status2, u32 status);
 void BtlController_EmitDataTransfer(u8 bufferId, u16 size, void *data);
 void BtlController_EmitTwoReturnValues(u8 bufferId, u8 arg1, u16 arg2);
-void BtlController_EmitChosenMonReturnValue(u8 bufferId, u8 b, u8 *c);
+// battlePartyOrder may be NULL when no player party ordering is returned.
+void BtlController_EmitChosenMonReturnValue(u8 bufferId, u8 partyId, u8 *battlePartyOrder);
 void BtlController_EmitOneReturnValue(u8 bufferId, u16 arg1);
 void BtlController_EmitOneReturnValue_Duplicate(u8 bufferId, u16 b);
 void BtlController_EmitHitAnimation(u8 bufferId);

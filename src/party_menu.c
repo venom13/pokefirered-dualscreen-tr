@@ -36,6 +36,9 @@
 #include "metatile_behavior.h"
 #include "overworld.h"
 #include "party_menu.h"
+#ifdef PLATFORM_SDL2
+#include "platform/dualscreen.h"
+#endif
 #include "player_pc.h"
 #include "pokedex.h"
 #include "pokemon.h"
@@ -492,11 +495,18 @@ static void VBlankCB_PartyMenu(void)
 
 static void CB2_InitPartyMenu(void)
 {
+#ifdef PORTABLE
+    // BG copies finish between host frames. A busy loop here prevents the
+    // queued DMA from completing and leaves the screen faded to black.
+    if (!MenuHelpers_ShouldWaitForLinkRecv())
+        ShowPartyMenu();
+#else
     while (TRUE)
     {
         if (MenuHelpers_ShouldWaitForLinkRecv() == TRUE || ShowPartyMenu() == TRUE || MenuHelpers_IsLinkActive() == TRUE)
             break;
     }
+#endif
 }
 
 static bool8 ShowPartyMenu(void)
@@ -6208,6 +6218,17 @@ u8 GetPartyIdFromBattlePartyId(u8 battlePartyId)
     }
     return 0;
 }
+
+#ifdef PLATFORM_SDL2
+void DualScreen_BattleSwitchOrder(u8 monId)
+{
+    // The bottom screen uses field party indices and never rearranges the
+    // Pokemon structs. Only return the same packed order as the GBA menu;
+    // its temporary battle-order array swap is unnecessary here.
+    SwitchPartyMonSlots(GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[gBattlerInMenuId]),
+                       GetPartyIdFromBattlePartyId(monId));
+}
+#endif
 
 static void UpdatePartyToBattleOrder(void)
 {

@@ -2497,9 +2497,38 @@ void InitMoveSelectionsVarsAndStrings(void)
     MoveSelectionDisplayMoveType();
 }
 
+#ifdef PLATFORM_SDL2
+static void DualScreen_WaitForItemChoice(void)
+{
+    u16 itemId;
+
+    if (!DualScreen_PollBattleItemChoice(&itemId))
+        return;
+    gSpecialVar_ItemId = itemId;
+    BtlController_EmitOneReturnValue(1, itemId);
+    PlayerBufferExecCompleted();
+}
+#endif
+
 static void PlayerHandleChooseItem(void)
 {
     s32 i;
+
+#ifdef PLATFORM_SDL2
+    // Keep BattleMainCB2, its graphics and sprites running on the top screen.
+    // The bottom bag owns this command until an item is accepted or cancelled.
+    if (DualScreen_BattleUiActive()
+     && !(gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_POKEDUDE))
+     && DualScreen_TakeBattleTakeover(1))
+    {
+        gBattlerInMenuId = gActiveBattler;
+        for (i = 0; i < 3; ++i)
+            gBattlePartyCurrentOrder[i] = gBattleBufferA[gActiveBattler][1 + i];
+        gBattlerControllerFuncs[gActiveBattler] = DualScreen_WaitForItemChoice;
+        DualScreen_SetBattleMenuOpen(1, 0, gActiveBattler);
+        return;
+    }
+#endif
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
     gBattlerControllerFuncs[gActiveBattler] = OpenBagAndChooseItem;
@@ -2508,9 +2537,30 @@ static void PlayerHandleChooseItem(void)
         gBattlePartyCurrentOrder[i] = gBattleBufferA[gActiveBattler][1 + i];
 }
 
+#ifdef PLATFORM_SDL2
+static void DualScreen_WaitForMonChoice(void)
+{
+    u8 monId;
+
+    if (!DualScreen_PollBattleMonChoice(&monId))
+        return;
+    BtlController_EmitChosenMonReturnValue(1, monId,
+                                         monId == PARTY_SIZE ? NULL : gBattlePartyCurrentOrder);
+    PlayerBufferExecCompleted();
+}
+#endif
+
 static void PlayerHandleChoosePokemon(void)
 {
     s32 i;
+
+#ifdef PLATFORM_SDL2
+    if (DualScreen_TryOpenBattlePartyMenu())
+    {
+        gBattlerControllerFuncs[gActiveBattler] = DualScreen_WaitForMonChoice;
+        return;
+    }
+#endif
 
     gBattleControllerData[gActiveBattler] = CreateTask(TaskDummy, 0xFF);
     gTasks[gBattleControllerData[gActiveBattler]].data[0] = gBattleBufferA[gActiveBattler][1] & 0xF;

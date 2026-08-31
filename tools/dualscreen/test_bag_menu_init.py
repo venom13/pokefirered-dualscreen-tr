@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""ROM-free BAG/TM Case/Berry Pouch callback and graphics-loader regression.
+"""ROM-free BAG/TM Case/Berry Pouch/Party callback and graphics regression.
 
 Runs the actual C callbacks and graphics state machines with deferred host DMA.
 Only the surrounding menu setup and graphics hardware are test doubles.
@@ -15,6 +15,7 @@ MENUS = (
     ("src/item_menu.c", "CB2_OpenBagMenu", "LoadBagMenuGraphics", "DoLoadBagGraphics"),
     ("src/tm_case.c", "CB2_SetUpTMCaseUI_Blocking", "DoSetUpTMCaseUI", "HandleLoadTMCaseGraphicsAndPalettes"),
     ("src/berry_pouch.c", "CB2_InitBerryPouch", "RunBerryPouchInit", "BerryPouchLoadGfx"),
+    ("src/party_menu.c", "CB2_InitPartyMenu", "ShowPartyMenu", "AllocPartyMenuBgGfx"),
 )
 
 
@@ -35,6 +36,7 @@ PREFIX = r'''
 #include <stdlib.h>
 #include <string.h>
 typedef uint8_t bool8;
+typedef uint32_t u32;
 #define TRUE 1
 #define FALSE 0
 #define MALE 0
@@ -50,6 +52,9 @@ static int sTempTileDataBufferCursor;
 static struct { int data[4]; } bag, *sBagMenuDisplay = &bag;
 static struct { int seqId; } tm, *sTMCaseDynamicResources = &tm;
 static struct { int data[4]; void *bg1TilemapBuffer; } berry, *sResources = &berry;
+static struct { int data[4]; uint16_t palBuffer[176]; } party, *sPartyMenuInternal = &party;
+static void *sPartyBgGfxTilemap;
+static uint16_t sPartyBgTilemapBuffer[1024], gPlttBufferUnfaded[256];
 static struct { int location; } gBagMenuState;
 static struct { int playerGender; } save, *gSaveBlock2Ptr = &save;
 static void *sBagBgTilemapBuffer, *sTilemapBuffer;
@@ -64,8 +69,10 @@ ASSET(gTMCase_Gfx); ASSET(gTMCaseMenu_Tilemap); ASSET(gTMCase_Tilemap);
 ASSET(gTMCaseMenu_Male_Pal); ASSET(gTMCaseMenu_Female_Pal); ASSET(sSpriteSheet_Disc);
 ASSET(gBerryPouchBgGfx); ASSET(gBerryPouchBg1Tilemap); ASSET(gBerryPouchBgPals);
 ASSET(gBerryPouchBgPal0FemaleOverride); ASSET(sBerryPouchSpriteSheet); ASSET(sBerryPouchSpritePal);
+ASSET(gPartyMenuBg_Gfx); ASSET(gPartyMenuBg_Tilemap); ASSET(gPartyMenuBg_Pal);
 
 static int IsActiveOverworldLinkBusy(void) { return linkBusy; }
+static int MenuHelpers_ShouldWaitForLinkRecv(void) { return linkBusy; }
 static int MenuHelpers_IsLinkActive(void) { return linkActive; }
 static int BagIsTutorial(void) { return tutorial; }
 static void ResetTempTileDataBuffers(void) {
@@ -94,6 +101,17 @@ static void LoadCompressedPalette(const void *src, int offset, int size) { palet
 static void LoadCompressedSpriteSheet(const void *src) { sheets++; }
 static void LoadCompressedSpritePalette(const void *src) { spritePalettes++; }
 static void LoadDiscTypePalettes(void) { spritePalettes++; }
+static void *MallocAndDecompress(const void *src, u32 *size) {
+    *size = 32;
+    return malloc(*size);
+}
+static void LoadBgTiles(int bg, const void *src, u32 size, int offset) {
+    assert(bg == 1 && src && size == 32 && !offset && !pending);
+    pending = 3;
+    copies++;
+}
+static void CpuCopy16(const void *src, void *dst, int size) { memcpy(dst, src, size); }
+static void PartyPaletteBufferCopy(int offset) { assert(offset >= 4 && offset <= 8); }
 static bool8 StepMenu(void) {
     assert(++calls < 128);
     if (immediateDone || graphicsStep()) {
@@ -105,6 +123,7 @@ static bool8 StepMenu(void) {
 static bool8 LoadBagMenuGraphics(void) { return StepMenu(); }
 static bool8 DoSetUpTMCaseUI(void) { return StepMenu(); }
 static bool8 RunBerryPouchInit(void) { return StepMenu(); }
+static bool8 ShowPartyMenu(void) { return StepMenu(); }
 '''
 
 SUFFIX = r'''
@@ -113,13 +132,16 @@ static void Reset(void) {
     memset(&bag, 0, sizeof(bag));
     memset(&tm, 0, sizeof(tm));
     memset(&berry, 0, sizeof(berry));
+    memset(&party, 0, sizeof(party));
+    free(sPartyBgGfxTilemap);
+    sPartyBgGfxTilemap = NULL;
     calls = busyChecks = frames = done = immediateDone = linkBusy = linkActive = 0;
     copies = tilemaps = palettes = sheets = spritePalettes = 0;
 }
 int main(void) {
-    void (*callbacks[])(void) = {CB2_OpenBagMenu, CB2_SetUpTMCaseUI_Blocking, CB2_InitBerryPouch};
-    bool8 (*loaders[])(void) = {DoLoadBagGraphics, HandleLoadTMCaseGraphicsAndPalettes, BerryPouchLoadGfx};
-    for (int menu = 0; menu < 3; menu++) {
+    void (*callbacks[])(void) = {CB2_OpenBagMenu, CB2_SetUpTMCaseUI_Blocking, CB2_InitBerryPouch, CB2_InitPartyMenu};
+    bool8 (*loaders[])(void) = {DoLoadBagGraphics, HandleLoadTMCaseGraphicsAndPalettes, BerryPouchLoadGfx, AllocPartyMenuBgGfx};
+    for (int menu = 0; menu < 4; menu++) {
         graphicsStep = loaders[menu];
         for (int entry = 0; entry < 24; entry++) {
             Reset();
@@ -137,7 +159,8 @@ int main(void) {
             }
             assert(copies == 1 && !pending && !sTempTileDataBufferCursor);
             assert(tilemaps == (menu == 1 ? 2 : 1));
-            assert(palettes > 0 && sheets > 0 && spritePalettes > 0);
+            assert(palettes > 0);
+            if (menu != 3) assert(sheets > 0 && spritePalettes > 0);
             if (menu == 0)
                 assert(palettes == 1 + (!tutorial && save.playerGender != MALE));
             if (menu == 2)
@@ -162,7 +185,7 @@ int main(void) {
         assert(!FreeTempTileDataBuffersIfPossible());
         Reset();
     }
-    puts("PASS: BAG, TM Case and Berry Pouch open repeatedly; DMA, gender/tutorial, link guards and completion paths");
+    puts("PASS: BAG, TM Case, Berry Pouch and Party open repeatedly; DMA, gender/tutorial, link guards and completion paths");
     return 0;
 }
 '''

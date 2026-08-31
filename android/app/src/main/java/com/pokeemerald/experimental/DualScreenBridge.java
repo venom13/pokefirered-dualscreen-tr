@@ -149,7 +149,8 @@ public final class DualScreenBridge {
 
     /**
      * Submits the pending battle choice. Bag wait: a = item id, b = target
-     * party slot (-1 when the item needs no target). Party wait: a = party
+     * party slot (-1 for no target), ORed with ((PP move + 1) << 8) for
+     * single-move PP recovery. Party wait: a = party
      * slot. a = -1 cancels back to the action menu.
      */
     public static native void nativeBattleSubmit(int a, int b);
@@ -157,7 +158,7 @@ public final class DualScreenBridge {
     /**
      * How an item can be used from the battle bag: 0 not usable, 1 ball,
      * 2 medicine (pick a target mon), 3 self/no target (X items),
-     * 4 escape item (wild battles only), 5 PP restore (pick a target mon).
+     * 4 escape item (wild only), 5 all-move PP, 6 single-move PP, 7 Poké Flute.
      * Static per item id; cacheable.
      */
     public static native int nativeGetItemBattleCategory(int itemId);

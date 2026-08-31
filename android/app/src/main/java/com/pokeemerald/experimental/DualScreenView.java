@@ -149,8 +149,11 @@ public final class DualScreenView extends View {
     };
 
     // Battle bag/party takeover (Gen 4-style bottom-screen menus).
-    private int battlePanel; // 0 none, 1 bag, 2 switch party, 3 item-target party
+    private int battlePanel; // 0 none, 1 bag, 2 switch party, 3 item-target party, 4 PP move
     private int pendingItemId;
+    private int pendingItemParty;
+    private int battlePpFocus;
+    private final RectF[] battlePpCards = {new RectF(), new RectF(), new RectF(), new RectF()};
     private long battleArmMs;    // when we last armed the takeover
     private long battleCloseMs;  // when we last cancelled/submitted a close
     private int lastSubSeq;
@@ -218,6 +221,19 @@ public final class DualScreenView extends View {
             return;
         }
         showCursor = true;
+        if (battlePanel == 4) {
+            if (action == NAV_CANCEL) {
+                battlePanel = 3;
+            } else if (action == NAV_CONFIRM) {
+                RectF card = battlePpCards[battlePpFocus];
+                handleBattlePpTouch(card.centerX(), card.centerY());
+            } else if (action == NAV_UP || action == NAV_DOWN || action == NAV_LEFT || action == NAV_RIGHT) {
+                int delta = action == NAV_UP || action == NAV_LEFT ? -1 : 1;
+                battlePpFocus = Math.max(0, Math.min(3, battlePpFocus + delta));
+            }
+            invalidate();
+            return;
+        }
         switch (action) {
         case NAV_UP: case NAV_DOWN: case NAV_LEFT: case NAV_RIGHT:
             if (battlePanel == 1) {
@@ -372,7 +388,7 @@ public final class DualScreenView extends View {
             // button-chosen menu reopen right after a cancel instead of
             // waiting out the stale-snapshot guard.
             battlePanel = state.battleSub == 1 ? 1 : 2;
-        } else if (battleSendOutWait() && (battlePanel == 1 || battlePanel == 3)) {
+        } else if (battleSendOutWait() && (battlePanel == 1 || battlePanel == 3 || battlePanel == 4)) {
             // A stale bag panel must never sit on a send-out wait: with
             // cancel disabled there would be no way out of it.
             battlePanel = 2;
@@ -541,10 +557,10 @@ public final class DualScreenView extends View {
                 new RectF(left, top, left + height * 2, top + height), pixelPaint);
     }
 
-    /** Fit a mon's types into one right-aligned row, including the wider text badges. */
-    private void drawMonTypeBadges(Canvas canvas, DualScreenState.Mon mon, RectF bounds) {
+    /** Fit a mon's types into one right-aligned row and return the drawn badge height. */
+    private float drawMonTypeBadges(Canvas canvas, DualScreenState.Mon mon, RectF bounds) {
         if (bounds.width() <= 0 || bounds.height() <= 0) {
-            return;
+            return 0;
         }
         boolean dualType = mon.types[0] != mon.types[1];
         float firstWidth = typeIconBitmap(mon.types[0]) != null ? 2f : 3.1f;
@@ -558,6 +574,7 @@ public final class DualScreenView extends View {
         if (dualType) {
             drawTypeIcon(canvas, mon.types[1], left + (firstWidth + gap) * height, top, height);
         }
+        return height;
     }
 
     // A 7x4-unit pixel caret, row bitmaps top to bottom (up orientation).
@@ -662,6 +679,12 @@ public final class DualScreenView extends View {
         }
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
             showCursor = false; // a finger takes the screen back from the cursor
+        }
+        if (state.inBattle && battlePanel == 4) {
+            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                handleBattlePpTouch(event.getX(), event.getY());
+            }
+            return true;
         }
         // Battle bag panel: drag to scroll, tap to select/use.
         if (state.inBattle && battlePanel == 1) {
@@ -927,7 +950,7 @@ public final class DualScreenView extends View {
 
     /** Game bag pockets usable in battle, in tab order (balls only when legal). */
     private int[] battleVisiblePockets() {
-        return state.battleCanCatch ? new int[] {0, 1, 3} : new int[] {0, 3};
+        return state.battleCanCatch ? new int[] {0, 1, 3, 4} : new int[] {0, 3, 4};
     }
 
     private int itemBattleCategory(int itemId) {
@@ -1016,7 +1039,7 @@ public final class DualScreenView extends View {
             }
             DualScreenState.BagItem sel = items.get(battleBagSelected);
             int category = itemBattleCategory(sel.id);
-            if (category == 2 || category == 5) {
+            if (category == 2 || category == 5 || category == 6) {
                 pendingItemId = sel.id; // needs a target mon: second step
                 battlePanel = 3;
             } else {
@@ -1072,6 +1095,13 @@ public final class DualScreenView extends View {
                 }
                 if (battlePanel == 3) {
                     if (state.battleSub != 1) return;
+                    if (itemBattleCategory(pendingItemId) == 6) {
+                        pendingItemParty = i;
+                        battlePpFocus = 0;
+                        battlePanel = 4;
+                        invalidate();
+                        return;
+                    }
                     battleCloseMs = System.currentTimeMillis();
                     DualScreenBridge.nativeBattleSubmit(pendingItemId, i);
                     battlePanel = 1; // closes via sync once the engine accepts
@@ -1080,6 +1110,25 @@ public final class DualScreenView extends View {
                     battleCloseMs = System.currentTimeMillis();
                     DualScreenBridge.nativeBattleSubmit(i, -1);
                 }
+                invalidate();
+                return;
+            }
+        }
+    }
+
+    private void handleBattlePpTouch(float x, float y) {
+        if (battleCancel.contains(x, y)) {
+            battlePanel = 3;
+            invalidate();
+            return;
+        }
+        if (state.battleSub != 1 || pendingItemParty >= state.party.size()) return;
+        DualScreenState.Mon mon = state.party.get(pendingItemParty);
+        for (int i = 0; i < battlePpCards.length && i < mon.moves.size(); i++) {
+            if (battlePpCards[i].contains(x, y) && mon.moves.get(i).id != 0) {
+                battleCloseMs = System.currentTimeMillis();
+                DualScreenBridge.nativeBattleSubmit(pendingItemId, pendingItemParty | ((i + 1) << 8));
+                battlePanel = 1;
                 invalidate();
                 return;
             }
@@ -1447,7 +1496,7 @@ public final class DualScreenView extends View {
      * rest stacked in wide slots on the right. All geometry comes from the
      * game's own tables (sPartyMenuSpriteCoords / sPartyBoxInfoRects /
      * window templates in src/data/party_menu.h), in GBA pixels on the
-     * 240x160 screen, integer-scaled and centered like the map tab.
+     * 240x160 screen.
      */
     private void drawParty(Canvas canvas) {
         if (detailMon >= 0 && detailMon < state.party.size()) {
@@ -1782,7 +1831,7 @@ public final class DualScreenView extends View {
         f.draw(canvas, header, textLeft, rect.top + inset, scale, TEXT_DARK, TEXT_SHADOW);
 
         float badgeH = rect.height() * 0.10f;
-        drawMonTypeBadges(canvas, mon, new RectF(textLeft, rect.bottom - inset - badgeH,
+        float typeBadgeH = drawMonTypeBadges(canvas, mon, new RectF(textLeft, rect.bottom - inset - badgeH,
                 rect.right - inset, rect.bottom - inset));
 
         float barTop = rect.top + inset + GbaFont.LINE_HEIGHT * scale + 10;
@@ -1815,7 +1864,7 @@ public final class DualScreenView extends View {
             // above the type badges in the card's bottom-right corner.
             drawWeaknessRow(canvas, mon, textLeft, underBarTop,
                     rect.right - inset, rect.bottom - inset - badgeH - rect.height() * 0.02f,
-                    scale);
+                    scale, typeBadgeH);
         }
         String status = statusLabel(mon.status, mon.hp);
         if (status != null) {
@@ -1828,20 +1877,22 @@ public final class DualScreenView extends View {
     /**
      * "WEAK" strip on a foe card: the attacking types this mon takes
      * super-effective damage from, 4x entries first and carrying the same
-     * double caret the move grid uses for 4x. Icons scale down to fit the
+     * double caret the move grid uses for 4x. Icons share the card's type-badge
+     * height, including its width constraint, and only scale down to fit the
      * strip, and entries that still would not fit are dropped from the end —
      * the 2x tail — so the doubles layout's narrow cards just show fewer.
      */
     private void drawWeaknessRow(Canvas canvas, DualScreenState.Mon mon, float left,
-                                 float top, float right, float bottom, float scale) {
+                                 float top, float right, float bottom, float scale, float badgeHeight) {
         GbaFont f = font();
-        if (f == null || mon.weaknesses.isEmpty() || bottom <= top
+        if (f == null || mon.weaknesses.isEmpty() || bottom <= top || badgeHeight <= 0
                 || DualScreenBridge.nativeGetPlatformSetting(DualScreenBridge.SETTING_BATTLE_HINTS) == 0) {
             return; // hints are opt-in (SET tab)
         }
         float band = bottom - top;
+        float maxIconH = Math.min(band, badgeHeight);
         float labelScale = scale * 0.7f;
-        float labelW = f.measure("WEAK", labelScale) + band * 0.25f;
+        float labelW = f.measure("WEAK", labelScale) + maxIconH * 0.25f;
 
         // Entry widths, in icon-heights: the type icon (2:1, or 3.1:1 for the
         // drawn-badge fallback when the icon sheet is unavailable), a gap, and
@@ -1851,9 +1902,9 @@ public final class DualScreenView extends View {
         for (DualScreenState.Weakness w : mon.weaknesses) {
             units += iconU + (w.tier == 5 ? 1.1f : 0.35f);
         }
-        float iconH = Math.min(band, (right - left - labelW) / Math.max(units, 0.001f));
-        if (iconH < band * 0.45f) {
-            iconH = band * 0.45f; // stop shrinking; drop the overflow instead
+        float iconH = Math.min(maxIconH, (right - left - labelW) / Math.max(units, 0.001f));
+        if (iconH < maxIconH * 0.45f) {
+            iconH = maxIconH * 0.45f; // stop shrinking; drop the overflow instead
         }
         if (iconH <= 0 || left + labelW + iconH * iconU > right) {
             return; // not even one icon fits
@@ -1878,21 +1929,26 @@ public final class DualScreenView extends View {
 
     private void drawBattle(Canvas canvas) {
         GbaFont f = font();
+        for (RectF r : battleButtons) r.setEmpty();
+        battleCancel.setEmpty();
+        battleUseButton.setEmpty();
+        battleButtonsMenu = 0;
         if (!state.inBattle || state.battlePlayerMon == null || f == null) {
-            drawCenteredMessage(canvas, "Not in battle");
+            drawCenteredMessage(canvas, state.inBattle ? "Battle starting..." : "Not in battle");
             return;
         }
         float contentHeight = getHeight(); // battle owns the full screen
         float pad = getWidth() * 0.02f;
         float scale = getWidth() / 430f;
 
-        for (RectF r : battleButtons) r.setEmpty();
-        battleCancel.setEmpty();
-        battleUseButton.setEmpty();
         int menu = liveMenu();
         battleButtonsMenu = menu;
 
         // Gen 4-style takeover panels own the whole bottom screen.
+        if (battlePanel == 4) {
+            drawBattlePpMoves(canvas);
+            return;
+        }
         if (battlePanel == 1) {
             drawBattleBag(canvas);
             return;
@@ -2221,6 +2277,36 @@ public final class DualScreenView extends View {
     }
 
     /** The battle bag: pocket tabs, usable-item list, description + USE, CANCEL. */
+    private void drawBattlePpMoves(Canvas canvas) {
+        GbaFont f = font();
+        if (f == null || pendingItemParty >= state.party.size()) return;
+        DualScreenState.Mon mon = state.party.get(pendingItemParty);
+        float pad = getWidth() * 0.03f;
+        float scale = getWidth() / 460f;
+        float titleH = getHeight() * 0.14f;
+        String title = "Restore PP: " + mon.nick;
+        float titleScale = Math.min(scale, (getWidth() - 2 * pad) / f.measure(title, 1));
+        f.draw(canvas, title, pad, pad, titleScale, TEXT_WHITE, TEXT_RED_SHADOW);
+        battleCancel.set(pad, getHeight() * 0.90f, getWidth() - pad, getHeight() - pad);
+        drawBar(canvas, battleCancel, false, "BACK", scale);
+        float rowH = (battleCancel.top - titleH - pad) / 4;
+        for (int i = 0; i < battlePpCards.length; i++) {
+            RectF card = battlePpCards[i];
+            card.set(pad, titleH + i * rowH, getWidth() - pad, titleH + (i + 1) * rowH - pad * 0.4f);
+            DualScreenState.Move move = i < mon.moves.size() ? mon.moves.get(i) : null;
+            boolean selected = showCursor && i == battlePpFocus;
+            paint.setColor(selected ? 0xFFFFE8B0 : 0xFFFFFFFF);
+            canvas.drawRoundRect(card, 12, 12, paint);
+            String name = move == null || move.id == 0 ? "---" : move.name;
+            String pp = move == null || move.id == 0 ? "" : "PP " + move.pp + "/" + move.maxPp;
+            float textY = card.centerY() - GbaFont.LINE_HEIGHT * scale / 2;
+            float ppWidth = f.measure(pp, scale);
+            float nameScale = Math.min(scale, (card.width() - 3 * pad - ppWidth) / Math.max(1, f.measure(name, 1)));
+            f.draw(canvas, name, card.left + pad, textY, nameScale, TEXT_DARK, TEXT_SHADOW);
+            f.draw(canvas, pp, card.right - pad - ppWidth, textY, scale, TEXT_DARK, TEXT_SHADOW);
+        }
+    }
+
     private void drawBattleBag(Canvas canvas) {
         GbaFont f = font();
         if (f == null) {
@@ -2521,36 +2607,43 @@ public final class DualScreenView extends View {
         GbaFont f = font();
         float contentHeight = getHeight() - tabBarHeight();
 
+        if (getWidth() <= 0 || contentHeight <= 0) {
+            return;
+        }
+
         if (regionMap == null) {
             drawCenteredMessage(canvas, "Map unavailable");
             return;
         }
 
-        // Integer-scale the 240x160 map, centered.
-        int scale = (int) Math.min(getWidth() / 240f, contentHeight / 160f);
-        if (scale < 1) scale = 1;
-        float mapW = 240 * scale;
-        float mapH = 160 * scale;
-        float originX = (getWidth() - mapW) / 2f;
-        float originY = (contentHeight - mapH) / 2f;
+        // Remove the original Town Map's header/side frame. The complete
+        // 22x15 location grid remains inside this 192x144 map viewport.
+        Rect source = new Rect(24, 16, 216, 160);
+        float scaleX = getWidth() / (float) source.width();
+        float scaleY = contentHeight / source.height();
+        float scale = Math.min(scaleX, scaleY);
+        float originX = -source.left * scaleX;
+        float originY = -source.top * scaleY;
 
         paint.setColor(SEA_BLUE);
         canvas.drawRect(new RectF(0, 0, getWidth(), contentHeight), paint);
-        canvas.drawBitmap(regionMap, null, new RectF(originX, originY, originX + mapW, originY + mapH), pixelPaint);
+        canvas.drawBitmap(regionMap, source,
+                new RectF(0, 0, getWidth(), contentHeight), pixelPaint);
 
         // FireRed's grid starts at (32, 32), not Emerald's (8, 16).
         if (state.mapsec >= 0 && mapEntries != null) {
             for (MapEntry e : mapEntries) {
                 if (e.id != state.mapsec || e.region != state.mapRegion) continue;
                 boolean blink = (System.currentTimeMillis() / 400) % 2 == 0;
-                float cx = originX + ((e.x + 4) * 8 + e.w * 4) * scale;
-                float cy = originY + ((e.y + 4) * 8 + e.h * 4) * scale;
+                float cx = originX + ((e.x + 4) * 8 + e.w * 4) * scaleX;
+                float cy = originY + ((e.y + 4) * 8 + e.h * 4) * scaleY;
                 paint.setColor(blink ? 0xFFF83030 : 0xFFF8A0A0);
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeWidth(3f * scale / 2);
                 RectF marker = new RectF(
-                        originX + (e.x + 4) * 8 * scale, originY + (e.y + 4) * 8 * scale,
-                        originX + ((e.x + 4) * 8 + e.w * 8) * scale, originY + ((e.y + 4) * 8 + e.h * 8) * scale);
+                        originX + (e.x + 4) * 8 * scaleX, originY + (e.y + 4) * 8 * scaleY,
+                        originX + ((e.x + 4) * 8 + e.w * 8) * scaleX,
+                        originY + ((e.y + 4) * 8 + e.h * 8) * scaleY);
                 canvas.drawRect(marker, paint);
                 paint.setStyle(Paint.Style.FILL);
                 canvas.drawCircle(cx, cy, 3f * scale / 2, paint);
@@ -2558,15 +2651,16 @@ public final class DualScreenView extends View {
             }
         }
 
-        // Keep the location label above the map grid, clear of Route 21
-        // and Cinnabar Island along its bottom edge.
+        // A compact overlay fits in the 16 source pixels above the location
+        // grid, without adding a separate empty band or covering a marker.
         if (f != null && !state.mapName.isEmpty()) {
-            float labelScale = scale * 0.9f;
+            float labelPadding = 2 * scale;
+            float labelScale = Math.min(scale * 0.55f,
+                    (getWidth() - 8 * scaleX - 2 * labelPadding)
+                            / Math.max(1f, f.measure(state.mapName, 1f)));
             float textW = f.measure(state.mapName, labelScale);
-            RectF box = new RectF(originX + 8 * scale,
-                    originY + 4 * scale,
-                    originX + 8 * scale + textW + 24,
-                    originY + 26 * scale);
+            RectF box = new RectF(4 * scaleX, 2 * scaleY,
+                    4 * scaleX + textW + 2 * labelPadding, 14 * scaleY);
             paint.setColor(PANEL_WHITE);
             canvas.drawRoundRect(box, 6, 6, paint);
             paint.setColor(PANEL_BORDER);
@@ -2574,7 +2668,7 @@ public final class DualScreenView extends View {
             paint.setStrokeWidth(3);
             canvas.drawRoundRect(box, 6, 6, paint);
             paint.setStyle(Paint.Style.FILL);
-            f.draw(canvas, state.mapName, box.left + 12,
+            f.draw(canvas, state.mapName, box.left + labelPadding,
                     box.centerY() - GbaFont.LINE_HEIGHT * labelScale / 2, labelScale, TEXT_DARK, TEXT_SHADOW);
         }
     }

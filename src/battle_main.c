@@ -43,6 +43,18 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 
+#ifdef PLATFORM_SDL2
+#include "platform/dualscreen.h"
+
+static bool32 sBattleMonsReady;
+
+u32 DualScreen_BattleDataReady(void)
+{
+    return gMain.inBattle && sBattleMonsReady
+        && gBattlersCount > 0 && gBattlersCount <= MAX_BATTLERS_COUNT;
+}
+#endif
+
 static void SpriteCB_UnusedDebugSprite(struct Sprite *sprite);
 static void HandleAction_UseMove(void);
 static void HandleAction_Switch(void);
@@ -648,6 +660,12 @@ void CB2_InitBattle(void)
 static void CB2_InitBattleInternal(void)
 {
     s32 i;
+
+#ifdef PLATFORM_SDL2
+    // The controller buffers and gBattleMons are filled later in the intro.
+    // Hide the previous encounter's cards before inBattle becomes true.
+    sBattleMonsReady = FALSE;
+#endif
 
     SetHBlankCallback(NULL);
     SetVBlankCallback(NULL);
@@ -2640,6 +2658,10 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
             MarkBattlerForControllerExec(gActiveBattler);
         }
     }
+#ifdef PLATFORM_SDL2
+    // Publish only after every battler has been copied, including doubles.
+    sBattleMonsReady = TRUE;
+#endif
     gBattleMainFunc = BattleIntroDrawPartySummaryScreens;
 }
 
