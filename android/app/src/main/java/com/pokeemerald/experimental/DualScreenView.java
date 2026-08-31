@@ -541,6 +541,25 @@ public final class DualScreenView extends View {
                 new RectF(left, top, left + height * 2, top + height), pixelPaint);
     }
 
+    /** Fit a mon's types into one right-aligned row, including the wider text badges. */
+    private void drawMonTypeBadges(Canvas canvas, DualScreenState.Mon mon, RectF bounds) {
+        if (bounds.width() <= 0 || bounds.height() <= 0) {
+            return;
+        }
+        boolean dualType = mon.types[0] != mon.types[1];
+        float firstWidth = typeIconBitmap(mon.types[0]) != null ? 2f : 3.1f;
+        float secondWidth = dualType ? (typeIconBitmap(mon.types[1]) != null ? 2f : 3.1f) : 0;
+        float gap = dualType ? 0.3f : 0;
+        float rowWidth = firstWidth + secondWidth + gap;
+        float height = Math.min(bounds.height(), bounds.width() / rowWidth);
+        float left = bounds.right - rowWidth * height;
+        float top = bounds.bottom - height;
+        drawTypeIcon(canvas, mon.types[0], left, top, height);
+        if (dualType) {
+            drawTypeIcon(canvas, mon.types[1], left + (firstWidth + gap) * height, top, height);
+        }
+    }
+
     // A 7x4-unit pixel caret, row bitmaps top to bottom (up orientation).
     private static final int[][] CHEVRON_ROWS = {
             {3}, {2, 3, 4}, {1, 2, 4, 5}, {0, 1, 5, 6}};
@@ -1659,13 +1678,11 @@ public final class DualScreenView extends View {
         f.draw(canvas, mon.nature + "  " + mon.ability, textLeft,
                 header.top + inset + GbaFont.LINE_HEIGHT * scale * 2.4f,
                 scale * 0.8f, PARTY_TEXT, SUMMARY_BLUE_DARK);
-        float badgeH = header.height() * 0.18f;
-        drawTypeIcon(canvas, mon.types[0], header.right - inset - badgeH * 2,
-                header.top + inset, badgeH);
-        if (mon.types[1] != mon.types[0]) {
-            drawTypeIcon(canvas, mon.types[1], header.right - inset - badgeH * 4 - 8,
-                    header.top + inset, badgeH);
-        }
+        float badgeH = header.height() * 0.13f;
+        float genderW = mon.gender == 0 || mon.gender == 1
+                ? 12 + f.measure(mon.gender == 0 ? "♂" : "♀", scale * 1.15f) : 0;
+        drawMonTypeBadges(canvas, mon, new RectF(textLeft + nameW + genderW + inset,
+                header.top + inset, header.right - inset, header.top + inset + badgeH));
 
         // Skills page on the left, Moves page on the right, item row below.
         float columnsTop = header.bottom + pad;
@@ -1764,13 +1781,9 @@ public final class DualScreenView extends View {
                 + (mon.gender == 0 ? " ♂" : mon.gender == 1 ? " ♀" : "");
         f.draw(canvas, header, textLeft, rect.top + inset, scale, TEXT_DARK, TEXT_SHADOW);
 
-        float badgeH = rect.height() * 0.14f;
-        drawTypeIcon(canvas, mon.types[0], rect.right - inset - badgeH * 2,
-                rect.bottom - inset - badgeH, badgeH);
-        if (mon.types[1] != mon.types[0]) {
-            drawTypeIcon(canvas, mon.types[1], rect.right - inset - badgeH * 4 - 8,
-                    rect.bottom - inset - badgeH, badgeH);
-        }
+        float badgeH = rect.height() * 0.10f;
+        drawMonTypeBadges(canvas, mon, new RectF(textLeft, rect.bottom - inset - badgeH,
+                rect.right - inset, rect.bottom - inset));
 
         float barTop = rect.top + inset + GbaFont.LINE_HEIGHT * scale + 10;
         drawHpBar(canvas, textLeft, barTop, rect.right - inset - textLeft,
