@@ -1063,9 +1063,10 @@ static void BuildSnapshot(char *buffer, int capacity)
         JsonPut(w, "\"mapGroup\":%d,\"mapNum\":%d,\"x\":%d,\"y\":%d,\"mapsec\":%u,",
                 gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum,
                 gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y, mapsec);
-        if (mapsec < MAPSEC_NONE)
         {
-            JsonPut(w, "\"rmx\":0,\"rmy\":0,\"rmw\":1,\"rmh\":1,");
+            struct DualScreenMapSection section;
+            DualScreen_GetRegionMapSection(mapsec, &section);
+            JsonPut(w, "\"mapRegion\":%u,", section.region);
         }
         {
             char mapName[24];
@@ -1421,10 +1422,6 @@ JNIEXPORT jstring JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nat
     return result;
 }
 
-// Implemented in region_map.c: access to the (static) region map graphics.
-extern const u16 *DualScreen_GetRegionMapPal(void);
-extern const u32 *DualScreen_GetRegionMapGfxLZ(void);
-extern const u32 *DualScreen_GetRegionMapTilemapLZ(void);
 #include "gba/syscall.h"
 
 static jint Bgr555ToArgb(u16 bgr)
@@ -1480,51 +1477,59 @@ JNIEXPORT jintArray JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_n
     return result;
 }
 
-// The real Pokenav Hoenn map, composed from the game's own tileset/tilemap:
-// 240x160 ARGB pixels. The player marker goes at tile (rmx+1, rmy+2).
-// The map is an affine BG: one byte per tile on a 64x64 grid, 8bpp tiles,
-// with pixel values indexing the palette loaded at bank 7 (offset 112).
-JNIEXPORT jintArray JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeGetRegionMapImage(JNIEnv *env, jclass clazz)
+// FireRed Town Map: 30x20 text-BG entries, 4bpp tiles, banked palette.
+// This is not Emerald's 8bpp affine Hoenn map. Decode immutable ROM assets,
+// including both flip bits, rather than reading the game's current VRAM.
+JNIEXPORT jintArray JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeGetRegionMapImage(JNIEnv *env, jclass clazz, jint region)
 {
-    (void)env;
-    (void)clazz;
-    return NULL;
-#if 0
-    static u8 sGfx[16384];
-    static u8 sTilemap[4096];
-    jintArray result;
+    static u8 gfx[10240];
+    static u16 tilemap[30 * 20];
+    const u8 *gfxLz = (const u8 *)DualScreen_GetRegionMapGfxLZ();
+    const u8 *mapLz;
+    const u16 *palette = DualScreen_GetRegionMapPal();
     jint *pixels;
-    const u16 *pal = DualScreen_GetRegionMapPal();
-    int tx, ty, px, py;
+    jintArray result;
+    int x, y;
+    (void)clazz;
 
-    LZ77UnCompWram(DualScreen_GetRegionMapGfxLZ(), sGfx);
-    LZ77UnCompWram(DualScreen_GetRegionMapTilemapLZ(), sTilemap);
-
-    pixels = malloc(240 * 160 * sizeof(jint));
+    if (region < 0 || region >= 4)
+        return NULL;
+    mapLz = (const u8 *)DualScreen_GetRegionMapTilemapLZ((u8)region);
+    // Release assets are restored from the user's ROM. Reject missing or
+    // mismatched data before decompressing into fixed-size buffers.
+    if (gfxLz == NULL || mapLz == NULL || palette == NULL
+     || gfxLz[0] != 0x10 || gfxLz[1] != 0 || gfxLz[2] != 0x28 || gfxLz[3] != 0
+     || mapLz[0] != 0x10 || mapLz[1] != 0xB0 || mapLz[2] != 4 || mapLz[3] != 0)
+        return NULL;
+    LZ77UnCompWram(gfxLz, gfx);
+    LZ77UnCompWram(mapLz, tilemap);
+    pixels = malloc(240 * 160 * sizeof(*pixels));
     if (pixels == NULL)
         return NULL;
 
-    for (ty = 0; ty < 20; ty++)
-    for (tx = 0; tx < 30; tx++)
+    for (y = 0; y < 160; y++)
+    for (x = 0; x < 240; x++)
     {
-        u8 tile = sTilemap[ty * 64 + tx];
-        const u8 *src = &sGfx[tile * 64];
-        if (tile * 64 >= (int)sizeof(sGfx))
-            continue;
-        for (py = 0; py < 8; py++)
-        for (px = 0; px < 8; px++)
+        u16 entry = tilemap[(y / 8) * 30 + x / 8];
+        unsigned tile = entry & 0x3FF;
+        unsigned sx = (entry & 0x400) ? 7 - x % 8 : x % 8;
+        unsigned sy = (entry & 0x800) ? 7 - y % 8 : y % 8;
+        unsigned bank = entry >> 12;
+        unsigned color;
+        if (tile >= sizeof(gfx) / 32 || bank >= 5)
         {
-            u8 colorIndex = (u8)(src[py * 8 + px] - 112);
-            pixels[(ty * 8 + py) * 240 + tx * 8 + px] = Bgr555ToArgb(pal[colorIndex & 0x1F]);
+            free(pixels);
+            return NULL;
         }
+        color = (gfx[tile * 32 + sy * 4 + sx / 2] >> ((sx & 1) * 4)) & 15;
+        // Color zero is transparent on a text BG: use the backdrop color.
+        pixels[y * 240 + x] = Bgr555ToArgb(palette[color ? bank * 16 + color : 0]);
     }
-
     result = (*env)->NewIntArray(env, 240 * 160);
     if (result != NULL)
-    (*env)->SetIntArrayRegion(env, result, 0, 240 * 160, pixels);
+        (*env)->SetIntArrayRegion(env, result, 0, 240 * 160, pixels);
     free(pixels);
     return result;
-#endif
 }
 
 // The game's normal Latin font: one glyph per GBA charcode, 16x16 2bpp.
@@ -1650,18 +1655,22 @@ JNIEXPORT jstring JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nat
     static char json[16384];
     struct JsonWriter writer = { json, 0, sizeof(json) };
     struct JsonWriter *w = &writer;
-    int mapsec;
+    int mapsec, count = 0;
 
     JsonPut(w, "[");
-    for (mapsec = 0; mapsec < MAPSEC_NONE; mapsec++)
+    for (mapsec = KANTO_MAPSEC_START; mapsec < MAPSEC_NONE; mapsec++)
     {
+        struct DualScreenMapSection section;
         char name[24];
         u8 rawName[MAP_NAME_LENGTH + 1];
+        if (!DualScreen_GetRegionMapSection(mapsec, &section))
+            continue;
         GetMapName(rawName, mapsec, 0);
         DecodeGbaString(name, sizeof(name), rawName, MAP_NAME_LENGTH);
-        if (mapsec > 0)
+        if (count++ > 0)
             JsonPut(w, ",");
-        JsonPut(w, "{\"id\":%d,\"x\":0,\"y\":0,\"w\":1,\"h\":1,\"n\":", mapsec);
+        JsonPut(w, "{\"id\":%d,\"r\":%u,\"x\":%u,\"y\":%u,\"w\":%u,\"h\":%u,\"n\":",
+                mapsec, section.region, section.x, section.y, section.width, section.height);
         JsonPutString(w, name);
         JsonPut(w, "}");
     }

@@ -3368,6 +3368,92 @@ static u8 GetSelectedMapSection(u8 whichMap, u8 layer, s16 y, s16 x)
     }
 }
 
+#ifdef PLATFORM_SDL2
+// Read-only access for the bottom screen. Never open the GBA map UI or
+// borrow its temporary cursor/VRAM buffers from the Android render thread.
+const u16 *DualScreen_GetRegionMapPal(void)
+{
+    return sRegionMap_Pal;
+}
+
+const u32 *DualScreen_GetRegionMapGfxLZ(void)
+{
+    return sRegionMap_Gfx;
+}
+
+const u32 *DualScreen_GetRegionMapTilemapLZ(u8 region)
+{
+    switch (region)
+    {
+    case REGIONMAP_KANTO: return sKanto_Tilemap;
+    case REGIONMAP_SEVII123: return sSevii123_Tilemap;
+    case REGIONMAP_SEVII45: return sSevii45_Tilemap;
+    case REGIONMAP_SEVII67: return sSevii67_Tilemap;
+    default: return NULL;
+    }
+}
+
+bool32 DualScreen_GetRegionMapSection(u16 mapsec, struct DualScreenMapSection *out)
+{
+    int region, layer, x, y;
+    int left = MAP_WIDTH, top = MAP_HEIGHT, right = -1, bottom = -1;
+    u16 location = mapsec;
+
+    if (out == NULL)
+        return FALSE;
+    memset(out, 0, sizeof(*out));
+    if (mapsec < KANTO_MAPSEC_START || mapsec >= MAPSEC_NONE)
+        return FALSE;
+
+    // These interiors share the outdoor location used by FireRed's map.
+    switch (location)
+    {
+    case MAPSEC_SILPH_CO: location = MAPSEC_SAFFRON_CITY; break;
+    case MAPSEC_ROCKET_HIDEOUT: location = MAPSEC_CELADON_CITY; break;
+    case MAPSEC_POKEMON_MANSION: location = MAPSEC_CINNABAR_ISLAND; break;
+    case MAPSEC_S_S_ANNE: location = MAPSEC_VERMILION_CITY; break;
+    case MAPSEC_POKEMON_LEAGUE: location = MAPSEC_INDIGO_PLATEAU; break;
+    case MAPSEC_KANTO_SAFARI_ZONE: location = MAPSEC_FUCHSIA_CITY; break;
+    case MAPSEC_EMBER_SPA: location = MAPSEC_KINDLE_ROAD; break;
+    case MAPSEC_MONEAN_CHAMBER:
+    case MAPSEC_LIPTOO_CHAMBER:
+    case MAPSEC_WEEPTH_CHAMBER:
+    case MAPSEC_DILFORD_CHAMBER:
+    case MAPSEC_SCUFIB_CHAMBER:
+    case MAPSEC_RIXY_CHAMBER:
+    case MAPSEC_VIAPOIS_CHAMBER:
+        location = MAPSEC_TANOBY_RUINS;
+        break;
+    }
+
+    // Bound every lookup: unused/special map IDs must not overrun the
+    // Sevii table or turn into a false marker at (0, 0).
+    for (region = 0; region < (int)NELEMS(sSeviiMapsecs); region++)
+        for (x = 0; x < (int)NELEMS(sSeviiMapsecs[region]) && sSeviiMapsecs[region][x] != MAPSEC_NONE; x++)
+            if (sSeviiMapsecs[region][x] == location)
+                out->region = region + 1;
+
+    for (layer = 0; layer < LAYER_COUNT; layer++)
+    for (y = 0; y < MAP_HEIGHT; y++)
+    for (x = 0; x < MAP_WIDTH; x++)
+    {
+        if (GetSelectedMapSection(out->region, layer, y, x) != location)
+            continue;
+        if (x < left) left = x;
+        if (x > right) right = x;
+        if (y < top) top = y;
+        if (y > bottom) bottom = y;
+    }
+    if (right < left || bottom < top)
+        return FALSE;
+    out->x = left;
+    out->y = top;
+    out->width = right - left + 1;
+    out->height = bottom - top + 1;
+    return TRUE;
+}
+#endif
+
 static void CreatePlayerIcon(u16 tileTag, u16 palTag)
 {
     sPlayerIcon = AllocZeroed(sizeof(struct PlayerIcon));

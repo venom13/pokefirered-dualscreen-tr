@@ -89,6 +89,7 @@ public final class DualScreenState {
     public int minutes;
     public String mapName = "";
     public int mapsec = -1;
+    public int mapRegion; // 0 Kanto, 1-3 Sevii island groups
     public int posX;
     public int posY;
     public final List<Mon> party = new ArrayList<>();
@@ -185,6 +186,7 @@ public final class DualScreenState {
                 state.minutes = player.optInt("minutes");
                 state.mapName = player.optString("mapName");
                 state.mapsec = player.optInt("mapsec", -1);
+                state.mapRegion = Math.max(0, Math.min(3, player.optInt("mapRegion")));
                 state.posX = player.optInt("x");
                 state.posY = player.optInt("y");
             }

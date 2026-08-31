@@ -9,7 +9,8 @@ complete copyright audit or a claim that the APK contains no game material.
 ## Build
 
 Follow [BUILD_ANDROID.md](BUILD_ANDROID.md) to prepare the generated resources.
-Update `dualScreenVersion` in `android/app/build.gradle`, then:
+Update `dualScreenVersion` and increase `dualScreenVersionCode` in
+`android/app/build.gradle`, then:
 
 ```sh
 cd android
@@ -22,6 +23,10 @@ python3 -m venv /path/outside/repository/release-venv
 The raw `app-release-unsigned.apk` is an intermediate artifact, **not** the
 public download. Do not upload it. Release builds refuse to start without the
 packaged asset manifest; debug builds without a manifest still open directly.
+
+The public v0.1.1 release uses version code **10401**, above local test build
+v0.1.4's **10400**. Keep the internal code increasing independently of the
+display version so updates preserve existing installations and saves.
 
 ## Signing key
 
@@ -48,7 +53,7 @@ Do not use a debug library or guess the build-id directory.
   --build-tools "$ANDROID_HOME/build-tools/36.0.0" \
   --keystore /private/path/release.p12 \
   --alias pokefirered-dualscreen \
-  --out dist/Pokemon-FireRed-Dual-Screen-0.1.0.apk
+  --out dist/releases/v0.1.1/Pokemon-FireRed-Dual-Screen-0.1.1.apk
 ```
 
 The expected ROM is 16,777,216 bytes, SHA-1

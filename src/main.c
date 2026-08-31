@@ -166,11 +166,7 @@ void AgbMain()
     InitKeys();
     InitIntrHandlers();
     PORT_BOOT_LOG("interrupt handlers initialized");
-#ifndef PORTABLE
     m4aSoundInit();
-#else
-    SOUND_INFO_PTR = &gSoundInfo;
-#endif
     PORT_BOOT_LOG("sound initialized");
     EnableVCountIntrAtLine150();
     PORT_BOOT_LOG("vcount initialized");

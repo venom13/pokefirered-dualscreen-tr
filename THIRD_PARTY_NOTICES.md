@@ -26,6 +26,11 @@ in [LICENSES/pokeemerald-multiplatform.txt](LICENSES/pokeemerald-multiplatform.t
 It expressly excludes the original game and independently licensed upstream or
 third-party material. This notice is not a new license for the whole FireRed tree.
 
+`src/platform/music_player.c` adapts their portable MP2K sequencer to FireRed's
+existing sound structures. The portable mixer follows FireRed's original
+envelope, sample decoding and reverb behavior; CGB synthesis uses the inherited
+platform implementation.
+
 The platform source also retains attribution to mGBA, NanoboyAdvance, and libgcc
 where present. Those origins are not covered by a blanket MIT assertion here.
 Consult the corresponding upstream source and file-level terms before extracting
@@ -48,11 +53,13 @@ other downloaded build dependencies have their own terms.
 
 ## Distribution status
 
-This publication shares the source project. It does not ship a full retail ROM,
-personal save, signing credential, APK, or native shared library. Development
-builds compile game data; the asset-stripped FireRed distribution workflow still
-requires implementation and validation. Do not describe a plain Gradle release
-build as asset-free.
+The source repository does not include full retail ROMs, personal saves,
+signing credentials, APKs, or native shared libraries. GitHub Releases provide
+processed, signed APKs that require the user's verified ROM to restore matching
+data ranges. Compiled code and unmatched upstream resources remain; this is not
+a complete copyright audit or a claim that every game asset is removed.
+Development builds compile game data. Do not publish a raw Gradle APK or
+describe it as asset-free; follow `docs/RELEASING.md`.
 
 This is an unofficial fan project, with no endorsement or affiliation from the
 game's rights holders.

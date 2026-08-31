@@ -117,6 +117,23 @@ cd android
 
 Keep the generated source assets prepared by the previous step.
 
+## Audio regression test
+
+The portable sound driver is enabled in public release v0.1.1. Its ARMv7 code can be tested
+without a device or a retail ROM after building. In a separate Python virtual
+environment, install `unicorn==2.1.4` and `pyelftools==0.32`, then run:
+
+```sh
+python tools/dualscreen/test_audio.py /path/to/unstripped/libmain.so
+```
+
+Use the library from this build's `android/app/build/intermediates/cxx/`
+directory. The test runs `AgbMain` through audio initialization, real music,
+effects, normal/reversed cries, concurrent playback, pause/resume, reset,
+volume controls and fast-forward resampling. `--all-songs` extends the music
+and effect sweep. This checks generated audio, not the physical speakers or
+Android audio-device lifecycle; those still require device testing.
+
 ## Save backup and import with ADB
 
 Examples below use the debug package. Connect and authorize exactly the intended
@@ -149,7 +166,8 @@ For the release package, omit `.debug` in both the package name and directory.
   confirm `pkg-config --cflags --libs libpng` succeeds.
 - **No matching ABI:** the current APK is ARMv7, not ARM64-only.
 - **Unexpected speed:** check FAST FORWARD and the R2 toggle.
-- **MAP unavailable:** this is a known incomplete feature, not a missing ROM.
+- **MAP unavailable:** v0.1.0 left the MAP renderer unimplemented. Update to
+  public release v0.1.1 for FireRed's Town Map assets and location markers.
 - **Crash:** include the commit and a relevant `adb logcat -b crash -d` excerpt
   in an issue, with private information removed. Keep your save backup.
 

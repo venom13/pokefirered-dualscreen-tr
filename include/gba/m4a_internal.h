@@ -61,10 +61,22 @@ struct ToneData
     u8 length; // sound length (compatible sound)
     u8 pan_sweep; // pan or sweep (compatible sound ch. 1)
     struct WaveData *wav;
+#ifdef PORTABLE
+    union {
+        struct {
+            u8 attack;
+            u8 decay;
+            u8 sustain;
+            u8 release;
+        };
+        u8 *keySplitTable;
+    };
+#else
     u8 attack;
     u8 decay;
     u8 sustain;
     u8 release;
+#endif
 };
 
 #define SOUND_CHANNEL_SF_START       0x80
@@ -152,7 +164,11 @@ struct SoundChannel
     u8 rhythmPan;
     u8 dummy3[3];
     u32 count;
+#ifdef PORTABLE
+    float fw;
+#else
     u32 fw;
+#endif
     u32 frequency;
     struct WaveData *wav;
     s8 *currentPointer;
@@ -166,7 +182,13 @@ struct SoundChannel
 
 #define MAX_DIRECTSOUND_CHANNELS 12
 
+#ifdef PORTABLE
+#define PORTABLE_AUDIO_SAMPLES_PER_FRAME 701
+#define PORTABLE_AUDIO_RATE (60 * PORTABLE_AUDIO_SAMPLES_PER_FRAME)
+#define PCM_DMA_BUF_SIZE (7 * PORTABLE_AUDIO_SAMPLES_PER_FRAME)
+#else
 #define PCM_DMA_BUF_SIZE 1584 // size of Direct Sound buffer
+#endif
 
 struct MusicPlayerInfo;
 
@@ -205,7 +227,11 @@ struct SoundInfo
     u8 gap[3];
     s32 pcmSamplesPerVBlank;
     s32 pcmFreq;
+#ifdef PORTABLE
+    float divFreq;
+#else
     s32 divFreq;
+#endif
     struct CgbChannel *cgbChans;
     MPlayMainFunc MPlayMainHead;
     struct MusicPlayerInfo *musicPlayerHead;
@@ -217,7 +243,11 @@ struct SoundInfo
     ExtVolPitFunc ExtVolPit;
     u8 gap2[16];
     struct SoundChannel chans[MAX_DIRECTSOUND_CHANNELS];
+#ifdef PORTABLE
+    float pcmBuffer[PCM_DMA_BUF_SIZE * 2];
+#else
     s8 pcmBuffer[PCM_DMA_BUF_SIZE * 2];
+#endif
 };
 
 struct SongHeader
@@ -405,7 +435,7 @@ extern const struct ToneData voicegroup000;
 
 #ifdef PORTABLE
 #define NUM_MUSIC_PLAYERS 4
-#define MAX_LINES 32
+#define MAX_LINES 0
 #else
 extern char gNumMusicPlayers[];
 extern char gMaxLines[];
@@ -414,8 +444,13 @@ extern char gMaxLines[];
 #endif
 
 u32 umul3232H32(u32 multiplier, u32 multiplicand);
+u32 MidiKeyToFreq(struct WaveData *wav, u8 key, u8 fineAdjust);
 void SoundMain(void);
+#ifdef PORTABLE
+void SoundMainBTM(void *ptr);
+#else
 void SoundMainBTM(void);
+#endif
 void TrackStop(struct MusicPlayerInfo *mplayInfo, struct MusicPlayerTrack *track);
 void MPlayMain(struct MusicPlayerInfo *);
 void RealClearChain(void *x);

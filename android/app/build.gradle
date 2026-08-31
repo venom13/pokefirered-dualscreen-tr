@@ -2,15 +2,11 @@ plugins {
     id 'com.android.application'
 }
 
-// Monotonic versionCode derived from the dotted version, so a sideloaded
-// update installs over the previous release instead of being refused as a
-// downgrade: a.b.c -> a*1_000_000 + b*10_000 + c*100. Components stay < 100.
-def dualScreenVersion = '0.1.0'
-def dualScreenVersionCode = {
-    def parts = dualScreenVersion.tokenize('.').collect { it.isInteger() ? it.toInteger() : 0 }
-    while (parts.size() < 3) parts << 0
-    parts[0] * 1_000_000 + parts[1] * 10_000 + parts[2] * 100
-}()
+// Public release numbering resumes at 0.1.1 after local test builds through
+// 0.1.4 (10400). Keep versionCode independent and increase it on every release
+// so those installations can update in place without losing saves/settings.
+def dualScreenVersion = '0.1.1'
+def dualScreenVersionCode = 10401
 
 android {
     buildFeatures { buildConfig true }

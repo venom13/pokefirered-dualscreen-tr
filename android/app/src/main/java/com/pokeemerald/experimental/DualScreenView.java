@@ -90,7 +90,7 @@ public final class DualScreenView extends View {
     private static final int LIST_PANEL = 0xFFF8F8F0; // bag's light list window
 
     private static final class MapEntry {
-        int id, x, y, w, h;
+        int id, region, x, y, w, h;
         String name = "";
     }
 
@@ -128,6 +128,7 @@ public final class DualScreenView extends View {
                                         new RectF(), new RectF(), new RectF()};
     private java.util.List<MapEntry> mapEntries;
     private Bitmap regionMap;
+    private int regionMapRegion = -1;
     private Bitmap partyBg;
     private static final int TITLE_LOGO_WIDTH = 240;
     private static final int TITLE_LOGO_HEIGHT = 160;
@@ -2473,27 +2474,31 @@ public final class DualScreenView extends View {
 
     private void ensureMapData() {
         if (mapEntries == null) {
-            mapEntries = new java.util.ArrayList<>();
             try {
+                java.util.List<MapEntry> loaded = new java.util.ArrayList<>();
                 org.json.JSONArray entries = new org.json.JSONArray(DualScreenBridge.nativeGetRegionMapJson());
                 for (int i = 0; i < entries.length(); i++) {
                     org.json.JSONObject o = entries.getJSONObject(i);
                     MapEntry e = new MapEntry();
                     e.id = o.optInt("id");
+                    e.region = o.optInt("r");
                     e.x = o.optInt("x");
                     e.y = o.optInt("y");
                     e.w = Math.max(o.optInt("w"), 1);
                     e.h = Math.max(o.optInt("h"), 1);
                     e.name = o.optString("n");
-                    mapEntries.add(e);
+                    loaded.add(e);
                 }
+                mapEntries = loaded;
             } catch (org.json.JSONException ignored) {
             }
         }
-        if (regionMap == null) {
-            int[] pixels = DualScreenBridge.nativeGetRegionMapImage();
+        if (regionMap == null || regionMapRegion != state.mapRegion) {
+            regionMap = null;
+            int[] pixels = DualScreenBridge.nativeGetRegionMapImage(state.mapRegion);
             if (pixels != null && pixels.length == 240 * 160) {
                 regionMap = Bitmap.createBitmap(pixels, 240, 160, Bitmap.Config.ARGB_8888);
+                regionMapRegion = state.mapRegion;
             }
         }
     }
@@ -2520,19 +2525,19 @@ public final class DualScreenView extends View {
         canvas.drawRect(new RectF(0, 0, getWidth(), contentHeight), paint);
         canvas.drawBitmap(regionMap, null, new RectF(originX, originY, originX + mapW, originY + mapH), pixelPaint);
 
-        // Player marker: grid starts at tile (1, 2); blink like the game.
-        if (state.mapsec >= 0) {
+        // FireRed's grid starts at (32, 32), not Emerald's (8, 16).
+        if (state.mapsec >= 0 && mapEntries != null) {
             for (MapEntry e : mapEntries) {
-                if (e.id != state.mapsec) continue;
+                if (e.id != state.mapsec || e.region != state.mapRegion) continue;
                 boolean blink = (System.currentTimeMillis() / 400) % 2 == 0;
-                float cx = originX + ((e.x + 1) * 8 + e.w * 4) * scale;
-                float cy = originY + ((e.y + 2) * 8 + e.h * 4) * scale;
+                float cx = originX + ((e.x + 4) * 8 + e.w * 4) * scale;
+                float cy = originY + ((e.y + 4) * 8 + e.h * 4) * scale;
                 paint.setColor(blink ? 0xFFF83030 : 0xFFF8A0A0);
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeWidth(3f * scale / 2);
                 RectF marker = new RectF(
-                        originX + (e.x + 1) * 8 * scale, originY + (e.y + 2) * 8 * scale,
-                        originX + ((e.x + 1) * 8 + e.w * 8) * scale, originY + ((e.y + 2) * 8 + e.h * 8) * scale);
+                        originX + (e.x + 4) * 8 * scale, originY + (e.y + 4) * 8 * scale,
+                        originX + ((e.x + 4) * 8 + e.w * 8) * scale, originY + ((e.y + 4) * 8 + e.h * 8) * scale);
                 canvas.drawRect(marker, paint);
                 paint.setStyle(Paint.Style.FILL);
                 canvas.drawCircle(cx, cy, 3f * scale / 2, paint);
@@ -2540,14 +2545,15 @@ public final class DualScreenView extends View {
             }
         }
 
-        // Location label box, like the in-game map.
+        // Keep the location label above the map grid, clear of Route 21
+        // and Cinnabar Island along its bottom edge.
         if (f != null && !state.mapName.isEmpty()) {
             float labelScale = scale * 0.9f;
             float textW = f.measure(state.mapName, labelScale);
             RectF box = new RectF(originX + 8 * scale,
-                    originY + mapH - GbaFont.LINE_HEIGHT * labelScale - 18 * scale / 2f,
+                    originY + 4 * scale,
                     originX + 8 * scale + textW + 24,
-                    originY + mapH - 4 * scale / 2f);
+                    originY + 26 * scale);
             paint.setColor(PANEL_WHITE);
             canvas.drawRoundRect(box, 6, 6, paint);
             paint.setColor(PANEL_BORDER);

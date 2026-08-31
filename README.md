@@ -10,7 +10,7 @@ Built on [pret/pokefirered](https://github.com/pret/pokefirered), with the Andro
 host and dual-screen interface adapted from
 [Goldoire/pokeemerald-dualscreen](https://github.com/Goldoire/pokeemerald-dualscreen).
 
-> **Status: experimental — v0.1.0.** [Download the Android APK](https://github.com/venom13/pokefirered-dualscreen/releases/tag/v0.1.0).
+> **Status: experimental — v0.1.1.** [Download the Android APK](https://github.com/venom13/pokefirered-dualscreen/releases/tag/v0.1.1).
 > Your own FireRed Rev 1 ROM is required. Early-game play, the first rival battle,
 > saving, and loading have been tested on an AYN Thor during development.
 > A complete playthrough and other devices have not been validated.
@@ -36,6 +36,8 @@ host and dual-screen interface adapted from
 - **Optional battle hints:** move-effectiveness markers and opponent weaknesses.
 - **Fast forward:** 2×, 3×, or 4×, with a separate choice to keep music at normal
   speed or accelerate it too.
+- **Restored audio:** music, sound effects, and Pokémon cries through the native
+  sound driver, including volume controls and pause/resume.
 - **Display options:** optional wider rendering, artwork/black/white background,
   touch controls, and volume settings.
 - **Standard flash saves:** 128 KiB FireRed saves, including import/export by file
@@ -50,7 +52,7 @@ host and dual-screen interface adapted from
 | Android minimum | API 21 (Android 5.0), as declared by the app |
 | Native architecture | `armeabi-v7a` only; the device must support 32-bit ARM apps |
 | Early game | Intro, player/rival naming, first rival battle, save and Continue tested |
-| Lower-screen map | Not implemented; the MAP tab currently shows “Map unavailable” |
+| Lower-screen map | FireRed's Kanto/Sevii Town Map with location markers; available from v0.1.1 |
 | Move-type icons | Text badges are used; the native type-icon bridge is not yet implemented |
 | Multiplayer | GBA link cable / wireless-adapter functionality is not supported |
 | Other games | LeafGreen, Emerald, translations, and ROM hacks are not supported targets |

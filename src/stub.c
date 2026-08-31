@@ -23,34 +23,6 @@ u32 intr_main[0x200] = {0};
 const char RomHeaderGameCode[GAME_CODE_LENGTH] = {'B', 'P', 'R', 'E'};
 const char RomHeaderSoftwareVersion = 1;
 
-STUB_FUNC(void ply_fine())
-STUB_FUNC(void ply_goto())
-STUB_FUNC(void ply_patt())
-STUB_FUNC(void ply_pend())
-STUB_FUNC(void ply_rept())
-STUB_FUNC(void ply_prio())
-STUB_FUNC(void ply_tempo())
-STUB_FUNC(void ply_keysh())
-STUB_FUNC(void ply_voice())
-STUB_FUNC(void ply_vol())
-STUB_FUNC(void ply_pan())
-STUB_FUNC(void ply_bend())
-STUB_FUNC(void ply_bendr())
-STUB_FUNC(void ply_lfodl())
-STUB_FUNC(void ply_modt())
-STUB_FUNC(void ply_tune())
-STUB_FUNC(void ply_port())
-STUB_FUNC(void ply_lfos())
-STUB_FUNC(void ply_mod())
-STUB_FUNC(void ply_endtie())
-STUB_FUNC(void TrackStop())
-STUB_FUNC(void RealClearChain())
-STUB_FUNC(void MPlayMain())
-STUB_FUNC(void MPlayJumpTableCopy())
-STUB_FUNC(void ply_note())
-STUB_FUNC_QUIET(void SoundMain())
-STUB_FUNC_QUIET(void SoundMainBTM())
-char SoundMainRAM[0x800] = {0};
 u32 umul3232H32(u32 multiplier, u32 multiplicand)
 {
     return (u32)(((u64)multiplier * multiplicand) >> 32);
@@ -59,7 +31,6 @@ s32 Div(s32 num, s32 denom)
 {
     return denom != 0 ? num / denom : 0;
 }
-STUB_FUNC_QUIET(void m4aSoundVSync())
 
 #endif
 /*STUB_FUNC(void rfu_STC_clearAPIVariables())

@@ -1,11 +1,16 @@
 #include "global.h"
 #include "gba/m4a_internal.h"
+#ifdef PORTABLE
+#include "cgb_audio.h"
+#endif
 
 extern const u8 gCgb3Vol[];
 
+#ifndef PORTABLE
 #define BSS_CODE __attribute__((section(".bss.code")))
 
 BSS_CODE ALIGNED(4) char SoundMainRAM_Buffer[0x800] = {0};
+#endif
 
 COMMON_DATA struct SoundInfo gSoundInfo = {0};
 COMMON_DATA struct PokemonCrySong gPokemonCrySongs[MAX_POKEMON_CRIES] = {0};
@@ -71,7 +76,11 @@ void m4aSoundInit(void)
 {
     s32 i;
 
+#ifndef PORTABLE
     CpuCopy32((void *)((s32)SoundMainRAM & ~1), SoundMainRAM_Buffer, sizeof(SoundMainRAM_Buffer));
+#else
+    cgb_audio_init(PORTABLE_AUDIO_RATE);
+#endif
 
     SoundInit(&gSoundInfo);
     MPlayExtender(gCgbChans);
@@ -240,7 +249,11 @@ void m4aMPlayImmInit(struct MusicPlayerInfo *mplayInfo)
         {
             if (track->flags & MPT_FLG_START)
             {
+#ifdef PORTABLE
+                memset(track, 0, offsetof(struct MusicPlayerTrack, cmdPtr));
+#else
                 Clear64byte(track);
+#endif
                 track->flags = MPT_FLG_EXIST;
                 track->bendRange = 2;
                 track->volX = 64;
@@ -273,6 +286,14 @@ void MPlayExtender(struct CgbChannel *cgbChans)
     REG_NR44 = 0x80;
     REG_NR30 = 0;
     REG_NR50 = 0x77;
+
+#ifdef PORTABLE
+    for (u8 i = 0; i < 4; i++)
+    {
+        cgb_set_envelope(i, 8);
+        cgb_trigger_note(i);
+    }
+#endif
 
     soundInfo = SOUND_INFO_PTR;
 
@@ -327,7 +348,11 @@ void MPlayExtender(struct CgbChannel *cgbChans)
 
 void MusicPlayerJumpTableCopy(void)
 {
+#ifdef PORTABLE
+    MPlayJumpTableCopy(gMPlayJumpTable);
+#else
     asm("swi 0x2A");
+#endif
 }
 
 void ClearChain(void *x)
@@ -403,6 +428,14 @@ void SampleFreqSet(u32 freq)
 
     freq = (freq & 0xF0000) >> 16;
     soundInfo->freq = freq;
+#ifdef PORTABLE
+    // SDL runs at 60 Hz, independent of the original GBA timer/scanlines.
+    soundInfo->pcmSamplesPerVBlank = PORTABLE_AUDIO_SAMPLES_PER_FRAME;
+    soundInfo->pcmDmaPeriod = PCM_DMA_BUF_SIZE / soundInfo->pcmSamplesPerVBlank;
+    soundInfo->pcmFreq = PORTABLE_AUDIO_RATE;
+    soundInfo->divFreq = 1.0f / soundInfo->pcmFreq;
+    m4aSoundVSyncOn();
+#else
     soundInfo->pcmSamplesPerVBlank = gPcmSamplesPerVBlankTable[freq - 1];
     soundInfo->pcmDmaPeriod = PCM_DMA_BUF_SIZE / soundInfo->pcmSamplesPerVBlank;
 
@@ -427,6 +460,7 @@ void SampleFreqSet(u32 freq)
         ;
 
     REG_TM0CNT_H = TIMER_ENABLE | TIMER_1CLK;
+#endif
 }
 
 void m4aSoundMode(u32 mode)
@@ -579,7 +613,11 @@ void MPlayOpen(struct MusicPlayerInfo *mplayInfo, struct MusicPlayerTrack *track
 
     soundInfo->ident++;
 
+#ifdef PORTABLE
+    memset(mplayInfo, 0, sizeof(*mplayInfo));
+#else
     Clear64byte(mplayInfo);
+#endif
 
     mplayInfo->tracks = tracks;
     mplayInfo->trackCount = trackCount;
@@ -670,6 +708,11 @@ void m4aMPlayStop(struct MusicPlayerInfo *mplayInfo)
     s32 i;
     struct MusicPlayerTrack *track;
 
+#ifdef PORTABLE
+    // A cry can be stopped before the first cry player has been selected.
+    if (mplayInfo == NULL)
+        return;
+#endif
     if (mplayInfo->ident != ID_NUMBER)
         return;
 
@@ -873,6 +916,10 @@ void CgbOscOff(u8 chanNum)
         REG_NR42 = 8;
         REG_NR44 = 0x80;
     }
+    #ifdef PORTABLE
+        cgb_set_envelope(chanNum - 1, 8);
+        cgb_trigger_note(chanNum - 1);
+    #endif
 }
 
 static inline int CgbPan(struct CgbChannel *chan)
@@ -996,6 +1043,9 @@ void CgbSound(void)
                 {
                 case 1:
                     *nrx0ptr = channels->sweep;
+                    #ifdef PORTABLE
+                        cgb_set_sweep(channels->sweep);
+                    #endif
                     // fallthrough
                 case 2:
                     *nrx1ptr = ((u32)channels->wavePointer << 6) + channels->length;
@@ -1009,6 +1059,9 @@ void CgbSound(void)
                         REG_WAVE_RAM2 = channels->wavePointer[2];
                         REG_WAVE_RAM3 = channels->wavePointer[3];
                         channels->currentPointer = channels->wavePointer;
+                        #ifdef PORTABLE
+                            cgb_set_wavram();
+                        #endif
                     }
                     *nrx0ptr = 0;
                     *nrx1ptr = channels->length;
@@ -1028,6 +1081,9 @@ void CgbSound(void)
                         channels->n4 = 0x00;
                     break;
                 }
+                #ifdef PORTABLE
+                    cgb_set_length(ch - 1, channels->length);
+                #endif
                 channels->envelopeCounter = channels->attack;
                 if ((s8)(channels->attack & mask))
                 {
@@ -1224,6 +1280,11 @@ void CgbSound(void)
                 if (ch == 1 && !(*nrx0ptr & 0x08))
                     *nrx4ptr = channels->n4 | 0x80;
             }
+            #ifdef PORTABLE
+                cgb_set_envelope(ch - 1, *nrx2ptr);
+                cgb_toggle_length(ch - 1, (*nrx4ptr & 0x40));
+                cgb_trigger_note(ch - 1);
+            #endif
         }
 
     channel_complete:
@@ -1735,15 +1796,15 @@ void SetPokemonCryProgress(u32 val)
 bool32 IsPokemonCryPlaying(struct MusicPlayerInfo *mplayInfo)
 {
 #ifdef PORTABLE
-    return FALSE;
-#else
+    if (mplayInfo == NULL || mplayInfo->tracks == NULL)
+        return FALSE;
+#endif
     struct MusicPlayerTrack *track = mplayInfo->tracks;
 
     if (track->chan && track->chan->track == track)
         return TRUE;
     else
         return FALSE;
-#endif
 }
 
 void SetPokemonCryChorus(s8 val)

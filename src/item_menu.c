@@ -378,6 +378,12 @@ static void CB2_OpenBagMenu(void)
             break;
         if (MenuHelpers_IsLinkActive() == TRUE)
             break;
+#ifdef PORTABLE
+        // Host DMA is drained by VBlank after this callback returns.
+        // Keep initialization frame-stepped so graphics loading cannot
+        // busy-wait forever for FreeTempTileDataBuffersIfPossible().
+        break;
+#endif
     }
 }
 

@@ -13,6 +13,9 @@ u16 lfsrMax[2];
 float ch4Samples;
 
 void cgb_audio_init(u32 rate){
+    memset(&gb, 0, sizeof(gb));
+    apuFrame = 0;
+    apuCycle = 0;
     gb.ch1Freq = 0;
     gb.ch1SweepCounter = 0;
     gb.ch1SweepCounterI = 0;

@@ -47,6 +47,9 @@ These are targeted smoke tests, not a full-game compatibility guarantee.
   queued tile copies can complete.
 - Adapt naming-screen, battle transition, text, and controller paths to the
   portable engine's memory and callback model.
+- Restore MP2K sequencing, PCM/BDPCM mixing and CGB audio in public v0.1.1. Portable
+  startup initializes the driver without copying executable GBA RAM code or
+  waiting for hardware scanlines; SDL receives stereo float samples.
 
 ## Validation completed during development
 
@@ -58,21 +61,28 @@ These are targeted smoke tests, not a full-game compatibility guarantee.
 - Layout checks covering single/double battle waiting cards and move rows with
   real font widths, empty move slots, and zero PP.
 
-The historical host test harnesses were run locally during development; this
-initial publication does not claim they form a checked-in automated test suite.
+The regression scripts in `tools/dualscreen/` cover audio, map decoding,
+Bag/TM Case/Berry Pouch initialization, Pokémon Center wireless startup,
+asset preparation and the ROM loader. The audio suite runs the built ARMv7
+library and checks all 91 music tracks and 255 effects, cries, volume and
+fast-forward behavior. AYN Thor checks confirmed cold launch, Continue,
+speaker-routed audio and pause/resume with the same game code in local v0.1.4.
+Older save and layout harnesses remain historical local checks.
 For a clean-clone build, follow [BUILD_ANDROID.md](docs/BUILD_ANDROID.md).
 
 ## Remaining work
 
-- [ ] Kanto/Sevii Islands map rendering for the MAP tab.
+- [x] Kanto/Sevii Islands map rendering for the MAP tab.
 - [ ] Native FireRed move-type icon extraction (text fallback currently used).
 - [ ] Longer playthrough and more devices / display sizes.
 - [ ] Broader double-battle, switching, item-use, and special-battle validation.
 - [ ] ARM64 native build.
 - [x] ROM-matching data removal, exact-restoration check, manifest generation,
       and dedicated APK signing; see [release packaging](docs/RELEASING.md).
-- [ ] On-device validation of the signed ROM-gated release APK and broader
-      asset-coverage audit (the matching process is not a copyright audit).
+- [x] On-device signed ROM-gated APK startup, Continue and audio lifecycle checks
+      on AYN Thor with the local v0.1.4 build.
+- [ ] Broader device/playthrough validation and asset-coverage audit
+      (the matching process is not a copyright audit).
 - [ ] In-app save import/export UI (file-copy workflow currently supported).
 
 Link cable / RFU multiplayer, ROM hacks, LeafGreen, and a desktop or 3D/voxel

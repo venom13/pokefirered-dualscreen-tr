@@ -3517,7 +3517,13 @@ void InitUnionRoom(void)
     struct WirelessLink_URoom * data;
 
     sUnionRoomPlayerName[0] = EOS;
-#if REVISION >= 0xA
+#ifdef PORTABLE
+    // Pokemon Center OnResume scripts call this without checking for an
+    // adapter. The background task calls OpenLink/InitRFUAPI and waits on
+    // GBA serial/timer hardware that the native host does not implement.
+    // Keep the player-name reset, but never allocate or start the RFU task.
+    return;
+#elif REVISION >= 0xA
     // The rest of this function is stubbed out, as if QL_IS_PLAYBACK_STATE is always true.
 #else
     if (QL_IS_PLAYBACK_STATE)

@@ -43,15 +43,16 @@ public final class DualScreenBridge {
 
     /**
      * The game's region map location table as a JSON array of
-     * {id, x, y, w, h, n} on the 28x15 region grid. Static data; fetch once.
+     * {id, r, x, y, w, h, n} on FireRed's 22x15 region grid.
+     * r is 0 Kanto, 1 Sevii 1-3, 2 Sevii 4-5, or 3 Sevii 6-7.
      */
     public static native String nativeGetRegionMapJson();
 
     /**
-     * The real Pokenav Hoenn map as 240x160 ARGB_8888 pixels, composed from
-     * the game's own tileset. The location grid starts at tile (1, 2).
+     * FireRed's Town Map as 240x160 ARGB_8888 pixels, composed from its
+     * 4bpp tileset. The location grid starts at tile (4, 4).
      */
-    public static native int[] nativeGetRegionMapImage();
+    public static native int[] nativeGetRegionMapImage(int region);
 
     /**
      * The game's normal Latin font: 256 ints of glyph advance widths,
