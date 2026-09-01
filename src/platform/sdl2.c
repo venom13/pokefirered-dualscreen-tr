@@ -86,10 +86,9 @@ static u8 sPlatformSettings[PLATFORM_SETTING_COUNT] = {
     0, // PLATFORM_SETTING_WIDESCREEN: OFF
     0, 0, 0, 0, 0, 0
 };
-// The fast-forward speed as chosen in the SET tab, which is what belongs in the
-// config file. The R2 hotkey overrides the live setting without touching this,
-// so that StoreConfigFile - which writes every setting whenever any one of them
-// changes - cannot quietly persist a momentary toggle as a deliberate choice.
+// The preferred fast-forward speed as chosen in the SET tab. The app always
+// starts at normal speed; this saved value only decides which speed R2 resumes
+// and which acceleration is used after the player enables it for this session.
 static u8 sFastForwardSetting = 0;
 #define FF_HOTKEY_DEFAULT_SPEED 1 // 2x, when the toggle is used before any speed is chosen
 // What the R2 toggle turns fast-forward back on at.
@@ -847,7 +846,15 @@ static void ReadConfigFile(void)
         else if (sscanf(line, "battleUiTop=%u", &value) == 1)
             sPlatformSettings[PLATFORM_SETTING_BATTLE_UI_TOP] = value != 0;
         else if (sscanf(line, "fastForward=%u", &value) == 1 && value <= 3)
-            sPlatformSettings[PLATFORM_SETTING_FAST_FORWARD] = sFastForwardSetting = value;
+        {
+            // Remember the player's preferred acceleration without enabling
+            // it during startup. A saved 2x/3x/4x value is available to R2,
+            // while every new process begins at the normal 1x speed.
+            sFastForwardSetting = value;
+            if (value != 0)
+                sFastForwardResume = value;
+            sPlatformSettings[PLATFORM_SETTING_FAST_FORWARD] = 0;
+        }
         else if (sscanf(line, "voxelRenderer=%u", &value) == 1)
             // Consumed but forced off: the voxel renderer is not shipping yet,
             // so the SET tab no longer offers it and a config left over from a
