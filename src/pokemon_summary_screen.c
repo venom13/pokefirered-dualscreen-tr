@@ -4879,7 +4879,9 @@ static void PokeSum_CreateMonMarkingsSprite(void)
 {
     u32 markings = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MARKINGS);
 
-    DestroySpriteAndFreeResources(sMonSummaryScreen->markingSprite);
+    if (sMonSummaryScreen->markingSprite != NULL)
+        DestroySpriteAndFreeResources(sMonSummaryScreen->markingSprite);
+
     sMonSummaryScreen->markingSprite = CreateMonMarkingAllCombosSprite(TAG_PSS_UNK_8C, TAG_PSS_UNK_8C, sMonMarkingSpritePalette);
 
     if (sMonSummaryScreen->markingSprite != NULL)
@@ -4887,19 +4889,25 @@ static void PokeSum_CreateMonMarkingsSprite(void)
         StartSpriteAnim(sMonSummaryScreen->markingSprite, markings);
         sMonSummaryScreen->markingSprite->x = 20;
         sMonSummaryScreen->markingSprite->y = 91;
+        PokeSum_ShowOrHideMonMarkingsSprite(TRUE);
     }
-
-    PokeSum_ShowOrHideMonMarkingsSprite(TRUE);
 }
 
 static void PokeSum_DestroyMonMarkingsSprite(void)
 {
-    DestroySpriteAndFreeResources(sMonSummaryScreen->markingSprite);
+    if (sMonSummaryScreen->markingSprite != NULL)
+    {
+        DestroySpriteAndFreeResources(sMonSummaryScreen->markingSprite);
+        sMonSummaryScreen->markingSprite = NULL;
+    }
 }
 
 static void PokeSum_ShowOrHideMonMarkingsSprite(u8 invisible)
 {
     u32 markings = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MARKINGS);
+
+    if (sMonSummaryScreen->markingSprite == NULL)
+        return;
 
     if (markings == 0)
         sMonSummaryScreen->markingSprite->invisible = TRUE;
@@ -4910,6 +4918,9 @@ static void PokeSum_ShowOrHideMonMarkingsSprite(u8 invisible)
 static void PokeSum_UpdateMonMarkingsAnim(void)
 {
     u32 markings = GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_MARKINGS);
+
+    if (sMonSummaryScreen->markingSprite == NULL)
+        return;
 
     StartSpriteAnim(sMonSummaryScreen->markingSprite, markings);
     PokeSum_ShowOrHideMonMarkingsSprite(FALSE);
