@@ -566,14 +566,16 @@ static void MoveMon(void)
     switch (sCursorArea)
     {
     case CURSOR_AREA_IN_PARTY:
+        if (!SetMovingMonSprite(MODE_PARTY, sCursorPosition))
+            return;
         SetMovedMonData(TOTAL_BOXES_COUNT, sCursorPosition);
-        SetMovingMonSprite(MODE_PARTY, sCursorPosition);
         break;
     case CURSOR_AREA_IN_BOX:
         if (gStorage->inBoxMovingMode == MOVE_MODE_NORMAL)
         {
+            if (!SetMovingMonSprite(MODE_BOX, sCursorPosition))
+                return;
             SetMovedMonData(StorageGetCurrentBox(), sCursorPosition);
-            SetMovingMonSprite(MODE_BOX, sCursorPosition);
         }
         break;
     default:

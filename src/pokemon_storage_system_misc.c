@@ -683,10 +683,13 @@ static const struct SpriteTemplate sSpriteTemplate_ItemIcon = {
     .callback = SpriteCallbackDummy,
 };
 
-void CreateItemIconSprites(void)
+bool8 CreateItemIconSprites(void)
 {
     s32 i;
+    u16 tileStart;
+    u8 palIndex;
     u8 spriteId;
+    bool8 success = TRUE;
     struct CompressedSpriteSheet spriteSheet;
     struct SpriteTemplate spriteTemplate;
     static u32 sItemIconGfxBuffer[0x61];
@@ -699,20 +702,45 @@ void CreateItemIconSprites(void)
 
         for (i = 0; i < MAX_ITEM_ICONS; i++)
         {
+            gStorage->itemIcons[i].tiles = NULL;
+            gStorage->itemIcons[i].sprite = NULL;
+            gStorage->itemIcons[i].active = FALSE;
             spriteSheet.tag = GFXTAG_ITEM_ICON_0 + i;
             LoadCompressedSpriteSheet(&spriteSheet);
-            gStorage->itemIcons[i].tiles = GetSpriteTileStartByTag(spriteSheet.tag) * TILE_SIZE_4BPP + (void *)(OBJ_VRAM0);
-            gStorage->itemIcons[i].palIndex = AllocSpritePalette(PALTAG_ITEM_ICON_0 + i);
-            gStorage->itemIcons[i].palIndex = OBJ_PLTT_ID(gStorage->itemIcons[i].palIndex);
+            tileStart = GetSpriteTileStartByTag(spriteSheet.tag);
+            if (tileStart == TAG_NONE)
+            {
+                success = FALSE;
+                continue;
+            }
+
+            palIndex = AllocSpritePalette(PALTAG_ITEM_ICON_0 + i);
+            if (palIndex == 0xFF)
+            {
+                FreeSpriteTilesByTag(spriteSheet.tag);
+                success = FALSE;
+                continue;
+            }
+
             spriteTemplate.tileTag = GFXTAG_ITEM_ICON_0 + i;
             spriteTemplate.paletteTag = PALTAG_ITEM_ICON_0 + i;
             spriteId = CreateSprite(&spriteTemplate, 0, 0, 11);
+            if (spriteId == MAX_SPRITES)
+            {
+                FreeSpriteTilesByTag(spriteSheet.tag);
+                FreeSpritePaletteByTag(spriteTemplate.paletteTag);
+                success = FALSE;
+                continue;
+            }
+
+            gStorage->itemIcons[i].tiles = tileStart * TILE_SIZE_4BPP + (void *)(OBJ_VRAM0);
+            gStorage->itemIcons[i].palIndex = OBJ_PLTT_ID(palIndex);
             gStorage->itemIcons[i].sprite = &gSprites[spriteId];
             gStorage->itemIcons[i].sprite->invisible = TRUE;
-            gStorage->itemIcons[i].active = FALSE;
         }
     }
     gStorage->movingItemId = ITEM_NONE;
+    return success;
 }
 
 void TryLoadItemIconAtPos(u8 cursorArea, u8 cursorPos)
@@ -912,7 +940,7 @@ bool8 IsItemIconAnimActive(void)
 
     for (i = 0; i < MAX_ITEM_ICONS; i++)
     {
-        if (gStorage->itemIcons[i].active)
+        if (gStorage->itemIcons[i].active && gStorage->itemIcons[i].sprite != NULL)
         {
             if (!gStorage->itemIcons[i].sprite->affineAnimEnded && gStorage->itemIcons[i].sprite->affineAnimBeginning)
                 return TRUE;
@@ -956,7 +984,7 @@ static u8 GetNewItemIconIdx(void)
 
     for (i = 0; i < MAX_ITEM_ICONS; i++)
     {
-        if (!gStorage->itemIcons[i].active)
+        if (!gStorage->itemIcons[i].active && gStorage->itemIcons[i].sprite != NULL)
         {
             gStorage->itemIcons[i].active = TRUE;
             return i;
@@ -1014,7 +1042,7 @@ static void SetItemIconPosition(u8 id, u8 cursorArea, u8 cursorPos)
 {
     u8 row, column;
 
-    if (id >= MAX_ITEM_ICONS)
+    if (id >= MAX_ITEM_ICONS || gStorage->itemIcons[id].sprite == NULL)
         return;
 
     switch (cursorArea)
@@ -1049,7 +1077,7 @@ static void LoadItemIconGfx(u8 id, const u32 *itemTiles, const u32 *itemPal)
 {
     s32 i;
 
-    if (id >= MAX_ITEM_ICONS)
+    if (id >= MAX_ITEM_ICONS || gStorage->itemIcons[id].sprite == NULL || gStorage->itemIcons[id].tiles == NULL)
         return;
 
     CpuFastFill(0, gStorage->itemIconBuffer, 0x200);
@@ -1064,7 +1092,7 @@ static void LoadItemIconGfx(u8 id, const u32 *itemTiles, const u32 *itemPal)
 
 static void SetItemIconAffineAnim(u8 id, u8 animNum)
 {
-    if (id >= MAX_ITEM_ICONS)
+    if (id >= MAX_ITEM_ICONS || gStorage->itemIcons[id].sprite == NULL)
         return;
 
     StartSpriteAffineAnim(gStorage->itemIcons[id].sprite, animNum);
@@ -1077,7 +1105,7 @@ static void SetItemIconAffineAnim(u8 id, u8 animNum)
 
 static void SetItemIconCallback(u8 id, u8 callbackId, u8 cursorArea, u8 cursorPos)
 {
-    if (id >= MAX_ITEM_ICONS)
+    if (id >= MAX_ITEM_ICONS || gStorage->itemIcons[id].sprite == NULL)
         return;
 
     switch (callbackId)
@@ -1119,7 +1147,7 @@ static void SetItemIconCallback(u8 id, u8 callbackId, u8 cursorArea, u8 cursorPo
 
 static void SetItemIconActive(u8 id, bool8 show)
 {
-    if (id >= MAX_ITEM_ICONS)
+    if (id >= MAX_ITEM_ICONS || gStorage->itemIcons[id].sprite == NULL)
         return;
 
     gStorage->itemIcons[id].active = show;

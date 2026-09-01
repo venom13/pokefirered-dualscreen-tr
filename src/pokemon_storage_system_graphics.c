@@ -302,7 +302,8 @@ void CreateMovingMonIcon(void)
     u8 priority = GetMonIconPriorityByCursorArea();
 
     gStorage->movingMonSprite = CreateMonIconSprite(species, personality, 0, 0, priority, 7);
-    gStorage->movingMonSprite->callback = SpriteCB_HeldMon;
+    if (gStorage->movingMonSprite != NULL)
+        gStorage->movingMonSprite->callback = SpriteCB_HeldMon;
 }
 
 static void InitBoxMonSprites(u8 boxId)
@@ -336,7 +337,8 @@ static void InitBoxMonSprites(u8 boxId)
     {
         for (boxPosition = 0; boxPosition < IN_BOX_COUNT; boxPosition++)
         {
-            if (GetBoxMonDataAt(boxId, boxPosition, MON_DATA_HELD_ITEM) == 0)
+            if (gStorage->boxMonsSprites[boxPosition] != NULL
+             && GetBoxMonDataAt(boxId, boxPosition, MON_DATA_HELD_ITEM) == 0)
                 gStorage->boxMonsSprites[boxPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
         }
     }
@@ -353,7 +355,9 @@ void CreateBoxMonIconAtPos(u8 boxPosition)
         u32 personality = GetCurrentBoxMonData(boxPosition, MON_DATA_PERSONALITY);
 
         gStorage->boxMonsSprites[boxPosition] = CreateMonIconSprite(species, personality, x, y, 2, 19 - (boxPosition % IN_BOX_COLUMNS));
-        if (gStorage->boxOption == OPTION_MOVE_ITEMS)
+        if (gStorage->boxMonsSprites[boxPosition] != NULL
+         && gStorage->boxOption == OPTION_MOVE_ITEMS
+         && GetCurrentBoxMonData(boxPosition, MON_DATA_HELD_ITEM) == 0)
             gStorage->boxMonsSprites[boxPosition]->oam.objMode = ST_OAM_OBJ_BLEND;
     }
 }
@@ -596,12 +600,14 @@ void SetBoxMonIconObjMode(u8 boxPosition, u8 objMode)
 
 void CreatePartyMonsSprites(bool8 visible)
 {
-    u16 i, count;
+    u16 i;
     u16 species = GetMonData(&gPlayerParty[0], MON_DATA_SPECIES_OR_EGG);
     u32 personality = GetMonData(&gPlayerParty[0], MON_DATA_PERSONALITY);
 
-    gStorage->partySprites[0] = CreateMonIconSprite(species, personality, 104, 64, 1, 12);
-    count = 1;
+    if (species != SPECIES_NONE)
+        gStorage->partySprites[0] = CreateMonIconSprite(species, personality, 104, 64, 1, 12);
+    else
+        gStorage->partySprites[0] = NULL;
     for (i = 1; i < PARTY_SIZE; i++)
     {
         species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
@@ -609,7 +615,6 @@ void CreatePartyMonsSprites(bool8 visible)
         {
             personality = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY);
             gStorage->partySprites[i] = CreateMonIconSprite(species, personality, 152,  8 * (3 * (i - 1)) + 16, 1, 12);
-            count++;
         }
         else
             gStorage->partySprites[i] = NULL;
@@ -617,10 +622,13 @@ void CreatePartyMonsSprites(bool8 visible)
 
     if (!visible)
     {
-        for (i = 0; i < count; i++)
+        for (i = 0; i < PARTY_SIZE; i++)
         {
-            gStorage->partySprites[i]->y -= 160;
-            gStorage->partySprites[i]->invisible = TRUE;
+            if (gStorage->partySprites[i] != NULL)
+            {
+                gStorage->partySprites[i]->y -= 160;
+                gStorage->partySprites[i]->invisible = TRUE;
+            }
         }
     }
 
@@ -776,28 +784,37 @@ void SetPartyMonIconObjMode(u8 partyId, u8 objMode)
         gStorage->partySprites[partyId]->oam.objMode = objMode;
 }
 
-void SetMovingMonSprite(u8 mode, u8 id)
+bool8 SetMovingMonSprite(u8 mode, u8 id)
 {
+    struct Sprite *sprite;
+
     if (mode == MODE_PARTY)
-    {
-        gStorage->movingMonSprite = gStorage->partySprites[id];
-        gStorage->partySprites[id] = NULL;
-    }
+        sprite = gStorage->partySprites[id];
     else if (mode == MODE_BOX)
-    {
-        gStorage->movingMonSprite = gStorage->boxMonsSprites[id];
-        gStorage->boxMonsSprites[id] = NULL;
-    }
+        sprite = gStorage->boxMonsSprites[id];
     else
-        return;
+        return FALSE;
+
+    if (sprite == NULL)
+        return FALSE;
+
+    gStorage->movingMonSprite = sprite;
+    if (mode == MODE_PARTY)
+        gStorage->partySprites[id] = NULL;
+    else
+        gStorage->boxMonsSprites[id] = NULL;
 
     gStorage->movingMonSprite->callback = SpriteCB_HeldMon;
     gStorage->movingMonSprite->oam.priority = GetMonIconPriorityByCursorArea();
     gStorage->movingMonSprite->subpriority = 7;
+    return TRUE;
 }
 
 void SetPlacedMonSprite(u8 boxId, u8 position)
 {
+    if (gStorage->movingMonSprite == NULL)
+        return;
+
     if (boxId == TOTAL_BOXES_COUNT) // party mon
     {
         gStorage->partySprites[position] = gStorage->movingMonSprite;
@@ -821,8 +838,13 @@ void SetShiftMonSpritePtr(u8 boxId, u8 position)
     else
         gStorage->shiftMonSpritePtr = &gStorage->boxMonsSprites[position];
 
-    gStorage->movingMonSprite->callback = SpriteCallbackDummy;
-    gStorage->shiftTimer = 0;
+    if (gStorage->movingMonSprite == NULL || *gStorage->shiftMonSpritePtr == NULL)
+        gStorage->shiftTimer = 16;
+    else
+    {
+        gStorage->movingMonSprite->callback = SpriteCallbackDummy;
+        gStorage->shiftTimer = 0;
+    }
 }
 
 bool8 ShiftMons(void)
@@ -938,6 +960,12 @@ void SetMovingMonPriority(u8 priority)
 
 static void SpriteCB_HeldMon(struct Sprite *sprite)
 {
+    if (gStorage == NULL || gStorage->cursorSprite == NULL)
+    {
+        sprite->callback = SpriteCallbackDummy;
+        return;
+    }
+
     sprite->x = gStorage->cursorSprite->x;
     sprite->y = gStorage->cursorSprite->y + gStorage->cursorSprite->y2 + 4;
 }
@@ -1300,8 +1328,12 @@ static void InitBoxTitle(u8 boxId)
     for (i = 0; i < 2; i++)
     {
         u8 spriteId = CreateSprite(&sSpriteTemplate_BoxTitle, x + i * 32, 28, 24);
-        gStorage->curBoxTitleSprites[i] = &gSprites[spriteId];
-        StartSpriteAnim(gStorage->curBoxTitleSprites[i], i);
+        gStorage->curBoxTitleSprites[i] = NULL;
+        if (spriteId != MAX_SPRITES)
+        {
+            gStorage->curBoxTitleSprites[i] = &gSprites[spriteId];
+            StartSpriteAnim(gStorage->curBoxTitleSprites[i], i);
+        }
     }
     gStorage->boxTitleCycleId = 0;
 }
@@ -1341,16 +1373,23 @@ static void CreateIncomingBoxTitle(u8 boxId, s8 direction)
     {
         u8 spriteId = CreateSprite(&template, i * 32 + adjustedX, 28, 24);
 
-        gStorage->nextBoxTitleSprites[i] = &gSprites[spriteId];
-        gStorage->nextBoxTitleSprites[i]->data[0] = (-direction) * 6;
-        gStorage->nextBoxTitleSprites[i]->data[1] = i * 32 + x;
-        gStorage->nextBoxTitleSprites[i]->data[2] = 0;
-        gStorage->nextBoxTitleSprites[i]->callback = SpriteCB_IncomingBoxTitle;
-        StartSpriteAnim(gStorage->nextBoxTitleSprites[i], i);
+        gStorage->nextBoxTitleSprites[i] = NULL;
+        if (spriteId != MAX_SPRITES)
+        {
+            gStorage->nextBoxTitleSprites[i] = &gSprites[spriteId];
+            gStorage->nextBoxTitleSprites[i]->data[0] = (-direction) * 6;
+            gStorage->nextBoxTitleSprites[i]->data[1] = i * 32 + x;
+            gStorage->nextBoxTitleSprites[i]->data[2] = 0;
+            gStorage->nextBoxTitleSprites[i]->callback = SpriteCB_IncomingBoxTitle;
+            StartSpriteAnim(gStorage->nextBoxTitleSprites[i], i);
+        }
 
-        gStorage->curBoxTitleSprites[i]->data[0] = (-direction) * 6;
-        gStorage->curBoxTitleSprites[i]->data[1] = 1;
-        gStorage->curBoxTitleSprites[i]->callback = SpriteCB_OutgoingBoxTitle;
+        if (gStorage->curBoxTitleSprites[i] != NULL)
+        {
+            gStorage->curBoxTitleSprites[i]->data[0] = (-direction) * 6;
+            gStorage->curBoxTitleSprites[i]->data[1] = 1;
+            gStorage->curBoxTitleSprites[i]->callback = SpriteCB_OutgoingBoxTitle;
+        }
     }
 }
 
@@ -1414,6 +1453,7 @@ static void CreateBoxScrollArrows(void)
     for (i = 0; i < 2; i++)
     {
         u8 spriteId = CreateSprite(&sSpriteTemplate_BoxScrollArrow, 92 + i * 136, 28, 22);
+        gStorage->arrowSprites[i] = NULL;
         if (spriteId != MAX_SPRITES)
         {
             struct Sprite *sprite = &gSprites[spriteId];
@@ -1433,25 +1473,18 @@ static void StartBoxScrollArrowsSlide(s8 direction)
 
     for (i = 0; i < 2; i++)
     {
-        gStorage->arrowSprites[i]->x2 = 0;
-        gStorage->arrowSprites[i]->sState = 2;
+        if (gStorage->arrowSprites[i] != NULL)
+        {
+            gStorage->arrowSprites[i]->x2 = 0;
+            gStorage->arrowSprites[i]->sState = 2;
+            if (direction < 0)
+                gStorage->arrowSprites[i]->sTimer = (i == 0) ? 29 : 5;
+            else
+                gStorage->arrowSprites[i]->sTimer = (i == 0) ? 5 : 29;
+            gStorage->arrowSprites[i]->data[2] = direction < 0 ? 72 : DISPLAY_WIDTH + 8;
+            gStorage->arrowSprites[i]->data[7] = i;
+        }
     }
-    if (direction < 0)
-    {
-        gStorage->arrowSprites[0]->sTimer = 29;
-        gStorage->arrowSprites[1]->sTimer = 5;
-        gStorage->arrowSprites[0]->data[2] = 72;
-        gStorage->arrowSprites[1]->data[2] = 72;
-    }
-    else
-    {
-        gStorage->arrowSprites[0]->sTimer = 5;
-        gStorage->arrowSprites[1]->sTimer = 29;
-        gStorage->arrowSprites[0]->data[2] = DISPLAY_WIDTH + 8;
-        gStorage->arrowSprites[1]->data[2] = DISPLAY_WIDTH + 8;
-    }
-    gStorage->arrowSprites[0]->data[7] = 0;
-    gStorage->arrowSprites[1]->data[7] = 1;
 }
 
 // New box's scroll arrows have entered, stop sliding and set their position
@@ -1461,9 +1494,12 @@ static void StopBoxScrollArrowsSlide(void)
 
     for (i = 0; i < 2; i++)
     {
-        gStorage->arrowSprites[i]->x = 136 * i + 92;
-        gStorage->arrowSprites[i]->x2 = 0;
-        gStorage->arrowSprites[i]->invisible = FALSE;
+        if (gStorage->arrowSprites[i] != NULL)
+        {
+            gStorage->arrowSprites[i]->x = 136 * i + 92;
+            gStorage->arrowSprites[i]->x2 = 0;
+            gStorage->arrowSprites[i]->invisible = FALSE;
+        }
     }
     AnimateBoxScrollArrows(TRUE);
 }
@@ -1478,17 +1514,23 @@ void AnimateBoxScrollArrows(bool8 animate)
         // Start arrows moving
         for (i = 0; i < 2; i++)
         {
-            gStorage->arrowSprites[i]->sState = 1;
-            gStorage->arrowSprites[i]->sTimer = 0;
-            gStorage->arrowSprites[i]->data[2] = 0;
-            gStorage->arrowSprites[i]->data[4] = 0;
+            if (gStorage->arrowSprites[i] != NULL)
+            {
+                gStorage->arrowSprites[i]->sState = 1;
+                gStorage->arrowSprites[i]->sTimer = 0;
+                gStorage->arrowSprites[i]->data[2] = 0;
+                gStorage->arrowSprites[i]->data[4] = 0;
+            }
         }
     }
     else
     {
         // Stop arrows moving
         for (i = 0; i < 2; i++)
-            gStorage->arrowSprites[i]->sState = 0;
+        {
+            if (gStorage->arrowSprites[i] != NULL)
+                gStorage->arrowSprites[i]->sState = 0;
+        }
     }
 }
 

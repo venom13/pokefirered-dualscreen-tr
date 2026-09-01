@@ -537,11 +537,13 @@ static void ChooseBoxMenu_CreateSprites(u8 curBox)
     const u8 sText_OutOf30[] = _("/30");
 
     sChooseBoxMenu->curBox = curBox;
+    sChooseBoxMenu->menuSprite = NULL;
     template.tileTag = sChooseBoxMenu->tileTag;
     template.paletteTag = sChooseBoxMenu->paletteTag;
 
     spriteId = CreateSprite(&template, 160, 96, 0);
-    sChooseBoxMenu->menuSprite = gSprites + spriteId;
+    if (spriteId != MAX_SPRITES)
+        sChooseBoxMenu->menuSprite = gSprites + spriteId;
 
     oamData.shape = SPRITE_SHAPE(8x32);
     oamData.size = SPRITE_SIZE(8x32);
@@ -551,7 +553,11 @@ static void ChooseBoxMenu_CreateSprites(u8 curBox)
     {
         // corner sprites are created in order of top left, bottom left, top right, bottom right
         u16 animNum;
+        sChooseBoxMenu->menuCornerSprites[i] = NULL;
         spriteId = CreateSprite(&template, 124, 80, sChooseBoxMenu->subpriority); // place at top left
+        if (spriteId == MAX_SPRITES)
+            continue;
+
         sChooseBoxMenu->menuCornerSprites[i] = &gSprites[spriteId];
         animNum = 0;
         if (i & 2)

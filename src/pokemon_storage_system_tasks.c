@@ -420,7 +420,7 @@ void EnterPokeStorage(u8 boxOption)
 {
     ResetTasks();
     sCurrentBoxOption = boxOption;
-    gStorage = Alloc(sizeof(struct PokemonStorageSystemData));
+    gStorage = AllocZeroed(sizeof(struct PokemonStorageSystemData));
     if (gStorage == NULL)
         SetMainCallback2(CB2_ExitPokeStorage);
     else
@@ -439,7 +439,7 @@ void EnterPokeStorage(u8 boxOption)
 void CB2_ReturnToPokeStorage(void)
 {
     ResetTasks();
-    gStorage = Alloc(sizeof(struct PokemonStorageSystemData));
+    gStorage = AllocZeroed(sizeof(struct PokemonStorageSystemData));
     if (gStorage == NULL)
         SetMainCallback2(CB2_ExitPokeStorage);
     else
@@ -555,6 +555,17 @@ static void Task_InitPokeStorage(u8 taskId)
             InitCursor();
         else
             InitCursorOnReopen();
+
+        // The cursor and its shadow are used throughout every storage mode.
+        // If either critical sprite could not be allocated, leave the screen
+        // cleanly instead of letting the first input dereference a null sprite.
+        if (gStorage->cursorSprite == NULL || gStorage->cursorShadowSprite == NULL
+         || (IsMonBeingMoved() && gStorage->movingMonSprite == NULL))
+        {
+            gStorage->screenChangeType = SCREEN_CHANGE_EXIT_BOX;
+            SetPokeStorageTask(Task_ChangeScreen);
+            return;
+        }
         break;
     case 5:
         if (!MultiMove_Init())
@@ -590,7 +601,12 @@ static void Task_InitPokeStorage(u8 taskId)
         }
         else
         {
-            CreateItemIconSprites();
+            if (!CreateItemIconSprites())
+            {
+                gStorage->screenChangeType = SCREEN_CHANGE_EXIT_BOX;
+                SetPokeStorageTask(Task_ChangeScreen);
+                return;
+            }
             InitCursorItemIcon();
         }
         break;
@@ -2177,6 +2193,9 @@ static void InitPalettesAndSprites(void)
 static void CreateMarkingComboSprite(void)
 {
     gStorage->markingComboSprite = CreateMonMarkingComboSprite(GFXTAG_MARKING_COMBO, PALTAG_MARKING_COMBO, NULL);
+    if (gStorage->markingComboSprite == NULL)
+        return;
+
     gStorage->markingComboSprite->oam.priority = 1;
     gStorage->markingComboSprite->subpriority = 1;
     gStorage->markingComboSprite->x = 40;
@@ -2193,7 +2212,10 @@ static void CreateWaveformSprites(void)
     for (i = 0; i < 2; i++)
     {
         u8 spriteId = CreateSprite(&sSpriteTemplate_Waveform, i * 63 + 8, 9, 2);
-        gStorage->waveformSprites[i] = &gSprites[spriteId];
+        if (spriteId == MAX_SPRITES)
+            gStorage->waveformSprites[i] = NULL;
+        else
+            gStorage->waveformSprites[i] = &gSprites[spriteId];
     }
 }
 
@@ -2220,7 +2242,7 @@ static void StartDisplayMonMosaic(void)
 
 static u8 IsDisplayMonMosaicActive(void)
 {
-    return gStorage->displayMonSprite->oam.mosaic;
+    return gStorage->displayMonSprite != NULL && gStorage->displayMonSprite->oam.mosaic;
 }
 
 static void SpriteCB_DisplayMonMosaic(struct Sprite *sprite)
@@ -2255,8 +2277,9 @@ static void CreateDisplayMonSprite(void)
 
     do
     {
-        tileStart = LoadSpriteSheet(&sheet);
-        if (tileStart == 0)
+        LoadSpriteSheet(&sheet);
+        tileStart = GetSpriteTileStartByTag(sheet.tag);
+        if (tileStart == TAG_NONE)
             break;
 
         palSlot = LoadSpritePalette(&palette);
@@ -2316,12 +2339,12 @@ static void PrintDisplayMonInfo(void)
     }
 
     CopyWindowToVram(0, COPYWIN_GFX);
-    if (gStorage->displayMonSpecies != SPECIES_NONE)
+    if (gStorage->markingComboSprite != NULL && gStorage->displayMonSpecies != SPECIES_NONE)
     {
         UpdateMonMarkingTiles(gStorage->displayMonMarkings, gStorage->markingComboTilesPtr);
         gStorage->markingComboSprite->invisible = FALSE;
     }
-    else
+    else if (gStorage->markingComboSprite != NULL)
         gStorage->markingComboSprite->invisible = TRUE;
 }
 
@@ -2333,13 +2356,19 @@ static void UpdateWaveformAnimation(void)
     {
         TilemapUtil_SetRect(TILEMAP_PKMN_DATA, 0, 0, 8, 2);
         for (i = 0; i < 2; i++)
-            StartSpriteAnimIfDifferent(gStorage->waveformSprites[i], i * 2 + 1);
+        {
+            if (gStorage->waveformSprites[i] != NULL)
+                StartSpriteAnimIfDifferent(gStorage->waveformSprites[i], i * 2 + 1);
+        }
     }
     else
     {
         TilemapUtil_SetRect(TILEMAP_PKMN_DATA, 0, 2, 8, 2);
         for (i = 0; i < 2; i++)
-            StartSpriteAnim(gStorage->waveformSprites[i], i * 2);
+        {
+            if (gStorage->waveformSprites[i] != NULL)
+                StartSpriteAnim(gStorage->waveformSprites[i], i * 2);
+        }
     }
 
     TilemapUtil_Update(TILEMAP_PKMN_DATA);
