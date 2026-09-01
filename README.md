@@ -10,7 +10,7 @@ Built on [pret/pokefirered](https://github.com/pret/pokefirered), with the Andro
 host and dual-screen interface adapted from
 [Goldoire/pokeemerald-dualscreen](https://github.com/Goldoire/pokeemerald-dualscreen).
 
-> **Status: experimental — v0.1.2.** [Download the Android APK](https://github.com/venom13/pokefirered-dualscreen/releases/tag/v0.1.2).
+> **Status: experimental — v0.1.3.** [Download the Android APK](https://github.com/venom13/pokefirered-dualscreen/releases/tag/v0.1.3).
 > Your own FireRed Rev 1 ROM is required. Early-game play, the first rival battle,
 > saving, and loading have been tested on an AYN Thor during development.
 > A complete playthrough and other devices have not been validated.
@@ -43,8 +43,9 @@ host and dual-screen interface adapted from
   speed or accelerate it too.
 - **Restored audio:** music, sound effects, and Pokémon cries through the native
   sound driver, including volume controls and pause/resume.
-- **Display options:** optional wider rendering, artwork/black/white background,
-  touch controls, and volume settings.
+- **Settings:** widescreen display (off by default and remembered on-device),
+  touch controls, battle menu placement, fast-forward speed and music, volume,
+  and battle hints.
 - **Standard flash saves:** 128 KiB FireRed saves, including import/export by file
   copy. Writes use a temporary file and checked replacement.
 

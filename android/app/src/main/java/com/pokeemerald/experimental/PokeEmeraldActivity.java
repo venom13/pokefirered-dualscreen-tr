@@ -20,6 +20,9 @@ import org.libsdl.app.SDLActivity;
 
 public class PokeEmeraldActivity extends SDLActivity {
     private static final long SNAPSHOT_INTERVAL_MS = 120;
+    private static final int COMMAND_EXIT_APPLICATION = COMMAND_USER;
+
+    private boolean exitRequestedFromGameMenu;
 
     private DualScreenPresentation presentation;
     private final Handler snapshotHandler = new Handler(Looper.getMainLooper());
@@ -95,6 +98,25 @@ public class PokeEmeraldActivity extends SDLActivity {
         navHandler.removeCallbacks(navPump);
         dismissBottomScreen();
         super.onPause();
+    }
+
+    @Override
+    protected boolean onUnhandledMessage(int command, Object param) {
+        if (command == COMMAND_EXIT_APPLICATION) {
+            exitRequestedFromGameMenu = true;
+            finishAndRemoveTask();
+            return true;
+        }
+        return super.onUnhandledMessage(command, param);
+    }
+
+    @Override
+    protected void onDestroy() {
+        boolean terminateProcess = exitRequestedFromGameMenu;
+        super.onDestroy();
+        if (terminateProcess) {
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
 
     private void applyImmersiveFlags() {

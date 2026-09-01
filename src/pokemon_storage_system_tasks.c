@@ -401,6 +401,14 @@ static void VBlankCB_PokeStorage(void)
 static void CB2_PokeStorage(void)
 {
     RunTasks();
+
+    // Task_ChangeScreen frees gStorage when leaving the storage system. On
+    // native platforms, continuing the rest of this callback in that frame
+    // would dereference the cleared pointer in the close-button and sprite
+    // callbacks before the newly selected main callback gets a chance to run.
+    if (gStorage == NULL)
+        return;
+
     DoScheduledBgTilemapCopiesToVram();
     ScrollBackground();
     UpdateCloseBoxButtonFlash();
@@ -2102,6 +2110,10 @@ static void GiveChosenBagItem(void)
 
 static void FreePokeStorageData(void)
 {
+    // VBlank can run before the next main callback initializes its own state.
+    // Stop the storage VBlank callback while gStorage is still valid so it
+    // cannot read bg2_X after the allocation has been released.
+    SetVBlankCallback(NULL);
     TilemapUtil_Free();
     MultiMove_Free();
     FREE_AND_SET_NULL(gStorage);

@@ -77,9 +77,15 @@ static char sConfigPath[1024] = "pokeemerald.cfg";
 static u8 sBorderBackground;
 static bool sHasBorderBackgroundConfig;
 static u8 sBackgroundOrderVersion;
-// Dual-screen defaults: black background, touch controls hidden, battle
-// menus on the bottom screen, fast-forward leaves the music at normal tempo.
-static u8 sPlatformSettings[PLATFORM_SETTING_COUNT] = {0, 4, 0, 1, 1, 10, 1, 0, 0, 0, 0, 0, 0, 0};
+// Dual-screen defaults: widescreen off, black background, touch controls
+// hidden, battle menus on the bottom screen, and normal-tempo fast-forward
+// audio. ReadConfigFile overrides these defaults with the last values stored
+// on this device.
+static u8 sPlatformSettings[PLATFORM_SETTING_COUNT] = {
+    0, 4, 0, 1, 1, 10, 1,
+    0, // PLATFORM_SETTING_WIDESCREEN: OFF
+    0, 0, 0, 0, 0, 0
+};
 // The fast-forward speed as chosen in the SET tab, which is what belongs in the
 // config file. The R2 hotkey overrides the live setting without touching this,
 // so that StoreConfigFile - which writes every setting whenever any one of them
@@ -528,10 +534,10 @@ int main(int argc, char **argv)
                         }
 #else
                         {
-                            // Widescreen now widens what the PPU renders rather
-                            // than stretching a 240px frame, so the logical size
-                            // simply follows the render width and SDL letterboxes
-                            // the remainder -- pixels stay square either way.
+                            // Widescreen uses a 288x160 logical target. The copy
+                            // below scales the complete 240x160 GBA image into
+                            // that target instead of exposing or duplicating
+                            // columns outside the game's original viewport.
                             // This still has to be re-applied when the surface
                             // size changes: on a cold start the GL surface can
                             // be at its initial size on the first frame, which
@@ -550,17 +556,16 @@ int main(int argc, char **argv)
                               || outputHeight != sAppliedOutputHeight))
                             {
                                 SDL_RenderSetLogicalSize(sdlRenderer, gRenderWidth, DISPLAY_HEIGHT);
-                                // Integer scaling would round 288x160 down to 6x
-                                // on a 1080p panel and hand the bars straight
-                                // back, so it only applies to the narrow frame.
-                                SDL_RenderSetIntegerScale(sdlRenderer,
-                                        gRenderMargin == 0 ? SDL_TRUE : SDL_FALSE);
+                                // Let SDL fit the selected aspect ratio to the
+                                // panel. Wide mode fills its width; narrow mode
+                                // fills its height and leaves black side bars.
+                                SDL_RenderSetIntegerScale(sdlRenderer, SDL_FALSE);
                                 sAppliedWidth = gRenderWidth;
                                 sAppliedOutputWidth = outputWidth;
                                 sAppliedOutputHeight = outputHeight;
                             }
                         }
-                        SDL_Rect frameSrc = {0, 0, gRenderWidth, DISPLAY_HEIGHT};
+                        SDL_Rect frameSrc = {gRenderMargin, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT};
                         if (sdlRenderer) SDL_RenderCopy(sdlRenderer, sdlTexture, &frameSrc, NULL);
 #endif
                     }
@@ -789,6 +794,21 @@ static void ReadSaveFile(const char *path)
     }
 }
 
+static bool32 BuildStorageFilePath(char *path, size_t capacity, const char *fallback, const char *filename)
+{
+    int length;
+
+#ifdef __ANDROID__
+    const char *extPath = SDL_AndroidGetExternalStoragePath();
+    if (extPath != NULL && (SDL_AndroidGetExternalStorageState() & SDL_ANDROID_EXTERNAL_STORAGE_WRITE))
+        length = SDL_snprintf(path, capacity, "%s/%s", extPath, filename);
+    else
+#endif
+        length = snprintf(path, capacity, "%s", fallback);
+
+    return length >= 0 && length < (int)capacity;
+}
+
 static void ReadConfigFile(void)
 {
     FILE *configFile = fopen(sConfigPath, "r");
@@ -844,7 +864,15 @@ static void ReadConfigFile(void)
 
 static void StoreConfigFile(void)
 {
-    FILE *configFile = fopen(sConfigPath, "w");
+    char configPath[sizeof(sConfigPath)];
+    FILE *configFile;
+
+    if (!BuildStorageFilePath(configPath, sizeof(configPath), sConfigPath, "pokefirered.cfg"))
+    {
+        SDL_Log("Unable to build settings path");
+        return;
+    }
+    configFile = fopen(configPath, "w");
 
     if (configFile == NULL)
         return;
@@ -867,36 +895,26 @@ static void StoreConfigFile(void)
     fclose(configFile);
 }
 
-// Widescreen: stretch to the surface. Off: 240x160 at integer scale.
-// Integer scale must be set before the 240x160 logical size — the other
-// order leaves a 1620x1080 fit-to-height viewport that Android's
-// window-event watcher can freeze into GL. That is the cold-start crop:
-// widescreen content drawn into a leftover 3:2 window.
+// Widescreen stretches the complete GBA frame across the panel. Narrow mode
+// preserves the original 3:2 aspect ratio and SDL fills the unused sides with
+// the renderer's black clear color.
 static void ApplyDisplayMode(void)
 {
     if (sdlRenderer == NULL)
         return;
 #ifdef __ANDROID__
-    // Follows the width the PPU renders, exactly as the draw loop does.
-    //
-    // This used to stretch a 240px frame over the whole surface for
-    // widescreen and pin 240x160 otherwise, which is the model widescreen
-    // had before the PPU learned to render wider. Left on that model it
-    // silently undid the new one: this runs immediately before every
-    // present, so whatever the draw loop had set was overwritten a moment
-    // later and widescreen came out as a stretch rather than more picture.
+    // Widescreen uses the wider logical target while the draw loop scales the
+    // original 240px GBA viewport across it. Narrow mode keeps the native
+    // 240x160 geometry.
     SDL_RenderSetLogicalSize(sdlRenderer, gRenderWidth, DISPLAY_HEIGHT);
-    // Integer scaling would round 288x160 down on a 1080p panel and hand the
-    // letterbox straight back, so it only applies to the narrow frame.
-    SDL_RenderSetIntegerScale(sdlRenderer, gRenderMargin == 0 ? SDL_TRUE : SDL_FALSE);
+    SDL_RenderSetIntegerScale(sdlRenderer, SDL_FALSE);
 #endif
 }
 
 static void ApplyPlatformSettings(void)
 {
-    // Widescreen widens the frame the software PPU renders. Everything the
-    // game itself computes stays in the GBA's 240px space; the margins are
-    // filled by revealing BG columns the game already scrolls past.
+    // Keep the wide texture/logical geometry for widescreen output. Android
+    // displays its centered 240px GBA viewport across that whole target.
     gRenderMargin = sPlatformSettings[PLATFORM_SETTING_WIDESCREEN] ? WIDESCREEN_MARGIN : 0;
     gRenderWidth = DISPLAY_WIDTH + 2 * gRenderMargin;
 
@@ -918,18 +936,30 @@ static void ApplyPlatformSettings(void)
 
 bool32 Platform_CommitSaveFile(void)
 {
+    char savePath[sizeof(sSavePath)];
     char tempPath[sizeof(sSavePath) + 5];
     FILE *pending;
     bool32 written;
 
+    // The Android external-storage path is owned by SDL and remains the
+    // source of truth. Rebuild the filename for every commit instead of
+    // trusting the long-lived writable buffer: if unrelated game state ever
+    // damages its suffix, rename() otherwise tries to replace the files
+    // directory itself and reports EISDIR.
+    if (!BuildStorageFilePath(savePath, sizeof(savePath), sSavePath, "pokefirered.sav"))
+    {
+        SDL_Log("Unable to build save path");
+        return FALSE;
+    }
+
     // Keep the last completed save intact until the entire new flash image
     // has reached storage. In particular, never truncate the live .sav file.
-    if (snprintf(tempPath, sizeof(tempPath), "%s.tmp", sSavePath) >= (int)sizeof(tempPath))
+    if (snprintf(tempPath, sizeof(tempPath), "%s.tmp", savePath) >= (int)sizeof(tempPath))
         return FALSE;
     pending = fopen(tempPath, "wb");
     if (pending == NULL)
     {
-        SDL_Log("Unable to create pending save: %s", strerror(errno));
+        SDL_Log("Unable to create pending save %s: %s", tempPath, strerror(errno));
         return FALSE;
     }
 
@@ -946,24 +976,24 @@ bool32 Platform_CommitSaveFile(void)
         written = FALSE;
     if (!written)
     {
-        SDL_Log("Unable to flush save file: %s", strerror(errno));
+        SDL_Log("Unable to flush pending save %s: %s", tempPath, strerror(errno));
         remove(tempPath);
         return FALSE;
     }
 
     CloseSaveFile();
 #ifdef _WIN32
-    written = MoveFileExA(tempPath, sSavePath, MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH) != 0;
+    written = MoveFileExA(tempPath, savePath, MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH) != 0;
 #else
-    written = rename(tempPath, sSavePath) == 0;
+    written = rename(tempPath, savePath) == 0;
 #endif
     if (!written)
     {
-        SDL_Log("Unable to replace save file: %s", strerror(errno));
+        SDL_Log("Unable to replace pending save %s with %s: %s", tempPath, savePath, strerror(errno));
         remove(tempPath);
         return FALSE;
     }
-    SDL_Log("Saved %u bytes to %s", (unsigned)sizeof(FLASH_BASE), sSavePath);
+    SDL_Log("Saved %u bytes to %s", (unsigned)sizeof(FLASH_BASE), savePath);
     return TRUE;
 }
 
@@ -1047,6 +1077,26 @@ u8 Platform_GetBorderBackgroundCount(void)
     return sBorderBackgroundCount + 1;
 }
 
+void Platform_ExitApplication(void)
+{
+    SDL_Event event;
+
+#ifdef __ANDROID__
+    // Ask the activity to remove its task and terminate the cached Android
+    // process after SDL has completed its normal shutdown. The native game
+    // cannot be started a second time in the same process.
+    SDL_AndroidSendMessage(0x8000, 0);
+#endif
+
+    // Feed the request through the same path Android/system window shutdowns
+    // already use. Returning from SDL_main lets SDLActivity clean up before
+    // the activity terminates the process.
+    SDL_zero(event);
+    event.type = SDL_QUIT;
+    if (SDL_PushEvent(&event) < 1)
+        isRunning = false;
+}
+
 u8 Platform_GetBorderBackground(void)
 {
     if (sHasBorderBackgroundConfig)
@@ -1080,7 +1130,7 @@ void Platform_SetSetting(enum PlatformSetting setting, u8 value)
     if (setting == PLATFORM_SETTING_VSYNC && sdlRenderer != NULL)
         SDL_RenderSetVSync(sdlRenderer, value);
     else if (setting == PLATFORM_SETTING_WIDESCREEN)
-        ApplyDisplayMode();
+        ApplyPlatformSettings();
 #if defined(NATIVE_LINUX) || defined(_WIN32)
     else if (setting == PLATFORM_SETTING_FULLSCREEN)
     {

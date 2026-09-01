@@ -35,6 +35,7 @@ void Platform_QueueAudio(float *audioBuffer, s32 samplesPerFrame);
 // TRUE on the game frames that the sound engine has to sit out so that music
 // keeps playing at its normal tempo while the game is fast-forwarded.
 bool32 Platform_SkipAudioFrame(void);
+void Platform_ExitApplication(void);
 u16 Platform_GetKeyInput(void);
 u8 Platform_GetBorderBackgroundCount(void);
 u8 Platform_GetBorderBackground(void);

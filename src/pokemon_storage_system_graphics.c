@@ -929,7 +929,11 @@ bool8 ResetReleaseMonSpritePtr(void)
 
 void SetMovingMonPriority(u8 priority)
 {
-    gStorage->movingMonSprite->oam.priority = priority;
+    // The original GBA code can harmlessly write through address 0 while the
+    // storage cursor is moving without a held Pokemon. Native platforms turn
+    // that same write into a null-pointer crash.
+    if (gStorage->movingMonSprite != NULL)
+        gStorage->movingMonSprite->oam.priority = priority;
 }
 
 static void SpriteCB_HeldMon(struct Sprite *sprite)

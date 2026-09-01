@@ -2904,7 +2904,6 @@ public final class DualScreenView extends View {
     }
 
     private final SettingRow[] settingRows = {
-        new SettingRow("BACKGROUND", DualScreenBridge.SETTING_BACKGROUND_MODE, 1, "ART", "BLACK", "WHITE"),
         new SettingRow("WIDESCREEN", DualScreenBridge.SETTING_WIDESCREEN, 1, "OFF", "ON"),
         new SettingRow("TOUCH CONTROLS", DualScreenBridge.SETTING_TOUCH_CONTROLS, 1, "OFF", "ON"),
         new SettingRow("BATTLE MENUS", DualScreenBridge.SETTING_BATTLE_UI_TOP, 1, "BOTTOM", "TOP"),

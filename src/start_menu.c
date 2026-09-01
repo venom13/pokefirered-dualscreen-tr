@@ -37,6 +37,7 @@
 #include "constants/songs.h"
 #include "constants/field_weather.h"
 #include "sloopsvc.h"
+#include "platform.h"
 
 enum StartMenuOption
 {
@@ -540,6 +541,7 @@ static bool8 StartMenuExitCallback(void)
     DestroySafariZoneStatsWindow();
     DestroyHelpMessageWindow_();
     CloseStartMenu();
+    Platform_ExitApplication();
     return TRUE;
 }
 

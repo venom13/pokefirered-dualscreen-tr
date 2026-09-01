@@ -902,7 +902,7 @@ const u8 gStartMenuDesc_Bag[] = _("Equipped with pockets for storing items\nyou 
 const u8 gStartMenuDesc_Player[] = _("Check your money and other game data.");
 const u8 gStartMenuDesc_Save[] = _("Save your game with a complete record\nof your progress to take a break.");
 const u8 gStartMenuDesc_Option[] = _("Adjust various game settings such as text\nspeed, game rules, etc.");
-const u8 gStartMenuDesc_Exit[] = _("Close this MENU window.");
+const u8 gStartMenuDesc_Exit[] = _("Close the game.");
 const u8 gStartMenuDesc_Retire[] = _("Retire from the SAFARI GAME and return to\nthe registration counter.");
 
 #include "data/text/quest_log.h"
