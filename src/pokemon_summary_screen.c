@@ -2976,6 +2976,11 @@ static void CommitStaticWindowTilemaps(void)
 
 static void Task_DestroyResourcesOnExit(u8 taskId)
 {
+    // VBlank can run before the restored main callback initializes its state.
+    // Stop the Summary callback while sMonSummaryScreen is still valid so it
+    // cannot read page-flip state after the allocation has been released.
+    SetVBlankCallback(NULL);
+
     PokeSum_DestroySprites();
     FreeAllSpritePalettes();
 
