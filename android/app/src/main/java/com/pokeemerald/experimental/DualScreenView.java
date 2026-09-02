@@ -2011,7 +2011,7 @@ public final class DualScreenView extends View {
                     // Effectiveness corner markers: one per live foe in
                     // doubles (right foe outermost), one in singles. Absent
                     // foes and normal effectiveness draw nothing.
-                    float mr = cellH * 0.05f;
+                    float mr = cellH * 0.04f;
                     float mx = cell.right - inset * 0.6f - mr * 2.0f;
                     float my = cell.top + inset * 0.6f + mr * 1.6f;
                     if (!state.battleDouble) {
