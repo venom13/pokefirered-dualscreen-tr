@@ -2064,7 +2064,8 @@ public final class DualScreenView extends View {
         f.draw(canvas, mon.nature + "  " + mon.ability, textLeft,
                 header.top + inset + GbaFont.LINE_HEIGHT * scale * 2.4f,
                 scale * 0.8f, PARTY_TEXT, SUMMARY_BLUE_DARK);
-        float badgeH = header.height() * 0.13f;
+        // Give the detail header's type icons 20% more height than before.
+        float badgeH = header.height() * 0.156f;
         float genderW = mon.gender == 0 || mon.gender == 1
                 ? 12 + f.measure(mon.gender == 0 ? "♂" : "♀", scale * 1.15f) : 0;
         drawMonTypeBadges(canvas, mon, new RectF(textLeft + nameW + genderW + inset,
