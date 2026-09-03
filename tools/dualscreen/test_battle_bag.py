@@ -105,6 +105,7 @@ void PlaySE(int id) { sound = id; }
 u32 DualScreen_BottomScreenLive(void) { return live; }
 u32 DualScreen_BattleUiActive(void) { return uiActive; }
 void ClearNavQueue(void) {}
+void DualScreen_PreserveBattlePrompt(u32 battler) {}
 void OpenBagAndChooseItem(void) {}
 void BeginNormalPaletteFade(int a, int b, int c, int d, int e) { fade++; }
 void BtlController_EmitOneReturnValue(int channel, int item) { assert(channel == 1); emitted = item; }
@@ -176,10 +177,16 @@ int main(void) {
     assert(DualScreen_UseBattleItem(ITEM_POKE_FLUTE,-1,-1) == DS_BMENU_RESULT_USED && count == 3);
     reset(); effects[4] = ITEM4_HEAL_PP_ONE;
     assert(DualScreen_BattleItemCategory(ITEM_ETHER) == 6);
+    assert(DualScreen_BattleItemGroup(ITEM_ETHER) == 1);
     assert(DualScreen_UseBattleItem(ITEM_ETHER,2,-1) == DS_BMENU_RESULT_BAD_TARGET && count == 3);
     PlayerHandleChooseItem(); submit(ITEM_ETHER, 2 | (4 << 8)); tick();
     assert(done == 1 && count == 2 && effectTarget == 2 && effectMove == 3); orderPreserved();
     reset(); assert(DualScreen_BattleItemCategory(ITEM_ELIXIR) == 5);
+    assert(DualScreen_BattleItemGroup(ITEM_POTION) == 1);
+    assert(DualScreen_BattleItemGroup(ITEM_POKE_BALL) == 2);
+    assert(DualScreen_BattleItemGroup(ITEM_POKE_FLUTE) == 3);
+    assert(DualScreen_BattleItemGroup(ITEM_X_ATTACK) == 4);
+    assert(DualScreen_BattleItemGroup(ITEM_POKE_DOLL) == 4);
     assert(DualScreen_UseBattleItem(ITEM_ELIXIR,1,-1) == DS_BMENU_RESULT_USED && !boxes && effectMove == 0);
     reset(); enigmaType = ITEM_EFFECT_X_ITEM; assert(DualScreen_BattleItemCategory(ITEM_ENIGMA_BERRY) == 3);
     enigmaType = ITEM_EFFECT_HEAL_PP; save.enigmaBerry.itemEffect[4] = ITEM4_HEAL_PP_ONE;
@@ -200,8 +207,10 @@ class PanelTest {
     static class State { boolean inBattle = true; int battleSub, battleSubCase, battleSubSeq, battleSubResult; }
     State state = new State();
     int battlePanel, lastSubSeq, lastBattlePanel, battlePartyFocus;
+    boolean battleBagItemsOpen, battleReturningToCommands;
     long battleArmMs, battleCloseMs, battleNoticeMs;
     String battleNotice = "";
+    void resetBattleBag() {}
 """ + function(source, 'battleSendOutWait') + function(source, 'syncBattlePanel') + r"""
     public static void main(String[] args) {
         PanelTest p = new PanelTest();
@@ -236,7 +245,8 @@ class PanelTest {
 def main():
     code = PREFIX
     item = (ROOT / 'src/item_use.c').read_text()
-    for name in ('DualScreen_BattleItemCategory', 'DualScreen_UseBattleItem'):
+    for name in ('DualScreen_BattleItemCategory', 'DualScreen_BattleItemGroup',
+                 'DualScreen_UseBattleItem'):
         code += function(item, name) + '\n'
     bridge = (ROOT / 'src/platform/dualscreen_bridge.c').read_text()
     for name in ('DualScreen_TakeBattleTakeover', 'DualScreen_SetBattleMenuOpen',

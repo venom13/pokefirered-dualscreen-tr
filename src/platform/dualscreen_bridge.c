@@ -1494,6 +1494,12 @@ JNIEXPORT jint JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_native
          ? DualScreen_BattleItemCategory(itemId) : 0;
 }
 
+JNIEXPORT jint JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeGetItemBattleGroup(JNIEnv *env, jclass clazz, jint itemId)
+{
+    return itemId > ITEM_NONE && itemId < ITEMS_COUNT
+         ? DualScreen_BattleItemGroup(itemId) : 0;
+}
+
 // One queued button press for an open takeover panel, or -1 when the queue is
 // empty. Java drains this in a loop; see the NAV_* codes above.
 JNIEXPORT jint JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeDrainNavKey(JNIEnv *env, jclass clazz)

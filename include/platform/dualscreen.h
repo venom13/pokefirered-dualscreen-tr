@@ -106,6 +106,9 @@ u32 DualScreen_UseBattleItem(u16 itemId, s32 targetPartyId, s32 moveSlot);
 // Matches Java's battle bag: 0 unavailable, 1 ball, 2 medicine, 3 X item,
 // 4 escape, 5 all-move PP recovery, 6 single-move PP recovery, 7 Poke Flute.
 u32 DualScreen_BattleItemCategory(u16 itemId);
+// Presentation group for the battle bag: 1 HP/PP recovery, 2 Poke Balls,
+// 3 status recovery, 4 battle/escape items; 0 means unavailable.
+u32 DualScreen_BattleItemGroup(u16 itemId);
 
 // Implemented in party_menu.c: the battle-order bookkeeping that
 // TrySwitchInPokemon performs for a switch choice, for a mon given as a

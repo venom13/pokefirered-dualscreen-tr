@@ -168,11 +168,29 @@ public final class DualScreenView extends View {
     private int lastSubSeq;
     private String battleNotice = "";
     private long battleNoticeMs;
-    private int battleBagPocket; // index into battleVisiblePockets()
+    private static final String[][] BATTLE_BAG_GROUP_LABELS = {
+        {"HP / PP", "RESTORE"}, {"POKé BALLS"}, {"STATUS", "HEALERS"}, {"BATTLE", "ITEMS"}
+    };
+    private static final int[] BATTLE_BAG_GROUP_FILL = {
+        0xFFE87848, 0xFFE8A83C, 0xFFC85868, 0xFF4E80C8
+    };
+    private static final int[] BATTLE_BAG_GROUP_LIGHT = {
+        0xFFF8A078, 0xFFF8D06C, 0xFFF08890, 0xFF80ACE8
+    };
+    private static final int[] BATTLE_BAG_GROUP_DARK = {
+        0xFFA83C28, 0xFFA87020, 0xFF883440, 0xFF2C5890
+    };
+    private final RectF[] battleBagGroupCards = {
+        new RectF(), new RectF(), new RectF(), new RectF()
+    };
+    private int battleBagGroup;
+    private boolean battleBagItemsOpen;
     private float battleBagScroll;
     private float battleBagTouchDownY;
     private float battleBagScrollStart;
     private boolean battleBagDragging;
+    private boolean battleBagIgnoreRelease;
+    private long battleBagIgnoreConfirmUntil;
     private int battleBagSelected = -1;
     private float battleBagListTop;
     private float battleBagListBottom;
@@ -183,6 +201,7 @@ public final class DualScreenView extends View {
     private int battlePartyFocus = -1; // staircase slot under the button cursor
     private int lastBattlePanel;       // to reset that focus when the panel changes
     private final SparseArray<Integer> battleCategoryCache = new SparseArray<>();
+    private final SparseArray<Integer> battleGroupCache = new SparseArray<>();
 
     // Directions and actions the physical buttons can send down here.
     public static final int NAV_UP = 0;
@@ -253,7 +272,16 @@ public final class DualScreenView extends View {
             break;
         case NAV_CONFIRM:
             if (battlePanel == 1) {
-                if (!battleUseButton.isEmpty()) {
+                // A touch on the command-screen BAG button also generates
+                // the native A press that opens the engine wait. Do not let
+                // that same press immediately choose the first category.
+                if (!battleBagItemsOpen
+                        && System.currentTimeMillis() < battleBagIgnoreConfirmUntil) {
+                    break;
+                }
+                if (!battleBagItemsOpen) {
+                    openBattleBagGroup(battleBagGroup);
+                } else if (!battleUseButton.isEmpty()) {
                     handleBattleBagTouch(battleUseButton.centerX(), battleUseButton.centerY());
                 }
             } else if (battlePartyFocus >= 0 && battlePartyFocus < state.party.size()) {
@@ -263,7 +291,11 @@ public final class DualScreenView extends View {
             break;
         case NAV_CANCEL:
             if (battlePanel == 1) {
-                cancelBattlePanel();
+                if (battleBagItemsOpen) {
+                    closeBattleBagItems();
+                } else {
+                    cancelBattlePanel();
+                }
             } else if (!battleCancel.isEmpty()) {
                 // The party panel's own back handling: panel 3 returns to the
                 // bag, panel 2 cancels. A forced send-out leaves this rect
@@ -277,26 +309,51 @@ public final class DualScreenView extends View {
         invalidate();
     }
 
-    /** Bag panel: up/down walk the item list, left/right change pocket. */
+    /** Bag panel: a 2x2 category grid, followed by a 2-column item grid. */
     private void navBattleBag(int action) {
-        if (action == NAV_LEFT || action == NAV_RIGHT) {
-            int count = battleVisiblePockets().length;
-            if (count > 0) {
-                battleBagPocket = (battleBagPocket + (action == NAV_RIGHT ? 1 : count - 1)) % count;
-                battleBagScroll = 0;
-                battleBagSelected = -1;
+        if (!battleBagItemsOpen) {
+            if (!battleBagGroupHasItems(battleBagGroup)) {
+                battleBagGroup = firstBattleBagGroup();
+                return;
             }
+            RectF from = battleBagGroupCards[battleBagGroup];
+            int best = -1;
+            float bestScore = Float.MAX_VALUE;
+            for (int group = 0; group < battleBagGroupCards.length; group++) {
+                if (group == battleBagGroup || !battleBagGroupHasItems(group)) continue;
+                RectF to = battleBagGroupCards[group];
+                float dx = to.centerX() - from.centerX();
+                float dy = to.centerY() - from.centerY();
+                boolean ahead = action == NAV_UP ? dy < -1 : action == NAV_DOWN ? dy > 1
+                        : action == NAV_LEFT ? dx < -1 : dx > 1;
+                if (!ahead) continue;
+                boolean vertical = action == NAV_UP || action == NAV_DOWN;
+                float score = Math.abs(vertical ? dy : dx)
+                        + Math.abs(vertical ? dx : dy) * 2f;
+                if (score < bestScore) {
+                    bestScore = score;
+                    best = group;
+                }
+            }
+            if (best >= 0) battleBagGroup = best;
             return;
         }
         java.util.List<DualScreenState.BagItem> items = battleBagItems();
         if (items.isEmpty()) {
             return;
         }
-        int next = battleBagSelected < 0 ? 0
-                : battleBagSelected + (action == NAV_DOWN ? 1 : -1);
+        int delta = action == NAV_LEFT ? -1 : action == NAV_RIGHT ? 1
+                : action == NAV_UP ? -2 : 2;
+        int next = battleBagSelected < 0 ? 0 : battleBagSelected + delta;
+        // Left/right stay in the current row instead of wrapping around it.
+        if (battleBagSelected >= 0 && (action == NAV_LEFT || action == NAV_RIGHT)
+                && next / 2 != battleBagSelected / 2) {
+            next = battleBagSelected;
+        }
         battleBagSelected = Math.max(0, Math.min(items.size() - 1, next));
-        // Keep the selection on screen; the list is a uniform-row scroller.
-        float rowTop = battleBagSelected * battleBagRowH;
+        // Keep the selected grid row on screen while touch remains free to
+        // drag the same content continuously.
+        float rowTop = (battleBagSelected / 2) * battleBagRowH;
         float viewH = battleBagListBottom - battleBagListTop;
         if (rowTop < battleBagScroll) {
             battleBagScroll = rowTop;
@@ -364,6 +421,7 @@ public final class DualScreenView extends View {
     private void syncBattlePanel() {
         if (!state.inBattle) {
             battlePanel = 0;
+            battleBagItemsOpen = false;
             battleReturningToCommands = false;
             return;
         }
@@ -397,7 +455,12 @@ public final class DualScreenView extends View {
             // battleCloseMs stamp of the first. freshWait is what lets a
             // button-chosen menu reopen right after a cancel instead of
             // waiting out the stale-snapshot guard.
-            battlePanel = state.battleSub == 1 ? 1 : 2;
+            if (state.battleSub == 1) {
+                battlePanel = 1;
+                resetBattleBag();
+            } else {
+                battlePanel = 2;
+            }
         } else if (battleSendOutWait() && (battlePanel == 1 || battlePanel == 3 || battlePanel == 4)) {
             // A stale bag panel must never sit on a send-out wait: with
             // cancel disabled there would be no way out of it.
@@ -696,7 +759,8 @@ public final class DualScreenView extends View {
             }
             return true;
         }
-        // Battle bag panel: drag to scroll, tap to select/use.
+        // Battle bag item screen: drag the grid itself to scroll. The category
+        // screen is a plain 2x2 tap target and never consumes a swipe as one.
         if (state.inBattle && battlePanel == 1) {
             switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
@@ -705,7 +769,8 @@ public final class DualScreenView extends View {
                 battleBagDragging = false;
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (battleBagDragging || Math.abs(event.getY() - battleBagTouchDownY) > 24) {
+                if (battleBagItemsOpen && (battleBagDragging
+                        || Math.abs(event.getY() - battleBagTouchDownY) > 24)) {
                     battleBagDragging = true;
                     battleBagScroll = Math.max(0, Math.min(battleBagMaxScroll(),
                             battleBagScrollStart + (battleBagTouchDownY - event.getY())));
@@ -713,9 +778,16 @@ public final class DualScreenView extends View {
                 }
                 return true;
             case MotionEvent.ACTION_UP:
+                if (battleBagIgnoreRelease) {
+                    battleBagIgnoreRelease = false;
+                    return true;
+                }
                 if (!battleBagDragging) {
                     handleBattleBagTouch(event.getX(), event.getY());
                 }
+                return true;
+            case MotionEvent.ACTION_CANCEL:
+                battleBagIgnoreRelease = false;
                 return true;
             }
             return true;
@@ -955,9 +1027,9 @@ public final class DualScreenView extends View {
                     // BAG: arm the takeover, then walk the cursor as usual.
                     // The battle bag opens down here instead of the GBA bag.
                     battlePanel = 1;
-                    battleBagPocket = 0;
-                    battleBagSelected = -1;
-                    battleBagScroll = 0;
+                    resetBattleBag();
+                    battleBagIgnoreRelease = true;
+                    battleBagIgnoreConfirmUntil = now + 500;
                     battleArmMs = now;
                     // A new open supersedes the recent CANCEL. Otherwise the
                     // stale close timestamp briefly hides this panel before
@@ -981,11 +1053,6 @@ public final class DualScreenView extends View {
     // Battle bag/party takeover panels
     // ------------------------------------------------------------------
 
-    /** Game bag pockets usable in battle, in tab order (balls only when legal). */
-    private int[] battleVisiblePockets() {
-        return state.battleCanCatch ? new int[] {0, 1, 3, 4} : new int[] {0, 3, 4};
-    }
-
     private int itemBattleCategory(int itemId) {
         Integer cached = battleCategoryCache.get(itemId);
         if (cached == null) {
@@ -995,31 +1062,82 @@ public final class DualScreenView extends View {
         return cached;
     }
 
-    /** The current battle pocket's items, filtered down to battle-usable ones. */
-    private java.util.List<DualScreenState.BagItem> battleBagItems() {
+    private int itemBattleGroup(int itemId) {
+        Integer cached = battleGroupCache.get(itemId);
+        if (cached == null) {
+            cached = DualScreenBridge.nativeGetItemBattleGroup(itemId);
+            battleGroupCache.put(itemId, cached);
+        }
+        return cached;
+    }
+
+    /** Items for one effect-based category, gathered across every game pocket. */
+    private java.util.List<DualScreenState.BagItem> battleBagItems(int group) {
         java.util.List<DualScreenState.BagItem> out = new java.util.ArrayList<>();
-        int[] pockets = battleVisiblePockets();
-        int pocket = pockets[Math.min(battleBagPocket, pockets.length - 1)];
-        if (pocket < state.bag.size()) {
-            for (DualScreenState.BagItem item : state.bag.get(pocket)) {
+        for (java.util.List<DualScreenState.BagItem> pocket : state.bag) {
+            for (DualScreenState.BagItem item : pocket) {
                 int category = itemBattleCategory(item.id);
                 if (category <= 0) continue;
+                if (category == 1 && !state.battleCanCatch) continue;
                 if (category == 4 && state.battleKind == 1) continue; // escape items: wild only
-                out.add(item);
+                if (itemBattleGroup(item.id) == group + 1) {
+                    out.add(item);
+                }
             }
         }
         return out;
     }
 
-    private float battleBagMaxScroll() {
-        return Math.max(0, battleBagItems().size() * battleBagRowH
-                - (battleBagListBottom - battleBagListTop));
+    private java.util.List<DualScreenState.BagItem> battleBagItems() {
+        return battleBagItems(battleBagGroup);
     }
 
-    private RectF battlePocketRect(int index, int count) {
-        float w = getWidth() / (float) count;
-        float h = getHeight() * 0.095f;
-        return new RectF(index * w, 0, (index + 1) * w, h);
+    private boolean battleBagGroupHasItems(int group) {
+        return group >= 0 && group < BATTLE_BAG_GROUP_LABELS.length
+                && !battleBagItems(group).isEmpty();
+    }
+
+    private int firstBattleBagGroup() {
+        for (int group = 0; group < BATTLE_BAG_GROUP_LABELS.length; group++) {
+            if (battleBagGroupHasItems(group)) return group;
+        }
+        return 0;
+    }
+
+    private void resetBattleBag() {
+        battleBagItemsOpen = false;
+        battleBagGroup = firstBattleBagGroup();
+        battleBagSelected = -1;
+        battleBagScroll = 0;
+        battleBagDragging = false;
+        battleBagIgnoreRelease = false;
+        battleBagIgnoreConfirmUntil = 0;
+        battleUseButton.setEmpty();
+    }
+
+    private void openBattleBagGroup(int group) {
+        if (!battleBagGroupHasItems(group)) return;
+        battleBagGroup = group;
+        battleBagItemsOpen = true;
+        battleBagSelected = 0;
+        battleBagScroll = 0;
+        battleBagDragging = false;
+        invalidate();
+    }
+
+    private void closeBattleBagItems() {
+        battleBagItemsOpen = false;
+        battleBagSelected = -1;
+        battleBagScroll = 0;
+        battleBagDragging = false;
+        battleUseButton.setEmpty();
+        invalidate();
+    }
+
+    private float battleBagMaxScroll() {
+        int rows = (battleBagItems().size() + 1) / 2;
+        return Math.max(0, rows * battleBagRowH
+                - (battleBagListBottom - battleBagListTop));
     }
 
     /**
@@ -1051,20 +1169,21 @@ public final class DualScreenView extends View {
     }
 
     private void handleBattleBagTouch(float x, float y) {
-        int[] pockets = battleVisiblePockets();
-        for (int i = 0; i < pockets.length; i++) {
-            if (battlePocketRect(i, pockets.length).contains(x, y)) {
-                if (battleBagPocket != i) {
-                    battleBagPocket = i;
-                    battleBagScroll = 0;
-                    battleBagSelected = -1;
-                }
-                invalidate();
-                return;
-            }
-        }
         if (battleCancel.contains(x, y)) {
-            cancelBattlePanel();
+            if (battleBagItemsOpen) {
+                closeBattleBagItems();
+            } else {
+                cancelBattlePanel();
+            }
+            return;
+        }
+        if (!battleBagItemsOpen) {
+            for (int group = 0; group < battleBagGroupCards.length; group++) {
+                if (battleBagGroupCards[group].contains(x, y)) {
+                    openBattleBagGroup(group);
+                    return;
+                }
+            }
             return;
         }
         java.util.List<DualScreenState.BagItem> items = battleBagItems();
@@ -1086,7 +1205,18 @@ public final class DualScreenView extends View {
             return;
         }
         if (y >= battleBagListTop && y < battleBagListBottom && battleBagRowH > 0) {
-            int index = (int) ((y - battleBagListTop + battleBagScroll) / battleBagRowH);
+            float pad = getWidth() * 0.02f;
+            float columnWidth = (getWidth() - pad * 3) / 2f;
+            int column;
+            if (x >= pad && x <= pad + columnWidth) {
+                column = 0;
+            } else if (x >= pad * 2 + columnWidth && x <= getWidth() - pad) {
+                column = 1;
+            } else {
+                return; // finger landed in the gap between cards
+            }
+            int row = (int) ((y - battleBagListTop + battleBagScroll) / battleBagRowH);
+            int index = row * 2 + column;
             if (index >= 0 && index < items.size()) {
                 battleBagSelected = index;
                 invalidate();
@@ -1118,6 +1248,7 @@ public final class DualScreenView extends View {
         if (battleCancel.contains(x, y)) {
             if (battlePanel == 3) {
                 battlePanel = 1; // back to the bag; the wait state stays open
+                battleBagItemsOpen = true;
                 invalidate();
             } else {
                 cancelBattlePanel();
@@ -2387,7 +2518,7 @@ public final class DualScreenView extends View {
         postInvalidateDelayed(2600); // let the notice clear itself
     }
 
-    /** The battle bag: pocket tabs, usable-item list, description + USE, CANCEL. */
+    /** Move selection for a PP-restoring item after its party target is chosen. */
     private void drawBattlePpMoves(Canvas canvas) {
         GbaFont f = font();
         if (f == null || pendingItemParty >= state.party.size()) return;
@@ -2420,128 +2551,313 @@ public final class DualScreenView extends View {
 
     private void drawBattleBag(Canvas canvas) {
         GbaFont f = font();
-        if (f == null) {
-            return;
+        if (f == null) return;
+        battleUseButton.setEmpty();
+        for (RectF card : battleBagGroupCards) card.setEmpty();
+        if (battleBagItemsOpen) {
+            drawBattleBagItems(canvas, f);
+        } else {
+            drawBattleBagGroups(canvas, f);
         }
+        drawBattleNotice(canvas, getWidth() / 460f);
+    }
+
+    /** First BAG screen: four large, raised effect-category buttons. */
+    private void drawBattleBagGroups(Canvas canvas, GbaFont f) {
+        float width = getWidth();
         float height = getHeight();
-        float pad = getWidth() * 0.02f;
-        float scale = getWidth() / 460f;
-        int[] pockets = battleVisiblePockets();
-        if (battleBagPocket >= pockets.length) {
-            battleBagPocket = 0;
+        float pad = width * 0.025f;
+        float scale = width / 460f;
+        float headerBottom = height * 0.115f;
+        drawBattleBagTitle(canvas, f, "BATTLE BAG", headerBottom, scale);
+
+        if (!battleBagGroupHasItems(battleBagGroup)) {
+            battleBagGroup = firstBattleBagGroup();
         }
-        int pocket = pockets[battleBagPocket];
-        int accent = POCKET_ACCENTS[pocket];
+        float footerTop = height * 0.875f;
+        float gap = pad;
+        float cellWidth = (width - pad * 2 - gap) / 2f;
+        float cellHeight = (footerTop - headerBottom - pad - gap) / 2f;
+        for (int group = 0; group < battleBagGroupCards.length; group++) {
+            int col = group & 1;
+            int row = group / 2;
+            float left = pad + col * (cellWidth + gap);
+            float top = headerBottom + row * (cellHeight + gap);
+            RectF card = battleBagGroupCards[group];
+            card.set(left, top, left + cellWidth, top + cellHeight);
+            java.util.List<DualScreenState.BagItem> groupItems = battleBagItems(group);
+            boolean enabled = !groupItems.isEmpty();
+            int fill = enabled ? BATTLE_BAG_GROUP_FILL[group] : 0xFF85898D;
+            int light = enabled ? BATTLE_BAG_GROUP_LIGHT[group] : 0xFFA8ADB1;
+            int dark = enabled ? BATTLE_BAG_GROUP_DARK[group] : 0xFF555B61;
+            RectF inner = drawBeveledSurface(canvas, card, fill, light, dark, false);
 
-        for (int i = 0; i < pockets.length; i++) {
-            RectF r = battlePocketRect(i, pockets.length);
-            r.inset(5, 5);
-            drawPocketTab(canvas, r, i == battleBagPocket, POCKET_NAMES[pockets[i]],
-                    scale * 0.85f, POCKET_ACCENTS[pockets[i]], POCKET_ACCENTS_DARK[pockets[i]]);
+            float iconRadius = Math.min(inner.width(), inner.height()) * 0.14f;
+            float iconY = inner.top + inner.height() * 0.34f;
+            drawBattleBagGroupGlyph(canvas, group, inner.centerX(), iconY,
+                    iconRadius, enabled ? TEXT_WHITE : 0xFFD0D2D4);
+
+            String[] lines = BATTLE_BAG_GROUP_LABELS[group];
+            float labelScale = scale * (lines.length == 1 ? 1.25f : 1.10f);
+            float lineHeight = GbaFont.LINE_HEIGHT * labelScale * 1.12f;
+            float textTop = inner.top + inner.height() * 0.56f
+                    - (lines.length - 1) * lineHeight / 2f;
+            for (int line = 0; line < lines.length; line++) {
+                float lineWidth = f.measure(lines[line], labelScale);
+                f.draw(canvas, lines[line], inner.centerX() - lineWidth / 2,
+                        textTop + line * lineHeight, labelScale,
+                        enabled ? TEXT_WHITE : 0xFFE0E2E4, dark);
+            }
+            int itemCount = groupItems.size();
+            String count = enabled ? itemCount + (itemCount == 1 ? " ITEM" : " ITEMS") : "EMPTY";
+            float countScale = scale * 0.72f;
+            f.draw(canvas, count, inner.centerX() - f.measure(count, countScale) / 2,
+                    inner.bottom - inner.height() * 0.13f - GbaFont.LINE_HEIGHT * countScale / 2,
+                    countScale, enabled ? 0xFFFFF2C8 : 0xFFC8CDD0, dark);
+            if (showCursor && group == battleBagGroup) {
+                drawCursorRing(canvas, card, 16);
+            }
         }
+        drawBattleBagFooter(canvas, f, "Choose a category", scale, pad);
+    }
 
-        float cancelH = height * 0.085f;
-        RectF cancel = new RectF(pad, height - cancelH - pad * 0.4f,
-                getWidth() - pad, height - pad * 0.4f);
-        battleCancel.set(cancel);
-        drawBar(canvas, cancel, false, "CANCEL", scale * 0.9f);
+    /** Second BAG screen: a touch-scrollable, two-column grid of item cards. */
+    private void drawBattleBagItems(Canvas canvas, GbaFont f) {
+        float width = getWidth();
+        float height = getHeight();
+        float pad = width * 0.02f;
+        float scale = width / 460f;
+        int group = Math.max(0, Math.min(BATTLE_BAG_GROUP_LABELS.length - 1, battleBagGroup));
+        int accent = BATTLE_BAG_GROUP_FILL[group];
+        int accentLight = BATTLE_BAG_GROUP_LIGHT[group];
+        int accentDark = BATTLE_BAG_GROUP_DARK[group];
+        String title = battleBagGroupTitle(group);
+        float headerBottom = height * 0.105f;
+        drawBattleBagTitle(canvas, f, title, headerBottom, scale);
 
-        float descH = height * 0.24f;
-        RectF descBox = new RectF(pad, cancel.top - pad * 0.5f - descH,
-                getWidth() - pad, cancel.top - pad * 0.5f);
-        battleBagListTop = height * 0.095f + pad * 0.6f;
-        battleBagListBottom = descBox.top - pad * 0.6f;
-        battleBagRowH = height * 0.082f;
+        float footerTop = height * 0.89f;
+        float descHeight = height * 0.19f;
+        RectF descBox = new RectF(pad, footerTop - pad * 0.55f - descHeight,
+                width - pad, footerTop - pad * 0.55f);
+        battleBagListTop = headerBottom + pad * 0.35f;
+        battleBagListBottom = descBox.top - pad * 0.55f;
+        battleBagRowH = height * 0.145f;
 
         java.util.List<DualScreenState.BagItem> items = battleBagItems();
-        if (battleBagSelected >= items.size()) {
-            battleBagSelected = items.size() - 1;
-        }
+        if (battleBagSelected >= items.size()) battleBagSelected = items.size() - 1;
+        if (battleBagSelected < 0 && !items.isEmpty()) battleBagSelected = 0;
         battleBagScroll = Math.max(0, Math.min(battleBagMaxScroll(), battleBagScroll));
 
-        if (items.isEmpty()) {
-            String message = "No usable items";
-            f.draw(canvas, message, (getWidth() - f.measure(message, scale)) / 2,
-                    (battleBagListTop + battleBagListBottom) / 2 - GbaFont.LINE_HEIGHT * scale / 2,
-                    scale, TEXT_WHITE, TEXT_RED_SHADOW);
-        } else {
-            int save = canvas.save();
-            canvas.clipRect(0, battleBagListTop, getWidth(), battleBagListBottom);
-            float iconSize = battleBagRowH * 0.85f;
-            float rowLeft = pad * 1.6f;
-            float rowRight = getWidth() - pad * 1.6f;
-            for (int i = 0; i < items.size(); i++) {
-                float top = battleBagListTop + i * battleBagRowH - battleBagScroll;
-                if (top + battleBagRowH < battleBagListTop || top > battleBagListBottom) {
-                    continue;
-                }
-                DualScreenState.BagItem item = items.get(i);
-                if (i == battleBagSelected) {
-                    drawSelectionBar(canvas, rowLeft, rowRight, top, battleBagRowH, accent);
-                }
-                float iconLeft = rowLeft + battleBagRowH * 0.62f;
-                Bitmap icon = itemIcon(item.id);
-                if (icon != null) {
-                    canvas.drawBitmap(icon, null,
-                            new RectF(iconLeft, top + (battleBagRowH - iconSize) / 2,
-                                      iconLeft + iconSize, top + (battleBagRowH + iconSize) / 2),
-                            pixelPaint);
-                }
-                float textY = top + (battleBagRowH - GbaFont.LINE_HEIGHT * scale) / 2;
-                int textColor = i == battleBagSelected ? TEXT_DARK : TEXT_WHITE;
-                int shadowColor = i == battleBagSelected ? TEXT_SHADOW : TEXT_RED_SHADOW;
-                f.draw(canvas, item.name, iconLeft + iconSize + pad * 0.8f, textY,
-                        scale, textColor, shadowColor);
-                String qty = "x" + item.quantity;
-                float w = f.measure(qty, scale);
-                f.draw(canvas, qty, rowRight - pad * 0.8f - w, textY, scale, textColor, shadowColor);
-            }
-            canvas.restoreToCount(save);
-        }
-
-        // Description box with the USE button, dark like the in-game bag's.
-        drawDescBox(canvas, descBox);
-        float inset = descBox.height() * 0.14f;
-        if (battleBagSelected >= 0 && battleBagSelected < items.size()) {
-            DualScreenState.BagItem sel = items.get(battleBagSelected);
-            float bigIcon = descBox.height() - inset * 2;
-            Bitmap icon = itemIcon(sel.id);
+        float columnWidth = (width - pad * 3) / 2f;
+        int save = canvas.save();
+        canvas.clipRect(0, battleBagListTop, width, battleBagListBottom);
+        for (int index = 0; index < items.size(); index++) {
+            int col = index & 1;
+            int row = index / 2;
+            float left = pad + col * (columnWidth + pad);
+            float top = battleBagListTop + row * battleBagRowH - battleBagScroll;
+            RectF card = new RectF(left, top, left + columnWidth,
+                    top + battleBagRowH - pad * 0.45f);
+            if (card.bottom < battleBagListTop || card.top > battleBagListBottom) continue;
+            boolean selected = index == battleBagSelected;
+            int fill = blendColor(LIST_PANEL, accent, selected ? 0.34f : 0.20f);
+            int light = blendColor(fill, 0xFFFFFFFF, 0.48f);
+            RectF inner = drawBeveledSurface(canvas, card, fill, light, accentDark, false);
+            DualScreenState.BagItem item = items.get(index);
+            float inset = inner.height() * 0.11f;
+            float iconSize = inner.height() * 0.58f;
+            Bitmap icon = itemIcon(item.id);
             if (icon != null) {
-                canvas.drawBitmap(icon, null,
-                        new RectF(descBox.left + inset, descBox.top + inset,
-                                  descBox.left + inset + bigIcon, descBox.bottom - inset), pixelPaint);
+                canvas.drawBitmap(icon, null, new RectF(inner.left + inset,
+                        inner.centerY() - iconSize / 2, inner.left + inset + iconSize,
+                        inner.centerY() + iconSize / 2), pixelPaint);
             }
-            RectF use = new RectF(descBox.right - inset - descBox.height() * 1.15f,
-                    descBox.top + inset, descBox.right - inset, descBox.bottom - inset);
+            float textLeft = inner.left + inset + iconSize + inset * 0.85f;
+            float textRight = inner.right - inset;
+            float nameScale = Math.min(scale * 0.92f,
+                    (textRight - textLeft) / Math.max(1f, f.measure(item.name, 1f)));
+            nameScale = Math.max(scale * 0.63f, nameScale);
+            f.draw(canvas, item.name, textLeft,
+                    inner.top + inner.height() * 0.24f - GbaFont.LINE_HEIGHT * nameScale / 2,
+                    nameScale, TEXT_DARK, TEXT_SHADOW);
+            String qty = "x" + item.quantity;
+            float qtyScale = scale * 0.82f;
+            f.draw(canvas, qty, textRight - f.measure(qty, qtyScale),
+                    inner.bottom - inner.height() * 0.24f - GbaFont.LINE_HEIGHT * qtyScale / 2,
+                    qtyScale, accentDark, TEXT_SHADOW);
+            if (showCursor && selected) drawCursorRing(canvas, card, 14);
+        }
+        canvas.restoreToCount(save);
+        drawBattleBagScrollBar(canvas, items.size(), accentLight, accentDark);
+
+        drawDescBox(canvas, descBox);
+        float inset = descBox.height() * 0.13f;
+        if (battleBagSelected >= 0 && battleBagSelected < items.size()) {
+            DualScreenState.BagItem selected = items.get(battleBagSelected);
+            float iconSize = descBox.height() - inset * 2;
+            Bitmap icon = itemIcon(selected.id);
+            if (icon != null) {
+                canvas.drawBitmap(icon, null, new RectF(descBox.left + inset,
+                        descBox.top + inset, descBox.left + inset + iconSize,
+                        descBox.bottom - inset), pixelPaint);
+            }
+            float useWidth = Math.min(descBox.width() * 0.20f, descBox.height() * 1.12f);
+            RectF use = new RectF(descBox.right - inset - useWidth, descBox.top + inset,
+                    descBox.right - inset, descBox.bottom - inset);
             battleUseButton.set(use);
             boolean ready = state.battleSub == 1;
-            paint.setColor(ready ? HEADER_RED : 0xFF8898A0);
-            canvas.drawRoundRect(use, 10, 10, paint);
-            float useScale = scale * 1.2f;
-            f.draw(canvas, "USE", use.centerX() - f.measure("USE", useScale) / 2,
-                    use.centerY() - GbaFont.LINE_HEIGHT * useScale / 2, useScale,
-                    TEXT_WHITE, ready ? TEXT_RED_SHADOW : 0xFF687880);
+            RectF useInner = drawBeveledSurface(canvas, use,
+                    ready ? HEADER_RED : 0xFF85898D,
+                    ready ? HEADER_RED_LIGHT : 0xFFA8ADB1,
+                    ready ? HEADER_RED_DARK : 0xFF555B61, false);
+            float useScale = scale * 1.05f;
+            f.draw(canvas, "USE", useInner.centerX() - f.measure("USE", useScale) / 2,
+                    useInner.centerY() - GbaFont.LINE_HEIGHT * useScale / 2,
+                    useScale, TEXT_WHITE, ready ? TEXT_RED_SHADOW : 0xFF555B61);
 
-            float textLeft = descBox.left + inset + bigIcon + inset;
+            float textLeft = descBox.left + inset + iconSize + inset;
             float textRight = use.left - inset;
-            f.draw(canvas, sel.name, textLeft, descBox.top + inset, scale,
+            float nameScale = Math.min(scale,
+                    (textRight - textLeft) / Math.max(1f, f.measure(selected.name, 1f)));
+            f.draw(canvas, selected.name, textLeft, descBox.top + inset, nameScale,
                     descNameColor(), descShadowColor());
-            float descScale = scale * 0.9f;
-            float lineY = descBox.top + inset + GbaFont.LINE_HEIGHT * scale * 1.15f;
-            for (String line : wrapText(f, itemDescription(sel.id), descScale, textRight - textLeft)) {
-                if (lineY + GbaFont.LINE_HEIGHT * descScale > descBox.bottom - inset * 0.5f) {
-                    break;
-                }
-                f.draw(canvas, line, textLeft, lineY, descScale, descTextColor(), descShadowColor());
-                lineY += GbaFont.LINE_HEIGHT * descScale * 1.05f;
+            float descScale = scale * 0.78f;
+            float y = descBox.top + inset + GbaFont.LINE_HEIGHT * nameScale * 1.12f;
+            for (String line : wrapText(f, itemDescription(selected.id), descScale,
+                    textRight - textLeft)) {
+                if (y + GbaFont.LINE_HEIGHT * descScale > descBox.bottom - inset * 0.35f) break;
+                f.draw(canvas, line, textLeft, y, descScale,
+                        descTextColor(), descShadowColor());
+                y += GbaFont.LINE_HEIGHT * descScale * 1.04f;
             }
-        } else {
-            String hint = "Choose an item.";
-            f.draw(canvas, hint, descBox.left + inset,
-                    descBox.centerY() - GbaFont.LINE_HEIGHT * scale / 2, scale,
-                    descTextColor(), descShadowColor());
         }
-        drawBattleNotice(canvas, scale);
+        drawBattleBagFooter(canvas, f, title, scale, pad);
+    }
+
+    private String battleBagGroupTitle(int group) {
+        String[] lines = BATTLE_BAG_GROUP_LABELS[group];
+        return lines.length == 1 ? lines[0] : lines[0] + " " + lines[1];
+    }
+
+    private void drawBattleBagTitle(Canvas canvas, GbaFont f, String title,
+                                    float bottom, float scale) {
+        paint.setColor(0x55201820);
+        canvas.drawRoundRect(new RectF(getWidth() * 0.02f, getHeight() * 0.015f,
+                getWidth() * 0.98f, bottom - getHeight() * 0.012f), 14, 14, paint);
+        float titleScale = Math.min(scale * 1.06f,
+                getWidth() * 0.78f / Math.max(1f, f.measure(title, 1f)));
+        f.draw(canvas, title, (getWidth() - f.measure(title, titleScale)) / 2,
+                (bottom - GbaFont.LINE_HEIGHT * titleScale) / 2,
+                titleScale, TEXT_WHITE, TEXT_RED_SHADOW);
+    }
+
+    private void drawBattleBagFooter(Canvas canvas, GbaFont f, String label,
+                                     float scale, float pad) {
+        float size = getHeight() * 0.095f;
+        float bottom = getHeight() - pad * 0.55f;
+        battleCancel.set(getWidth() - pad - size, bottom - size, getWidth() - pad, bottom);
+        RectF message = new RectF(pad, battleCancel.top, battleCancel.left - pad, bottom);
+        drawDescBox(canvas, message);
+        float labelScale = Math.min(scale * 0.80f,
+                (message.width() - pad * 2) / Math.max(1f, f.measure(label, 1f)));
+        f.draw(canvas, label, message.left + pad,
+                message.centerY() - GbaFont.LINE_HEIGHT * labelScale / 2,
+                labelScale, descNameColor(), descShadowColor());
+        drawBattleBackButton(canvas, battleCancel);
+    }
+
+    /** Blue icon-only return key, like the reference BAG's lower-right key. */
+    private void drawBattleBackButton(Canvas canvas, RectF cell) {
+        RectF inner = drawBeveledSurface(canvas, cell, CMD_FILL[3], CMD_LIGHT[3],
+                CMD_DARK[3], false);
+        float unit = Math.min(inner.width(), inner.height());
+        float cx = inner.centerX();
+        float cy = inner.centerY();
+        paint.setColor(TEXT_WHITE);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(unit * 0.11f);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        android.graphics.Path returnPath = new android.graphics.Path();
+        returnPath.moveTo(cx + unit * 0.28f, cy + unit * 0.25f);
+        returnPath.lineTo(cx + unit * 0.28f, cy - unit * 0.03f);
+        returnPath.quadTo(cx + unit * 0.28f, cy - unit * 0.27f,
+                cx + unit * 0.02f, cy - unit * 0.27f);
+        returnPath.lineTo(cx - unit * 0.24f, cy - unit * 0.27f);
+        canvas.drawPath(returnPath, paint);
+        android.graphics.Path head = new android.graphics.Path();
+        head.moveTo(cx - unit * 0.10f, cy - unit * 0.43f);
+        head.lineTo(cx - unit * 0.30f, cy - unit * 0.27f);
+        head.lineTo(cx - unit * 0.10f, cy - unit * 0.11f);
+        canvas.drawPath(head, paint);
+        paint.setStrokeJoin(Paint.Join.MITER);
+        paint.setStrokeCap(Paint.Cap.BUTT);
+        paint.setStyle(Paint.Style.FILL);
+    }
+
+    private void drawBattleBagScrollBar(Canvas canvas, int itemCount, int light, int dark) {
+        int rows = (itemCount + 1) / 2;
+        float content = rows * battleBagRowH;
+        float viewport = battleBagListBottom - battleBagListTop;
+        if (content <= viewport || viewport <= 0) return;
+        float trackWidth = Math.max(5, getWidth() * 0.006f);
+        float right = getWidth() - getWidth() * 0.006f;
+        RectF track = new RectF(right - trackWidth, battleBagListTop, right, battleBagListBottom);
+        paint.setColor(0x66303840);
+        canvas.drawRoundRect(track, trackWidth / 2, trackWidth / 2, paint);
+        float thumbHeight = Math.max(trackWidth * 2.5f, viewport * viewport / content);
+        float fraction = battleBagScroll / Math.max(1f, content - viewport);
+        float thumbTop = track.top + fraction * (track.height() - thumbHeight);
+        paint.setColor(blendColor(light, dark, 0.35f));
+        canvas.drawRoundRect(new RectF(track.left, thumbTop, track.right, thumbTop + thumbHeight),
+                trackWidth / 2, trackWidth / 2, paint);
+    }
+
+    private void drawBattleBagGroupGlyph(Canvas canvas, int group, float cx, float cy,
+                                         float radius, int color) {
+        paint.setColor(color);
+        paint.setStrokeWidth(Math.max(4, radius * 0.18f));
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStyle(Paint.Style.STROKE);
+        if (group == 0) {
+            RectF bottle = new RectF(cx - radius * 0.60f, cy - radius * 0.72f,
+                    cx + radius * 0.60f, cy + radius * 0.72f);
+            canvas.drawRoundRect(bottle, radius * 0.24f, radius * 0.24f, paint);
+            canvas.drawLine(cx - radius * 0.30f, bottle.top - radius * 0.18f,
+                    cx + radius * 0.30f, bottle.top - radius * 0.18f, paint);
+            canvas.drawLine(cx, cy - radius * 0.25f, cx, cy + radius * 0.30f, paint);
+            canvas.drawLine(cx - radius * 0.28f, cy + radius * 0.02f,
+                    cx + radius * 0.28f, cy + radius * 0.02f, paint);
+        } else if (group == 1) {
+            canvas.drawCircle(cx, cy, radius * 0.78f, paint);
+            canvas.drawLine(cx - radius * 0.78f, cy, cx + radius * 0.78f, cy, paint);
+            canvas.drawCircle(cx, cy, radius * 0.24f, paint);
+        } else if (group == 2) {
+            canvas.drawCircle(cx, cy, radius * 0.78f, paint);
+            paint.setStyle(Paint.Style.FILL);
+            canvas.drawRoundRect(new RectF(cx - radius * 0.17f, cy - radius * 0.52f,
+                    cx + radius * 0.17f, cy + radius * 0.52f), radius * 0.08f,
+                    radius * 0.08f, paint);
+            canvas.drawRoundRect(new RectF(cx - radius * 0.52f, cy - radius * 0.17f,
+                    cx + radius * 0.52f, cy + radius * 0.17f), radius * 0.08f,
+                    radius * 0.08f, paint);
+        } else {
+            android.graphics.Path star = new android.graphics.Path();
+            for (int i = 0; i < 16; i++) {
+                double angle = -Math.PI / 2 + i * Math.PI / 8;
+                float r = radius * (i % 2 == 0 ? 0.82f : 0.40f);
+                float x = cx + (float) Math.cos(angle) * r;
+                float y = cy + (float) Math.sin(angle) * r;
+                if (i == 0) star.moveTo(x, y); else star.lineTo(x, y);
+            }
+            star.close();
+            paint.setStyle(Paint.Style.FILL);
+            canvas.drawPath(star, paint);
+        }
+        paint.setStyle(Paint.Style.FILL);
+        paint.setStrokeJoin(Paint.Join.MITER);
+        paint.setStrokeCap(Paint.Cap.BUTT);
     }
 
     /**

@@ -162,4 +162,10 @@ public final class DualScreenBridge {
      * Static per item id; cacheable.
      */
     public static native int nativeGetItemBattleCategory(int itemId);
+
+    /**
+     * Display group for the battle bag: 1 HP/PP recovery, 2 Poke Balls,
+     * 3 status recovery, 4 battle/escape items, or 0 when unavailable.
+     */
+    public static native int nativeGetItemBattleGroup(int itemId);
 }

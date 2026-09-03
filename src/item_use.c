@@ -972,6 +972,42 @@ u32 DualScreen_BattleItemCategory(u16 itemId)
     return effect && (effect[4] & ITEM4_HEAL_PP_ONE) ? 6 : 5;
 }
 
+u32 DualScreen_BattleItemGroup(u16 itemId)
+{
+    u32 category = DualScreen_BattleItemCategory(itemId);
+
+    if (category == 1)
+        return 2; // Poke Balls
+    if (category == 3 || category == 4)
+        return 4; // stat boosters and escape items
+    if (category == 5 || category == 6)
+        return 1; // PP recovery
+    if (category == 7)
+        return 3; // Poke Flute
+    if (category != 2)
+        return 0;
+
+    // Full Restore belongs with HP recovery even though GetItemEffectType
+    // reports its status-curing half first. Pure status cures get their own
+    // button; healing, reviving and all other medicine stay under HP / PP.
+    if (itemId == ITEM_FULL_RESTORE)
+        return 1;
+    switch (GetItemEffectType(itemId))
+    {
+    case ITEM_EFFECT_CURE_POISON:
+    case ITEM_EFFECT_CURE_SLEEP:
+    case ITEM_EFFECT_CURE_BURN:
+    case ITEM_EFFECT_CURE_FREEZE:
+    case ITEM_EFFECT_CURE_PARALYSIS:
+    case ITEM_EFFECT_CURE_CONFUSION:
+    case ITEM_EFFECT_CURE_INFATUATION:
+    case ITEM_EFFECT_CURE_ALL_STATUS:
+        return 3;
+    default:
+        return 1;
+    }
+}
+
 u32 DualScreen_UseBattleItem(u16 itemId, s32 targetPartyId, s32 moveSlot)
 {
     u32 category = DualScreen_BattleItemCategory(itemId);
