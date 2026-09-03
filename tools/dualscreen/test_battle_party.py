@@ -60,6 +60,7 @@ int GetMonData(struct Pokemon *mon, int field) {
 int GetBattlerSide(int i) { return i & 1; }
 u32 DualScreen_BottomScreenLive(void) { return live; }
 u32 DualScreen_BattleUiActive(void) { return uiActive; }
+void DualScreen_PreserveBattlePrompt(u32 battler) { (void)battler; }
 void ClearNavQueue(void) { navClears++; }
 void TaskDummy(u8 task) {}
 int CreateTask(void (*fn)(u8), int priority) { assert(fn == TaskDummy && priority == 255); tasks++; return 0; }
@@ -214,9 +215,13 @@ class PartyPanelTest {
     }
     DualScreenState state=new DualScreenState();
     int battlePanel, lastSubSeq, lastBattlePanel, battlePartyFocus;
+    int lastLiveMenu;
     long battleArmMs, battleCloseMs, battleNoticeMs;
+    long lastLiveMenuMs;
+    boolean battleBagItemsOpen, battleReturningToCommands;
     String battleNotice="";
     void invalidate() {}
+    void resetBattleBag() { battleBagItemsOpen=false; }
 '''
     for name in ('battleSendOutWait', 'syncBattlePanel', 'cancelBattlePanel', 'battlePartySlotEnabled'):
         java += function(source, name) + '\n'

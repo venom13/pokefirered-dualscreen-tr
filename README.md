@@ -10,7 +10,7 @@ Built on [pret/pokefirered](https://github.com/pret/pokefirered), with the Andro
 host and dual-screen interface adapted from
 [Goldoire/pokeemerald-dualscreen](https://github.com/Goldoire/pokeemerald-dualscreen).
 
-> **Status: experimental — v0.1.3.** [Download the Android APK](https://github.com/venom13/pokefirered-dualscreen/releases/tag/v0.1.3).
+> **Status: experimental — v0.2.0.** [Download the Android APK](https://github.com/venom13/pokefirered-dualscreen/releases/tag/v0.2.0).
 > Your own FireRed Rev 1 ROM is required. Early-game play, the first rival battle,
 > saving, and loading have been tested on an AYN Thor during development.
 > A complete playthrough and other devices have not been validated.

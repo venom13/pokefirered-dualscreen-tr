@@ -24,8 +24,8 @@ The raw `app-release-unsigned.apk` is an intermediate artifact, **not** the
 public download. Do not upload it. Release builds refuse to start without the
 packaged asset manifest; debug builds without a manifest still open directly.
 
-The public v0.1.3 release uses version code **10403**, following v0.1.2's
-**10402** and local test build v0.1.4's **10400**. Keep the internal code increasing
+The public v0.2.0 release uses version code **10404**, following v0.1.3's
+**10403** and local test build v0.1.4's **10400**. Keep the internal code increasing
 independently of the display version so updates preserve existing installations
 and saves.
 
@@ -54,7 +54,7 @@ Do not use a debug library or guess the build-id directory.
   --build-tools "$ANDROID_HOME/build-tools/36.0.0" \
   --keystore /private/path/release.p12 \
   --alias pokefirered-dualscreen \
-  --out dist/releases/v0.1.3/Pokemon-FireRed-Dual-Screen-0.1.3.apk
+  --out dist/releases/v0.2.0/Pokemon-FireRed-Dual-Screen-0.2.0.apk
 ```
 
 The expected ROM is 16,777,216 bytes, SHA-1
