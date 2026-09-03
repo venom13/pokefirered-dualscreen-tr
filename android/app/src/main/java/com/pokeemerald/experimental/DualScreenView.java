@@ -144,10 +144,14 @@ public final class DualScreenView extends View {
     private int battleButtonsMenu; // which menu the drawn buttons belong to
     private long lastKeyQueueMs;
     private int battlePressedCmd = -1; // command button in its pressed-in state
+    private int battlePressedMove = -1; // move card in its pressed-in state
+    private boolean battleCancelPressed;
     private final Runnable battlePressReset = new Runnable() {
         @Override
         public void run() {
             battlePressedCmd = -1;
+            battlePressedMove = -1;
+            battleCancelPressed = false;
             invalidate();
         }
     };
@@ -917,6 +921,10 @@ public final class DualScreenView extends View {
         }
         if (battleCancel.contains(x, y) && menu == 2) {
             lastKeyQueueMs = now;
+            battleCancelPressed = true;
+            removeCallbacks(battlePressReset);
+            postDelayed(battlePressReset, 220);
+            invalidate();
             DualScreenBridge.nativeQueueKeys(new int[] {KEY_B, 0});
             return;
         }
@@ -931,6 +939,14 @@ public final class DualScreenView extends View {
                 if (menu == 1) {
                     // Pressed-in visual on the command buttons.
                     battlePressedCmd = i;
+                    battlePressedMove = -1;
+                    removeCallbacks(battlePressReset);
+                    postDelayed(battlePressReset, 220);
+                    invalidate();
+                } else {
+                    // Match the command screen's tactile press feedback.
+                    battlePressedCmd = -1;
+                    battlePressedMove = i;
                     removeCallbacks(battlePressReset);
                     postDelayed(battlePressReset, 220);
                     invalidate();
@@ -2021,52 +2037,21 @@ public final class DualScreenView extends View {
                     // Before, every cell was drawn selected, which made the
                     // bar's own highlight mean nothing.
                     boolean onCursor = active && i == cursor;
-                    drawBar(canvas, cell, onCursor, null, scale);
                     DualScreenState.Move move = self.moves.get(i);
-                    float inset = cellH * 0.14f;
-                    float nameScale = scale * 1.35f;
-                    f.draw(canvas, move.name, cell.left + inset, cell.top + inset,
-                            nameScale, TEXT_DARK, TEXT_SHADOW);
-                    String info = "PWR " + (move.power == 0 ? "—" : Integer.toString(move.power))
-                            + "   ACC " + (move.accuracy == 0 ? "—" : Integer.toString(move.accuracy));
-                    f.draw(canvas, info, cell.left + inset,
-                            cell.top + inset + GbaFont.LINE_HEIGHT * nameScale + 6,
-                            scale * 0.85f, 0xFF70707A, TEXT_SHADOW);
-                    float iconH = cellH * 0.22f;
-                    drawTypeIcon(canvas, move.type, cell.left + inset,
-                            cell.bottom - inset - iconH, iconH);
-                    String pp = "PP " + move.pp + "/" + move.maxPp;
-                    float ppScale = scale * 0.95f;
-                    float w = f.measure(pp, ppScale);
-                    f.draw(canvas, pp, cell.right - inset - w,
-                            cell.bottom - inset - iconH
-                                    + (iconH - GbaFont.LINE_HEIGHT * ppScale) / 2,
-                            ppScale, move.pp == 0 ? HP_RED : TEXT_DARK, TEXT_SHADOW);
-                    // Effectiveness corner markers: one per live foe in
-                    // doubles (right foe outermost), one in singles. Absent
-                    // foes and normal effectiveness draw nothing.
-                    float mr = cellH * 0.04f;
-                    float mx = cell.right - inset * 0.6f - mr * 2.0f;
-                    float my = cell.top + inset * 0.6f + mr * 1.6f;
-                    if (!state.battleDouble) {
-                        drawEffMarker(canvas, move.eff[0], mx, my, mr);
-                    } else {
-                        drawEffMarker(canvas, move.eff[1], mx, my, mr);
-                        drawEffMarker(canvas, move.eff[0], mx - mr * 4.2f, my, mr);
-                    }
+                    drawBattleMoveButton(canvas, cell, move, onCursor,
+                            active && battlePressedMove == i, scale);
                     if (onCursor) {
-                        drawCursorRing(canvas, cell, 6);
+                        drawCursorRing(canvas, cell, 14);
                     }
                 } else {
-                    paint.setColor(0x44A88848);
-                    canvas.drawRoundRect(cell, 8, 8, paint);
+                    drawEmptyMoveButton(canvas, cell);
                 }
             }
             if (active) {
                 RectF cancel = new RectF(pad, gridTop + cellH * 2 + pad * 2,
                         getWidth() - pad, gridTop + cellH * 2 + pad * 2 + cancelH);
                 battleCancel.set(cancel);
-                drawBar(canvas, cancel, false, "CANCEL", scale * 0.9f);
+                drawMoveCancelButton(canvas, cancel, battleCancelPressed, scale * 0.9f);
             }
         }
         // A menu is open, so the cursor can move under the player's thumb at
@@ -2208,24 +2193,7 @@ public final class DualScreenView extends View {
         int fill = enabled ? CMD_FILL[cmd] : 0xFF9AA2AA;
         int light = enabled ? CMD_LIGHT[cmd] : 0xFFC0C6CC;
         int dark = enabled ? CMD_DARK[cmd] : 0xFF6A7278;
-
-        RectF inner = new RectF(cell);
-        paint.setColor(dark);
-        canvas.drawRoundRect(cell, 16, 16, paint);
-        inner.inset(4, 4);
-        paint.setColor(pressed ? blendColor(fill, dark, 0.35f) : fill);
-        canvas.drawRoundRect(inner, 12, 12, paint);
-
-        // Bevel: light lip on top, shaded base below; pressed inverts it.
-        float lip = Math.max(6, inner.height() * 0.09f);
-        paint.setColor(pressed ? dark : light);
-        canvas.drawRoundRect(new RectF(inner.left + 5, inner.top + 4,
-                inner.right - 5, inner.top + 4 + lip), lip / 2, lip / 2, paint);
-        if (!pressed) {
-            paint.setColor(blendColor(fill, dark, 0.55f));
-            canvas.drawRoundRect(new RectF(inner.left + 5, inner.bottom - 4 - lip,
-                    inner.right - 5, inner.bottom - 4), lip / 2, lip / 2, paint);
-        }
+        RectF inner = drawBeveledSurface(canvas, cell, fill, light, dark, pressed);
 
         float shift = pressed ? 3 : 0;
         float glyphR = Math.min(inner.height() * 0.16f, inner.width() * 0.11f);
@@ -2241,6 +2209,115 @@ public final class DualScreenView extends View {
                     labelScale, enabled ? TEXT_WHITE : 0xFFE0E4E8,
                     enabled ? dark : 0xFF787E84);
         }
+    }
+
+    /** Shared raised surface used by command, move, and cancel buttons. */
+    private RectF drawBeveledSurface(Canvas canvas, RectF cell, int fill, int light,
+                                     int dark, boolean pressed) {
+        RectF inner = new RectF(cell);
+        paint.setColor(dark);
+        canvas.drawRoundRect(cell, 16, 16, paint);
+        inner.inset(4, 4);
+        paint.setColor(pressed ? blendColor(fill, dark, 0.35f) : fill);
+        canvas.drawRoundRect(inner, 12, 12, paint);
+
+        // Light across the top and a deeper base make the face read as a
+        // physical key. A pressed key loses the base and darkens at the top.
+        float lip = Math.max(6, inner.height() * 0.09f);
+        paint.setColor(pressed ? dark : light);
+        canvas.drawRoundRect(new RectF(inner.left + 5, inner.top + 4,
+                inner.right - 5, inner.top + 4 + lip), lip / 2, lip / 2, paint);
+        if (!pressed) {
+            paint.setColor(blendColor(fill, dark, 0.55f));
+            canvas.drawRoundRect(new RectF(inner.left + 5, inner.bottom - 4 - lip,
+                    inner.right - 5, inner.bottom - 4), lip / 2, lip / 2, paint);
+        }
+        return inner;
+    }
+
+    /**
+     * A move card keeps FireRed's cream readability, but borrows its color
+     * and depth from the move type. This makes it part of the same family as
+     * the large battle command keys without copying the DS reference cards.
+     */
+    private void drawBattleMoveButton(Canvas canvas, RectF cell, DualScreenState.Move move,
+                                      boolean selected, boolean pressed, float scale) {
+        GbaFont f = font();
+        int type = Math.max(0, Math.min(move.type, TYPE_COLORS.length - 1));
+        int accent = TYPE_COLORS[type];
+        int fill = blendColor(BAR_CREAM, accent, selected ? 0.30f : 0.20f);
+        int light = blendColor(fill, 0xFFFFFFFF, 0.48f);
+        int dark = blendColor(accent, 0xFF303038, 0.42f);
+        RectF inner = drawBeveledSurface(canvas, cell, fill, light, dark, pressed);
+        if (f == null) {
+            return;
+        }
+
+        float shift = pressed ? 3 : 0;
+        float inset = inner.height() * 0.12f;
+        float markerReserve = inner.height() * 0.16f;
+        float maxNameWidth = inner.width() - inset * 2 - markerReserve;
+        float nameScale = Math.min(scale * 1.35f,
+                maxNameWidth / Math.max(1f, f.measure(move.name, 1f)));
+        nameScale = Math.max(scale * 0.92f, nameScale);
+        f.draw(canvas, move.name, inner.left + inset, inner.top + inset + shift,
+                nameScale, TEXT_DARK, TEXT_SHADOW);
+
+        String info = "PWR " + (move.power == 0 ? "—" : Integer.toString(move.power))
+                + "   ACC " + (move.accuracy == 0 ? "—" : Integer.toString(move.accuracy));
+        f.draw(canvas, info, inner.left + inset,
+                inner.top + inset + GbaFont.LINE_HEIGHT * nameScale + 6 + shift,
+                scale * 0.85f, 0xFF606068, TEXT_SHADOW);
+
+        float iconH = inner.height() * 0.22f;
+        float bottomY = inner.bottom - inset - iconH + shift;
+        drawTypeIcon(canvas, move.type, inner.left + inset, bottomY, iconH);
+        String pp = "PP " + move.pp + "/" + move.maxPp;
+        float ppScale = scale * 0.95f;
+        float ppWidth = f.measure(pp, ppScale);
+        f.draw(canvas, pp, inner.right - inset - ppWidth,
+                bottomY + (iconH - GbaFont.LINE_HEIGHT * ppScale) / 2,
+                ppScale, move.pp == 0 ? HP_RED : TEXT_DARK, TEXT_SHADOW);
+
+        // One effectiveness marker per live foe. Normal effectiveness stays
+        // unmarked so the raised top edge remains visually clean.
+        float markerRadius = inner.height() * 0.04f;
+        float markerX = inner.right - inset * 0.5f - markerRadius * 2.0f;
+        float markerY = inner.top + inset * 0.55f + markerRadius * 1.6f + shift;
+        if (!state.battleDouble) {
+            drawEffMarker(canvas, move.eff[0], markerX, markerY, markerRadius);
+        } else {
+            drawEffMarker(canvas, move.eff[1], markerX, markerY, markerRadius);
+            drawEffMarker(canvas, move.eff[0], markerX - markerRadius * 4.2f,
+                    markerY, markerRadius);
+        }
+    }
+
+    /** A recessed placeholder keeps a missing move from looking tappable. */
+    private void drawEmptyMoveButton(Canvas canvas, RectF cell) {
+        paint.setColor(0x66303840);
+        canvas.drawRoundRect(cell, 16, 16, paint);
+        RectF inner = new RectF(cell);
+        inner.inset(5, 5);
+        paint.setColor(0x44707880);
+        canvas.drawRoundRect(inner, 12, 12, paint);
+    }
+
+    /** Blue raised cancel key, matching the battle command screen's depth. */
+    private void drawMoveCancelButton(Canvas canvas, RectF cell, boolean pressed,
+                                      float labelScale) {
+        GbaFont f = font();
+        RectF inner = drawBeveledSurface(canvas, cell, CMD_FILL[3], CMD_LIGHT[3],
+                CMD_DARK[3], pressed);
+        if (f == null) {
+            return;
+        }
+        String label = "CANCEL";
+        float width = f.measure(label, labelScale);
+        float shift = pressed ? 3 : 0;
+        f.draw(canvas, label, inner.centerX() - width / 2,
+                inner.centerY() - GbaFont.LINE_HEIGHT * labelScale / 2 + shift,
+                labelScale, TEXT_WHITE, CMD_DARK[3]);
     }
 
     /** Small hand-drawn motifs: crossed bars, bag, ball, running chevrons. */
