@@ -117,6 +117,7 @@ public final class DualScreenView extends View {
     private Bitmap[] typeIcons;
     private DualScreenState state = new DualScreenState();
     private int tab = TAB_PARTY;
+    private int pressedTab = -1;
     private int bagPocket;
     private float bagScroll;
     private float bagTouchDownY;
@@ -729,6 +730,13 @@ public final class DualScreenView extends View {
         return new RectF(index * w, top, (index + 1) * w, getHeight());
     }
 
+    private int tabAt(float x, float y) {
+        for (int i = 0; i < TAB_NAMES.length; i++) {
+            if (tabRect(i).contains(x, y)) return i;
+        }
+        return -1;
+    }
+
     private static final String[] POCKET_NAMES = {"ITEMS", "POKé BALLS", "TMs-HMs", "BERRIES", "KEY ITEMS"};
     // Per-pocket accent colors, like the GBA bag's pocket theming.
     private static final int[] POCKET_ACCENTS = {
@@ -752,6 +760,14 @@ public final class DualScreenView extends View {
         }
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
             showCursor = false; // a finger takes the screen back from the cursor
+            if (!state.inBattle) {
+                pressedTab = tabAt(event.getX(), event.getY());
+                if (pressedTab >= 0) invalidate();
+            }
+        } else if ((event.getActionMasked() == MotionEvent.ACTION_UP
+                || event.getActionMasked() == MotionEvent.ACTION_CANCEL) && pressedTab >= 0) {
+            pressedTab = -1;
+            invalidate();
         }
         if (state.inBattle && battlePanel == 4) {
             if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
@@ -1508,19 +1524,50 @@ public final class DualScreenView extends View {
 
     private void drawTabBar(Canvas canvas) {
         float scale = tabBarHeight() / (GbaFont.LINE_HEIGHT * 2.4f);
-        paint.setColor(HEADER_RED);
+        paint.setColor(HEADER_RED_DARK);
         canvas.drawRect(new RectF(0, getHeight() - tabBarHeight(), getWidth(), getHeight()), paint);
+        paint.setColor(HEADER_RED_LIGHT);
+        canvas.drawRect(0, getHeight() - tabBarHeight(), getWidth(),
+                getHeight() - tabBarHeight() + 4, paint);
         for (int i = 0; i < TAB_NAMES.length; i++) {
             RectF r = tabRect(i);
             r.inset(6, 7);
-            drawBar(canvas, r, i == tab, TAB_NAMES[i], scale);
-            if (TAB_NAMES[i] == null) {
-                drawCog(canvas, r.centerX(), r.centerY(), r.height() * 0.28f, TEXT_DARK);
-            }
+            drawNavigationButton(canvas, r, i, i == tab, i == pressedTab, scale);
         }
     }
 
-    private void drawCog(Canvas canvas, float cx, float cy, float radius, int color) {
+    /** Raised exploration tab using the same top shine and bottom lip as battle buttons. */
+    private void drawNavigationButton(Canvas canvas, RectF cell, int index,
+                                      boolean selected, boolean pressed, float scale) {
+        int fill = selected ? 0xFFF2C64F : BAR_CREAM_DARK;
+        int light = selected ? 0xFFFFE887 : BAR_CREAM;
+        int dark = selected ? 0xFFA66A18 : BAR_BORDER;
+        RectF inner = drawBeveledSurface(canvas, cell, fill, light, dark, pressed);
+        float shift = pressed ? 3 : 0;
+        if (selected) {
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(Math.max(3, cell.height() * 0.035f));
+            paint.setColor(HEADER_RED);
+            RectF selectedEdge = new RectF(inner);
+            selectedEdge.inset(3, 3);
+            canvas.drawRoundRect(selectedEdge, 10, 10, paint);
+            paint.setStyle(Paint.Style.FILL);
+        }
+        String label = TAB_NAMES[index];
+        GbaFont f = font();
+        if (label != null && f != null) {
+            float width = f.measure(label, scale);
+            f.draw(canvas, label, inner.centerX() - width / 2,
+                    inner.centerY() - GbaFont.LINE_HEIGHT * scale / 2 + shift,
+                    scale, TEXT_DARK, selected ? 0xFFE8A838 : TEXT_SHADOW);
+        } else {
+            drawCog(canvas, inner.centerX(), inner.centerY() + shift,
+                    inner.height() * 0.25f, TEXT_DARK, fill);
+        }
+    }
+
+    private void drawCog(Canvas canvas, float cx, float cy, float radius,
+                         int color, int holeColor) {
         paint.setColor(color);
         for (int t = 0; t < 8; t++) {
             double angle = Math.PI * 2 * t / 8;
@@ -1531,7 +1578,7 @@ public final class DualScreenView extends View {
             canvas.restoreToCount(save);
         }
         canvas.drawCircle(cx, cy, radius, paint);
-        paint.setColor(BAR_CREAM);
+        paint.setColor(holeColor);
         canvas.drawCircle(cx, cy, radius * 0.45f, paint);
     }
 
