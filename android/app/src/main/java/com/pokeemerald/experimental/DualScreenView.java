@@ -131,6 +131,8 @@ public final class DualScreenView extends View {
     private int detailMon = -1; // party index shown in the detail view, -1 = grid
     private final RectF[] partyCards = {new RectF(), new RectF(), new RectF(),
                                         new RectF(), new RectF(), new RectF()};
+    private final RectF partyDetailBack = new RectF();
+    private boolean partyDetailBackPressed;
     private java.util.List<MapEntry> mapEntries;
     private Bitmap regionMap;
     private int regionMapRegion = -1;
@@ -794,6 +796,10 @@ public final class DualScreenView extends View {
         return -1;
     }
 
+    private boolean partyDetailOpen() {
+        return tab == TAB_PARTY && detailMon >= 0 && detailMon < state.party.size();
+    }
+
     private static final String[] POCKET_NAMES = {"ITEMS", "POKé BALLS", "TMs-HMs", "BERRIES", "KEY ITEMS"};
     // Per-pocket accent colors, like the GBA bag's pocket theming.
     private static final int[] POCKET_ACCENTS = {
@@ -817,7 +823,7 @@ public final class DualScreenView extends View {
         }
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
             showCursor = false; // a finger takes the screen back from the cursor
-            if (!state.inBattle) {
+            if (!state.inBattle && !partyDetailOpen()) {
                 pressedTab = tabAt(event.getX(), event.getY());
                 if (pressedTab >= 0) invalidate();
             }
@@ -825,6 +831,39 @@ public final class DualScreenView extends View {
                 || event.getActionMasked() == MotionEvent.ACTION_CANCEL) && pressedTab >= 0) {
             pressedTab = -1;
             invalidate();
+        }
+        // The detail view owns the whole lower screen. Its explicit return key
+        // is the only exit; taps on cards, content, or the hidden tab area do nothing.
+        if (!state.inBattle && partyDetailOpen()) {
+            switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                partyDetailBackPressed = partyDetailBack.contains(event.getX(), event.getY());
+                if (partyDetailBackPressed) invalidate();
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                if (partyDetailBackPressed
+                        && !partyDetailBack.contains(event.getX(), event.getY())) {
+                    partyDetailBackPressed = false;
+                    invalidate();
+                }
+                return true;
+            case MotionEvent.ACTION_UP:
+                boolean closeDetail = partyDetailBackPressed
+                        && partyDetailBack.contains(event.getX(), event.getY());
+                partyDetailBackPressed = false;
+                if (closeDetail) {
+                    detailMon = -1;
+                    partyDetailBack.setEmpty();
+                }
+                invalidate();
+                return true;
+            case MotionEvent.ACTION_CANCEL:
+                partyDetailBackPressed = false;
+                invalidate();
+                return true;
+            default:
+                return true;
+            }
         }
         if (state.inBattle && battlePanel == 4) {
             if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
@@ -950,15 +989,11 @@ public final class DualScreenView extends View {
                 }
             }
             if (tab == TAB_PARTY) {
-                if (detailMon >= 0) {
-                    detailMon = -1; // any tap closes the detail view
-                    invalidate();
-                    return true;
-                }
                 for (int i = 0; i < partyCards.length; i++) {
                     if (partyCards[i].contains(event.getX(), event.getY())
                             && i < state.party.size()) {
                         detailMon = i;
+                        partyDetailBackPressed = false;
                         invalidate();
                         return true;
                     }
@@ -1773,6 +1808,9 @@ public final class DualScreenView extends View {
         case TAB_CARD:     drawTrainerCard(canvas); break;
         case TAB_SETTINGS: drawSettings(canvas); break;
         }
+        if (partyDetailOpen()) {
+            return; // the detail layout uses the space normally occupied by tabs
+        }
         drawTabBar(canvas);
     }
 
@@ -1961,13 +1999,24 @@ public final class DualScreenView extends View {
         if (f == null) {
             return;
         }
-        float contentHeight = getHeight() - tabBarHeight();
+        float contentHeight = getHeight();
         drawPartyBackdrop(canvas, contentHeight);
         float pad = getWidth() * 0.025f;
         float scale = getWidth() / 440f;
 
+        // With the tab bar hidden, size every panel from the complete display.
+        float gap = pad * 0.55f;
+        float itemH = contentHeight * 0.105f;
+        float footerBottom = contentHeight - pad;
+        float itemTop = footerBottom - itemH;
+        float backSize = itemH;
+        RectF itemBox = new RectF(pad, itemTop,
+                getWidth() - pad - gap - backSize, footerBottom);
+        partyDetailBack.set(itemBox.right + gap, itemTop, getWidth() - pad, footerBottom);
+
         // Identity header in the party slots' blue box language.
-        RectF header = new RectF(pad, pad, getWidth() - pad, contentHeight * 0.28f);
+        RectF header = new RectF(pad, pad, getWidth() - pad,
+                pad + contentHeight * 0.235f);
         paint.setColor(SUMMARY_BLUE_DARK);
         canvas.drawRoundRect(header, 12, 12, paint);
         RectF inner = new RectF(header);
@@ -1998,6 +2047,7 @@ public final class DualScreenView extends View {
             f.draw(canvas, "What will hatch from this?", textLeft,
                     header.top + inset + GbaFont.LINE_HEIGHT * scale * 1.4f,
                     scale * 0.9f, PARTY_TEXT, SUMMARY_BLUE_DARK);
+            drawPartyDetailFooter(canvas, f, mon, itemBox, scale, pad);
             return;
         }
         float nameW = f.measure(title, scale * 1.15f);
@@ -2021,12 +2071,11 @@ public final class DualScreenView extends View {
                 header.top + inset, header.right - inset, header.top + inset + badgeH));
 
         // Skills page on the left, Moves page on the right, item row below.
-        float columnsTop = header.bottom + pad;
-        float itemH = contentHeight * 0.105f;
+        float columnsTop = header.bottom + gap;
         float colW = (getWidth() - pad * 3) / 2;
         float stripH = GbaFont.LINE_HEIGHT * scale + 12;
         RectF skillsBox = new RectF(pad, columnsTop, pad + colW,
-                contentHeight - pad * 1.5f - itemH);
+                itemTop - gap);
         RectF movesBox = new RectF(pad * 2 + colW, columnsTop, getWidth() - pad, skillsBox.bottom);
         drawSummaryPanel(canvas, skillsBox, "SKILLS", stripH, scale);
         drawSummaryPanel(canvas, movesBox, "MOVES", stripH, scale);
@@ -2068,9 +2117,12 @@ public final class DualScreenView extends View {
             drawSummaryMoveRow(canvas, i < mon.moves.size() ? mon.moves.get(i) : null, row, scale);
         }
 
-        // Held item row, with the real item icon.
-        RectF itemBox = new RectF(pad, skillsBox.bottom + pad * 0.5f,
-                getWidth() - pad, skillsBox.bottom + pad * 0.5f + itemH);
+        drawPartyDetailFooter(canvas, f, mon, itemBox, scale, pad);
+    }
+
+    /** Held item card and the detail screen's only exit control. */
+    private void drawPartyDetailFooter(Canvas canvas, GbaFont f, DualScreenState.Mon mon,
+                                       RectF itemBox, float scale, float pad) {
         drawBar(canvas, itemBox, false, null, scale);
         float itemY = itemBox.centerY() - GbaFont.LINE_HEIGHT * scale / 2;
         f.draw(canvas, "ITEM", itemBox.left + pad, itemY, scale, TEXT_DARK, TEXT_SHADOW);
@@ -2088,6 +2140,7 @@ public final class DualScreenView extends View {
         } else {
             f.draw(canvas, "NONE", itemTextLeft, itemY, scale, TEXT_DARK, TEXT_SHADOW);
         }
+        drawBackButton(canvas, partyDetailBack, partyDetailBackPressed);
     }
 
     private void drawBattleMonCard(Canvas canvas, DualScreenState.Mon mon, RectF rect,
@@ -2874,11 +2927,16 @@ public final class DualScreenView extends View {
 
     /** Blue icon-only return key, like the reference BAG's lower-right key. */
     private void drawBattleBackButton(Canvas canvas, RectF cell) {
+        drawBackButton(canvas, cell, false);
+    }
+
+    /** Shared icon-only return key, with a pressed face for direct touch screens. */
+    private void drawBackButton(Canvas canvas, RectF cell, boolean pressed) {
         RectF inner = drawBeveledSurface(canvas, cell, CMD_FILL[3], CMD_LIGHT[3],
-                CMD_DARK[3], false);
+                CMD_DARK[3], pressed);
         float unit = Math.min(inner.width(), inner.height());
         float cx = inner.centerX();
-        float cy = inner.centerY();
+        float cy = inner.centerY() + (pressed ? 3 : 0);
         paint.setColor(TEXT_WHITE);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(unit * 0.11f);
