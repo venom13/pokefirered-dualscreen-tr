@@ -1979,9 +1979,11 @@ public final class DualScreenView extends View {
         if (f == null || row.width() <= 0 || row.height() <= 0) {
             return;
         }
+        final float typeBadgeBoost = 1.5f;
         // A name line above a type/PP line keeps the wider fallback type
         // badge (3.1:1, rather than the bitmap's 2:1) out of the name's space.
-        float rowScale = Math.min(scale, row.height() / (GbaFont.LINE_HEIGHT * 2 + 6));
+        float rowScale = Math.min(scale, row.height()
+                / (GbaFont.LINE_HEIGHT * (1f + 0.85f * typeBadgeBoost) + 6));
         if (move == null) {
             f.draw(canvas, "-", row.left, row.centerY() - GbaFont.LINE_HEIGHT * rowScale / 2,
                     rowScale, TEXT_DARK, TEXT_SHADOW);
@@ -1992,15 +1994,17 @@ public final class DualScreenView extends View {
         String pp = "PP " + move.pp + "/" + move.maxPp;
         // Reserve the widest badge and a gap before right-aligned PP.
         float detailScale = Math.min(rowScale * 0.85f,
-                row.width() / (GbaFont.LINE_HEIGHT * 3.1f + f.measure(pp, 1f) + 4f));
-        float badgeH = GbaFont.LINE_HEIGHT * detailScale;
+                row.width() / (GbaFont.LINE_HEIGHT * 3.1f * typeBadgeBoost
+                        + f.measure(pp, 1f) + 4f));
+        float badgeH = GbaFont.LINE_HEIGHT * detailScale * typeBadgeBoost;
         float gap = rowScale * 3f;
         float blockH = GbaFont.LINE_HEIGHT * nameScale + gap + badgeH;
         float nameY = row.centerY() - blockH / 2;
         float detailY = nameY + GbaFont.LINE_HEIGHT * nameScale + gap;
         f.draw(canvas, move.name, row.left, nameY, nameScale, TEXT_DARK, TEXT_SHADOW);
         drawTypeIcon(canvas, move.type, row.left, detailY, badgeH);
-        f.draw(canvas, pp, row.right - f.measure(pp, detailScale), detailY,
+        float ppY = detailY + (badgeH - GbaFont.LINE_HEIGHT * detailScale) / 2f;
+        f.draw(canvas, pp, row.right - f.measure(pp, detailScale), ppY,
                 detailScale, move.pp == 0 ? HP_RED : TEXT_DARK, TEXT_SHADOW);
     }
 
