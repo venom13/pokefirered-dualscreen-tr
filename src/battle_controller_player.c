@@ -547,6 +547,10 @@ void HandleInputChooseMove(void)
     else if (JOY_NEW(B_BUTTON))
     {
         PlaySE(SE_SELECT);
+#ifdef PLATFORM_SDL2
+        if (DualScreen_BattleUiActive())
+            DualScreen_PreserveBattlePrompt(gActiveBattler);
+#endif
         BtlController_EmitTwoReturnValues(1, 10, 0xFFFF);
         PlayerBufferExecCompleted();
         ResetPaletteFadeControl();

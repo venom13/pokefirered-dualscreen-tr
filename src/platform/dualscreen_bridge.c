@@ -407,11 +407,11 @@ static s32 sBattleChoiceB;
 static u32 sBattlePromptPreserved;
 static u32 sBattlePromptBattler;
 
-static void PreserveBattlePrompt(void)
+void DualScreen_PreserveBattlePrompt(u32 battler)
 {
     SDL_AtomicLock(&sBattleMenuLock);
     sBattlePromptPreserved = TRUE;
-    sBattlePromptBattler = sBattleMenuBattler;
+    sBattlePromptBattler = battler;
     SDL_AtomicUnlock(&sBattleMenuLock);
 }
 
@@ -487,7 +487,7 @@ u32 DualScreen_PollBattleItemChoice(u16 *itemId)
     if (choice == -1 || choice == ITEM_NONE)
     {
         *itemId = ITEM_NONE;
-        PreserveBattlePrompt();
+        DualScreen_PreserveBattlePrompt(sBattleMenuBattler);
         DualScreen_ClearBattleMenu();
         return TRUE;
     }
@@ -541,7 +541,7 @@ u32 DualScreen_PollBattleMonChoice(u8 *monId)
     if (choice == -1 && caseId != PARTY_ACTION_SEND_OUT)
     {
         *monId = PARTY_SIZE;
-        PreserveBattlePrompt();
+        DualScreen_PreserveBattlePrompt(sBattleMenuBattler);
         DualScreen_ClearBattleMenu();
         return TRUE;
     }

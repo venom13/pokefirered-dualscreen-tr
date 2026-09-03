@@ -88,6 +88,7 @@ u32 DualScreen_PollBattleMonChoice(u8 *monId);
 // A cancelled bottom-screen menu leaves the same action prompt visible on
 // the top display. The next choose-action command consumes this one-shot flag
 // so it does not clear and retype identical text.
+void DualScreen_PreserveBattlePrompt(u32 battler);
 u32 DualScreen_TakePreservedBattlePrompt(u32 battler);
 // Whether the bottom screen has fetched a snapshot recently (it polls ~8/s
 // while its Presentation is actually showing). Flows that install a
