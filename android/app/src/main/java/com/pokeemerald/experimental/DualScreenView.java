@@ -46,6 +46,10 @@ public final class DualScreenView extends View {
     // How long a closed menu is held on screen before the idle cards take
     // over, to ride out the gap between one battle menu and the next.
     private static final int MENU_HOLD_MS = 180;
+    // Cancelling a bottom-screen bag/party takeover takes the engine a few
+    // frames to reopen action selection. Keep drawing the command screen
+    // across that hand-off instead of flashing the idle battler cards.
+    private static final int CANCEL_RETURN_HOLD_MS = 1500;
     private int lastLiveMenu;
     private long lastLiveMenuMs;
     private int lastPressCount = -1;   // native real-button-press counter
@@ -156,6 +160,7 @@ public final class DualScreenView extends View {
     private final RectF[] battlePpCards = {new RectF(), new RectF(), new RectF(), new RectF()};
     private long battleArmMs;    // when we last armed the takeover
     private long battleCloseMs;  // when we last cancelled/submitted a close
+    private boolean battleReturningToCommands;
     private int lastSubSeq;
     private String battleNotice = "";
     private long battleNoticeMs;
@@ -355,6 +360,7 @@ public final class DualScreenView extends View {
     private void syncBattlePanel() {
         if (!state.inBattle) {
             battlePanel = 0;
+            battleReturningToCommands = false;
             return;
         }
         // The sequence bumps on every wait the engine opens as well as on
@@ -900,6 +906,12 @@ public final class DualScreenView extends View {
             return; // let the previous selection land first
         }
         int menu = liveMenu();
+        // During the cancel hand-off the command screen is visual continuity
+        // only. Wait for the engine's action menu before accepting another
+        // command, otherwise a very fast second tap could reach the old wait.
+        if (battleReturningToCommands) {
+            return;
+        }
         if (menu != battleButtonsMenu || menu == 0) {
             return;
         }
@@ -1010,6 +1022,9 @@ public final class DualScreenView extends View {
             DualScreenBridge.nativeBattleArm(0);
         }
         battleCloseMs = System.currentTimeMillis();
+        battleReturningToCommands = true;
+        lastLiveMenu = 1;
+        lastLiveMenuMs = battleCloseMs;
         battlePanel = 0;
         invalidate();
     }
@@ -1260,6 +1275,20 @@ public final class DualScreenView extends View {
             lastPressCount = presses;
         }
         int menu = packed >= 0 ? (packed >> 16) & 0xFF : state.battleMenu;
+        if (battleReturningToCommands) {
+            // Only the per-frame native cursor proves that the engine has
+            // really reopened action selection; the snapshot may still
+            // contain the action menu from before BAG/POKéMON was opened.
+            if (packed >= 0 && menu == 1) {
+                battleReturningToCommands = false;
+            } else if (now - battleCloseMs < CANCEL_RETURN_HOLD_MS) {
+                lastLiveMenu = 1;
+                lastLiveMenuMs = now;
+                return 1;
+            } else {
+                battleReturningToCommands = false;
+            }
+        }
         if (menu != 0) {
             lastLiveMenu = menu;
             lastLiveMenuMs = now;

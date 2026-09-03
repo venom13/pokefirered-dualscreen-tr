@@ -1276,6 +1276,12 @@ const u8 gText_CongratsPkmnEvolved[] = _("Congratulations! Your {STR_VAR_1}\nevo
 const u8 gText_PkmnStoppedEvolving[] = _("Huh? {STR_VAR_1}\nstopped evolving!\p");
 const u8 gText_EllipsisQuestionMark[] = _("……?\p");
 const u8 gText_WhatWillPkmnDo[] = _("What will\n{B_ACTIVE_NAME_WITH_PREFIX} do?");
+#ifdef PLATFORM_SDL2
+// The dual-screen battle UI shows the full-width message window on the top
+// display, so its prompt fits on one line instead of using the classic
+// half-width action-prompt window.
+const u8 gText_DualScreenWhatWillPkmnDo[] = _("What will {B_ACTIVE_NAME_WITH_PREFIX} do?");
+#endif
 const u8 gText_WhatWillPlayerThrow[] = _("What will {B_PLAYER_NAME}\nthrow?");
 const u8 gText_WhatWillOldManDo[] = _("What will the\nold man do?");
 const u8 gText_LinkStandby[] = _("{PAUSE 16}Link standby…");

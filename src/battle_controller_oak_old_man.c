@@ -1865,11 +1865,21 @@ static void OakOldManHandleChooseAction(void)
     for (i = 0; i < MAX_MON_MOVES; ++i)
         ActionSelectionDestroyCursorAt((u8)i);
     ActionSelectionCreateCursorAt(gActionSelectionCursor[gActiveBattler], 0);
-    if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
-        BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillPkmnDo);
+#ifdef PLATFORM_SDL2
+    if ((gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE) && DualScreen_BattleUiActive())
+    {
+        BattleStringExpandPlaceholdersToDisplayedString(gText_DualScreenWhatWillPkmnDo);
+        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MSG);
+    }
     else
-        BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillOldManDo);
-    BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
+#endif
+    {
+        if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
+            BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillPkmnDo);
+        else
+            BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillOldManDo);
+        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
+    }
 }
 
 static void OakOldManHandleUnknownYesNoBox(void)

@@ -1308,8 +1308,8 @@ void DualScreen_FrameHook(void)
     // While the bottom screen owns the battle menus, keep the top screen's
     // textbox on the plain full-width message layout: the action/move menu
     // art is never shown at all (BG0 scroll selects which band of the battle
-    // textbox is visible), and the "What will {x} do?" prompt is printed
-    // into the message window by BattlePutTextOnWindow.
+    // textbox is visible), and the player controllers print the one-line
+    // "What will {x} do?" prompt into that message window.
     if (DualScreen_BattleUiActive() && battleDataReady
      && (DualScreen_PlayerAtMoveSelect() || DualScreen_PlayerAtActionSelect()))
         gBattle_BG0_Y = 0;

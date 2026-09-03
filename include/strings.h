@@ -224,6 +224,9 @@ extern const u8 gText_MoveInterfaceType[];
 extern const u8 gText_LinkStandby[];
 extern const u8 gText_BattleMenu[];
 extern const u8 gText_WhatWillPkmnDo[];
+#ifdef PLATFORM_SDL2
+extern const u8 gText_DualScreenWhatWillPkmnDo[];
+#endif
 
 // battle_script_commands
 extern const u8 gText_BattleYesNoChoice[];

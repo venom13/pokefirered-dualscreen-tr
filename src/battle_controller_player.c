@@ -2463,8 +2463,18 @@ static void PlayerHandleChooseAction(void)
     for (i = 0; i < 4; ++i)
         ActionSelectionDestroyCursorAt(i);
     ActionSelectionCreateCursorAt(gActionSelectionCursor[gActiveBattler], 0);
-    BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillPkmnDo);
-    BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
+#ifdef PLATFORM_SDL2
+    if (DualScreen_BattleUiActive())
+    {
+        BattleStringExpandPlaceholdersToDisplayedString(gText_DualScreenWhatWillPkmnDo);
+        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MSG);
+    }
+    else
+#endif
+    {
+        BattleStringExpandPlaceholdersToDisplayedString(gText_WhatWillPkmnDo);
+        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
+    }
 }
 
 static void PlayerHandleUnknownYesNoBox(void)
