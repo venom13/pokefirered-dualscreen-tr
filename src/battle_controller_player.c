@@ -2448,7 +2448,11 @@ static void HandleChooseActionAfterDma3(void)
     if (!IsDma3ManagerBusyWithBgCopy())
     {
         gBattle_BG0_X = 0;
+#ifdef PLATFORM_SDL2
+        gBattle_BG0_Y = DualScreen_BattleUiActive() ? 0 : 160;
+#else
         gBattle_BG0_Y = 160;
+#endif
         gBattlerControllerFuncs[gActiveBattler] = HandleInputChooseAction;
     }
 }
@@ -2456,9 +2460,18 @@ static void HandleChooseActionAfterDma3(void)
 static void PlayerHandleChooseAction(void)
 {
     s32 i;
+#ifdef PLATFORM_SDL2
+    bool32 preservePrompt = DualScreen_BattleUiActive()
+                         && DualScreen_TakePreservedBattlePrompt(gActiveBattler);
+#endif
 
     gBattlerControllerFuncs[gActiveBattler] = HandleChooseActionAfterDma3;
+#ifdef PLATFORM_SDL2
+    if (!preservePrompt)
+        BattlePutTextOnWindow(gText_EmptyString3, B_WIN_MSG);
+#else
     BattlePutTextOnWindow(gText_EmptyString3, B_WIN_MSG);
+#endif
     BattlePutTextOnWindow(gText_BattleMenu, B_WIN_ACTION_MENU);
     for (i = 0; i < 4; ++i)
         ActionSelectionDestroyCursorAt(i);
@@ -2466,8 +2479,11 @@ static void PlayerHandleChooseAction(void)
 #ifdef PLATFORM_SDL2
     if (DualScreen_BattleUiActive())
     {
-        BattleStringExpandPlaceholdersToDisplayedString(gText_DualScreenWhatWillPkmnDo);
-        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MSG);
+        if (!preservePrompt)
+        {
+            BattleStringExpandPlaceholdersToDisplayedString(gText_DualScreenWhatWillPkmnDo);
+            BattlePutTextOnWindowAtSpeed(gDisplayedStringBattle, B_WIN_MSG, 0);
+        }
     }
     else
 #endif
@@ -2486,7 +2502,11 @@ static void HandleChooseMoveAfterDma3(void)
     if (!IsDma3ManagerBusyWithBgCopy())
     {
         gBattle_BG0_X = 0;
+#ifdef PLATFORM_SDL2
+        gBattle_BG0_Y = DualScreen_BattleUiActive() ? 0 : 320;
+#else
         gBattle_BG0_Y = 320;
+#endif
         gBattlerControllerFuncs[gActiveBattler] = HandleInputChooseMove;
     }
 }

@@ -1847,7 +1847,12 @@ static void HandleChooseActionAfterDma3(void)
     if (!IsDma3ManagerBusyWithBgCopy())
     {
         gBattle_BG0_X = 0;
+#ifdef PLATFORM_SDL2
+        gBattle_BG0_Y = ((gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
+                      && DualScreen_BattleUiActive()) ? 0 : 160;
+#else
         gBattle_BG0_Y = 160;
+#endif
         if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
             gBattlerControllerFuncs[gActiveBattler] = HandleInputChooseAction;
         else
@@ -1858,18 +1863,32 @@ static void HandleChooseActionAfterDma3(void)
 static void OakOldManHandleChooseAction(void)
 {
     s32 i;
+#ifdef PLATFORM_SDL2
+    bool32 dualScreenPrompt = (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
+                           && DualScreen_BattleUiActive();
+    bool32 preservePrompt = dualScreenPrompt
+                         && DualScreen_TakePreservedBattlePrompt(gActiveBattler);
+#endif
 
     gBattlerControllerFuncs[gActiveBattler] = HandleChooseActionAfterDma3;
+#ifdef PLATFORM_SDL2
+    if (!preservePrompt)
+        BattlePutTextOnWindow(gText_EmptyString3, B_WIN_MSG);
+#else
     BattlePutTextOnWindow(gText_EmptyString3, B_WIN_MSG);
+#endif
     BattlePutTextOnWindow(gText_BattleMenu, B_WIN_ACTION_MENU);
     for (i = 0; i < MAX_MON_MOVES; ++i)
         ActionSelectionDestroyCursorAt((u8)i);
     ActionSelectionCreateCursorAt(gActionSelectionCursor[gActiveBattler], 0);
 #ifdef PLATFORM_SDL2
-    if ((gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE) && DualScreen_BattleUiActive())
+    if (dualScreenPrompt)
     {
-        BattleStringExpandPlaceholdersToDisplayedString(gText_DualScreenWhatWillPkmnDo);
-        BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MSG);
+        if (!preservePrompt)
+        {
+            BattleStringExpandPlaceholdersToDisplayedString(gText_DualScreenWhatWillPkmnDo);
+            BattlePutTextOnWindowAtSpeed(gDisplayedStringBattle, B_WIN_MSG, 0);
+        }
     }
     else
 #endif
@@ -1892,7 +1911,12 @@ static void OakHandleChooseMove_WaitDma3(void)
     if (!IsDma3ManagerBusyWithBgCopy())
     {
         gBattle_BG0_X = 0;
+#ifdef PLATFORM_SDL2
+        gBattle_BG0_Y = ((gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
+                      && DualScreen_BattleUiActive()) ? 0 : 320;
+#else
         gBattle_BG0_Y = 320;
+#endif
         gBattlerControllerFuncs[gActiveBattler] = OakOldManHandleInputChooseMove;
     }
 }

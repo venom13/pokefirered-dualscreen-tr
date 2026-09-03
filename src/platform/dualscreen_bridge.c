@@ -404,6 +404,29 @@ static u32 sBattleMenuSeq;    // bumps on every menu open and result, for the UI
 static u32 sBattleChoicePending;
 static s32 sBattleChoiceA;
 static s32 sBattleChoiceB;
+static u32 sBattlePromptPreserved;
+static u32 sBattlePromptBattler;
+
+static void PreserveBattlePrompt(void)
+{
+    SDL_AtomicLock(&sBattleMenuLock);
+    sBattlePromptPreserved = TRUE;
+    sBattlePromptBattler = sBattleMenuBattler;
+    SDL_AtomicUnlock(&sBattleMenuLock);
+}
+
+u32 DualScreen_TakePreservedBattlePrompt(u32 battler)
+{
+    u32 preserved;
+
+    SDL_AtomicLock(&sBattleMenuLock);
+    preserved = sBattlePromptPreserved && sBattlePromptBattler == battler;
+    // One-shot even on a battler mismatch: a different action prompt must be
+    // rendered normally and the stale request must not survive into a turn.
+    sBattlePromptPreserved = FALSE;
+    SDL_AtomicUnlock(&sBattleMenuLock);
+    return preserved;
+}
 
 u32 DualScreen_TakeBattleTakeover(u32 mode)
 {
@@ -464,6 +487,7 @@ u32 DualScreen_PollBattleItemChoice(u16 *itemId)
     if (choice == -1 || choice == ITEM_NONE)
     {
         *itemId = ITEM_NONE;
+        PreserveBattlePrompt();
         DualScreen_ClearBattleMenu();
         return TRUE;
     }
@@ -517,6 +541,7 @@ u32 DualScreen_PollBattleMonChoice(u8 *monId)
     if (choice == -1 && caseId != PARTY_ACTION_SEND_OUT)
     {
         *monId = PARTY_SIZE;
+        PreserveBattlePrompt();
         DualScreen_ClearBattleMenu();
         return TRUE;
     }

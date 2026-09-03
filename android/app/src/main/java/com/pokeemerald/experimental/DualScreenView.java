@@ -943,11 +943,16 @@ public final class DualScreenView extends View {
                     battleBagSelected = -1;
                     battleBagScroll = 0;
                     battleArmMs = now;
+                    // A new open supersedes the recent CANCEL. Otherwise the
+                    // stale close timestamp briefly hides this panel before
+                    // the engine's fresh wait snapshot arrives.
+                    battleCloseMs = 0;
                     DualScreenBridge.nativeBattleArm(1);
                 } else if (menu == 1 && i == 2) {
                     // POKéMON: same, with the party staircase down here.
                     battlePanel = 2;
                     battleArmMs = now;
+                    battleCloseMs = 0;
                     DualScreenBridge.nativeBattleArm(2);
                 }
                 queueGridSelection(battleButtonsMenu, cursor, i, true);

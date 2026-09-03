@@ -85,6 +85,10 @@ u32 DualScreen_PollBattleItemChoice(u16 *itemId);
 u32 DualScreen_TryOpenBattlePartyMenu(void);
 // Returns TRUE for a valid field party index, or PARTY_SIZE on allowed cancel.
 u32 DualScreen_PollBattleMonChoice(u8 *monId);
+// A cancelled bottom-screen menu leaves the same action prompt visible on
+// the top display. The next choose-action command consumes this one-shot flag
+// so it does not clear and retype identical text.
+u32 DualScreen_TakePreservedBattlePrompt(u32 battler);
 // Whether the bottom screen has fetched a snapshot recently (it polls ~8/s
 // while its Presentation is actually showing). Flows that install a
 // bottom-screen wait with no arming tap (forced send-out) must require this,

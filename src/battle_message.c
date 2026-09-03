@@ -2718,7 +2718,7 @@ static const u8 sNpcTextColorToFont[] =
 // windowId: Upper 2 bits are text flags
 //   x40: Use NPC context-defined font
 //   x80: Inhibit window clear
-void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
+static void BattlePutTextOnWindowInternal(const u8 *text, u8 windowId, s32 speedOverride) {
     bool32 copyToVram;
     struct TextPrinterTemplate printerTemplate;
     u8 speed;
@@ -2781,7 +2781,12 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
     else
         gTextFlags.autoScroll = FALSE;
 
-    if (windowId == B_WIN_MSG || windowId == B_WIN_OAK_OLD_MAN)
+    if (speedOverride >= 0)
+    {
+        speed = (u8)speedOverride;
+        gTextFlags.canABSpeedUpPrint = FALSE;
+    }
+    else if (windowId == B_WIN_MSG || windowId == B_WIN_OAK_OLD_MAN)
     {
         if (gBattleTypeFlags & BATTLE_TYPE_LINK)
             speed = 1;
@@ -2801,6 +2806,16 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
         PutWindowTilemap(windowId);
         CopyWindowToVram(windowId, COPYWIN_FULL);
     }
+}
+
+void BattlePutTextOnWindow(const u8 *text, u8 windowId)
+{
+    BattlePutTextOnWindowInternal(text, windowId, -1);
+}
+
+void BattlePutTextOnWindowAtSpeed(const u8 *text, u8 windowId, u8 speed)
+{
+    BattlePutTextOnWindowInternal(text, windowId, speed);
 }
 
 bool8 BattleStringShouldBeColored(u16 stringId)
