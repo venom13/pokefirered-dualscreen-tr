@@ -566,6 +566,33 @@ public final class DualScreenView extends View {
         canvas.drawRoundRect(slot, 10, 10, paint);
     }
 
+    /**
+     * Raised frame for an exploration PARTY card. The native slot art remains
+     * the face, while the shared button bevel supplies the dark shell, top
+     * shine, and lower lip used by the rest of the bottom-screen controls.
+     */
+    private RectF drawRaisedPartyCard(Canvas canvas, RectF slot, int kind, int pal) {
+        int fill = pal == 0 ? SUMMARY_BLUE : pal == 1 ? 0xFF8996A2 : 0xFF69747E;
+        int light = pal == 0 ? SUMMARY_BLUE_LIGHT : pal == 1 ? 0xFFC2CCD4 : 0xFF929CA5;
+        int dark = pal == 0 ? 0xFF235878 : pal == 1 ? 0xFF515D68 : 0xFF434B54;
+        RectF face = drawBeveledSurface(canvas, slot, fill, light, dark, false);
+
+        // Preserve the game's familiar party-slot details on the raised face.
+        drawSlotChrome(canvas, face, kind, pal);
+
+        // The bitmap covers the inner bevel, so repeat its light and shadow
+        // over the art. Keeping these strips clear of the text/HP anchors also
+        // makes the extra card height read as depth instead of empty padding.
+        float lip = Math.max(7f, face.height() * 0.075f);
+        paint.setColor((light & 0x00FFFFFF) | 0xB0000000);
+        canvas.drawRoundRect(new RectF(face.left + 6, face.top + 4,
+                face.right - 6, face.top + 4 + lip), lip / 2, lip / 2, paint);
+        paint.setColor(blendColor(fill, dark, 0.60f));
+        canvas.drawRoundRect(new RectF(face.left + 6, face.bottom - 4 - lip,
+                face.right - 6, face.bottom - 4), lip / 2, lip / 2, paint);
+        return face;
+    }
+
     /** One of the game's 32x8 status tags (PSN, PAR, SLP, FRZ, BRN, PKRS, FNT). */
     private Bitmap statusIcon(int index) {
         if (statusIcons == null) {
@@ -1744,11 +1771,12 @@ public final class DualScreenView extends View {
         if (sy < 1) sy = 1;
         int sx = (int) ((getWidth() - 3 * pad) / (2 * 80f));
         if (sx < sy) sx = sy;
-        float cw = 80 * sx, ch = 56 * sy;
+        float cw = 80 * sx;
+        // Five percent taller than the previous 56-pixel slot scale. Gaps are
+        // recalculated from the remaining height so all six bays still fit.
+        float ch = 56 * sy * 1.05f;
         float gx = (getWidth() - 2 * cw) / 3f;
         float gy = (contentHeight - 3 * ch) / 4f;
-        float nameScale = sy * 0.8f;
-        float subScale = sy * 0.65f;
 
         for (int i = 0; i < 6; i++) {
             boolean present = i < state.party.size();
@@ -1760,67 +1788,80 @@ public final class DualScreenView extends View {
             float wy = gy + (i / 2) * (ch + gy);
             RectF slot = new RectF(wx, wy, wx + cw, wy + ch);
             partyCards[i].set(slot);
-            drawSlotChrome(canvas, slot, kind, pal);
+            RectF face = drawRaisedPartyCard(canvas, slot, kind, pal);
             if (!present || f == null) continue;
+
+            // The face is inset by the bevel. Derive the native 80x56 slot
+            // units from it so every sprite, label, and HP mark remains aligned.
+            float ux = face.width() / 80f;
+            float uy = face.height() / 56f;
+            float spriteScale = Math.min(ux, uy);
+            float nameScale = uy * 0.8f;
+            float subScale = uy * 0.65f;
 
             // Content at the lead slot's anchors, kept inside the card
             // (the staircase let the icon hang over the slot edge; here it
-            // sits flush). X anchors scale by sx; sprites stay square.
+            // sits flush). X anchors follow the stretched face; sprites stay square.
             Bitmap icon = mon.isEgg ? null : monIcon(mon.species);
             if (icon != null) {
                 canvas.drawBitmap(icon, null,
-                        new RectF(wx + 2 * sy, wy + 2 * sy, wx + 34 * sy, wy + 34 * sy), pixelPaint);
+                        new RectF(face.left + 2 * spriteScale, face.top + 2 * spriteScale,
+                                face.left + 34 * spriteScale, face.top + 34 * spriteScale), pixelPaint);
             }
             if (!mon.isEgg && mon.item > 0) {
                 // Mail items get the game's mail mark (ITEM_ORANGE_MAIL..ITEM_RETRO_MAIL).
                 Bitmap mark = holdIcon(mon.item >= 121 && mon.item <= 132 ? 1 : 0);
                 if (mark != null) {
                     canvas.drawBitmap(mark, null,
-                            new RectF(wx + 8 * sy, wy + 22 * sy, wx + 16 * sy, wy + 30 * sy), pixelPaint);
+                            new RectF(face.left + 8 * spriteScale, face.top + 22 * spriteScale,
+                                    face.left + 16 * spriteScale, face.top + 30 * spriteScale), pixelPaint);
                 }
             }
 
             String title = mon.isEgg ? "EGG" : mon.nick;
-            f.draw(canvas, title, wx + 24 * sx, wy + 11 * sy, nameScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
+            f.draw(canvas, title, face.left + 24 * ux, face.top + 11 * uy,
+                    nameScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
             if (mon.isEgg) continue;
 
             // Level and gender give way to the status tag, like in the game.
-            float subY = wy + 20 * sy;
+            float subY = face.top + 20 * uy;
             int statusIdx = statusIconIndex(mon.status, mon.hp);
             if (statusIdx < 0) {
-                f.draw(canvas, "Lv" + mon.level, wx + 32 * sx, subY,
+                f.draw(canvas, "Lv" + mon.level, face.left + 32 * ux, subY,
                         subScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
                 if (mon.gender == 0) {
-                    f.draw(canvas, "♂", wx + 64 * sx, subY,
+                    f.draw(canvas, "♂", face.left + 64 * ux, subY,
                             subScale, PARTY_MALE, PARTY_MALE_SHADOW);
                 } else if (mon.gender == 1) {
-                    f.draw(canvas, "♀", wx + 64 * sx, subY,
+                    f.draw(canvas, "♀", face.left + 64 * ux, subY,
                             subScale, PARTY_FEMALE, PARTY_FEMALE_SHADOW);
                 }
             } else {
                 Bitmap tag = statusIcon(statusIdx);
                 if (tag != null) {
                     canvas.drawBitmap(tag, null,
-                            new RectF(wx + 26 * sx, wy + 24 * sy, wx + 26 * sx + 32 * sy, wy + 32 * sy), pixelPaint);
+                            new RectF(face.left + 26 * ux, face.top + 24 * uy,
+                                    face.left + 26 * ux + 32 * spriteScale,
+                                    face.top + 24 * uy + 8 * spriteScale), pixelPaint);
                 }
             }
 
             // HP bar fill over the groove baked into the slot graphic; the
-            // groove stretches with the card, so the fill scales by sx.
-            float barX = wx + 24 * sx;
-            float barY = wy + 35 * sy;
+            // groove stretches with the card, so the fill follows its X unit.
+            float barX = face.left + 24 * ux;
+            float barY = face.top + 35 * uy;
             float fillPx = mon.maxHp > 0 ? 48f * mon.hp / mon.maxHp : 0;
             if (mon.hp > 0 && fillPx < 1) fillPx = 1;
             int level = hpBarLevel(mon.hp, mon.maxHp);
             paint.setColor(PARTY_HP_TOP[level]);
-            canvas.drawRect(barX, barY, barX + fillPx * sx, barY + sy, paint);
+            canvas.drawRect(barX, barY, barX + fillPx * ux, barY + uy, paint);
             paint.setColor(PARTY_HP_BODY[level]);
-            canvas.drawRect(barX, barY + sy, barX + fillPx * sx, barY + 3 * sy, paint);
+            canvas.drawRect(barX, barY + uy, barX + fillPx * ux, barY + 3 * uy, paint);
 
             // Right-aligned to the groove's end so it stays inside the card.
             String hpText = mon.hp + "/" + mon.maxHp;
-            float hpRight = wx + 72 * sx;
-            f.draw(canvas, hpText, hpRight - f.measure(hpText, subScale), wy + 40 * sy,
+            float hpRight = face.left + 72 * ux;
+            f.draw(canvas, hpText, hpRight - f.measure(hpText, subScale), face.top + 40 * uy,
                     subScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
         }
     }
