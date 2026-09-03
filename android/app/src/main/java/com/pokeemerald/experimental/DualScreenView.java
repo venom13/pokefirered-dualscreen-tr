@@ -566,29 +566,61 @@ public final class DualScreenView extends View {
         canvas.drawRoundRect(slot, 10, 10, paint);
     }
 
-    /**
-     * Top-and-bottom depth for an exploration PARTY card. The native slot art
-     * keeps the full card width; unlike a raised key, it has no side bevel.
-     */
-    private RectF drawRaisedPartyCard(Canvas canvas, RectF slot, int kind, int pal) {
+    /** A full-size PARTY card in the same face/highlight/base language as the buttons. */
+    private RectF drawRaisedPartyCard(Canvas canvas, RectF slot, int pal) {
         int fill = pal == 0 ? SUMMARY_BLUE : pal == 1 ? 0xFF8996A2 : 0xFF69747E;
         int light = pal == 0 ? SUMMARY_BLUE_LIGHT : pal == 1 ? 0xFFC2CCD4 : 0xFF929CA5;
         int dark = pal == 0 ? 0xFF235878 : pal == 1 ? 0xFF515D68 : 0xFF434B54;
-        drawSlotChrome(canvas, slot, kind, pal);
+        float radius = Math.max(10f, slot.height() * 0.045f);
+        paint.setColor(fill);
+        canvas.drawRoundRect(slot, radius, radius, paint);
 
-        // Depth comes only from horizontal color bands. They run to the card
-        // edges, so the face is never inset or darkened on the left and right.
-        float lip = Math.max(6f, slot.height() * 0.065f);
+        // The face occupies the complete card bounds. Depth is painted into
+        // that face, rather than created by shrinking it inside a second box.
+        float lip = Math.max(7f, slot.height() * 0.075f);
         int save = canvas.save();
         android.graphics.Path clip = new android.graphics.Path();
-        clip.addRoundRect(slot, 10, 10, android.graphics.Path.Direction.CW);
+        clip.addRoundRect(slot, radius, radius, android.graphics.Path.Direction.CW);
         canvas.clipPath(clip);
-        paint.setColor((light & 0x00FFFFFF) | 0xB0000000);
+        paint.setColor(light);
         canvas.drawRect(slot.left, slot.top, slot.right, slot.top + lip, paint);
-        paint.setColor(blendColor(fill, dark, 0.60f));
+        paint.setColor(blendColor(fill, dark, 0.55f));
         canvas.drawRect(slot.left, slot.bottom - lip, slot.right, slot.bottom, paint);
         canvas.restoreToCount(save);
+
+        // A uniform outline defines the boundary without adding separate side
+        // bevels. It is centred inside the rect so the card keeps its full size.
+        RectF outline = new RectF(slot);
+        outline.inset(2, 2);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(4);
+        paint.setColor(dark);
+        canvas.drawRoundRect(outline, radius - 2, radius - 2, paint);
+        paint.setStyle(Paint.Style.FILL);
         return slot;
+    }
+
+    /** HP label and groove formerly baked into the native slot background. */
+    private void drawPartyHpChrome(Canvas canvas, GbaFont f, float wx, float wy,
+                                   float sx, float sy, float subScale) {
+        float barX = wx + 24 * sx;
+        float barY = wy + 35 * sy;
+        float barW = 48 * sx;
+        float barH = 3 * sy;
+        float labelLeft = wx + 9 * sx;
+        float railTop = barY - sy;
+        float railBottom = barY + barH + sy;
+        paint.setColor(0xFF484850);
+        canvas.drawRect(labelLeft, railTop, barX + barW + sx, railBottom, paint);
+        paint.setColor(0xFFF8F8F0);
+        canvas.drawRect(barX, barY, barX + barW, barY + barH, paint);
+        if (f != null) {
+            String hp = "HP";
+            float hpScale = subScale * 0.92f;
+            f.draw(canvas, hp, labelLeft + 2 * sx,
+                    railTop + (railBottom - railTop - GbaFont.LINE_HEIGHT * hpScale) / 2,
+                    hpScale, 0xFFF8B838, 0xFF704010);
+        }
     }
 
     /** One of the game's 32x8 status tags (PSN, PAR, SLP, FRZ, BRN, PKRS, FNT). */
@@ -1775,91 +1807,79 @@ public final class DualScreenView extends View {
         float ch = 56 * sy * 1.05f;
         float gx = (getWidth() - 2 * cw) / 3f;
         float gy = (contentHeight - 3 * ch) / 4f;
+        float nameScale = sy * 0.8f;
+        float subScale = sy * 0.65f;
 
         for (int i = 0; i < 6; i++) {
             boolean present = i < state.party.size();
             DualScreenState.Mon mon = present ? state.party.get(i) : null;
             boolean fainted = present && !mon.isEgg && mon.hp == 0;
-            int kind = present && !mon.isEgg ? 0 : 1;
             int pal = !present ? 2 : fainted ? 1 : 0;
             float wx = gx + (i % 2) * (cw + gx);
             float wy = gy + (i / 2) * (ch + gy);
             RectF slot = new RectF(wx, wy, wx + cw, wy + ch);
             partyCards[i].set(slot);
-            RectF face = drawRaisedPartyCard(canvas, slot, kind, pal);
+            drawRaisedPartyCard(canvas, slot, pal);
             if (!present || f == null) continue;
 
-            // Derive native 80x56 slot units from the resized card so every
-            // sprite, label, and HP mark remains aligned.
-            float ux = face.width() / 80f;
-            float uy = face.height() / 56f;
-            float spriteScale = Math.min(ux, uy);
-            float nameScale = uy * 0.8f;
-            float subScale = uy * 0.65f;
-
-            // Content at the lead slot's anchors, kept inside the card
-            // (the staircase let the icon hang over the slot edge; here it
-            // sits flush). X anchors follow the stretched face; sprites stay square.
+            // Keep every picture and data anchor at its original size and
+            // position; only the card surface surrounding them has changed.
             Bitmap icon = mon.isEgg ? null : monIcon(mon.species);
             if (icon != null) {
                 canvas.drawBitmap(icon, null,
-                        new RectF(face.left + 2 * spriteScale, face.top + 2 * spriteScale,
-                                face.left + 34 * spriteScale, face.top + 34 * spriteScale), pixelPaint);
+                        new RectF(wx + 2 * sy, wy + 2 * sy, wx + 34 * sy, wy + 34 * sy), pixelPaint);
             }
             if (!mon.isEgg && mon.item > 0) {
                 // Mail items get the game's mail mark (ITEM_ORANGE_MAIL..ITEM_RETRO_MAIL).
                 Bitmap mark = holdIcon(mon.item >= 121 && mon.item <= 132 ? 1 : 0);
                 if (mark != null) {
                     canvas.drawBitmap(mark, null,
-                            new RectF(face.left + 8 * spriteScale, face.top + 22 * spriteScale,
-                                    face.left + 16 * spriteScale, face.top + 30 * spriteScale), pixelPaint);
+                            new RectF(wx + 8 * sy, wy + 22 * sy, wx + 16 * sy, wy + 30 * sy), pixelPaint);
                 }
             }
 
             String title = mon.isEgg ? "EGG" : mon.nick;
-            f.draw(canvas, title, face.left + 24 * ux, face.top + 11 * uy,
-                    nameScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
+            f.draw(canvas, title, wx + 24 * sx, wy + 11 * sy, nameScale,
+                    PARTY_TEXT, PARTY_TEXT_SHADOW);
             if (mon.isEgg) continue;
 
             // Level and gender give way to the status tag, like in the game.
-            float subY = face.top + 20 * uy;
+            float subY = wy + 20 * sy;
             int statusIdx = statusIconIndex(mon.status, mon.hp);
             if (statusIdx < 0) {
-                f.draw(canvas, "Lv" + mon.level, face.left + 32 * ux, subY,
+                f.draw(canvas, "Lv" + mon.level, wx + 32 * sx, subY,
                         subScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
                 if (mon.gender == 0) {
-                    f.draw(canvas, "♂", face.left + 64 * ux, subY,
+                    f.draw(canvas, "♂", wx + 64 * sx, subY,
                             subScale, PARTY_MALE, PARTY_MALE_SHADOW);
                 } else if (mon.gender == 1) {
-                    f.draw(canvas, "♀", face.left + 64 * ux, subY,
+                    f.draw(canvas, "♀", wx + 64 * sx, subY,
                             subScale, PARTY_FEMALE, PARTY_FEMALE_SHADOW);
                 }
             } else {
                 Bitmap tag = statusIcon(statusIdx);
                 if (tag != null) {
                     canvas.drawBitmap(tag, null,
-                            new RectF(face.left + 26 * ux, face.top + 24 * uy,
-                                    face.left + 26 * ux + 32 * spriteScale,
-                                    face.top + 24 * uy + 8 * spriteScale), pixelPaint);
+                            new RectF(wx + 26 * sx, wy + 24 * sy,
+                                    wx + 26 * sx + 32 * sy, wy + 32 * sy), pixelPaint);
                 }
             }
 
-            // HP bar fill over the groove baked into the slot graphic; the
-            // groove stretches with the card, so the fill follows its X unit.
-            float barX = face.left + 24 * ux;
-            float barY = face.top + 35 * uy;
+            drawPartyHpChrome(canvas, f, wx, wy, sx, sy, subScale);
+            float barX = wx + 24 * sx;
+            float barY = wy + 35 * sy;
             float fillPx = mon.maxHp > 0 ? 48f * mon.hp / mon.maxHp : 0;
             if (mon.hp > 0 && fillPx < 1) fillPx = 1;
             int level = hpBarLevel(mon.hp, mon.maxHp);
             paint.setColor(PARTY_HP_TOP[level]);
-            canvas.drawRect(barX, barY, barX + fillPx * ux, barY + uy, paint);
+            canvas.drawRect(barX, barY, barX + fillPx * sx, barY + sy, paint);
             paint.setColor(PARTY_HP_BODY[level]);
-            canvas.drawRect(barX, barY + uy, barX + fillPx * ux, barY + 3 * uy, paint);
+            canvas.drawRect(barX, barY + sy, barX + fillPx * sx, barY + 3 * sy, paint);
 
             // Right-aligned to the groove's end so it stays inside the card.
             String hpText = mon.hp + "/" + mon.maxHp;
-            float hpRight = face.left + 72 * ux;
-            f.draw(canvas, hpText, hpRight - f.measure(hpText, subScale), face.top + 40 * uy,
+            float hpRight = wx + 72 * sx;
+            f.draw(canvas, hpText, hpRight - f.measure(hpText, subScale), wy + 40 * sy,
                     subScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
         }
     }
