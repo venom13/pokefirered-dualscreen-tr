@@ -260,6 +260,68 @@ class PartyPanelTest {
         subprocess.run([str(jdk / 'java') if jdk else 'java', '-ea', '-cp', tmp, 'PartyPanelTest'], check=True, timeout=10)
 
 
+def check_party_detail_back():
+    source = (ROOT / 'android/app/src/main/java/com/pokeemerald/experimental/PokeEmeraldActivity.java').read_text()
+    source = re.sub(r'(?m)^    ', '', source).replace('public boolean ', 'boolean ')
+    java = r'''
+class KeyEvent {
+    static final int ACTION_DOWN=0, ACTION_UP=1, KEYCODE_BUTTON_A=96, KEYCODE_BUTTON_B=97;
+    final int action, keyCode, deviceId;
+    KeyEvent(int action, int keyCode, int deviceId) {
+        this.action=action; this.keyCode=keyCode; this.deviceId=deviceId;
+    }
+    int getAction() { return action; }
+    int getKeyCode() { return keyCode; }
+    int getDeviceId() { return deviceId; }
+}
+class DualScreenPresentation {
+    boolean detailOpen;
+    int closes;
+    boolean closePartyDetail() { closes++; return detailOpen; }
+}
+class ActivityBase {
+    int passedToGame;
+    boolean dispatchKeyEvent(KeyEvent event) { passedToGame++; return false; }
+}
+class PartyDetailBackTest extends ActivityBase {
+    static final int NO_CAPTURED_DEVICE=Integer.MIN_VALUE;
+    int partyDetailCancelDeviceId=NO_CAPTURED_DEVICE;
+    DualScreenPresentation presentation;
+'''
+    java += function(source, 'dispatchKeyEvent') + r'''
+    public static void main(String[] args) {
+        PartyDetailBackTest activity=new PartyDetailBackTest();
+        activity.presentation=new DualScreenPresentation();
+        activity.presentation.detailOpen=true;
+        assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_B, 7));
+        assert activity.presentation.closes==1 && activity.partyDetailCancelDeviceId==7;
+
+        // Repeats and the matching release remain consumed after the first
+        // press closed the detail; none of that physical press reaches SDL.
+        activity.presentation.detailOpen=false;
+        assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_B, 7));
+        assert activity.presentation.closes==1 && activity.passedToGame==0;
+        assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BUTTON_B, 7));
+        assert activity.partyDetailCancelDeviceId==NO_CAPTURED_DEVICE && activity.passedToGame==0;
+
+        // B outside the detail and every unrelated button keep their normal
+        // game path.
+        assert !activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_B, 7));
+        assert !activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_A, 7));
+        assert activity.presentation.closes==2 && activity.passedToGame==2;
+        System.out.println("PASS: physical B closes party detail and its held/release events do not leak into the game");
+    }
+}
+'''
+    jdk = Path(os.environ['JAVA_HOME']) / 'bin' if os.environ.get('JAVA_HOME') else None
+    with tempfile.TemporaryDirectory(prefix='firered-party-detail-back-') as tmp:
+        path = Path(tmp) / 'PartyDetailBackTest.java'
+        path.write_text(java)
+        subprocess.run([str(jdk / 'javac') if jdk else 'javac', str(path)], check=True)
+        subprocess.run([str(jdk / 'java') if jdk else 'java', '-ea', '-cp', tmp,
+                        'PartyDetailBackTest'], check=True, timeout=10)
+
+
 def main():
     code = PREFIX
     party = (ROOT / 'src/party_menu.c').read_text()
@@ -284,6 +346,7 @@ def main():
                         '-I', str(ROOT / 'include'), str(source), '-o', str(binary)], check=True)
         subprocess.run([str(binary)], check=True, timeout=10)
     check_panel()
+    check_party_detail_back()
 
 
 if __name__ == '__main__':

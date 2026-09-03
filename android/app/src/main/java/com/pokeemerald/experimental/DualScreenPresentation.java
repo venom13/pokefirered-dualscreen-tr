@@ -47,4 +47,9 @@ public final class DualScreenPresentation extends Presentation {
             view.navigate(action);
         }
     }
+
+    /** Returns true when the lower-screen party detail consumed a back action. */
+    public boolean closePartyDetail() {
+        return view != null && view.closePartyDetail();
+    }
 }

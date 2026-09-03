@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -21,8 +22,10 @@ import org.libsdl.app.SDLActivity;
 public class PokeEmeraldActivity extends SDLActivity {
     private static final long SNAPSHOT_INTERVAL_MS = 120;
     private static final int COMMAND_EXIT_APPLICATION = COMMAND_USER;
+    private static final int NO_CAPTURED_DEVICE = Integer.MIN_VALUE;
 
     private boolean exitRequestedFromGameMenu;
+    private int partyDetailCancelDeviceId = NO_CAPTURED_DEVICE;
 
     private DualScreenPresentation presentation;
     private final Handler snapshotHandler = new Handler(Looper.getMainLooper());
@@ -96,8 +99,31 @@ public class PokeEmeraldActivity extends SDLActivity {
     protected void onPause() {
         snapshotHandler.removeCallbacks(snapshotPump);
         navHandler.removeCallbacks(navPump);
+        partyDetailCancelDeviceId = NO_CAPTURED_DEVICE;
         dismissBottomScreen();
         super.onPause();
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BUTTON_B) {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                // Keep consuming repeats after the initial press closed the
+                // detail, so a held B cannot leak through to the game.
+                if (partyDetailCancelDeviceId == event.getDeviceId()) {
+                    return true;
+                }
+                if (presentation != null && presentation.closePartyDetail()) {
+                    partyDetailCancelDeviceId = event.getDeviceId();
+                    return true;
+                }
+            } else if (event.getAction() == KeyEvent.ACTION_UP
+                    && partyDetailCancelDeviceId == event.getDeviceId()) {
+                partyDetailCancelDeviceId = NO_CAPTURED_DEVICE;
+                return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
     }
 
     @Override

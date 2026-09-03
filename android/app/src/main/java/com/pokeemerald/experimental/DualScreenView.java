@@ -800,6 +800,18 @@ public final class DualScreenView extends View {
         return tab == TAB_PARTY && detailMon >= 0 && detailMon < state.party.size();
     }
 
+    /** Close the party detail through the same state change as its on-screen back button. */
+    public boolean closePartyDetail() {
+        if (!partyDetailOpen()) {
+            return false;
+        }
+        detailMon = -1;
+        partyDetailBack.setEmpty();
+        partyDetailBackPressed = false;
+        invalidate();
+        return true;
+    }
+
     private static final String[] POCKET_NAMES = {"ITEMS", "POKé BALLS", "TMs-HMs", "BERRIES", "KEY ITEMS"};
     // Per-pocket accent colors, like the GBA bag's pocket theming.
     private static final int[] POCKET_ACCENTS = {
@@ -833,7 +845,7 @@ public final class DualScreenView extends View {
             invalidate();
         }
         // The detail view owns the whole lower screen. Its explicit return key
-        // is the only exit; taps on cards, content, or the hidden tab area do nothing.
+        // and physical B are the exits; other taps, including the hidden tab area, do nothing.
         if (!state.inBattle && partyDetailOpen()) {
             switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
@@ -852,8 +864,7 @@ public final class DualScreenView extends View {
                         && partyDetailBack.contains(event.getX(), event.getY());
                 partyDetailBackPressed = false;
                 if (closeDetail) {
-                    detailMon = -1;
-                    partyDetailBack.setEmpty();
+                    closePartyDetail();
                 }
                 invalidate();
                 return true;
