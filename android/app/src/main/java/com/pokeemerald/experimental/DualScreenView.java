@@ -567,30 +567,28 @@ public final class DualScreenView extends View {
     }
 
     /**
-     * Raised frame for an exploration PARTY card. The native slot art remains
-     * the face, while the shared button bevel supplies the dark shell, top
-     * shine, and lower lip used by the rest of the bottom-screen controls.
+     * Top-and-bottom depth for an exploration PARTY card. The native slot art
+     * keeps the full card width; unlike a raised key, it has no side bevel.
      */
     private RectF drawRaisedPartyCard(Canvas canvas, RectF slot, int kind, int pal) {
         int fill = pal == 0 ? SUMMARY_BLUE : pal == 1 ? 0xFF8996A2 : 0xFF69747E;
         int light = pal == 0 ? SUMMARY_BLUE_LIGHT : pal == 1 ? 0xFFC2CCD4 : 0xFF929CA5;
         int dark = pal == 0 ? 0xFF235878 : pal == 1 ? 0xFF515D68 : 0xFF434B54;
-        RectF face = drawBeveledSurface(canvas, slot, fill, light, dark, false);
+        drawSlotChrome(canvas, slot, kind, pal);
 
-        // Preserve the game's familiar party-slot details on the raised face.
-        drawSlotChrome(canvas, face, kind, pal);
-
-        // The bitmap covers the inner bevel, so repeat its light and shadow
-        // over the art. Keeping these strips clear of the text/HP anchors also
-        // makes the extra card height read as depth instead of empty padding.
-        float lip = Math.max(7f, face.height() * 0.075f);
+        // Depth comes only from horizontal color bands. They run to the card
+        // edges, so the face is never inset or darkened on the left and right.
+        float lip = Math.max(6f, slot.height() * 0.065f);
+        int save = canvas.save();
+        android.graphics.Path clip = new android.graphics.Path();
+        clip.addRoundRect(slot, 10, 10, android.graphics.Path.Direction.CW);
+        canvas.clipPath(clip);
         paint.setColor((light & 0x00FFFFFF) | 0xB0000000);
-        canvas.drawRoundRect(new RectF(face.left + 6, face.top + 4,
-                face.right - 6, face.top + 4 + lip), lip / 2, lip / 2, paint);
+        canvas.drawRect(slot.left, slot.top, slot.right, slot.top + lip, paint);
         paint.setColor(blendColor(fill, dark, 0.60f));
-        canvas.drawRoundRect(new RectF(face.left + 6, face.bottom - 4 - lip,
-                face.right - 6, face.bottom - 4), lip / 2, lip / 2, paint);
-        return face;
+        canvas.drawRect(slot.left, slot.bottom - lip, slot.right, slot.bottom, paint);
+        canvas.restoreToCount(save);
+        return slot;
     }
 
     /** One of the game's 32x8 status tags (PSN, PAR, SLP, FRZ, BRN, PKRS, FNT). */
@@ -1791,8 +1789,8 @@ public final class DualScreenView extends View {
             RectF face = drawRaisedPartyCard(canvas, slot, kind, pal);
             if (!present || f == null) continue;
 
-            // The face is inset by the bevel. Derive the native 80x56 slot
-            // units from it so every sprite, label, and HP mark remains aligned.
+            // Derive native 80x56 slot units from the resized card so every
+            // sprite, label, and HP mark remains aligned.
             float ux = face.width() / 80f;
             float uy = face.height() / 56f;
             float spriteScale = Math.min(ux, uy);
