@@ -380,11 +380,14 @@ void StoreSpriteCallbackInData6(struct Sprite *sprite, SpriteCallback callback)
     sprite->data[7] = (u32)(callback) >> 16;
 }
 
+uintptr_t LoadPointerFromSpriteData6(const struct Sprite *sprite)
+{
+    return (u32)(u16)sprite->data[6] | ((u32)(u16)sprite->data[7] << 16);
+}
+
 static void SetCallbackToStoredInData6(struct Sprite *sprite)
 {
-    u32 callback = (u16)sprite->data[6] | (sprite->data[7] << 16);
-    
-    sprite->callback = (SpriteCallback)callback;
+    sprite->callback = (SpriteCallback)LoadPointerFromSpriteData6(sprite);
 }
 
 // Sprite data for TranslateSpriteInCircle/Ellipse and related
