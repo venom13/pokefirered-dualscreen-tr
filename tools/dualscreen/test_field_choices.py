@@ -179,11 +179,23 @@ int main(void) {
 def check_java_navigation():
     source = (ROOT / "android/app/src/main/java/com/pokeemerald/experimental/DualScreenView.java").read_text()
     source = re.sub(r"(?m)^    ", "", source)
-    source = source.replace("private void ", "void ").replace("private boolean ", "boolean ")
+    source = (source.replace("private void ", "void ")
+             .replace("private boolean ", "boolean ")
+             .replace("private int ", "int ")
+             .replace("public boolean ", "boolean "))
     java = r'''
 class FieldChoiceNavigationTest {
     static final int NAV_UP=0, NAV_DOWN=1, NAV_LEFT=2, NAV_RIGHT=3, NAV_CONFIRM=4, NAV_CANCEL=5;
-    static class RectF {}
+    static class RectF {
+        float left, top, right, bottom;
+        RectF() {}
+        RectF(float l, float t, float r, float b) {
+            left=l; top=t; right=r; bottom=b;
+        }
+        boolean contains(float x, float y) {
+            return x >= left && x < right && y >= top && y < bottom;
+        }
+    }
     static class DualScreenState {
         boolean fieldChoiceOpen;
         int fieldChoiceSeq, fieldChoiceDefault, fieldChoiceCancel=-1;
@@ -197,10 +209,14 @@ class FieldChoiceNavigationTest {
     RectF[] fieldChoiceButtons={new RectF(),new RectF(),new RectF(),new RectF(),
                                 new RectF(),new RectF(),new RectF(),new RectF()};
     int fieldChoiceFocus, lastFieldChoiceSeq=-1, dismissedFieldChoiceSeq=-1;
+    int fieldChoiceTouchTarget=-1, fieldChoicePressed=-1, fieldChoicePendingSubmit=-1;
     long fieldChoiceDismissMs;
+    Runnable fieldChoicePressSubmit=()->{};
     void invalidate() {}
+    void removeCallbacks(Runnable runnable) {}
 '''
     for name in ("syncFieldChoice", "fieldChoiceVisible", "navigateFieldChoice",
+                 "fieldChoiceAt",
                  "submitFieldChoice"):
         java += function(source, name) + "\n"
     java += r'''
@@ -229,6 +245,8 @@ class FieldChoiceNavigationTest {
         v.navigateFieldChoice(NAV_RIGHT); assert v.fieldChoiceFocus==1;
         v.navigateFieldChoice(NAV_DOWN); assert v.fieldChoiceFocus==3;
         v.navigateFieldChoice(NAV_LEFT); assert v.fieldChoiceFocus==2;
+        v.fieldChoiceButtons[2]=new RectF(10, 20, 110, 80);
+        assert v.fieldChoiceAt(20, 30)==2 && v.fieldChoiceAt(5, 30)==-1;
         System.out.println("PASS: lower-screen field choice focus, confirm, cancel and stale-snapshot suppression");
     }
 }
@@ -240,6 +258,19 @@ class FieldChoiceNavigationTest {
         subprocess.run([str(jdk / "javac") if jdk else "javac", str(path)], check=True)
         subprocess.run([str(jdk / "java") if jdk else "java", "-ea", "-cp", tmp,
                         "FieldChoiceNavigationTest"], check=True, timeout=10)
+
+    draw = function(source, "drawFieldChoice")
+    assert "boolean pressed = i == fieldChoicePressed" in draw
+    assert "darks[palette], pressed" in draw
+    assert "float shift = pressed ? 3 : 0" in draw
+    touch = function(source, "onTouchEvent")
+    assert "case MotionEvent.ACTION_DOWN:" in touch
+    assert "fieldChoicePressed = fieldChoiceTouchTarget" in touch
+    assert "case MotionEvent.ACTION_UP:" in touch
+    assert "postDelayed(fieldChoicePressSubmit, 140)" in touch
+    assert touch.index("fieldChoicePressed = fieldChoiceTouchTarget") < touch.index(
+        "postDelayed(fieldChoicePressSubmit, 140)"
+    )
 
 
 if __name__ == "__main__":

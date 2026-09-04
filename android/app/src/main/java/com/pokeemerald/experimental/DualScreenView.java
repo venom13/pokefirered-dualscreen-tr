@@ -156,6 +156,22 @@ public final class DualScreenView extends View {
     private int lastFieldChoiceSeq = -1;
     private int dismissedFieldChoiceSeq = -1;
     private long fieldChoiceDismissMs;
+    private int fieldChoiceTouchTarget = -1;
+    private int fieldChoicePressed = -1;
+    private int fieldChoicePendingSubmit = -1;
+    private final Runnable fieldChoicePressSubmit = new Runnable() {
+        @Override
+        public void run() {
+            int choice = fieldChoicePendingSubmit;
+            fieldChoiceTouchTarget = -1;
+            fieldChoicePressed = -1;
+            fieldChoicePendingSubmit = -1;
+            if (choice >= 0 && fieldChoiceVisible()) {
+                submitFieldChoice(choice);
+            }
+            invalidate();
+        }
+    };
     private final RectF[] battleButtons = {new RectF(), new RectF(), new RectF(), new RectF()};
     private final RectF battleCancel = new RectF();
     private int battleButtonsMenu; // which menu the drawn buttons belong to
@@ -252,9 +268,19 @@ public final class DualScreenView extends View {
 
     private void syncFieldChoice() {
         if (state.fieldChoiceOpen && state.fieldChoiceSeq != lastFieldChoiceSeq) {
+            removeCallbacks(fieldChoicePressSubmit);
+            fieldChoiceTouchTarget = -1;
+            fieldChoicePressed = -1;
+            fieldChoicePendingSubmit = -1;
             lastFieldChoiceSeq = state.fieldChoiceSeq;
             fieldChoiceFocus = Math.max(0, Math.min(
                     state.fieldChoiceLabels.size() - 1, state.fieldChoiceDefault));
+        } else if (!state.fieldChoiceOpen && (fieldChoiceTouchTarget >= 0
+                || fieldChoicePressed >= 0 || fieldChoicePendingSubmit >= 0)) {
+            removeCallbacks(fieldChoicePressSubmit);
+            fieldChoiceTouchTarget = -1;
+            fieldChoicePressed = -1;
+            fieldChoicePendingSubmit = -1;
         }
     }
 
@@ -364,7 +390,7 @@ public final class DualScreenView extends View {
 
     private void navigateFieldChoice(int action) {
         int count = Math.min(fieldChoiceButtons.length, state.fieldChoiceLabels.size());
-        if (count == 0) {
+        if (count == 0 || fieldChoicePendingSubmit >= 0) {
             return;
         }
         int columns = count <= 2 ? 1 : 2;
@@ -407,6 +433,10 @@ public final class DualScreenView extends View {
         if (!fieldChoiceVisible()) {
             return;
         }
+        removeCallbacks(fieldChoicePressSubmit);
+        fieldChoiceTouchTarget = -1;
+        fieldChoicePressed = -1;
+        fieldChoicePendingSubmit = -1;
         dismissedFieldChoiceSeq = state.fieldChoiceSeq;
         fieldChoiceDismissMs = System.currentTimeMillis();
         DualScreenBridge.nativeFieldChoiceSubmit(choice);
@@ -959,23 +989,62 @@ public final class DualScreenView extends View {
         0xFFA84840, 0xFFA87828, HEADER_RED_DARK, 0xFF405E98, 0xFF744C94
     };
 
-    private void handleFieldChoiceTouch(float x, float y) {
+    private int fieldChoiceAt(float x, float y) {
         int count = Math.min(fieldChoiceButtons.length, state.fieldChoiceLabels.size());
         for (int i = 0; i < count; i++) {
             if (fieldChoiceButtons[i].contains(x, y)) {
-                fieldChoiceFocus = i;
-                submitFieldChoice(i);
-                return;
+                return i;
             }
         }
+        return -1;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (fieldChoiceVisible()) {
             showCursor = false;
-            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                handleFieldChoiceTouch(event.getX(), event.getY());
+            switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                if (fieldChoicePendingSubmit < 0) {
+                    fieldChoiceTouchTarget = fieldChoiceAt(event.getX(), event.getY());
+                    fieldChoicePressed = fieldChoiceTouchTarget;
+                    if (fieldChoiceTouchTarget >= 0) {
+                        fieldChoiceFocus = fieldChoiceTouchTarget;
+                    }
+                    invalidate();
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (fieldChoiceTouchTarget >= 0) {
+                    int pressed = fieldChoiceButtons[fieldChoiceTouchTarget]
+                            .contains(event.getX(), event.getY())
+                            ? fieldChoiceTouchTarget : -1;
+                    if (fieldChoicePressed != pressed) {
+                        fieldChoicePressed = pressed;
+                        invalidate();
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                int choice = fieldChoiceTouchTarget;
+                boolean submit = choice >= 0 && fieldChoiceButtons[choice]
+                        .contains(event.getX(), event.getY());
+                fieldChoiceTouchTarget = -1;
+                if (submit) {
+                    fieldChoicePressed = choice;
+                    fieldChoicePendingSubmit = choice;
+                    removeCallbacks(fieldChoicePressSubmit);
+                    postDelayed(fieldChoicePressSubmit, 140);
+                } else {
+                    fieldChoicePressed = -1;
+                }
+                invalidate();
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                fieldChoiceTouchTarget = -1;
+                fieldChoicePressed = -1;
+                invalidate();
+                break;
             }
             return true;
         }
@@ -2060,15 +2129,17 @@ public final class DualScreenView extends View {
             button.set(left, padY + row * (cardHeight + gapY),
                     left + itemWidth, padY + row * (cardHeight + gapY) + cardHeight);
             int palette = i % fills.length;
+            boolean pressed = i == fieldChoicePressed;
             RectF inner = drawBeveledSurface(canvas, button, fills[palette], lights[palette],
-                    darks[palette], false);
+                    darks[palette], pressed);
             String label = state.fieldChoiceLabels.get(i);
             float labelScale = Math.min(baseScale * (columns == 1 ? 1.35f : 1.05f),
                     (inner.width() - padX * 0.8f)
                             / Math.max(1f, f.measure(label, 1f)));
+            float shift = pressed ? 3 : 0;
             f.draw(canvas, label,
                     inner.centerX() - f.measure(label, labelScale) / 2,
-                    inner.centerY() - GbaFont.LINE_HEIGHT * labelScale / 2,
+                    inner.centerY() - GbaFont.LINE_HEIGHT * labelScale / 2 + shift,
                     labelScale, TEXT_WHITE, darks[palette]);
             if (showCursor && i == fieldChoiceFocus) {
                 drawCursorRing(canvas, button, 16);
