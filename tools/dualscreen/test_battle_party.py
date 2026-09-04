@@ -166,6 +166,22 @@ int main(void) {
         assert(gBattlerControllerFuncs[0] == OpenPartyMenuToChooseMon);
         assert(gTasks[0].data[0] == PARTY_ACTION_SEND_OUT);
     }
+    // The trainer replacement prompt opens without an arm, clears stale
+    // input, accepts Switch/Keep, and safely treats B/cancel as Keep.
+    u8 promptChoice = 99;
+    reset(PARTY_ACTION_CHOOSE_MON); submit(4);
+    assert(DualScreen_TryOpenBattleSwitchPrompt());
+    assert(sBattleMenuMode == 3 && sBattleMenuBattler == 0 && !sBattleChoicePending);
+    submit(0); assert(DualScreen_PollBattleSwitchChoice(&promptChoice));
+    assert(promptChoice == 0 && !sBattleMenuMode);
+    reset(PARTY_ACTION_CHOOSE_MON);
+    assert(DualScreen_TryOpenBattleSwitchPrompt());
+    submit(-1); assert(DualScreen_PollBattleSwitchChoice(&promptChoice));
+    assert(promptChoice == 1 && !sBattleMenuMode);
+    reset(PARTY_ACTION_CHOOSE_MON); live = 0;
+    assert(!DualScreen_TryOpenBattleSwitchPrompt() && !sBattleMenuMode);
+    reset(PARTY_ACTION_CHOOSE_MON); uiActive = 0;
+    assert(!DualScreen_TryOpenBattleSwitchPrompt() && !sBattleMenuMode);
     // Repeated switches across changing packed orders: field data must remain
     // byte-identical, and the returned order must swap the correct logical slots.
     for (int rotation=0; rotation<6; rotation++) for (int active=0; active<6; active++) {
@@ -191,7 +207,7 @@ int main(void) {
             gBattlerPartyIndexes[0] = selected;
         }
     }
-    puts("PASS: forced send-out waits, no cancel, slot validation, doubles, fallback, voluntary switch/cancel and repeated party-order preservation");
+    puts("PASS: forced send-out waits, trainer switch prompt, no cancel, slot validation, doubles, fallback, voluntary switch/cancel and repeated party-order preservation");
 }
 '''
 
@@ -209,12 +225,12 @@ class PartyPanelTest {
         java.util.List<Mon> party=new java.util.ArrayList<>();
     }
     static class DualScreenBridge {
-        static int submits;
-        static void nativeBattleSubmit(int a, int b) { assert a==-1 && b==-1; submits++; }
+        static int submits, lastA, lastB;
+        static void nativeBattleSubmit(int a, int b) { lastA=a; lastB=b; submits++; }
         static void nativeBattleArm(int mode) { assert mode==0; }
     }
     DualScreenState state=new DualScreenState();
-    int battlePanel, lastSubSeq, lastBattlePanel, battlePartyFocus;
+    int battlePanel, lastSubSeq, lastBattlePanel, battlePartyFocus, battleSwitchFocus;
     int lastLiveMenu;
     long battleArmMs, battleCloseMs, battleNoticeMs;
     long lastLiveMenuMs;
@@ -223,7 +239,8 @@ class PartyPanelTest {
     void invalidate() {}
     void resetBattleBag() { battleBagItemsOpen=false; }
 '''
-    for name in ('battleSendOutWait', 'syncBattlePanel', 'cancelBattlePanel', 'battlePartySlotEnabled'):
+    for name in ('battleSendOutWait', 'syncBattlePanel', 'cancelBattlePanel',
+                 'submitBattleSwitchPrompt', 'battlePartySlotEnabled'):
         java += function(source, name) + '\n'
     java += r'''
     public static void main(String[] args) {
@@ -245,8 +262,20 @@ class PartyPanelTest {
         p.state.battleSub=2; p.state.battleSubSeq++;
         p.state.battlePrevSel=1; p.syncBattlePanel(); assert p.battlePanel==2;
         assert !p.battlePartySlotEnabled(1) && p.battlePartySlotEnabled(4);
+        p.battlePanel=0; p.state.battleSub=3; p.state.battleSubSeq++;
+        p.syncBattlePanel(); assert p.battlePanel==5 && p.battleSwitchFocus==0;
+        p.state.battleSub=0; p.battleCloseMs=System.currentTimeMillis();
+        p.syncBattlePanel(); assert p.battlePanel==0;
+        p.state.battleSub=2; p.battlePanel=2;
         p.state.battleSubCase=0; p.cancelBattlePanel();
         assert p.battlePanel==0 && DualScreenBridge.submits==1;
+        assert DualScreenBridge.lastA==-1 && DualScreenBridge.lastB==-1;
+        p.state.battleSub=3; p.battlePanel=5; p.submitBattleSwitchPrompt(0);
+        assert p.battlePanel==0 && DualScreenBridge.submits==2;
+        assert DualScreenBridge.lastA==0 && DualScreenBridge.lastB==-1;
+        p.state.battleSub=3; p.battlePanel=5; p.submitBattleSwitchPrompt(9);
+        assert p.battlePanel==0 && DualScreenBridge.submits==3;
+        assert DualScreenBridge.lastA==1 && DualScreenBridge.lastB==-1;
         p.state.inBattle=false; p.syncBattlePanel(); assert p.battlePanel==0;
         System.out.println("PASS: actual Java forced party panel opens without tap, survives stale bag/PP panels, blocks cancel, filters slots and immediately opens the next replacement");
     }
@@ -258,6 +287,87 @@ class PartyPanelTest {
         path.write_text(java)
         subprocess.run([str(jdk / 'javac') if jdk else 'javac', str(path)], check=True)
         subprocess.run([str(jdk / 'java') if jdk else 'java', '-ea', '-cp', tmp, 'PartyPanelTest'], check=True, timeout=10)
+
+
+def check_switch_prompt_command():
+    source = (ROOT / 'src/battle_script_commands.c').read_text()
+    code = r'''
+#include <assert.h>
+#include <stdint.h>
+#include <stdio.h>
+typedef uint8_t u8;
+typedef uint32_t u32;
+#define PLATFORM_SDL2 1
+#define BATTLE_TYPE_TRAINER (1u << 3)
+#define CURSOR_POSITION 1
+#define DPAD_UP 0x40
+#define DPAD_DOWN 0x80
+#define A_BUTTON 1
+#define B_BUTTON 2
+#define WINDOW_CLEAR 1
+#define B_WIN_YESNO 7
+#define SE_SELECT 5
+#define JOY_NEW(key) (newKeys & (key))
+u8 gBattleCommunication[8];
+u8 script[4], *gBattlescriptCurrInstr = script;
+u32 gBattleTypeFlags;
+u32 newKeys;
+const u8 gText_BattleYesNoChoice[] = {0};
+int takeover, pollReady, pollChoice;
+int openWindows, clearWindows, textCalls, createCalls, destroyCalls, soundCalls;
+u32 DualScreen_TryOpenBattleSwitchPrompt(void) { return takeover; }
+u32 DualScreen_PollBattleSwitchChoice(u8 *choice) {
+    if (!pollReady) return 0;
+    *choice = pollChoice;
+    return 1;
+}
+void HandleBattleWindow(int a, int b, int c, int d, int mode) {
+    if (mode == WINDOW_CLEAR) clearWindows++; else openWindows++;
+}
+void BattlePutTextOnWindow(const u8 *text, int window) { textCalls++; }
+void BattleCreateYesNoCursorAt(void) { createCalls++; }
+void BattleDestroyYesNoCursorAt(void) { destroyCalls++; }
+void PlaySE(int sound) { assert(sound == SE_SELECT); soundCalls++; }
+'''
+    code += function(source, 'Cmd_yesnobox')
+    code += r'''
+void reset(void) {
+    for (int i=0; i<8; i++) gBattleCommunication[i]=0;
+    gBattlescriptCurrInstr=script;
+    gBattleTypeFlags=BATTLE_TYPE_TRAINER;
+    newKeys=0; takeover=1; pollReady=0; pollChoice=0;
+    openWindows=clearWindows=textCalls=createCalls=destroyCalls=soundCalls=0;
+}
+int main(void) {
+    reset();
+    Cmd_yesnobox();
+    assert(gBattleCommunication[0] == 2);
+    assert(clearWindows == 1 && openWindows == 0 && textCalls == 0 && createCalls == 0);
+    Cmd_yesnobox(); assert(gBattlescriptCurrInstr == script);
+    pollReady=1; pollChoice=0; Cmd_yesnobox();
+    assert(gBattleCommunication[CURSOR_POSITION] == 0);
+    assert(gBattlescriptCurrInstr == script + 1 && soundCalls == 1);
+
+    reset(); Cmd_yesnobox(); pollReady=1; pollChoice=1; Cmd_yesnobox();
+    assert(gBattleCommunication[CURSOR_POSITION] == 1 && gBattlescriptCurrInstr == script + 1);
+
+    // A missing bottom screen and the wild-battle prompt retain the original window.
+    reset(); takeover=0; Cmd_yesnobox();
+    assert(gBattleCommunication[0] == 1 && openWindows == 1 && textCalls == 1 && createCalls == 1);
+    reset(); gBattleTypeFlags=0; Cmd_yesnobox();
+    assert(gBattleCommunication[0] == 1 && openWindows == 1 && textCalls == 1 && createCalls == 1);
+    puts("PASS: trainer switch Yes/No is owned by the bottom screen while fallback prompts retain the original window");
+    return 0;
+}
+'''
+    with tempfile.TemporaryDirectory(prefix='firered-switch-prompt-command-') as tmp:
+        path = Path(tmp) / 'test.c'
+        binary = Path(tmp) / 'test'
+        path.write_text(code)
+        subprocess.run([os.environ.get('CC', 'cc'), '-std=c11', '-O1', '-g',
+                        '-fsanitize=address,undefined', '-fno-sanitize-recover=all',
+                        str(path), '-o', str(binary)], check=True)
+        subprocess.run([str(binary)], check=True, timeout=10)
 
 
 def check_lower_screen_back():
@@ -348,7 +458,8 @@ def main():
     for name in ('DualScreen_TakeBattleTakeover', 'DualScreen_SetBattleMenuOpen',
                  'DualScreen_ClearBattleMenu', 'DualScreen_TakeBattleChoice',
                  'DualScreen_SetBattleMenuResult', 'DualScreen_TryOpenBattlePartyMenu',
-                 'DualScreen_PollBattleMonChoice'):
+                 'DualScreen_PollBattleMonChoice', 'DualScreen_TryOpenBattleSwitchPrompt',
+                 'DualScreen_PollBattleSwitchChoice'):
         code += function(bridge, name) + '\n'
     controller = (ROOT / 'src/battle_controller_player.c').read_text()
     for name in ('DualScreen_WaitForMonChoice', 'PlayerHandleChoosePokemon'):
@@ -362,6 +473,7 @@ def main():
                         '-I', str(ROOT / 'include'), str(source), '-o', str(binary)], check=True)
         subprocess.run([str(binary)], check=True, timeout=10)
     check_panel()
+    check_switch_prompt_command()
     check_lower_screen_back()
 
 

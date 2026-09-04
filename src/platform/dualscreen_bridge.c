@@ -378,8 +378,8 @@ static void QueueVirtualKeys(u16 keys)
 }
 
 // ---------------------------------------------------------------------------
-// Battle bag/party takeover: pending-choice mailbox between the bottom
-// screen and the player battle controller (see platform/dualscreen.h).
+// Battle bag/party/prompt takeover: pending-choice mailbox between the bottom
+// screen and the battle engine (see platform/dualscreen.h).
 // All state here is zero-initialized runtime .bss: nothing is written before
 // DualScreen_FillAssets runs, so it is safe w.r.t. asset-hole packaging.
 // ---------------------------------------------------------------------------
@@ -396,7 +396,7 @@ static SDL_SpinLock sBattleMenuLock;
 static u32 sBottomPollFrame;  // frame of the last snapshot poll over JNI; 0 = never
 static u32 sBattleArmMode;    // Java's intent: 0 none, 1 bag, 2 party
 static u32 sBattleArmFrame;
-static u32 sBattleMenuMode;   // controller wait state: 0 closed, 1 bag, 2 party
+static u32 sBattleMenuMode;   // wait state: 0 closed, 1 bag, 2 party, 3 switch prompt
 static u32 sBattleMenuCaseId; // PARTY_ACTION_* for the party wait state
 static u32 sBattleMenuBattler;
 static u32 sBattleMenuResult; // DS_BMENU_RESULT_* of the last submission
@@ -570,6 +570,30 @@ u32 DualScreen_PollBattleMonChoice(u8 *monId)
 reject:
     DualScreen_SetBattleMenuResult(result);
     return FALSE;
+}
+
+u32 DualScreen_TryOpenBattleSwitchPrompt(void)
+{
+    // This prompt is opened by the battle script rather than by a command
+    // button, so it has no arm to consume. If the companion display is not
+    // alive, the caller falls back to FireRed's original Yes/No window.
+    if (!DualScreen_BattleUiActive() || !DualScreen_BottomScreenLive())
+        return FALSE;
+    DualScreen_SetBattleMenuOpen(3, 0, gActiveBattler);
+    return TRUE;
+}
+
+u32 DualScreen_PollBattleSwitchChoice(u8 *choice)
+{
+    s32 selected, unused;
+
+    if (!DualScreen_TakeBattleChoice(&selected, &unused))
+        return FALSE;
+    // Treat cancellation and malformed input as the safe original B action:
+    // keep battling and let the opponent send the announced Pokémon.
+    *choice = selected == 0 ? 0 : 1;
+    DualScreen_ClearBattleMenu();
+    return TRUE;
 }
 
 u32 DualScreen_BattleMenuInfo(u32 *caseId, u32 *battler, u32 *result, u32 *seq)
@@ -1471,7 +1495,8 @@ JNIEXPORT void JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_native
 
 // Submits the pending battle choice. Bag wait: a = item id, b = target
 // party slot (-1 for no target), optionally ORed with ((PP move + 1) << 8).
-// Party wait: a = party slot. a = -1 cancels back to the action menu.
+// Party wait: a = party slot. Trainer-switch prompt: a = 0 to switch,
+// 1 to keep battling. a = -1 cancels bag/party back to the action menu.
 JNIEXPORT void JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeBattleSubmit(JNIEnv *env, jclass clazz, jint a, jint b)
 {
     SDL_AtomicLock(&sBattleMenuLock);

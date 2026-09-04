@@ -206,7 +206,7 @@ def check_panel_sync():
 class PanelTest {
     static class State { boolean inBattle = true; int battleSub, battleSubCase, battleSubSeq, battleSubResult; }
     State state = new State();
-    int battlePanel, lastSubSeq, lastBattlePanel, battlePartyFocus;
+    int battlePanel, lastSubSeq, lastBattlePanel, battlePartyFocus, battleSwitchFocus;
     boolean battleBagItemsOpen, battleReturningToCommands;
     long battleArmMs, battleCloseMs, battleNoticeMs;
     String battleNotice = "";

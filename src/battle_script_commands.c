@@ -36,6 +36,9 @@
 #include "constants/abilities.h"
 #include "constants/pokemon.h"
 #include "constants/maps.h"
+#ifdef PLATFORM_SDL2
+#include "platform/dualscreen.h"
+#endif
 
 extern const u8 *const gBattleScriptsForMoveEffects[];
 
@@ -5550,6 +5553,20 @@ static void Cmd_yesnobox(void)
     switch (gBattleCommunication[0])
     {
     case 0:
+#ifdef PLATFORM_SDL2
+        // In a normal single trainer battle this is the "Will you change
+        // POKéMON?" prompt. Keep its question text on the battle display,
+        // but move the actual choice to the companion screen. The other
+        // caller is the wild-battle "Use next POKéMON?" prompt and retains
+        // FireRed's original window.
+        if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+         && DualScreen_TryOpenBattleSwitchPrompt())
+        {
+            HandleBattleWindow(23, 8, 29, 13, WINDOW_CLEAR);
+            gBattleCommunication[0] = 2;
+            break;
+        }
+#endif
         HandleBattleWindow(23, 8, 29, 13, 0);
         BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
         gBattleCommunication[0]++;
@@ -5585,6 +5602,15 @@ static void Cmd_yesnobox(void)
             gBattlescriptCurrInstr++;
         }
         break;
+#ifdef PLATFORM_SDL2
+    case 2:
+        if (DualScreen_PollBattleSwitchChoice(&gBattleCommunication[CURSOR_POSITION]))
+        {
+            PlaySE(SE_SELECT);
+            gBattlescriptCurrInstr++;
+        }
+        break;
+#endif
     }
 }
 

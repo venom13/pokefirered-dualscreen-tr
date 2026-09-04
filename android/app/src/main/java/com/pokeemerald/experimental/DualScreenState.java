@@ -70,7 +70,7 @@ public final class DualScreenState {
     public boolean battleDouble;
     public boolean battleCanUseItems; // battle type allows the bag at all
     public boolean battleCanCatch;    // wild battle: balls pocket is legal
-    public int battleSub;             // 0 none, 1 bag wait, 2 party wait
+    public int battleSub;             // 0 none, 1 bag, 2 party, 3 trainer switch prompt
     public int battleSubCase;         // PARTY_ACTION_* for the party wait
     public int battleSubResult;       // DS_BMENU_RESULT_* of last submission
     public int battleSubSeq;

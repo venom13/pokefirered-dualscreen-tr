@@ -166,7 +166,9 @@ public final class DualScreenView extends View {
     };
 
     // Battle bag/party takeover (Gen 4-style bottom-screen menus).
-    private int battlePanel; // 0 none, 1 bag, 2 switch party, 3 item-target party, 4 PP move
+    // 0 none, 1 bag, 2 switch party, 3 item-target party, 4 PP move,
+    // 5 trainer replacement prompt.
+    private int battlePanel;
     private int pendingItemId;
     private int pendingItemParty;
     private int battlePpFocus;
@@ -205,6 +207,8 @@ public final class DualScreenView extends View {
     private float battleBagListBottom;
     private float battleBagRowH = 1;
     private final RectF battleUseButton = new RectF();
+    private final RectF[] battleSwitchButtons = {new RectF(), new RectF()};
+    private int battleSwitchFocus;
     private final RectF[] battlePartyCards = {new RectF(), new RectF(), new RectF(),
                                               new RectF(), new RectF(), new RectF()};
     private int battlePartyFocus = -1; // staircase slot under the button cursor
@@ -258,6 +262,19 @@ public final class DualScreenView extends View {
             return;
         }
         showCursor = true;
+        if (battlePanel == 5) {
+            if (action == NAV_UP || action == NAV_LEFT) {
+                battleSwitchFocus = 0;
+            } else if (action == NAV_DOWN || action == NAV_RIGHT) {
+                battleSwitchFocus = 1;
+            } else if (action == NAV_CONFIRM) {
+                submitBattleSwitchPrompt(battleSwitchFocus);
+            } else if (action == NAV_CANCEL) {
+                submitBattleSwitchPrompt(1);
+            }
+            invalidate();
+            return;
+        }
         if (battlePanel == 4) {
             if (action == NAV_CANCEL) {
                 battlePanel = 3;
@@ -467,8 +484,11 @@ public final class DualScreenView extends View {
             if (state.battleSub == 1) {
                 battlePanel = 1;
                 resetBattleBag();
-            } else {
+            } else if (state.battleSub == 2) {
                 battlePanel = 2;
+            } else if (state.battleSub == 3) {
+                battlePanel = 5;
+                battleSwitchFocus = 0;
             }
         } else if (battleSendOutWait() && (battlePanel == 1 || battlePanel == 3 || battlePanel == 4)) {
             // A stale bag panel must never sit on a send-out wait: with
@@ -484,6 +504,9 @@ public final class DualScreenView extends View {
         if (battlePanel != lastBattlePanel) {
             lastBattlePanel = battlePanel;
             battlePartyFocus = -1; // a fresh panel starts on its first legal slot
+            if (battlePanel == 5) {
+                battleSwitchFocus = 0;
+            }
         }
     }
 
@@ -901,6 +924,12 @@ public final class DualScreenView extends View {
             default:
                 return true;
             }
+        }
+        if (state.inBattle && battlePanel == 5) {
+            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                handleBattleSwitchPromptTouch(event.getX(), event.getY());
+            }
+            return true;
         }
         if (state.inBattle && battlePanel == 4) {
             if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
@@ -1402,6 +1431,28 @@ public final class DualScreenView extends View {
                 invalidate();
             }
         }
+    }
+
+    private void handleBattleSwitchPromptTouch(float x, float y) {
+        for (int choice = 0; choice < battleSwitchButtons.length; choice++) {
+            if (battleSwitchButtons[choice].contains(x, y)) {
+                battleSwitchFocus = choice;
+                submitBattleSwitchPrompt(choice);
+                return;
+            }
+        }
+    }
+
+    private void submitBattleSwitchPrompt(int choice) {
+        if (state.battleSub != 3) {
+            return;
+        }
+        battleCloseMs = System.currentTimeMillis();
+        lastLiveMenu = 0;
+        lastLiveMenuMs = 0;
+        DualScreenBridge.nativeBattleSubmit(choice == 0 ? 0 : 1, -1);
+        battlePanel = 0;
+        invalidate();
     }
 
     /** Whether a staircase slot is tappable in the current panel. */
@@ -2347,6 +2398,7 @@ public final class DualScreenView extends View {
     private void drawBattle(Canvas canvas) {
         GbaFont f = font();
         for (RectF r : battleButtons) r.setEmpty();
+        for (RectF r : battleSwitchButtons) r.setEmpty();
         battleCancel.setEmpty();
         battleUseButton.setEmpty();
         battleButtonsMenu = 0;
@@ -2362,6 +2414,10 @@ public final class DualScreenView extends View {
         battleButtonsMenu = menu;
 
         // Gen 4-style takeover panels own the whole bottom screen.
+        if (battlePanel == 5) {
+            drawBattleSwitchPrompt(canvas);
+            return;
+        }
         if (battlePanel == 4) {
             drawBattlePpMoves(canvas);
             return;
@@ -2782,6 +2838,58 @@ public final class DualScreenView extends View {
             float nameScale = Math.min(scale, (card.width() - 3 * pad - ppWidth) / Math.max(1, f.measure(name, 1)));
             f.draw(canvas, name, card.left + pad, textY, nameScale, TEXT_DARK, TEXT_SHADOW);
             f.draw(canvas, pp, card.right - pad - ppWidth, textY, scale, TEXT_DARK, TEXT_SHADOW);
+        }
+    }
+
+    /** Trainer replacement choice, moved off the top-screen Yes/No window. */
+    private void drawBattleSwitchPrompt(Canvas canvas) {
+        GbaFont f = font();
+        if (f == null) {
+            return;
+        }
+        float width = getWidth();
+        float height = getHeight();
+        float pad = width * 0.055f;
+        float gap = height * 0.055f;
+        float top = height * 0.075f;
+        float bottom = height * 0.925f;
+        float cardHeight = (bottom - top - gap) / 2f;
+        float scale = width / 460f;
+
+        // The reference screen uses a quiet light field so the two decisions
+        // read immediately as the only active controls.
+        canvas.drawColor(0xFFF2F2EE);
+        paint.setColor(0xFFE2E3DE);
+        paint.setStrokeWidth(Math.max(2, width * 0.004f));
+        for (int column = 1; column < 4; column++) {
+            float x = width * column / 4f;
+            canvas.drawLine(x, 0, x, height, paint);
+        }
+        for (int row = 1; row < 4; row++) {
+            float y = height * row / 4f;
+            canvas.drawLine(0, y, width, y, paint);
+        }
+
+        String[] labels = {"Switch POKéMON", "Keep battling"};
+        int[] fills = {HEADER_RED, CMD_FILL[3]};
+        int[] lights = {HEADER_RED_LIGHT, CMD_LIGHT[3]};
+        int[] darks = {HEADER_RED_DARK, CMD_DARK[3]};
+        for (int choice = 0; choice < battleSwitchButtons.length; choice++) {
+            float cardTop = top + choice * (cardHeight + gap);
+            RectF card = battleSwitchButtons[choice];
+            card.set(pad, cardTop, width - pad, cardTop + cardHeight);
+            RectF inner = drawBeveledSurface(canvas, card, fills[choice], lights[choice],
+                    darks[choice], false);
+            float labelScale = Math.min(scale * 1.30f,
+                    (inner.width() - pad * 1.2f)
+                            / Math.max(1f, f.measure(labels[choice], 1f)));
+            f.draw(canvas, labels[choice],
+                    inner.centerX() - f.measure(labels[choice], labelScale) / 2,
+                    inner.centerY() - GbaFont.LINE_HEIGHT * labelScale / 2,
+                    labelScale, TEXT_WHITE, darks[choice]);
+            if (showCursor && choice == battleSwitchFocus) {
+                drawCursorRing(canvas, card, 16);
+            }
         }
     }
 

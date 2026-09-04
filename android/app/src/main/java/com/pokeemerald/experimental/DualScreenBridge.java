@@ -151,7 +151,8 @@ public final class DualScreenBridge {
      * Submits the pending battle choice. Bag wait: a = item id, b = target
      * party slot (-1 for no target), ORed with ((PP move + 1) << 8) for
      * single-move PP recovery. Party wait: a = party
-     * slot. a = -1 cancels back to the action menu.
+     * slot. Trainer-switch prompt: a = 0 to switch, 1 to keep battling.
+     * For bag/party waits, a = -1 cancels back to the action menu.
      */
     public static native void nativeBattleSubmit(int a, int b);
 

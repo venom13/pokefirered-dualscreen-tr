@@ -49,7 +49,7 @@ s32 DualScreen_FirstBattleMoveBattler(void);
 s32 DualScreen_ActionCursorStep(u32 cursor, u32 direction);
 
 // ---------------------------------------------------------------------------
-// Battle bag/party takeover (Gen 4 style): the bottom screen arms a takeover
+// Battle bag/party/prompt takeover (Gen 4 style): the bottom screen arms a takeover
 // before key-walking the action cursor to BAG or POKeMON; the player battle
 // controller then waits for a choice submitted over JNI instead of opening
 // the GBA bag/party menu apps, and the battle never leaves the top screen.
@@ -85,6 +85,11 @@ u32 DualScreen_PollBattleItemChoice(u16 *itemId);
 u32 DualScreen_TryOpenBattlePartyMenu(void);
 // Returns TRUE for a valid field party index, or PARTY_SIZE on allowed cancel.
 u32 DualScreen_PollBattleMonChoice(u8 *monId);
+// Replaces the trainer battle's top-screen Yes/No switch prompt with a
+// bottom-screen choice. The returned value matches the original cursor:
+// 0 switches Pokémon, 1 keeps battling.
+u32 DualScreen_TryOpenBattleSwitchPrompt(void);
+u32 DualScreen_PollBattleSwitchChoice(u8 *choice);
 // A cancelled bottom-screen menu leaves the same action prompt visible on
 // the top display. The next choose-action command consumes this one-shot flag
 // so it does not clear and retype identical text.
