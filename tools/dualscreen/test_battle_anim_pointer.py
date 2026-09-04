@@ -12,9 +12,23 @@ ROOT = Path(__file__).resolve().parents[2]
 MONS = (ROOT / "src/battle_anim_mons.c").read_text()
 NORMAL = (ROOT / "src/battle_anim_normal.c").read_text()
 
+
+def pointer_function(source, name):
+    match = re.search(r"(?m)^(?:static )?\w+\s+\*" + name + r"\([^;{}]*\)\s*\{", source)
+    assert match, name
+    end, depth = match.end(), 1
+    while depth:
+        depth += (source[end] == "{") - (source[end] == "}")
+        end += 1
+    return source[match.start():end]
+
+
 loader = function(MONS, "LoadPointerFromSpriteData6")
+vars_loader = pointer_function(MONS, "LoadPointerFromVars")
 assert "(u16)sprite->data[6]" in loader
 assert "(u16)sprite->data[7]" in loader
+assert "(u16)lo" in vars_loader
+assert "(u16)hi" in vars_loader
 assert "LoadPointerFromSpriteData6(sprite)" in function(MONS, "SetCallbackToStoredInData6")
 assert NORMAL.count("LoadPointerFromSpriteData6(sprite)") == 2
 assert not re.search(r"data\[6\]\s*\|\s*\([^\n]*data\[7\]\s*<<\s*16", NORMAL)
@@ -26,7 +40,7 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 typedef int16_t s16;
 struct Sprite { s16 data[8]; };
-""" + loader + r"""
+""" + loader + "\n" + vars_loader + r"""
 int main(void)
 {
     struct Sprite sprite = {0};
@@ -38,6 +52,7 @@ int main(void)
     sprite.data[6] = (s16)0x1234;
     sprite.data[7] = (s16)0xFEDC;
     assert(LoadPointerFromSpriteData6(&sprite) == (uintptr_t)0xFEDC1234u);
+    assert((uintptr_t)LoadPointerFromVars((s16)0xDA12, (s16)0xBA61) == (uintptr_t)0xBA61DA12u);
     return 0;
 }
 """

@@ -25,7 +25,7 @@ static void CreateBattlerTrace(struct Task *task, u8 taskId);
 static void AnimBattlerTrace(struct Sprite *sprite);
 static void AnimWeatherBallUp_Step(struct Sprite *sprite);
 
-static EWRAM_DATA union AffineAnimCmd *sAnimTaskAffineAnim = NULL;
+static EWRAM_DATA const union AffineAnimCmd *sAnimTaskAffineAnim = NULL;
 static EWRAM_DATA u32 sUnused = 0;
 
 static const struct UCoords8 sBattlerCoords[][MAX_BATTLERS_COUNT] =
@@ -1692,7 +1692,7 @@ void PrepareAffineAnimInTaskData(struct Task *task, u8 spriteId, const union Aff
 
 bool8 RunAffineAnimFromTaskData(struct Task *task)
 {
-    sAnimTaskAffineAnim = LoadPointerFromVars(task->data[13], task->data[14]) + (task->data[7] << 3);
+    sAnimTaskAffineAnim = (const union AffineAnimCmd *)LoadPointerFromVars(task->data[13], task->data[14]) + task->data[7];
     switch (sAnimTaskAffineAnim->type)
     {
     default:
@@ -1822,13 +1822,15 @@ static u16 GetBattlerYDeltaFromSpriteId(u8 spriteId)
 
 void StorePointerInVars(s16 *lo, s16 *hi, const void *ptr)
 {
-    *lo = ((intptr_t)ptr) & 0xffff;
-    *hi = (((intptr_t)ptr) >> 16) & 0xffff;
+    uintptr_t value = (uintptr_t)ptr;
+
+    *lo = value & 0xffff;
+    *hi = (value >> 16) & 0xffff;
 }
 
 void *LoadPointerFromVars(s16 lo, s16 hi)
 {
-    return (void *)((u16)lo | ((u16)hi << 16));
+    return (void *)(uintptr_t)((u32)(u16)lo | ((u32)(u16)hi << 16));
 }
 
 void BattleAnimHelper_SetSpriteSquashParams(struct Task *task, u8 spriteId, s16 xScaleStart, s16 yScaleStart, s16 xScaleEnd, s16 yScaleEnd, u16 duration)
