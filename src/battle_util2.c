@@ -50,7 +50,9 @@ void FreeBattleResources(void)
 
         for (i = 0; i < 4; i++)
         {
-            FREE_AND_SET_NULL(gPokedudeBattlerStates[i]);
+            // A corrupted or interrupted battle must not turn an unallocated
+            // Pokedude state into a fatal NULL-free assertion.
+            TRY_FREE_AND_SET_NULL(gPokedudeBattlerStates[i]);
         }
     }
     if (gBattleResources != NULL)

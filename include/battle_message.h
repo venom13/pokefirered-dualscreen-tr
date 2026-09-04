@@ -222,7 +222,16 @@ extern struct BattleMsgData *gBattleMsgDataPtr;
 
 #define TEXT_BUFF_ARRAY_COUNT   16
 
-extern u8 gDisplayedStringBattle[300];
+// Brock's defeat speech expands to more than 300 bytes. The original GBA
+// layout lets that known overflow spill into otherwise unused EWRAM, but the
+// portable linker removes that padding and places live battle state after it.
+#ifdef PLATFORM_SDL2
+#define DISPLAYED_BATTLE_STRING_LENGTH 400
+#else
+#define DISPLAYED_BATTLE_STRING_LENGTH 300
+#endif
+
+extern u8 gDisplayedStringBattle[DISPLAYED_BATTLE_STRING_LENGTH];
 extern u8 gBattleTextBuff1[TEXT_BUFF_ARRAY_COUNT];
 extern u8 gBattleTextBuff2[TEXT_BUFF_ARRAY_COUNT];
 extern u8 gBattleTextBuff3[TEXT_BUFF_ARRAY_COUNT];
