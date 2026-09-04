@@ -123,6 +123,12 @@ public final class DualScreenView extends View {
     private float bagTouchDownY;
     private float bagScrollStart;
     private boolean bagDragging;
+    private boolean bagItemsOpen;
+    private final RectF[] bagPocketButtons = {new RectF(), new RectF(), new RectF(),
+                                              new RectF(), new RectF()};
+    private final RectF bagBack = new RectF();
+    private boolean bagBackTracking;
+    private boolean bagBackPressed;
     private final int[] bagSelected = new int[5]; // remembered per pocket
     // List geometry from the last draw, for touch hit-testing.
     private float bagListTop;
@@ -821,12 +827,6 @@ public final class DualScreenView extends View {
         0xFFA84840, 0xFFA87828, HEADER_RED_DARK, 0xFF405E98, 0xFF744C94
     };
 
-    private RectF pocketRect(int index) {
-        float w = getWidth() / (float) POCKET_NAMES.length;
-        float h = (getHeight() - tabBarHeight()) * 0.105f;
-        return new RectF(index * w, 0, (index + 1) * w, h);
-    }
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // The startup screen has no controls, including invisible tab targets.
@@ -944,6 +944,7 @@ public final class DualScreenView extends View {
                         if (tabRect(i).contains(event.getX(), event.getY())) {
                             tab = i;
                             detailMon = -1;
+                            bagItemsOpen = false;
                             invalidate();
                             return true;
                         }
@@ -954,16 +955,28 @@ public final class DualScreenView extends View {
             }
             return true;
         }
-        // Bag list: drag to scroll, tap to select an item.
+        // BAG category buttons open a separate, touch-scrollable item screen.
         if (tab == TAB_BAG && !state.inBattle && state.inGame) {
             switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 bagTouchDownY = event.getY();
                 bagScrollStart = bagScroll;
                 bagDragging = false;
+                bagBackTracking = bagItemsOpen && bagBack.contains(event.getX(), event.getY());
+                bagBackPressed = bagBackTracking;
+                if (bagBackPressed) invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (bagDragging || Math.abs(event.getY() - bagTouchDownY) > 24) {
+                if (bagBackTracking) {
+                    boolean pressed = bagBack.contains(event.getX(), event.getY());
+                    if (bagBackPressed != pressed) {
+                        bagBackPressed = pressed;
+                        invalidate();
+                    }
+                    return true;
+                }
+                if (bagItemsOpen
+                        && (bagDragging || Math.abs(event.getY() - bagTouchDownY) > 24)) {
                     bagDragging = true;
                     bagScroll = Math.max(0, Math.min(bagMaxScroll(),
                             bagScrollStart + (bagTouchDownY - event.getY())));
@@ -976,12 +989,35 @@ public final class DualScreenView extends View {
                         if (tabRect(i).contains(event.getX(), event.getY())) {
                             tab = i;
                             detailMon = -1;
+                            bagItemsOpen = false;
+                            bagBackTracking = false;
+                            bagBackPressed = false;
                             invalidate();
                             return true;
                         }
                     }
+                    if (bagBackTracking) {
+                        boolean closeItems = bagBackPressed
+                                && bagBack.contains(event.getX(), event.getY());
+                        bagBackTracking = false;
+                        bagBackPressed = false;
+                        if (closeItems) {
+                            bagItemsOpen = false;
+                            bagScroll = 0;
+                            invalidate();
+                        }
+                        return true;
+                    }
                     handleBagTouch(event.getX(), event.getY());
                 }
+                bagBackTracking = false;
+                bagBackPressed = false;
+                return true;
+            case MotionEvent.ACTION_CANCEL:
+                bagDragging = false;
+                bagBackTracking = false;
+                bagBackPressed = false;
+                invalidate();
                 return true;
             }
             return true;
@@ -995,6 +1031,7 @@ public final class DualScreenView extends View {
                 if (tabRect(i).contains(event.getX(), event.getY())) {
                     tab = i;
                     detailMon = -1;
+                    bagItemsOpen = false;
                     invalidate();
                     return true;
                 }
@@ -3280,30 +3317,6 @@ public final class DualScreenView extends View {
         }
     }
 
-    /** A pocket tab, like drawBar but themed with the pocket's accent color. */
-    private void drawPocketTab(Canvas canvas, RectF r, boolean selected, String label,
-                               float textScale, int accent, int accentDark) {
-        paint.setColor(accentDark);
-        canvas.drawRoundRect(r, 6, 6, paint);
-        RectF inner = new RectF(r);
-        inner.inset(3, 3);
-        paint.setColor(selected ? accent : BAR_CREAM_DARK);
-        canvas.drawRoundRect(inner, 4, 4, paint);
-        if (selected) {
-            paint.setColor(BAR_CREAM);
-            RectF edge = new RectF(inner.left, inner.bottom - 6, inner.right, inner.bottom);
-            canvas.drawRoundRect(edge, 3, 3, paint);
-        }
-        GbaFont f = font();
-        if (f != null && label != null) {
-            float w = f.measure(label, textScale);
-            f.draw(canvas, label, r.centerX() - w / 2,
-                    r.centerY() - GbaFont.LINE_HEIGHT * textScale / 2, textScale,
-                    selected ? TEXT_WHITE : TEXT_DARK,
-                    selected ? accentDark : TEXT_SHADOW);
-        }
-    }
-
     /** The selected row's cream bar with the pocket-accent cursor arrow. */
     private void drawSelectionBar(Canvas canvas, float rowLeft, float rowRight,
                                   float top, float rowH, int accent) {
@@ -3373,16 +3386,20 @@ public final class DualScreenView extends View {
     }
 
     private void handleBagTouch(float x, float y) {
-        for (int i = 0; i < POCKET_NAMES.length; i++) {
-            if (pocketRect(i).contains(x, y)) {
-                if (bagPocket != i) {
-                    bagPocket = i;
-                    bagScroll = 0;
+        if (!bagItemsOpen) {
+            for (int i = 0; i < bagPocketButtons.length; i++) {
+                if (!bagPocketButtons[i].contains(x, y)) {
+                    continue;
                 }
+                bagPocket = i;
+                bagScroll = 0;
+                bagItemsOpen = true;
                 invalidate();
                 return;
             }
+            return;
         }
+
         if (y >= bagListTop && y < bagListBottom && bagRowH > 0) {
             int index = (int) ((y - bagListTop + bagScroll) / bagRowH);
             if (index >= 0 && index < bagItems().size()) {
@@ -3396,25 +3413,113 @@ public final class DualScreenView extends View {
         GbaFont f = font();
         float contentHeight = getHeight() - tabBarHeight();
         drawContentBackdrop(canvas, contentHeight, BAG_BG_BASE, BAG_BG_WEAVE);
-        float pad = getWidth() * 0.02f;
-        float scale = getWidth() / 460f;
-        int accent = POCKET_ACCENTS[bagPocket];
-
-        for (int i = 0; i < POCKET_NAMES.length; i++) {
-            RectF r = pocketRect(i);
-            r.inset(5, 5);
-            drawPocketTab(canvas, r, i == bagPocket, POCKET_NAMES[i], scale * 0.85f,
-                    POCKET_ACCENTS[i], POCKET_ACCENTS_DARK[i]);
-        }
         if (f == null) {
             return;
         }
+        if (bagItemsOpen) {
+            drawBagItems(canvas, f, contentHeight);
+        } else {
+            drawBagPockets(canvas, f, contentHeight);
+        }
+    }
 
-        // Description box docked at the bottom, dark like the in-game bag's.
+    /** First BAG level: all pockets are large buttons instead of header tabs. */
+    private void drawBagPockets(Canvas canvas, GbaFont f, float contentHeight) {
+        float pad = getWidth() * 0.02f;
+        float scale = getWidth() / 460f;
+        bagBack.setEmpty();
+        bagListTop = 0;
+        bagListBottom = 0;
+        for (RectF button : bagPocketButtons) {
+            button.setEmpty();
+        }
+
+        float headerH = contentHeight * 0.12f;
+        RectF header = new RectF(pad, pad * 0.45f, getWidth() - pad, headerH);
+        int headerFill = blendColor(BAR_CREAM, POCKET_ACCENTS[0], 0.18f);
+        RectF headerInner = drawBeveledSurface(canvas, header, headerFill,
+                blendColor(headerFill, 0xFFFFFFFF, 0.52f), PANEL_BORDER, false);
+        String title = "BAG";
+        float titleScale = scale * 1.12f;
+        f.draw(canvas, title, headerInner.centerX() - f.measure(title, titleScale) / 2,
+                headerInner.centerY() - GbaFont.LINE_HEIGHT * titleScale / 2,
+                titleScale, TEXT_DARK, TEXT_SHADOW);
+
+        float gridTop = header.bottom + pad * 0.65f;
+        float gap = pad * 0.80f;
+        float buttonW = (getWidth() - pad * 2 - gap) / 2;
+        float buttonH = (contentHeight - gridTop - pad - gap * 2) / 3;
+        for (int i = 0; i < bagPocketButtons.length; i++) {
+            int row = i / 2;
+            int column = i % 2;
+            float left = pad + column * (buttonW + gap);
+            float right = left + buttonW;
+            if (i == bagPocketButtons.length - 1) {
+                row = 2;
+                left = pad;
+                right = getWidth() - pad;
+            }
+            float top = gridTop + row * (buttonH + gap);
+            RectF button = bagPocketButtons[i];
+            button.set(left, top, right, top + buttonH);
+
+            int fill = blendColor(BAR_CREAM, POCKET_ACCENTS[i], 0.34f);
+            int light = blendColor(fill, 0xFFFFFFFF, 0.48f);
+            RectF inner = drawBeveledSurface(canvas, button, fill, light,
+                    POCKET_ACCENTS_DARK[i], false);
+
+            String label = POCKET_NAMES[i];
+            float labelScale = Math.min(scale,
+                    (inner.width() - pad * 1.2f) / Math.max(1f, f.measure(label, 1f)));
+            labelScale = Math.max(scale * 0.78f, labelScale);
+            String count = bagPocketCount(i) == 0 ? "EMPTY" : bagPocketCount(i) + " ITEMS";
+            float countScale = scale * 0.76f;
+            float totalTextH = GbaFont.LINE_HEIGHT * (labelScale + countScale) + pad * 0.35f;
+            float textTop = inner.centerY() - totalTextH / 2;
+            f.draw(canvas, label, inner.centerX() - f.measure(label, labelScale) / 2,
+                    textTop, labelScale, TEXT_DARK, TEXT_SHADOW);
+            f.draw(canvas, count, inner.centerX() - f.measure(count, countScale) / 2,
+                    textTop + GbaFont.LINE_HEIGHT * labelScale + pad * 0.35f,
+                    countScale, POCKET_ACCENTS_DARK[i], TEXT_SHADOW);
+        }
+    }
+
+    private int bagPocketCount(int pocket) {
+        return pocket < state.bag.size() ? state.bag.get(pocket).size() : 0;
+    }
+
+    /** Second BAG level: the chosen pocket's scrollable item list. */
+    private void drawBagItems(Canvas canvas, GbaFont f, float contentHeight) {
+        float pad = getWidth() * 0.02f;
+        float scale = getWidth() / 460f;
+        int accent = POCKET_ACCENTS[bagPocket];
+        for (RectF button : bagPocketButtons) {
+            button.setEmpty();
+        }
+
+        float headerTop = pad * 0.45f;
+        float headerH = contentHeight * 0.12f;
+        float backSize = Math.max(headerH, getWidth() * 0.105f);
+        bagBack.set(getWidth() - pad - backSize, headerTop,
+                getWidth() - pad, headerTop + headerH);
+        RectF titleButton = new RectF(pad, headerTop, bagBack.left - pad * 0.7f,
+                headerTop + headerH);
+        int titleFill = blendColor(BAR_CREAM, accent, 0.34f);
+        RectF titleInner = drawBeveledSurface(canvas, titleButton, titleFill,
+                blendColor(titleFill, 0xFFFFFFFF, 0.48f), POCKET_ACCENTS_DARK[bagPocket], false);
+        String title = POCKET_NAMES[bagPocket];
+        float titleScale = Math.min(scale,
+                (titleInner.width() - pad * 1.4f) / Math.max(1f, f.measure(title, 1f)));
+        f.draw(canvas, title, titleInner.centerX() - f.measure(title, titleScale) / 2,
+                titleInner.centerY() - GbaFont.LINE_HEIGHT * titleScale / 2,
+                titleScale, TEXT_DARK, TEXT_SHADOW);
+        drawBackButton(canvas, bagBack, bagBackPressed);
+
+        // Description box remains docked below the scrollable item list.
         float descH = contentHeight * 0.26f;
         RectF descBox = new RectF(pad, contentHeight - descH, getWidth() - pad,
                 contentHeight - pad * 0.4f);
-        bagListTop = contentHeight * 0.105f + pad * 0.6f;
+        bagListTop = headerTop + headerH + pad * 0.6f;
         bagListBottom = descBox.top - pad * 0.6f;
         bagRowH = contentHeight * 0.082f;
 
