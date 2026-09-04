@@ -157,6 +157,13 @@ public final class DualScreenBridge {
     public static native void nativeBattleSubmit(int a, int b);
 
     /**
+     * Submits a standard overworld dialogue option shown on the companion
+     * display. Normal options use their zero-based index; cancellable menus
+     * expose their original cancel result in the snapshot.
+     */
+    public static native void nativeFieldChoiceSubmit(int choice);
+
+    /**
      * How an item can be used from the battle bag: 0 not usable, 1 ball,
      * 2 medicine (pick a target mon), 3 self/no target (X items),
      * 4 escape item (wild only), 5 all-move PP, 6 single-move PP, 7 Poké Flute.

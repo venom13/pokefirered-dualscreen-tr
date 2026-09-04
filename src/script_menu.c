@@ -13,6 +13,9 @@
 #include "constants/songs.h"
 #include "constants/seagallop.h"
 #include "constants/menu.h"
+#ifdef PLATFORM_SDL2
+#include "platform/dualscreen.h"
+#endif
 
 #define GFXTAG_FOSSIL 7000
 
@@ -33,6 +36,11 @@ static void Task_MultichoiceMenu_HandleInput(u8 taskId);
 static void MultiChoicePrintHelpDescription(u8 mcId);
 static void Task_YesNoMenu_HandleInput(u8 taskId);
 static void Hask_MultichoiceGridMenu_HandleInput(u8 taskId);
+#ifdef PLATFORM_SDL2
+static void Task_DualScreenFieldChoice_HandleInput(u8 taskId);
+static bool32 TryOpenDualScreenFieldChoice(const struct MenuAction *list, u8 count,
+                                           s16 cancelResult, u8 defaultChoice, bool8 yesNo);
+#endif
 static void CreatePCMenuWindow(void);
 static bool8 PicboxWait(void);
 static void DestroyScriptMenuWindow(u8 windowId);
@@ -692,10 +700,54 @@ static u8 GetMenuWidthFromList(const struct MenuAction * items, u8 count)
     return width;
 }
 
+#ifdef PLATFORM_SDL2
+#define tDualScreenYesNo data[0]
+
+static bool32 TryOpenDualScreenFieldChoice(const struct MenuAction *list, u8 count,
+                                           s16 cancelResult, u8 defaultChoice, bool8 yesNo)
+{
+    const u8 *labels[DUAL_SCREEN_FIELD_CHOICE_MAX];
+    u8 i;
+    u8 taskId;
+
+    if (count == 0 || count > DUAL_SCREEN_FIELD_CHOICE_MAX)
+        return FALSE;
+    for (i = 0; i < count; i++)
+        labels[i] = list[i].text;
+    if (!DualScreen_TryOpenFieldChoice(labels, count, cancelResult, defaultChoice))
+        return FALSE;
+
+    taskId = CreateTask(Task_DualScreenFieldChoice_HandleInput, 80);
+    gTasks[taskId].tDualScreenYesNo = yesNo;
+    return TRUE;
+}
+
+static void Task_DualScreenFieldChoice_HandleInput(u8 taskId)
+{
+    s32 choice;
+
+    if (!DualScreen_FieldChoiceActive() || !DualScreen_PollFieldChoice(&choice))
+        return;
+    PlaySE(SE_SELECT);
+    if (gTasks[taskId].tDualScreenYesNo)
+        gSpecialVar_Result = choice == 0 ? TRUE : FALSE;
+    else
+        gSpecialVar_Result = choice;
+    DestroyTask(taskId);
+    ScriptContext_Enable();
+}
+
+#undef tDualScreenYesNo
+#endif
+
 bool8 ScriptMenu_Multichoice(u8 left, u8 top, u8 mcId, u8 ignoreBpress)
 {
     if (FuncIsActiveTask(Task_MultichoiceMenu_HandleInput) == TRUE)
         return FALSE;
+#ifdef PLATFORM_SDL2
+    if (FuncIsActiveTask(Task_DualScreenFieldChoice_HandleInput) == TRUE)
+        return FALSE;
+#endif
     gSpecialVar_Result = SCR_MENU_UNSET;
     DrawVerticalMultichoiceMenu(left, top, mcId, ignoreBpress, 0);
     return TRUE;
@@ -705,6 +757,10 @@ bool8 ScriptMenu_MultichoiceWithDefault(u8 left, u8 top, u8 mcId, u8 ignoreBpres
 {
     if (FuncIsActiveTask(Task_MultichoiceMenu_HandleInput) == TRUE)
         return FALSE;
+#ifdef PLATFORM_SDL2
+    if (FuncIsActiveTask(Task_DualScreenFieldChoice_HandleInput) == TRUE)
+        return FALSE;
+#endif
     gSpecialVar_Result = SCR_MENU_UNSET;
     DrawVerticalMultichoiceMenu(left, top, mcId, ignoreBpress, cursorPos);
     return TRUE;
@@ -726,6 +782,11 @@ static void DrawVerticalMultichoiceMenu(u8 left, u8 top, u8 mcId, u8 ignoreBpres
         ignoreBpress &= 1;
         count = sMultichoiceLists[mcId].count;
         list = sMultichoiceLists[mcId].list;
+#ifdef PLATFORM_SDL2
+        if (TryOpenDualScreenFieldChoice(list, count,
+                ignoreBpress ? -1 : SCR_MENU_CANCEL, initPos, FALSE))
+            return;
+#endif
         strWidth = 0;
         for (i = 0; i < count; i++)
         {
@@ -865,10 +926,20 @@ bool8 ScriptMenu_YesNo(u8 unused, u8 stuff)
 {
     if (FuncIsActiveTask(Task_YesNoMenu_HandleInput) == TRUE)
         return FALSE;
+#ifdef PLATFORM_SDL2
+    if (FuncIsActiveTask(Task_DualScreenFieldChoice_HandleInput) == TRUE)
+        return FALSE;
+#endif
     gSpecialVar_Result = SCR_MENU_UNSET;
 
     if (QL_AvoidDisplay(QL_DestroyAbortedDisplay))
         return TRUE;
+
+#ifdef PLATFORM_SDL2
+    // B has the same meaning as NO in the original Yes/No task.
+    if (TryOpenDualScreenFieldChoice(sMultichoiceList_YesNo, 2, 1, 0, TRUE))
+        return TRUE;
+#endif
 
     DisplayYesNoMenuDefaultYes();
     CreateTask(Task_YesNoMenu_HandleInput, 80);
@@ -921,6 +992,10 @@ bool8 ScriptMenu_MultichoiceGrid(u8 left, u8 top, u8 multichoiceId, bool8 ignore
     u8 taskId;
     if (FuncIsActiveTask(Hask_MultichoiceGridMenu_HandleInput) == TRUE)
         return FALSE;
+#ifdef PLATFORM_SDL2
+    if (FuncIsActiveTask(Task_DualScreenFieldChoice_HandleInput) == TRUE)
+        return FALSE;
+#endif
     gSpecialVar_Result = SCR_MENU_UNSET;
 
     if (QL_AvoidDisplay(QL_DestroyAbortedDisplay) == TRUE)
@@ -928,6 +1003,11 @@ bool8 ScriptMenu_MultichoiceGrid(u8 left, u8 top, u8 multichoiceId, bool8 ignore
 
     list = sMultichoiceLists[multichoiceId].list;
     count = sMultichoiceLists[multichoiceId].count;
+#ifdef PLATFORM_SDL2
+    if (TryOpenDualScreenFieldChoice(list, count,
+            ignoreBpress ? -1 : SCR_MENU_CANCEL, 0, FALSE))
+        return TRUE;
+#endif
     width = GetMenuWidthFromList(list, count) + 1;
     rowCount = count / columnCount;
     taskId = CreateTask(Hask_MultichoiceGridMenu_HandleInput, 80);

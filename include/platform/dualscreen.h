@@ -101,6 +101,19 @@ u32 DualScreen_TakePreservedBattlePrompt(u32 battler);
 // so a desktop build or a stolen bottom display fails safe to the GBA menu.
 u32 DualScreen_BottomScreenLive(void);
 
+// ---------------------------------------------------------------------------
+// Field dialogue choices. Standard script Yes/No and multichoice menus use
+// the companion display when it is live, leaving the dialogue text visible
+// on the game display without drawing the original choice window. Labels are
+// copied when the menu opens. cancelResult is -1 when B must be ignored.
+// ---------------------------------------------------------------------------
+
+#define DUAL_SCREEN_FIELD_CHOICE_MAX 8
+u32 DualScreen_TryOpenFieldChoice(const u8 *const *labels, u32 count,
+                                  s32 cancelResult, u32 defaultChoice);
+u32 DualScreen_FieldChoiceActive(void);
+u32 DualScreen_PollFieldChoice(s32 *choice);
+
 // Implemented in item_use.c: applies one battle-bag item exactly as the GBA
 // bag + party menu would (validate, run the item effect table, consume the
 // item, refresh the healthbox), without opening either menu. Returns a

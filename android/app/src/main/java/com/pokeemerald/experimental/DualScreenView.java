@@ -148,6 +148,14 @@ public final class DualScreenView extends View {
     private Bitmap titleLogo;
     private final Rect titleLogoBounds = new Rect();
     private final RectF titleLogoDestination = new RectF();
+    private final RectF[] fieldChoiceButtons = {
+        new RectF(), new RectF(), new RectF(), new RectF(),
+        new RectF(), new RectF(), new RectF(), new RectF()
+    };
+    private int fieldChoiceFocus;
+    private int lastFieldChoiceSeq = -1;
+    private int dismissedFieldChoiceSeq = -1;
+    private long fieldChoiceDismissMs;
     private final RectF[] battleButtons = {new RectF(), new RectF(), new RectF(), new RectF()};
     private final RectF battleCancel = new RectF();
     private int battleButtonsMenu; // which menu the drawn buttons belong to
@@ -237,19 +245,33 @@ public final class DualScreenView extends View {
 
     public void setState(DualScreenState next) {
         state = next;
+        syncFieldChoice();
         syncBattlePanel();
         invalidate();
     }
 
+    private void syncFieldChoice() {
+        if (state.fieldChoiceOpen && state.fieldChoiceSeq != lastFieldChoiceSeq) {
+            lastFieldChoiceSeq = state.fieldChoiceSeq;
+            fieldChoiceFocus = Math.max(0, Math.min(
+                    state.fieldChoiceLabels.size() - 1, state.fieldChoiceDefault));
+        }
+    }
+
+    private boolean fieldChoiceVisible() {
+        return state.fieldChoiceOpen && !state.fieldChoiceLabels.isEmpty()
+                && !(state.fieldChoiceSeq == dismissedFieldChoiceSeq
+                     && System.currentTimeMillis() - fieldChoiceDismissMs < 1500);
+    }
+
     /**
-     * Whether the physical buttons belong to this screen right now. Only the
-     * battle takeover panels claim them: these are our own menus, and while
-     * one is open the engine is parked in a wait handler that reads no input,
-     * so nothing is competing for the buttons. Every other screen leaves them
-     * to the game.
+     * Whether the physical buttons belong to this screen right now. Battle
+     * panels and dialogue choices park the engine in wait handlers that read
+     * their result from the lower screen, so nothing competes for the keys.
      */
     public boolean isCapturingKeys() {
-        return state.inGame && state.inBattle && battlePanel != 0;
+        return fieldChoiceVisible()
+                || (state.inGame && state.inBattle && battlePanel != 0);
     }
 
     /**
@@ -262,6 +284,11 @@ public final class DualScreenView extends View {
             return;
         }
         showCursor = true;
+        if (fieldChoiceVisible()) {
+            navigateFieldChoice(action);
+            invalidate();
+            return;
+        }
         if (battlePanel == 5) {
             if (action == NAV_UP || action == NAV_LEFT) {
                 battleSwitchFocus = 0;
@@ -332,6 +359,57 @@ public final class DualScreenView extends View {
         default:
             return;
         }
+        invalidate();
+    }
+
+    private void navigateFieldChoice(int action) {
+        int count = Math.min(fieldChoiceButtons.length, state.fieldChoiceLabels.size());
+        if (count == 0) {
+            return;
+        }
+        int columns = count <= 2 ? 1 : 2;
+        switch (action) {
+        case NAV_UP:
+            fieldChoiceFocus = Math.max(0, fieldChoiceFocus - columns);
+            break;
+        case NAV_DOWN:
+            fieldChoiceFocus = Math.min(count - 1, fieldChoiceFocus + columns);
+            break;
+        case NAV_LEFT:
+            if (columns == 2 && fieldChoiceFocus % 2 != 0) {
+                fieldChoiceFocus--;
+            } else if (columns == 1) {
+                fieldChoiceFocus = Math.max(0, fieldChoiceFocus - 1);
+            }
+            break;
+        case NAV_RIGHT:
+            if (columns == 2 && fieldChoiceFocus % 2 == 0
+                    && fieldChoiceFocus + 1 < count) {
+                fieldChoiceFocus++;
+            } else if (columns == 1) {
+                fieldChoiceFocus = Math.min(count - 1, fieldChoiceFocus + 1);
+            }
+            break;
+        case NAV_CONFIRM:
+            submitFieldChoice(fieldChoiceFocus);
+            break;
+        case NAV_CANCEL:
+            if (state.fieldChoiceCancel >= 0) {
+                submitFieldChoice(state.fieldChoiceCancel);
+            }
+            break;
+        default:
+            break;
+        }
+    }
+
+    private void submitFieldChoice(int choice) {
+        if (!fieldChoiceVisible()) {
+            return;
+        }
+        dismissedFieldChoiceSeq = state.fieldChoiceSeq;
+        fieldChoiceDismissMs = System.currentTimeMillis();
+        DualScreenBridge.nativeFieldChoiceSubmit(choice);
         invalidate();
     }
 
@@ -857,6 +935,11 @@ public final class DualScreenView extends View {
 
     /** Let physical B follow the visible return key in lower-screen overlays. */
     public boolean handlePhysicalBack() {
+        // Field choices receive B through the native frame queue so their
+        // original cancel semantics (NO, cancel, or ignored) are preserved.
+        if (fieldChoiceVisible()) {
+            return false;
+        }
         if (closePartyDetail() || closeBagItems()) {
             return true;
         }
@@ -876,8 +959,26 @@ public final class DualScreenView extends View {
         0xFFA84840, 0xFFA87828, HEADER_RED_DARK, 0xFF405E98, 0xFF744C94
     };
 
+    private void handleFieldChoiceTouch(float x, float y) {
+        int count = Math.min(fieldChoiceButtons.length, state.fieldChoiceLabels.size());
+        for (int i = 0; i < count; i++) {
+            if (fieldChoiceButtons[i].contains(x, y)) {
+                fieldChoiceFocus = i;
+                submitFieldChoice(i);
+                return;
+            }
+        }
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (fieldChoiceVisible()) {
+            showCursor = false;
+            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                handleFieldChoiceTouch(event.getX(), event.getY());
+            }
+            return true;
+        }
         // The startup screen has no controls, including invisible tab targets.
         if (!state.inGame) {
             return true;
@@ -1911,9 +2012,77 @@ public final class DualScreenView extends View {
         canvas.drawBitmap(titleLogo, titleLogoBounds, titleLogoDestination, pixelPaint);
     }
 
+    private void drawFieldChoice(Canvas canvas) {
+        GbaFont f = font();
+        int count = Math.min(fieldChoiceButtons.length, state.fieldChoiceLabels.size());
+        for (RectF button : fieldChoiceButtons) {
+            button.setEmpty();
+        }
+        if (f == null || count == 0) {
+            return;
+        }
+
+        float width = getWidth();
+        float height = getHeight();
+        float padX = width * 0.055f;
+        float padY = height * 0.075f;
+        float gapX = width * 0.035f;
+        float gapY = height * 0.035f;
+        int columns = count <= 2 ? 1 : 2;
+        int rows = (count + columns - 1) / columns;
+        float cardWidth = (width - padX * 2 - gapX * (columns - 1)) / columns;
+        float cardHeight = (height - padY * 2 - gapY * (rows - 1)) / rows;
+        float baseScale = width / 460f;
+        int[] fills = {HEADER_RED, CMD_FILL[3], 0xFFD89028, SUMMARY_BLUE};
+        int[] lights = {HEADER_RED_LIGHT, CMD_LIGHT[3], 0xFFF0BC58, SUMMARY_BLUE_LIGHT};
+        int[] darks = {HEADER_RED_DARK, CMD_DARK[3], 0xFF986018, SUMMARY_BLUE_DARK};
+
+        canvas.drawColor(0xFFF2F2EE);
+        paint.setColor(0xFFE2E3DE);
+        paint.setStrokeWidth(Math.max(2, width * 0.004f));
+        for (int column = 1; column < 4; column++) {
+            float x = width * column / 4f;
+            canvas.drawLine(x, 0, x, height, paint);
+        }
+        for (int row = 1; row < 4; row++) {
+            float y = height * row / 4f;
+            canvas.drawLine(0, y, width, y, paint);
+        }
+
+        for (int i = 0; i < count; i++) {
+            int row = i / columns;
+            int column = i % columns;
+            float left = padX + column * (cardWidth + gapX);
+            // A lone final item in a two-column menu spans both columns.
+            float itemWidth = columns == 2 && i == count - 1 && (count & 1) != 0
+                    ? width - padX * 2 : cardWidth;
+            RectF button = fieldChoiceButtons[i];
+            button.set(left, padY + row * (cardHeight + gapY),
+                    left + itemWidth, padY + row * (cardHeight + gapY) + cardHeight);
+            int palette = i % fills.length;
+            RectF inner = drawBeveledSurface(canvas, button, fills[palette], lights[palette],
+                    darks[palette], false);
+            String label = state.fieldChoiceLabels.get(i);
+            float labelScale = Math.min(baseScale * (columns == 1 ? 1.35f : 1.05f),
+                    (inner.width() - padX * 0.8f)
+                            / Math.max(1f, f.measure(label, 1f)));
+            f.draw(canvas, label,
+                    inner.centerX() - f.measure(label, labelScale) / 2,
+                    inner.centerY() - GbaFont.LINE_HEIGHT * labelScale / 2,
+                    labelScale, TEXT_WHITE, darks[palette]);
+            if (showCursor && i == fieldChoiceFocus) {
+                drawCursorRing(canvas, button, 16);
+            }
+        }
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (fieldChoiceVisible()) {
+            drawFieldChoice(canvas);
+            return;
+        }
         if (!state.inGame) {
             drawStartupLogo(canvas);
             return;

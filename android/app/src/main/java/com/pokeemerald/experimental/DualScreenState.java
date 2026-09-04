@@ -63,6 +63,11 @@ public final class DualScreenState {
 
     public boolean inGame;
     public boolean inBattle;
+    public boolean fieldChoiceOpen;
+    public int fieldChoiceSeq;
+    public int fieldChoiceDefault;
+    public int fieldChoiceCancel = -1; // -1 means physical B is ignored
+    public final List<String> fieldChoiceLabels = new ArrayList<>();
     public int battleKind; // 0 wild, 1 trainer
     public int battleMenu; // 0 none, 1 action select, 2 move select
     public int actionCursor;
@@ -171,6 +176,19 @@ public final class DualScreenState {
             JSONObject root = new JSONObject(json);
             state.inGame = root.optInt("inGame") != 0;
             state.inBattle = root.optInt("inBattle") != 0;
+            JSONObject fieldChoice = root.optJSONObject("fieldChoice");
+            if (fieldChoice != null) {
+                state.fieldChoiceOpen = true;
+                state.fieldChoiceSeq = fieldChoice.optInt("seq");
+                state.fieldChoiceDefault = fieldChoice.optInt("default");
+                state.fieldChoiceCancel = fieldChoice.optInt("cancel", -1);
+                JSONArray labels = fieldChoice.optJSONArray("labels");
+                if (labels != null) {
+                    for (int i = 0; i < labels.length(); i++) {
+                        state.fieldChoiceLabels.add(labels.optString(i));
+                    }
+                }
+            }
             JSONObject player = root.optJSONObject("player");
             if (player != null) {
                 state.playerName = player.optString("name");

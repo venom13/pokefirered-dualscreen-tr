@@ -35,6 +35,7 @@
 #include "pokedex.h"
 #include "pokemon_summary_screen.h"
 #include "region_map.h"
+#include "string_util.h"
 #include "battle_main.h"
 #include "platform/dualscreen.h"
 #include "constants/battle.h"
@@ -407,6 +408,25 @@ static s32 sBattleChoiceB;
 static u32 sBattlePromptPreserved;
 static u32 sBattlePromptBattler;
 
+// Standard overworld script choices (Yes/No and multichoice). The game-side
+// script task waits on this mailbox instead of creating a window on the GBA
+// display. Labels are copied so the snapshot never depends on a caller's
+// storage lifetime.
+#define FIELD_CHOICE_LABEL_SIZE 64
+#define FIELD_CHOICE_SOURCE_LIMIT 128
+static u32 sFieldChoiceOpen;
+static u32 sFieldChoiceCount;
+static u32 sFieldChoiceDefault;
+static s32 sFieldChoiceCancelResult;
+static u32 sFieldChoiceSeq;
+static u32 sFieldChoiceOpenFrame;
+static u32 sFieldChoicePending;
+static s32 sFieldChoiceSelection;
+static char sFieldChoiceLabels[DUAL_SCREEN_FIELD_CHOICE_MAX][FIELD_CHOICE_LABEL_SIZE];
+
+static void DecodeGbaString(char *dest, int destSize, const u8 *src, int maxSrcLen);
+static void DecodeGbaMenuLabel(char *dest, int destSize, const u8 *src, int maxSrcLen);
+
 void DualScreen_PreserveBattlePrompt(u32 battler)
 {
     SDL_AtomicLock(&sBattleMenuLock);
@@ -647,6 +667,69 @@ u32 DualScreen_BottomScreenLive(void)
     return live;
 }
 
+u32 DualScreen_TryOpenFieldChoice(const u8 *const *labels, u32 count,
+                                  s32 cancelResult, u32 defaultChoice)
+{
+    u32 i;
+
+    // A field script must never become dependent on a display that is absent.
+    // Battle scripts use their own mailbox and presentation state.
+    if (gMain.inBattle || labels == NULL || count == 0
+     || count > DUAL_SCREEN_FIELD_CHOICE_MAX || !DualScreen_BottomScreenLive())
+        return FALSE;
+
+    SDL_AtomicLock(&sBattleMenuLock);
+    sFieldChoiceOpen = FALSE;
+    sFieldChoiceCount = count;
+    sFieldChoiceDefault = defaultChoice < count ? defaultChoice : 0;
+    sFieldChoiceCancelResult = cancelResult;
+    sFieldChoicePending = FALSE;
+    for (i = 0; i < count; i++)
+        DecodeGbaMenuLabel(sFieldChoiceLabels[i], FIELD_CHOICE_LABEL_SIZE,
+                           labels[i], FIELD_CHOICE_SOURCE_LIMIT);
+    for (; i < DUAL_SCREEN_FIELD_CHOICE_MAX; i++)
+        sFieldChoiceLabels[i][0] = '\0';
+    sFieldChoiceOpenFrame = sFrameCounter;
+    sFieldChoiceSeq++;
+    ClearNavQueue();
+    sFieldChoiceOpen = TRUE;
+    SDL_AtomicUnlock(&sBattleMenuLock);
+    return TRUE;
+}
+
+u32 DualScreen_FieldChoiceActive(void)
+{
+    u32 active;
+
+    SDL_AtomicLock(&sBattleMenuLock);
+    active = sFieldChoiceOpen;
+    SDL_AtomicUnlock(&sBattleMenuLock);
+    return active;
+}
+
+u32 DualScreen_PollFieldChoice(s32 *choice)
+{
+    u32 taken = FALSE;
+
+    SDL_AtomicLock(&sBattleMenuLock);
+    if (sFieldChoiceOpen && sFieldChoicePending)
+    {
+        s32 selected = sFieldChoiceSelection;
+
+        sFieldChoicePending = FALSE;
+        if ((selected >= 0 && (u32)selected < sFieldChoiceCount)
+         || (sFieldChoiceCancelResult >= 0 && selected == sFieldChoiceCancelResult))
+        {
+            *choice = selected;
+            sFieldChoiceOpen = FALSE;
+            ClearNavQueue();
+            taken = TRUE;
+        }
+    }
+    SDL_AtomicUnlock(&sBattleMenuLock);
+    return taken;
+}
+
 // ---------------------------------------------------------------------------
 // GBA charset -> ASCII
 // ---------------------------------------------------------------------------
@@ -676,6 +759,12 @@ static char DecodeGbaChar(u8 c)
     case CHAR_LEFT_PAREN:      return '(';
     case CHAR_RIGHT_PAREN:     return ')';
     case CHAR_ELLIPSIS:        return '~';
+    case CHAR_CURRENCY:        return '$';
+    case CHAR_PERCENT:         return '%';
+    case CHAR_AMPERSAND:       return '&';
+    case CHAR_PLUS:            return '+';
+    case CHAR_EQUALS:          return '=';
+    case CHAR_SEMICOLON:       return ';';
     }
     return 0; // unmapped; skipped
 }
@@ -699,6 +788,64 @@ static void DecodeGbaString(char *dest, int destSize, const u8 *src, int maxSrcL
         if (c == CHAR_e_ACUTE && out < destSize - 2)
         {
             // é as UTF-8; the Java font maps it back to the game's glyph.
+            dest[out++] = (char)0xC3;
+            dest[out++] = (char)0xA9;
+            continue;
+        }
+        decoded = DecodeGbaChar(c);
+        if (decoded != 0)
+            dest[out++] = decoded;
+    }
+    dest[out] = '\0';
+}
+
+// Menu labels sometimes contain spacing/font control codes (for example the
+// vending machine's price column). Ignore the formatting while retaining the
+// text on both sides, unlike ordinary snapshot names where a control code is
+// a natural place to stop.
+static void DecodeGbaMenuLabel(char *dest, int destSize, const u8 *src, int maxSrcLen)
+{
+    int out = 0;
+    int i;
+
+    for (i = 0; src != NULL && i < maxSrcLen && out < destSize - 1; i++)
+    {
+        u8 c = src[i];
+        char decoded;
+
+        if (c == EOS)
+            break;
+        if (c == EXT_CTRL_CODE_BEGIN)
+        {
+            u8 code;
+            u8 length;
+
+            if (i + 1 >= maxSrcLen)
+                break;
+            code = src[i + 1];
+            length = GetExtCtrlCodeLength(code);
+            if (length == 0 || i + length >= maxSrcLen)
+                break;
+            if (code == EXT_CTRL_CODE_CLEAR_TO && out > 0 && dest[out - 1] != ' ')
+                dest[out++] = ' ';
+            i += length;
+            continue;
+        }
+        if (c == CHAR_NEWLINE || c == CHAR_PROMPT_SCROLL || c == CHAR_PROMPT_CLEAR)
+        {
+            if (out > 0 && dest[out - 1] != ' ')
+                dest[out++] = ' ';
+            continue;
+        }
+        if (c == CHAR_KEYPAD_ICON || c == CHAR_EXTRA_SYMBOL)
+        {
+            i++; // both are followed by one glyph selector
+            continue;
+        }
+        if (c == PLACEHOLDER_BEGIN || c == CHAR_DYNAMIC)
+            break;
+        if (c == CHAR_e_ACUTE && out < destSize - 2)
+        {
             dest[out++] = (char)0xC3;
             dest[out++] = (char)0xA9;
             continue;
@@ -751,6 +898,35 @@ static void JsonPutString(struct JsonWriter *w, const char *s)
             JsonPut(w, "%c", *s);
     }
     JsonPut(w, "\"");
+}
+
+static void WriteFieldChoiceJson(struct JsonWriter *w)
+{
+    char labels[DUAL_SCREEN_FIELD_CHOICE_MAX][FIELD_CHOICE_LABEL_SIZE];
+    u32 open, count, defaultChoice, seq;
+    s32 cancelResult;
+    u32 i;
+
+    SDL_AtomicLock(&sBattleMenuLock);
+    open = sFieldChoiceOpen;
+    count = sFieldChoiceCount;
+    defaultChoice = sFieldChoiceDefault;
+    cancelResult = sFieldChoiceCancelResult;
+    seq = sFieldChoiceSeq;
+    memcpy(labels, sFieldChoiceLabels, sizeof(labels));
+    SDL_AtomicUnlock(&sBattleMenuLock);
+
+    if (!open)
+        return;
+    JsonPut(w, "\"fieldChoice\":{\"seq\":%u,\"default\":%u,\"cancel\":%d,\"labels\":[",
+            seq, defaultChoice, cancelResult);
+    for (i = 0; i < count; i++)
+    {
+        if (i != 0)
+            JsonPut(w, ",");
+        JsonPutString(w, labels[i]);
+    }
+    JsonPut(w, "]},");
 }
 
 static void WritePartyMonJson(struct JsonWriter *w, struct Pokemon *mon)
@@ -1331,6 +1507,11 @@ static void BuildSnapshot(char *buffer, int capacity)
         }
     }
 
+    // Dialogue choices may occur before the player receives a Pokémon, when
+    // IsInGame deliberately still reports false. Publish them at root level
+    // so the companion screen can always replace the original choice window.
+    WriteFieldChoiceJson(w);
+
     // Trim a trailing comma before closing.
     if (writer.length > 0 && buffer[writer.length - 1] == ',')
         writer.length--;
@@ -1369,8 +1550,12 @@ void DualScreen_FrameHook(void)
     // them here would replay the tap as a button press inside the very panel
     // it just opened. Directions use the game's repeat, so a held d-pad
     // scrolls at the rate its own menus do; confirm and cancel do not repeat.
-    if (battleDataReady && sBattleMenuMode != 0 && sVirtualKeyCount == 0
-     && sFrameCounter - sVirtualInputFrame > 4)
+    // Field choices also wait on the lower screen. Their short opening guard
+    // prevents the A press that advanced the dialogue from immediately
+    // confirming the default answer.
+    if ((sBattleMenuMode != 0
+          || (sFieldChoiceOpen && sFrameCounter - sFieldChoiceOpenFrame > 4))
+     && sVirtualKeyCount == 0 && sFrameCounter - sVirtualInputFrame > 4)
     {
         u16 repeated = gMain.newAndRepeatedKeys;
 
@@ -1505,6 +1690,20 @@ JNIEXPORT void JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_native
         sBattleChoiceA = a;
         sBattleChoiceB = b;
         sBattleChoicePending = TRUE;
+    }
+    SDL_AtomicUnlock(&sBattleMenuLock);
+}
+
+// Submits a standard overworld dialogue choice. The selected value is the
+// original script result (normally a zero-based option; SCR_MENU_CANCEL for
+// cancellable multichoice menus).
+JNIEXPORT void JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_nativeFieldChoiceSubmit(JNIEnv *env, jclass clazz, jint choice)
+{
+    SDL_AtomicLock(&sBattleMenuLock);
+    if (sFieldChoiceOpen && !sFieldChoicePending)
+    {
+        sFieldChoiceSelection = choice;
+        sFieldChoicePending = TRUE;
     }
     SDL_AtomicUnlock(&sBattleMenuLock);
 }

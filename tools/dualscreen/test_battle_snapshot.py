@@ -89,6 +89,7 @@ u16 gScanlineEffectRegBuffers[2][160];
 void (*gBattleMainFunc)(void);
 static bool32 sBattleMonsReady, sSnapshotInBattle, sSnapshotBattleReady;
 static u32 sFrameCounter, sBattleMenuMode, sVirtualInputFrame, sButtonPressCount;
+static u32 sFieldChoiceOpen, sFieldChoiceOpenFrame;
 static int sVirtualKeyCount, sFrontBuffer, sBattleCursor, menu = 1, reads, publications;
 static char sBuffers[2][SNAPSHOT_CAPACITY];
 static void *sSnapshotMutex;
@@ -160,6 +161,7 @@ void SDL_AtomicSet(int *dst, int value) { *dst = value; }
 
 struct JsonWriter { char *buffer; int length, capacity; };
 static void JsonPut(struct JsonWriter *w, const char *format, ...);
+static void WriteFieldChoiceJson(struct JsonWriter *w) { (void)w; }
 void WritePartyMonJson(struct JsonWriter *w, struct Pokemon *mon) { JsonPut(w, "{}"); }
 void WriteBagJson(struct JsonWriter *w) { JsonPut(w, "\"bag\":[],"); }
 void WriteBattleMonJson(struct JsonWriter *w, const struct BattlePokemon *mon,
