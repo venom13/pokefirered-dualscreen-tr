@@ -108,12 +108,12 @@ public class PokeEmeraldActivity extends SDLActivity {
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BUTTON_B) {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                // Keep consuming repeats after the initial press closed the
-                // detail, so a held B cannot leak through to the game.
+                // Keep consuming repeats after the initial press handled a
+                // lower-screen return, so a held B cannot leak to the game.
                 if (partyDetailCancelDeviceId == event.getDeviceId()) {
                     return true;
                 }
-                if (presentation != null && presentation.closePartyDetail()) {
+                if (presentation != null && presentation.handlePhysicalBack()) {
                     partyDetailCancelDeviceId = event.getDeviceId();
                     return true;
                 }

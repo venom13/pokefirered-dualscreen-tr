@@ -52,4 +52,9 @@ public final class DualScreenPresentation extends Presentation {
     public boolean closePartyDetail() {
         return view != null && view.closePartyDetail();
     }
+
+    /** Routes physical B through the lower screen's visible return action. */
+    public boolean handlePhysicalBack() {
+        return view != null && view.handlePhysicalBack();
+    }
 }

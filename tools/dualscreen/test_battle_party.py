@@ -260,7 +260,7 @@ class PartyPanelTest {
         subprocess.run([str(jdk / 'java') if jdk else 'java', '-ea', '-cp', tmp, 'PartyPanelTest'], check=True, timeout=10)
 
 
-def check_party_detail_back():
+def check_lower_screen_back():
     source = (ROOT / 'android/app/src/main/java/com/pokeemerald/experimental/PokeEmeraldActivity.java').read_text()
     source = re.sub(r'(?m)^    ', '', source).replace('public boolean ', 'boolean ')
     java = r'''
@@ -275,9 +275,15 @@ class KeyEvent {
     int getDeviceId() { return deviceId; }
 }
 class DualScreenPresentation {
-    boolean detailOpen;
-    int closes;
-    boolean closePartyDetail() { closes++; return detailOpen; }
+    boolean detailOpen, bagOpen, battleBagOpen;
+    int backs;
+    boolean handlePhysicalBack() {
+        backs++;
+        if (detailOpen) { detailOpen=false; return true; }
+        if (bagOpen) { bagOpen=false; return true; }
+        if (battleBagOpen) { battleBagOpen=false; return true; }
+        return false;
+    }
 }
 class ActivityBase {
     int passedToGame;
@@ -294,22 +300,32 @@ class PartyDetailBackTest extends ActivityBase {
         activity.presentation=new DualScreenPresentation();
         activity.presentation.detailOpen=true;
         assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_B, 7));
-        assert activity.presentation.closes==1 && activity.partyDetailCancelDeviceId==7;
+        assert activity.presentation.backs==1 && activity.partyDetailCancelDeviceId==7;
 
         // Repeats and the matching release remain consumed after the first
         // press closed the detail; none of that physical press reaches SDL.
-        activity.presentation.detailOpen=false;
         assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_B, 7));
-        assert activity.presentation.closes==1 && activity.passedToGame==0;
+        assert activity.presentation.backs==1 && activity.passedToGame==0;
         assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BUTTON_B, 7));
         assert activity.partyDetailCancelDeviceId==NO_CAPTURED_DEVICE && activity.passedToGame==0;
 
-        // B outside the detail and every unrelated button keep their normal
-        // game path.
+        // The normal BAG item view and the battle BAG use the same consumed
+        // press/release path as party detail.
+        activity.presentation.bagOpen=true;
+        assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_B, 8));
+        assert activity.presentation.backs==2 && activity.partyDetailCancelDeviceId==8;
+        assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BUTTON_B, 8));
+        activity.presentation.battleBagOpen=true;
+        assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_B, 9));
+        assert activity.presentation.backs==3 && activity.partyDetailCancelDeviceId==9;
+        assert activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BUTTON_B, 9));
+
+        // B outside a lower-screen overlay and every unrelated button keep
+        // their normal game path.
         assert !activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_B, 7));
         assert !activity.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BUTTON_A, 7));
-        assert activity.presentation.closes==2 && activity.passedToGame==2;
-        System.out.println("PASS: physical B closes party detail and its held/release events do not leak into the game");
+        assert activity.presentation.backs==4 && activity.passedToGame==2;
+        System.out.println("PASS: physical B follows party and BAG back actions without leaking held/release events into the game");
     }
 }
 '''
@@ -346,7 +362,7 @@ def main():
                         '-I', str(ROOT / 'include'), str(source), '-o', str(binary)], check=True)
         subprocess.run([str(binary)], check=True, timeout=10)
     check_panel()
-    check_party_detail_back()
+    check_lower_screen_back()
 
 
 if __name__ == '__main__':
