@@ -1,0 +1,9 @@
+{
+ "2": "Önce POKéMON'larını tamamen iyileştirmelisin.$",
+ "6": "POKéMON'ların tamamen iyileşti.\\pPOKéMON'larının enerjisi, yani HP'si azalırsa lütfen bize gel.\\pUzaklara gitmeyi düşünüyorsan POKéMON MARKET'ten biraz İKSİR almalısın.\\pBaşarılar dileriz!$",
+ "16": "POKéMON'ların tamamen iyileşti.\\pBaşarılar dileriz!$",
+ "21": "ANNE: {PLAYER}!\\nEve hoş geldin.\\pGaliba epey zorlu bir deneyim yaşadın.\\pBelki biraz dinlenmelisin.$",
+ "29": "ANNE: Ah, güzel! Sen de POKéMON'ların da harika görünüyorsunuz.\\pPROF. OAK'tan yeni haber aldım.\\pPOKéMON'ların enerjisinin HP ile ölçüldüğünü söyledi.\\pPOKéMON'ların HP'lerini kaybederse herhangi bir POKéMON MERKEZİ'nde iyileştirebilirsin.\\pUzaklara gideceksen akıllı EĞİTMEN POKéMON MARKET'ten İKSİR stoklar.\\pBeni gururlandır, canım!\\pKendine iyi bak!$",
+ "44": "{PLAYER}, kullanılabilir POKéMON'u kalmadı!\\p{PLAYER} paniğe kapılıp ¥{STR_VAR_1} kaybetti…\\p… … … …\\p{PLAYER} bayıldı!$",
+ "51": "{PLAYER}, kullanılabilir POKéMON'u kalmadı!\\p{PLAYER} bayıldı!$"
+}

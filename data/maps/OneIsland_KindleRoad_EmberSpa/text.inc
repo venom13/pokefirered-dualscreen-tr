@@ -1,54 +1,52 @@
 OneIsland_KindleRoad_EmberSpa_Text_WaterWarmsMeToCore::
     .string "Hm!\n"
     .string "Haaaaaaaaaaah!\p"
-    .string "Aaaah! This is heavenly!\n"
-    .string "The water warms me to my core!\p"
-    .string "You should jump in, too.\p"
-    .string "Go to the middle, relax, and get\n"
-    .string "good and warm!$"
+    .string "Aaaah! Cennet gibi!\n"
+    .string "Su beni iliklerime kadar ısıtıyor!\p"
+    .string "Sen de atlamalısın.\p"
+    .string "Ortaya git, rahatla ve iyice ısın!$"
 
 OneIsland_KindleRoad_EmberSpa_Text_EnjoyBowlOfChowder::
-    .string "My favorite part of bathing comes\n"
-    .string "up right after this.\p"
-    .string "I enjoy a bowl of chowder to\n"
-    .string "warm me from the inside, too!$"
+    .string "Banyonun en sevdiğim kısmı bundan hemen\n"
+    .string "sonra geliyor.\p"
+    .string "Beni içten ısıtsın diye bir kâse çorba\n"
+    .string "içmeye bayılırım!$"
 
 OneIsland_KindleRoad_EmberSpa_Text_WaterExquisiteFullyRefreshed::
-    .string "The water is perfectly warm.\n"
-    .string "It feels exquisite…\p"
-    .string "{PLAYER} and the POKéMON were\n"
-    .string "fully refreshed!$"
+    .string "Su tam kıvamında sıcak.\n"
+    .string "Muhteşem bir his…\p"
+    .string "{PLAYER} ve POKéMON'ları tamamen\n"
+    .string "dinlendi!$"
 
 OneIsland_KindleRoad_EmberSpa_Text_HotSpringIsTherapeutic::
-    .string "Soaking in a hot spring pool is\n"
-    .string "therapeutic, people say.$"
+    .string "Kaplıca havuzunda ıslanmanın şifalı\n"
+    .string "olduğunu söylerler.$"
 
 OneIsland_KindleRoad_EmberSpa_Text_SeeHowSmoothMySkinIs::
-    .string "Have a look at my face.\n"
-    .string "See how smooth my skin is?\p"
-    .string "The hot spring's water keeps my\n"
-    .string "skin younger than my age.$"
+    .string "Yüzüme bak.\n"
+    .string "Cildimin ne kadar pürüzsüz olduğunu\l"
+    .string "görüyor musun?\p"
+    .string "Kaplıcanın suyu cildimi yaşımdan genç\n"
+    .string "tutuyor.$"
 
 OneIsland_KindleRoad_EmberSpa_Text_BrunoVisitsSpaOnOccasion::
-    .string "After an honest day of training,\n"
-    .string "nothing beats a relaxing soak in\l"
-    .string "the hot spring pool.\p"
-    .string "BRUNO, who's a senior ahead of me,\n"
-    .string "visits the SPA on occasion.\p"
-    .string "He comes to rehab injuries, both\n"
-    .string "his own and his POKéMON's.$"
+    .string "Dürüst bir antrenman gününün ardından\n"
+    .string "kaplıca havuzunda dinlendirici bir\l"
+    .string "banyonun yerini hiçbir şey tutmaz.\p"
+    .string "Benden kıdemli olan BRUNO arada bir\n"
+    .string "KAPLICA'ya gelir.\p"
+    .string "Hem kendisinin hem de POKéMON'larının\n"
+    .string "sakatlıklarını iyileştirmeye gelir.$"
 
 OneIsland_KindleRoad_EmberSpa_Text_UsedThisToMakeEmberSpa::
-    .string "Hot springs go hand-in-hand with\n"
-    .string "volcanoes.\p"
-    .string "The EMBER SPA here, well,\n"
-    .string "I made it years ago.\p"
-    .string "I hewed the pool right out of a\n"
-    .string "gigantic boulder by hand.\p"
-    .string "I was using this at the time.\n"
-    .string "I suppose I can part with it.$"
+    .string "Kaplıcalar ve volkanlar el ele gider.\p"
+    .string "Buradaki KOR KAPLICASI'nı yıllar önce\n"
+    .string "ben yaptım.\p"
+    .string "Havuzu kocaman bir kayadan elle\n"
+    .string "oydum.\p"
+    .string "O zamanlar bunu kullanıyordum.\n"
+    .string "Sanırım artık ondan ayrılabilirim.$"
 
 OneIsland_KindleRoad_EmberSpa_Text_ExplainHM06::
-    .string "That shatters boulders as if they\n"
-    .string "were made of crackers.$"
+    .string "Bu, kayaları kraker gibi parçalar.$"
 

@@ -1,0 +1,17 @@
+{
+ "2": "KREŞ hizmetini ben işletiyorum.\\pPOKéMON'larından birini yetiştirmemi ister misin?$",
+ "7": "Yine gel.$",
+ "10": "Hangi POKéMON'u yetiştireyim?$",
+ "13": "Peki.\\nNe zaman istersen gel.$",
+ "17": "Peki, {STR_VAR_1} bir süre bende kalsın.$",
+ "21": "Bir süre sonra gel.$",
+ "24": "Hemen mi döndün?\\p{STR_VAR_1} adlı POKéMON'unun benimle biraz daha vakit geçirmesi lazım.$",
+ "29": "Bu POKéMON'u geri almak için bana ¥{STR_VAR_2} borçlusun.$",
+ "33": "Teşekkürler!\\nİşte POKéMON'un.$",
+ "37": "{PLAYER}, KREŞ AMCASINDAN {STR_VAR_1} adlı POKéMON'unu geri aldı.$",
+ "41": "Hı? Yanında sadece bir POKéMON var.$",
+ "45": "O POKéMON'u bana bırakırsan neyle savaşacaksın?$",
+ "49": "{STR_VAR_1} çok büyüdü.\\nEvet, epey büyüdü diyebilirim.\\pBakalım…\\nSeviye olarak {STR_VAR_2} büyümüş.\\pHarika değil miyim?$",
+ "56": "Yerin yoksa bu POKéMON'u geri alamazsın.$",
+ "60": "Yeterli paran yok.$"
+}

@@ -9,27 +9,27 @@ PokemonMansion_Text_GaveUpOnPressingSwitch::
     .string "おすのは　あきらめた$"
 
 PokemonMansion_1F_Text_SimonIntro::
-    .string "This place is, like, huge!$"
+    .string "Burası, yani, devasa!$"
 
 PokemonMansion_1F_Text_SimonDefeat::
     .string "Ayah!$"
 
 PokemonMansion_1F_Text_SimonPostBattle::
-    .string "I wonder where my partner went.$"
+    .string "Ortağım nereye gitti acaba.$"
 
 PokemonMansion_1F_Text_BraydonIntro::
-    .string "My mentor once lived here.$"
+    .string "Hocam bir zamanlar burada yaşardı.$"
 
 PokemonMansion_1F_Text_BraydonDefeat::
-    .string "Whew!\n"
-    .string "Overwhelming!$"
+    .string "Of!\n"
+    .string "Ezici!$"
 
 PokemonMansion_1F_Text_BraydonPostBattle::
-    .string "So, you're stuck?\n"
-    .string "Try jumping off over there!$"
+    .string "Takıldın mı?\n"
+    .string "Şuradan aşağı atlamayı dene!$"
 
 PokemonMansion_1F_Text_MewGaveBirthToMewtwo::
-    .string "Diary: Feb. 6\n"
-    .string "MEW gave birth.\p"
-    .string "We named the newborn MEWTWO.$"
+    .string "Günlük: 6 Şubat\n"
+    .string "MEW doğurdu.\p"
+    .string "Yeni doğana MEWTWO adını verdik.$"
 

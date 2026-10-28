@@ -1,106 +1,104 @@
 Route9_Text_AliciaIntro::
-    .string "You have POKéMON with you!\n"
-    .string "You're mine!$"
+    .string "Yanında POKéMON var!\n"
+    .string "Sen benimsin!$"
 
 Route9_Text_AliciaDefeat::
-    .string "You deceived me…$"
+    .string "Beni kandırdın…$"
 
 Route9_Text_AliciaPostBattle::
-    .string "The tunnel coming up is pitch-black\n"
-    .string "inside.\p"
-    .string "You'll need FLASH to get through\n"
-    .string "there.$"
+    .string "İlerideki tünelin içi zifiri karanlık.\p"
+    .string "Oradan geçmek için FLAŞ gerekecek.$"
 
 Route9_Text_ChrisIntro::
-    .string "Who's that walking there with those\n"
-    .string "good-looking POKéMON?$"
+    .string "O yakışıklı POKéMON'larla şurada\n"
+    .string "yürüyen de kim?$"
 
 Route9_Text_ChrisDefeat::
-    .string "Out like a light!$"
+    .string "Ampul gibi söndüm!$"
 
 Route9_Text_ChrisPostBattle::
-    .string "Keep walking!$"
+    .string "Yürümeye devam et!$"
 
 Route9_Text_DrewIntro::
-    .string "I'm taking the ROCK TUNNEL to\n"
-    .string "go to LAVENDER…$"
+    .string "LAVENDER'a gitmek için KAYA TÜNELİ'ni\n"
+    .string "kullanıyorum…$"
 
 Route9_Text_DrewDefeat::
-    .string "Can't measure up…$"
+    .string "Boy ölçüşemem…$"
 
 Route9_Text_DrewPostBattle::
-    .string "Are you off to ROCK TUNNEL, too?$"
+    .string "Sen de mi KAYA TÜNELİ'ne gidiyorsun?$"
 
 Route9_Text_CaitlinIntro::
-    .string "Don't you dare patronize me!$"
+    .string "Bana sakın tepeden bakma!$"
 
 Route9_Text_CaitlinDefeat::
-    .string "No!\n"
-    .string "You're too much.$"
+    .string "Hayır!\n"
+    .string "Bu çok fazla.$"
 
 Route9_Text_CaitlinPostBattle::
-    .string "You're obviously talented.\n"
-    .string "Good luck to you!$"
+    .string "Yetenekli olduğun belli.\n"
+    .string "Sana bol şans!$"
 
 Route9_Text_JeremyIntro::
-    .string "Bwahaha!\n"
-    .string "Great! I was bored, eh!$"
+    .string "Buhahaha!\n"
+    .string "Harika! Sıkılmıştım, eh!$"
 
 Route9_Text_JeremyDefeat::
-    .string "Keep it coming, eh!\p"
-    .string "Oh wait.\n"
-    .string "I'm out of POKéMON!$"
+    .string "Devam et, eh!\p"
+    .string "Ah, dur.\n"
+    .string "POKéMON'um kalmadı!$"
 
 Route9_Text_JeremyPostBattle::
-    .string "You sure had guts standing up to\n"
-    .string "me there, eh?$"
+    .string "Bana karşı durmak için gerçekten\n"
+    .string "cesaretin varmış, eh?$"
 
 Route9_Text_BriceIntro::
     .string "Hahaha!\n"
-    .string "Aren't you a little toughie!$"
+    .string "Ne küçük sert cevizmişsin!$"
 
 Route9_Text_BriceDefeat::
-    .string "What's that?$"
+    .string "O ne?$"
 
 Route9_Text_BricePostBattle::
     .string "Hahaha!\n"
-    .string "Kids should be tough!$"
+    .string "Çocuklar sağlam olmalı!$"
 
 Route9_Text_BrentIntro::
-    .string "I got up early every day to raise\n"
-    .string "my POKéMON from cocoons!$"
+    .string "POKéMON'larımı kozadan itibaren\n"
+    .string "yetiştirmek için her gün erken kalktım!$"
 
 Route9_Text_BrentDefeat::
-    .string "WHAT?\p"
-    .string "What a total waste of time!$"
+    .string "NE?\p"
+    .string "Tam bir vakit kaybı!$"
 
 Route9_Text_BrentPostBattle::
-    .string "I have to collect more than bugs\n"
-    .string "to get stronger…$"
+    .string "Güçlenmek için böceklerden fazlasını\n"
+    .string "toplamam lazım…$"
 
 Route9_Text_AlanIntro::
     .string "Hahahaha!\n"
-    .string "Bring it on!$"
+    .string "Gel bakalım!$"
 
 Route9_Text_AlanDefeat::
     .string "Hahahaha!\n"
-    .string "You beat me fair!$"
+    .string "Beni adilce yendin!$"
 
 Route9_Text_AlanPostBattle::
     .string "Hahahaha!\n"
-    .string "Us hearty guys always laugh!$"
+    .string "Biz yürekli adamlar hep güleriz!$"
 
 Route9_Text_ConnerIntro::
-    .string "Go, my super BUG POKéMON!$"
+    .string "Haydi, süper BÖCEK POKéMON'um!$"
 
 Route9_Text_ConnerDefeat::
-    .string "My bugs…$"
+    .string "Böceklerim…$"
 
 Route9_Text_ConnerPostBattle::
-    .string "If you don't like BUG POKéMON,\n"
-    .string "you bug me!$"
+    .string "BÖCEK POKéMON'larını sevmiyorsan beni\n"
+    .string "sinir ediyorsun!$"
 
 Route9_Text_RouteSign::
-    .string "ROUTE 9\n"
-    .string "CERULEAN CITY - ROCK TUNNEL$"
+    .string "ROTA 9\n"
+    .string "CERULEAN ŞEHRİ - KAYA TÜNELİ$"
 

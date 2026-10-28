@@ -1,0 +1,104 @@
+[
+ {
+  "path": "src/battle_message.c",
+  "why": "stat change: 'X's STAT\\n(sharply) rose!' -> 'X: STAT\\n(çok) arttı!'",
+  "old": "sText_AttackersStatRose[] = _(\"{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1}",
+  "new": "sText_AttackersStatRose[] = _(\"{B_ATK_NAME_WITH_PREFIX}: {B_BUFF1}"
+ },
+ {
+  "path": "src/battle_message.c",
+  "why": "stat change, defender",
+  "old": "gText_DefendersStatRose[] = _(\"{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}",
+  "new": "gText_DefendersStatRose[] = _(\"{B_DEF_NAME_WITH_PREFIX}: {B_BUFF1}"
+ },
+ {
+  "path": "src/battle_message.c",
+  "why": "stat change, attacker fell",
+  "old": "sText_AttackersStatFell[] = _(\"{B_ATK_NAME_WITH_PREFIX}'s {B_BUFF1}",
+  "new": "sText_AttackersStatFell[] = _(\"{B_ATK_NAME_WITH_PREFIX}: {B_BUFF1}"
+ },
+ {
+  "path": "src/battle_message.c",
+  "why": "stat change, defender fell",
+  "old": "sText_DefendersStatFell[] = _(\"{B_DEF_NAME_WITH_PREFIX}'s {B_BUFF1}",
+  "new": "sText_DefendersStatFell[] = _(\"{B_DEF_NAME_WITH_PREFIX}: {B_BUFF1}"
+ },
+ {
+  "path": "src/battle_message.c",
+  "why": "'X used\\nMOVE!' -> 'X,\\nMOVE kullandı!': the verb follows the move name, so it rides on the suffix appended to the move",
+  "old": "sText_ExclamationMark[] = _(\"!\");",
+  "new": "sText_ExclamationMark[] = _(\" kullandı!\");"
+ },
+ {
+  "path": "src/battle_message.c",
+  "why": "as above",
+  "old": "sText_ExclamationMark2[] = _(\"!\");",
+  "new": "sText_ExclamationMark2[] = _(\" kullandı!\");"
+ },
+ {
+  "path": "src/battle_message.c",
+  "why": "as above",
+  "old": "sText_ExclamationMark3[] = _(\"!\");",
+  "new": "sText_ExclamationMark3[] = _(\" kullandı!\");"
+ },
+ {
+  "path": "src/battle_message.c",
+  "why": "as above",
+  "old": "sText_ExclamationMark4[] = _(\"!\");",
+  "new": "sText_ExclamationMark4[] = _(\" kullandı!\");"
+ },
+ {
+  "path": "src/battle_message.c",
+  "why": "as above",
+  "old": "sText_ExclamationMark5[] = _(\"!\");",
+  "new": "sText_ExclamationMark5[] = _(\" kullandı!\");"
+ },
+ {
+  "path": "src/naming_screen.c",
+  "why": "symbols page: 8 columns holding the Turkish letters çöüğış ÇÖÜĞİŞ (‘ dropped for room)",
+  "old": "        __(\"01234\"),\n        __(\"56789\"),\n        __(\"!?♂♀/-\"),\n        __(\"…“”‘'\"),",
+  "new": "        __(\"01234çöü\"),\n        __(\"56789ğış\"),\n        __(\"!?♂♀/-ÇÖ\"),\n        __(\"…“”'ÜĞİŞ\"),"
+ },
+ {
+  "path": "src/naming_screen.c",
+  "why": "symbols page column count",
+  "old": "    [KEYBOARD_SYMBOLS]       = 6\n",
+  "new": "    [KEYBOARD_SYMBOLS]       = 8\n"
+ },
+ {
+  "path": "src/naming_screen.c",
+  "why": "symbols page column positions, 16px apart",
+  "old": "    [KEYBOARD_SYMBOLS]       = {0, 22, 44, 66, 88, 110}",
+  "new": "    [KEYBOARD_SYMBOLS]       = {0, 16, 32, 48, 64, 80, 96, 112}"
+ },
+ {
+  "path": "src/scrcmd.c",
+  "why": "Turkish nouns stay singular after a count: no 'S'/'IES' plural on POKé TOPU or DUT names",
+  "old": "    if (itemId == ITEM_POKE_BALL && quantity >= 2)\n",
+  "new": "    if (FALSE) // Turkish: no plural after a count\n"
+ },
+ {
+  "path": "src/scrcmd.c",
+  "why": "see above",
+  "old": "    else if (itemId >= FIRST_BERRY_INDEX && itemId < LAST_BERRY_INDEX && quantity >= 2)\n",
+  "new": "    else if (FALSE)\n"
+ },
+ {
+  "path": "src/pokemon_jump.c",
+  "why": "Turkish nouns stay singular after a count: no 'IES' plural on DUT names",
+  "old": "        if (quantity > 1)\n        {\n            int endi",
+  "new": "        if (FALSE) // Turkish: no plural after a count\n        {\n            int endi"
+ },
+ {
+  "path": "src/data/pokemon/pokedex_text_fr.h",
+  "why": "Chikorita: revision-conditional entry the extractor skips",
+  "old": "    \"Its pleasantly aromatic leaves have the\\n\"\n    #else\n    \"Its pleasantly aromatic leaf has the\\n\"\n    #endif\n    \"ability to check the humidity and\\n\"\n    \"temperature.\"\n",
+  "new": "    \"Hoş kokulu yapraklarının nemi ve\\n\"\n    #else\n    \"Hoş kokulu yaprağının nemi ve\\n\"\n    #endif\n    \"sıcaklığı ölçme yeteneği vardır.\"\n"
+ },
+ {
+  "path": "src/data/pokemon/pokedex_text_fr.h",
+  "why": "Tyranitar: revision-conditional entry the extractor skips",
+  "old": "    \"Its body can't be harmed by any sort of\\n\"\n    \"attack, so it is very eager to make\\n\"\n    \"challenges against enemies.\"\n#else\n\"It has an impudent nature. Having great\\n\"\n    \"strength, it can even change surrounding\\n\"\n    \"landforms.\"\n",
+  "new": "    \"Vücudu hiçbir saldırıyla zarar görmez,\\n\"\n    \"bu yüzden düşmanlara meydan okumaya\\n\"\n    \"çok heveslidir.\"\n#else\n\"Küstah bir doğası vardır. Büyük gücüyle\\n\"\n    \"çevresindeki yer şekillerini bile\\n\"\n    \"değiştirebilir.\"\n"
+ }
+]

@@ -1,16 +1,16 @@
 FiveIsland_Text_IslandSign::
-    .string "FIVE ISLAND\n"
-    .string "Chrono Island: Where Time Goes$"
+    .string "BEŞİNCİ ADA\n"
+    .string "Kronos Adası: Zamanın Aktığı Yer$"
 
 FiveIsland_Text_WeirdBuildingInMeadow::
-    .string "Oh, this stinks. I wanted to play in\n"
-    .string "the MEADOW.\p"
-    .string "But they put up a weird building\n"
-    .string "on it, so I can't play there.$"
+    .string "Of, berbat. ÇAYIR'da oynamak\n"
+    .string "istiyordum.\p"
+    .string "Ama üstüne tuhaf bir bina dikmişler,\n"
+    .string "artık orada oynayamıyorum.$"
 
 FiveIsland_Text_BeenGettingBusierAroundHere::
-    .string "It's been getting busier around\n"
-    .string "these parts lately.\p"
-    .string "I haven't been catching many good\n"
-    .string "fish lately, either.$"
+    .string "Son zamanlarda buralar giderek\n"
+    .string "kalabalıklaşıyor.\p"
+    .string "Son zamanlarda pek iyi balık da\n"
+    .string "yakalayamıyorum.$"
 

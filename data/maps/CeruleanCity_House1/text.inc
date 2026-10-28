@@ -1,72 +1,68 @@
 CeruleanCity_House1_Text_BadgesHaveAmazingSecrets::
-    .string "Only skilled TRAINERS can collect\n"
-    .string "POKéMON BADGES.\p"
-    .string "I see you have at least one.\p"
-    .string "Those BADGES have amazing secrets,\n"
-    .string "did you know?$"
+    .string "POKéMON ROZETLERİNİ yalnızca\n"
+    .string "yetenekli EĞİTMENLER toplayabilir.\p"
+    .string "Görüyorum ki en az bir tane var sende.\p"
+    .string "Bu ROZETLERİN inanılmaz sırları var,\n"
+    .string "biliyor muydun?$"
 
 CeruleanCity_House1_Text_DescribeWhichBadge::
-    .string "Now then…\p"
-    .string "Which of the eight BADGES should\n"
-    .string "I describe?$"
+    .string "Şimdi…\p"
+    .string "Sekiz ROZET'ten hangisini anlatayım?$"
 
 CeruleanCity_House1_Text_ComeVisitAnytime::
-    .string "Come visit me anytime you wish.$"
+    .string "Ne zaman istersen ziyaretime gel.$"
 
 CeruleanCity_House1_Text_AttackStatFlash::
-    .string "The ATTACK stat of all your\n"
-    .string "POKéMON increases a little bit.\p"
-    .string "It also lets you use the move\n"
-    .string "FLASH outside of battle.$"
+    .string "Tüm POKéMON'larının SALDIRI değeri\n"
+    .string "biraz artar.\p"
+    .string "Ayrıca savaş dışında FLAŞ hareketini\n"
+    .string "kullanabilmeni sağlar.$"
 
 CeruleanCity_House1_Text_ObeyLv30Cut::
-    .string "POKéMON up to Lv. 30 will obey\n"
-    .string "you.\p"
-    .string "That includes even outsiders you\n"
-    .string "obtain in trades.\p"
-    .string "POKéMON of higher levels will\n"
-    .string "be unruly in battle, however.\p"
-    .string "It also lets you use the move\n"
-    .string "CUT outside of battle.$"
+    .string "Sv. 30'a kadar POKéMON sana itaat\n"
+    .string "eder.\p"
+    .string "Takasla aldığın yabancılar da dahil.\p"
+    .string "Ama daha yüksek seviyeli POKéMON\n"
+    .string "savaşta söz dinlemez.\p"
+    .string "Ayrıca savaş dışında KES hareketini\n"
+    .string "kullanabilmeni sağlar.$"
 
 CeruleanCity_House1_Text_SpeedStatFly::
-    .string "The SPEED stat of all your\n"
-    .string "POKéMON increases a little bit.\p"
-    .string "It also lets you use the move\n"
-    .string "FLY outside of battle.$"
+    .string "Tüm POKéMON'larının HIZ değeri biraz\n"
+    .string "artar.\p"
+    .string "Ayrıca savaş dışında UÇ hareketini\n"
+    .string "kullanabilmeni sağlar.$"
 
 CeruleanCity_House1_Text_ObeyLv50Strength::
-    .string "POKéMON up to Lv. 50 will obey\n"
-    .string "you.\p"
-    .string "That includes even outsiders you\n"
-    .string "obtain in trades.\p"
-    .string "POKéMON of higher levels will\n"
-    .string "be unruly in battle, however.\p"
-    .string "It also lets you use the move\n"
-    .string "STRENGTH outside of battle.$"
+    .string "Sv. 50'ye kadar POKéMON sana itaat\n"
+    .string "eder.\p"
+    .string "Takasla aldığın yabancılar da dahil.\p"
+    .string "Ama daha yüksek seviyeli POKéMON\n"
+    .string "savaşta söz dinlemez.\p"
+    .string "Ayrıca savaş dışında GÜÇ hareketini\n"
+    .string "kullanabilmeni sağlar.$"
 
 CeruleanCity_House1_Text_DefenseStatSurf::
-    .string "The DEFENSE stat of all your\n"
-    .string "POKéMON increases a little bit.\p"
-    .string "It also lets you use the move\n"
-    .string "SURF outside of battle.$"
+    .string "Tüm POKéMON'larının SAVUNMA değeri\n"
+    .string "biraz artar.\p"
+    .string "Ayrıca savaş dışında SÖRF hareketini\n"
+    .string "kullanabilmeni sağlar.$"
 
 CeruleanCity_House1_Text_ObeyLv70RockSmash::
-    .string "POKéMON up to Lv. 70 will obey\n"
-    .string "you.\p"
-    .string "That includes even outsiders you\n"
-    .string "obtain in trades.\p"
-    .string "POKéMON of higher levels will\n"
-    .string "be unruly in battle, however.\p"
-    .string "It also lets you use the move\n"
-    .string "ROCK SMASH outside of battle.$"
+    .string "Sv. 70'e kadar POKéMON sana itaat\n"
+    .string "eder.\p"
+    .string "Takasla aldığın yabancılar da dahil.\p"
+    .string "Ama daha yüksek seviyeli POKéMON\n"
+    .string "savaşta söz dinlemez.\p"
+    .string "Ayrıca savaş dışında KAYA KIRMA\n"
+    .string "hareketini kullanabilmeni sağlar.$"
 
 CeruleanCity_House1_Text_SpStatsWaterfall::
-    .string "The SP. ATK and SP. DEF stats of\n"
-    .string "all your POKéMON rise a little bit.\p"
-    .string "It also lets you use the move\n"
-    .string "WATERFALL outside of battle.$"
+    .string "Tüm POKéMON'larının Ö.SALD ve Ö.SAV\n"
+    .string "değerleri biraz artar.\p"
+    .string "Ayrıca savaş dışında ŞELALE hareketini\n"
+    .string "kullanabilmeni sağlar.$"
 
 CeruleanCity_House1_Text_AllMonsWillObeyYou::
-    .string "All POKéMON will obey you!$"
+    .string "Tüm POKéMON sana itaat eder!$"
 

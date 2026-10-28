@@ -1,75 +1,73 @@
 CinnabarIsland_Text_DoorIsLocked::
-    .string "The door is locked…$"
+    .string "Kapı kilitli…$"
 
 CinnabarIsland_Text_BlaineLivedHereSinceBeforeLab::
-    .string "CINNABAR GYM's BLAINE is quite the\n"
-    .string "odd fellow.\p"
-    .string "He's lived on the island since way\n"
-    .string "before the LAB was built.$"
+    .string "CINNABAR SALONU'nun BLAINE'i epey\n"
+    .string "tuhaf biridir.\p"
+    .string "LAB inşa edilmeden çok önce beri adada\n"
+    .string "yaşıyor.$"
 
 CinnabarIsland_Text_ScientistsExperimentInMansion::
-    .string "Scientists conduct experiments \n"
-    .string "in the burned-out building.\p"
-    .string "You know, the one they call the\n"
-    .string "POKéMON MANSION.$"
+    .string "Bilim insanları yanıp kül olmuş binada\n"
+    .string "deneyler yapıyor.\p"
+    .string "Bilirsin, POKéMON KONAĞI dedikleri yer.$"
 
 CinnabarIsland_Text_IslandSign::
-    .string "CINNABAR ISLAND\n"
-    .string "The Fiery Town of Burning Desire$"
+    .string "CINNABAR ADASI\n"
+    .string "Yanan Tutkuların Ateşli Kasabası$"
 
 CinnabarIsland_Text_PokemonLab::
-    .string "POKéMON LAB$"
+    .string "POKéMON LAB.$"
 
 CinnabarIsland_Text_GymSign::
-    .string "CINNABAR ISLAND POKéMON GYM\n"
-    .string "LEADER: BLAINE\l"
-    .string "The Hotheaded Quiz Master!$"
+    .string "CINNABAR ADASI POKéMON SALONU\n"
+    .string "LİDER: BLAINE\l"
+    .string "Ateşli Bilmece Ustası!$"
 
 CinnabarIsland_Text_HeyIfItIsntPlayer::
-    .string "Huh?\n"
-    .string "Hey, if it isn't {PLAYER}!$"
+    .string "Hı?\n"
+    .string "Hey, bu {PLAYER} değil mi!$"
 
 CinnabarIsland_Text_ComeWithMeToOneIsland::
-    .string "Look, it's me, BILL.\n"
-    .string "Long time no see!\p"
-    .string "I hope you're still using my\n"
-    .string "PC system.\p"
-    .string "Well, listen, since we met up here,\n"
-    .string "how about spending time with me?\p"
-    .string "There's this little island in the far\n"
-    .string "south called ONE ISLAND.\p"
-    .string "A friend invited me, so I'm on my\n"
-    .string "way out there.\p"
-    .string "How about it?\n"
-    .string "Do you feel like coming with me?$"
+    .string "Bak, benim, BILL.\n"
+    .string "Görüşmeyeli uzun zaman oldu!\p"
+    .string "Umarım hâlâ PC sistemimi\n"
+    .string "kullanıyorsundur.\p"
+    .string "Bak, madem burada karşılaştık, biraz\n"
+    .string "benimle vakit geçirmeye ne dersin?\p"
+    .string "Çok güneyde BİRİNCİ ADA denen küçük\n"
+    .string "bir ada var.\p"
+    .string "Bir arkadaşım davet etti, oraya\n"
+    .string "gidiyorum.\p"
+    .string "Ne dersin?\n"
+    .string "Benimle gelmek ister misin?$"
 
 CinnabarIsland_Text_AllRightLetsGo::
-    .string "All right, then.\n"
-    .string "Let's go!$"
+    .string "Pekala o zaman.\n"
+    .string "Hadi gidelim!$"
 
 CinnabarIsland_Text_IllBeWaitingInPokeCenter::
-    .string "What, are you too busy?\p"
-    .string "Well, all right.\n"
-    .string "The boat hasn't arrived yet anyway.\p"
-    .string "I'll be waiting at the POKéMON\n"
-    .string "CENTER over there.\p"
-    .string "Come see me when you're done with\n"
-    .string "your business here.$"
+    .string "Ne, çok mu meşgulsün?\p"
+    .string "Peki, tamam.\n"
+    .string "Zaten gemi henüz gelmedi.\p"
+    .string "Şuradaki POKéMON MERKEZİ'nde bekliyor\n"
+    .string "olacağım.\p"
+    .string "Buradaki işin bitince yanıma gel.$"
 
 CinnabarIsland_Text_MyPalsBoatArrived::
-    .string "Looks like my pal's boat arrived,\n"
-    .string "too.\p"
-    .string "He sent it specially here to\n"
-    .string "CINNABAR to pick me up.$"
+    .string "Görünüşe göre arkadaşımın gemisi de\n"
+    .string "geldi.\p"
+    .string "Beni almak için özellikle buraya,\n"
+    .string "CINNABAR'a göndermiş.$"
 
 CinnabarIsland_Text_IfYouHaveTriPassYouCanGoAgain::
-    .string "Hey, wasn't that a long cruise?\p"
-    .string "My buddy CELIO seemed to enjoy\n"
-    .string "your company.\p"
-    .string "I'm sure he'd welcome you if you\n"
-    .string "were to visit him again.\p"
-    .string "If you have a TRI-PASS, you can\n"
-    .string "always take a ferry there from\l"
-    .string "VERMILION PORT.\p"
-    .string "All right, thanks for your company!$"
+    .string "Hey, ne uzun bir yolculuktu, değil mi?\p"
+    .string "Arkadaşım CELIO senin arkadaşlığından\n"
+    .string "hoşlanmış gibiydi.\p"
+    .string "Eminim yine ziyaret edersen seni\n"
+    .string "memnuniyetle karşılar.\p"
+    .string "ÜÇLÜ PASO'n varsa VERMILION\n"
+    .string "LİMANI'ndan oraya her zaman vapurla\l"
+    .string "gidebilirsin.\p"
+    .string "Pekala, eşlik ettiğin için teşekkürler!$"
 

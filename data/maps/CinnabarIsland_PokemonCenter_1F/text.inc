@@ -1,38 +1,35 @@
 CinnabarIsland_PokemonCenter_1F_Text_CinnabarGymLocked::
-    .string "I came to visit the CINNABAR GYM,\n"
-    .string "but the door is locked tight.\p"
-    .string "There should be a key for it\n"
-    .string "somewhere.\p"
-    .string "Could it be in that burned-out\n"
-    .string "mansion?\p"
-    .string "The GYM LEADER's friend used to\n"
-    .string "live there, they say.$"
+    .string "CINNABAR SALONU'nu ziyarete geldim\n"
+    .string "ama kapı sımsıkı kilitli.\p"
+    .string "Bir yerlerde anahtarı olmalı.\p"
+    .string "O yanmış konakta olabilir mi?\p"
+    .string "SALON LİDERİ'nin arkadaşı eskiden orada\n"
+    .string "yaşarmış, öyle diyorlar.$"
 
 CinnabarIsland_PokemonCenter_1F_Text_VisitUnionRoom::
-    .string "Do you have lots of friends?\p"
-    .string "Linking up with the usual friends\n"
-    .string "is fun, of course.\p"
-    .string "But how about visiting the\n"
-    .string "UNION ROOM every so often?\p"
-    .string "Who knows, you may end up making\n"
-    .string "new friends.\p"
-    .string "I think it would be worth your time\n"
-    .string "to check the UNION ROOM.$"
+    .string "Bir sürü arkadaşın var mı?\p"
+    .string "Her zamanki arkadaşlarla bağlanmak\n"
+    .string "eğlenceli, tabii ki.\p"
+    .string "Ama arada bir BİRLİK ODASI'na\n"
+    .string "uğramaya ne dersin?\p"
+    .string "Kim bilir, yeni arkadaşlar edinebilirsin.\p"
+    .string "Bence BİRLİK ODASI'na bakmaya değer.$"
 
 CinnabarIsland_PokemonCenter_1F_Text_EvolutionCanWaitForNewMoves::
-    .string "POKéMON can still learn techniques\n"
-    .string "after canceling evolution.\p"
-    .string "Evolution can wait until new moves\n"
-    .string "have been learned.$"
+    .string "POKéMON evrimi iptal ettikten sonra da\n"
+    .string "teknik öğrenebilir.\p"
+    .string "Evrim, yeni hareketler öğrenilene kadar\n"
+    .string "bekleyebilir.$"
 
 CinnabarIsland_PokemonCenter_1F_Text_ReadyToSailToOneIsland::
-    .string "BILL: Hey, you kept me waiting!\n"
-    .string "Ready to set sail to ONE ISLAND?$"
+    .string "BILL: Hey, beni beklettin!\n"
+    .string "BİRİNCİ ADA'ya yelken açmaya hazır\l"
+    .string "mısın?$"
 
 CinnabarIsland_PokemonCenter_1F_Text_OhNotDoneYet::
-    .string "Oh, you're still not done yet?$"
+    .string "Ah, hâlâ bitirmedin mi?$"
 
 CinnabarIsland_PokemonCenter_1F_Text_LetsGo::
-    .string "Well, that's it.\n"
-    .string "Let's go!$"
+    .string "Peki, tamam.\n"
+    .string "Hadi gidelim!$"
 

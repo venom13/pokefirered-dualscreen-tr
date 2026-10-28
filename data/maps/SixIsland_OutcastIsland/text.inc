@@ -1,85 +1,81 @@
 SixIsland_OutcastIsland_Text_RocketIntro::
-    .string "There're no rare POKéMON around\n"
-    .string "these parts! Not a one!\p"
-    .string "That burns me up, man.\n"
-    .string "I'll take it out on you!$"
+    .string "Buralarda hiç nadir POKéMON yok! Tek\n"
+    .string "bir tane bile!\p"
+    .string "Bu beni çıldırtıyor, dostum.\n"
+    .string "Acısını senden çıkaracağım!$"
 
 SixIsland_OutcastIsland_Text_RocketDefeat::
-    .string "…Huh?$"
+    .string "…Hı?$"
 
 SixIsland_OutcastIsland_Text_RocketPostBattle::
-    .string "So listen, you haven't seen any\n"
-    .string "rare POKéMON, have you?$"
+    .string "Dinle, hiç nadir POKéMON görmedin,\n"
+    .string "değil mi?$"
 
 SixIsland_OutcastIsland_Text_TylorIntro::
-    .string "I'm having no luck at all.\n"
-    .string "A battle'd be a change of pace!$"
+    .string "Hiç şansım yok.\n"
+    .string "Bir savaş iyi bir değişiklik olur!$"
 
 SixIsland_OutcastIsland_Text_TylorDefeat::
-    .string "Nope, no luck at all…$"
+    .string "Yok, hiç şans yok…$"
 
 SixIsland_OutcastIsland_Text_TylorPostBattle::
-    .string "I can't very well go home without\n"
-    .string "catching something, though.$"
+    .string "Yine de bir şey yakalamadan eve\n"
+    .string "gidemem.$"
 
 SixIsland_OutcastIsland_Text_MymoIntro::
-    .string "Gasp… Gasp…\p"
-    .string "I swam here from SIX ISLE PORT\n"
-    .string "in one go.$"
+    .string "Hah… Hah…\p"
+    .string "ALTINCI ADA LİMANI'ndan buraya tek\n"
+    .string "seferde yüzdüm.$"
 
 SixIsland_OutcastIsland_Text_MymoDefeat::
-    .string "Gasp…\n"
-    .string "Gasp…$"
+    .string "Hah…\n"
+    .string "Hah…$"
 
 SixIsland_OutcastIsland_Text_MymoPostBattle::
-    .string "I'm only at the halfway point…\n"
-    .string "I'm beat…$"
+    .string "Daha yolun yarısındayım…\n"
+    .string "Bittim…$"
 
 SixIsland_OutcastIsland_Text_NicoleIntro::
-    .string "It's not so easy sending POKéMON\n"
-    .string "out while swimming, you know?$"
+    .string "Yüzerken POKéMON göndermek o kadar\n"
+    .string "kolay değil, biliyor musun?$"
 
 SixIsland_OutcastIsland_Text_NicoleDefeat::
-    .string "I didn't lose to you at swimming.\n"
-    .string "This doesn't bother me.$"
+    .string "Sana yüzmede kaybetmedim.\n"
+    .string "Bu beni rahatsız etmiyor.$"
 
 SixIsland_OutcastIsland_Text_NicolePostBattle::
-    .string "Are you headed for the island up\n"
-    .string "past here?\p"
-    .string "I didn't see anything interesting\n"
-    .string "there.$"
+    .string "Buradan yukarıdaki adaya mı gidiyorsun?\p"
+    .string "Orada ilginç bir şey görmedim.$"
 
 SixIsland_OutcastIsland_Text_AvaIntro::
-    .string "AVA: Let's have a two-on-two\n"
-    .string "marine battle!$"
+    .string "AVA: Hadi ikiye iki bir deniz savaşı\n"
+    .string "yapalım!$"
 
 SixIsland_OutcastIsland_Text_AvaDefeat::
-    .string "AVA: Oh, you're amazing!\n"
-    .string "Even better, you're on your own!$"
+    .string "AVA: Ah, inanılmazsın!\n"
+    .string "Üstelik tek başınasın!$"
 
 SixIsland_OutcastIsland_Text_AvaPostBattle::
-    .string "AVA: You know, I do prefer the\n"
-    .string "sea over any pool.$"
+    .string "AVA: Biliyor musun, denizi her havuza\n"
+    .string "tercih ederim.$"
 
 SixIsland_OutcastIsland_Text_AvaNotEnoughMons::
-    .string "AVA: You're challenging us to\n"
-    .string "a battle?\p"
-    .string "You'll need at least two POKéMON\n"
-    .string "if you want to do that.$"
+    .string "AVA: Bize savaş için meydan mı\n"
+    .string "okuyorsun?\p"
+    .string "Bunun için en az iki POKéMON'a ihtiyacın\n"
+    .string "var.$"
 
 SixIsland_OutcastIsland_Text_GebIntro::
-    .string "GEB: Big Sister, help!\n"
-    .string "Please battle with me!$"
+    .string "GEB: Abla, yardım et!\n"
+    .string "Lütfen benimle savaş!$"
 
 SixIsland_OutcastIsland_Text_GebDefeat::
-    .string "GEB: Wow, Big Sister, this person's\n"
-    .string "really good!$"
+    .string "GEB: Vay, abla, bu kişi gerçekten iyi!$"
 
 SixIsland_OutcastIsland_Text_GebPostBattle::
-    .string "GEB: I'm hanging onto my sister\n"
-    .string "because I can't touch the bottom.$"
+    .string "GEB: Ayağım dibe değmediği için ablama\n"
+    .string "tutunuyorum.$"
 
 SixIsland_OutcastIsland_Text_GebNotEnoughMons::
-    .string "GEB: Please battle against me and\n"
-    .string "my sister!\p"
-    .string "…Oh, you don't have two POKéMON?$"
+    .string "GEB: Lütfen benimle ve ablamla savaş!\p"
+    .string "…Ah, iki POKéMON'un yok mu?$"

@@ -1,37 +1,35 @@
 CeladonCity_Restaurant_Text_TakingBreakRightNow::
-    .string "Hi!\p"
-    .string "Sorry, but we're taking a break\n"
-    .string "right now.$"
+    .string "Selam!\p"
+    .string "Kusura bakma, şu an moladayız.$"
 
 CeladonCity_Restaurant_Text_OftenGoToDrugstore::
-    .string "My POKéMON are weak, so I often\n"
-    .string "have to go to the DRUGSTORE.$"
+    .string "POKéMON'larım zayıf, o yüzden sık sık\n"
+    .string "ECZANE'ye gitmem gerekiyor.$"
 
 CeladonCity_Restaurant_Text_PsstBasementUnderGameCorner::
-    .string "Psst! There's a basement under the\n"
-    .string "GAME CORNER, I hear.$"
+    .string "Psst! OYUN SALONU'nun altında bir\n"
+    .string "bodrum varmış, duydum.$"
 
 CeladonCity_Restaurant_Text_ManLostItAllAtSlots::
-    .string "Munch…\p"
-    .string "The man at that table lost it all\n"
-    .string "at the slots.$"
+    .string "Hapır hupur…\p"
+    .string "Şu masadaki adam slotlarda her şeyini\n"
+    .string "kaybetti.$"
 
 CeladonCity_Restaurant_Text_TakeThisImBusted::
-    .string "Go ahead! Laugh!\n"
-    .string "I'm flat-out busted!\p"
-    .string "No more slots for me!\n"
-    .string "I'm going straight!\p"
-    .string "Here!\n"
-    .string "I won't be needing this anymore!$"
+    .string "Hadi! Gül bakalım!\n"
+    .string "Tam takır kaldım!\p"
+    .string "Artık slot yok bana!\n"
+    .string "Doğru yola dönüyorum!\p"
+    .string "Al!\n"
+    .string "Buna artık ihtiyacım olmayacak!$"
 
 CeladonCity_Restaurant_Text_ReceivedCoinCaseFromMan::
-    .string "{PLAYER} received a COIN CASE\n"
-    .string "from the man.$"
+    .string "{PLAYER} adamdan bir JETON KUTUSU\n"
+    .string "aldı.$"
 
 CeladonCity_Restaurant_Text_MakeRoomForThis::
-    .string "Make room for this!$"
+    .string "Buna yer aç!$"
 
 CeladonCity_Restaurant_Text_ThoughtIdWinItBack::
-    .string "I always thought I was going to\n"
-    .string "win it back…$"
+    .string "Hep geri kazanacağımı sanıyordum…$"
 

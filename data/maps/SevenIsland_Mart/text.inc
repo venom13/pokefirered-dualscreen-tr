@@ -1,17 +1,18 @@
 SevenIsland_Mart_Text_MonHavePersonalitiesOfTheirOwn::
-    .string "POKéMON have personalities of their\n"
-    .string "own, just like people.\p"
-    .string "My PIKACHU has a HASTY nature,\n"
-    .string "so it grew to be a speedy POKéMON.$"
+    .string "POKéMON'ların da insanlar gibi kendi\n"
+    .string "kişilikleri vardır.\p"
+    .string "PIKACHU'mun ACELECİ bir doğası var, bu\n"
+    .string "yüzden hızlı bir POKéMON olarak\l"
+    .string "büyüdü.$"
 
 SevenIsland_Mart_Text_PreparationsCompleteForRuins::
-    .string "Okay, preparations are complete\n"
-    .string "for me to explore the RUINS.$"
+    .string "Tamam, HARABELERİ keşfetmek için\n"
+    .string "hazırlıklarım tamam.$"
 
 SevenIsland_Mart_Text_NeedToFishOnSevenIsland::
-    .string "I need to fish on SEVEN ISLAND.\p"
-    .string "That will complete my fishing tour\n"
-    .string "of the SEVII ISLANDS.\p"
-    .string "I'd better stock up on some\n"
-    .string "POKé BALLS first, though.$"
+    .string "YEDİNCİ ADA'da balık tutmam lazım.\p"
+    .string "Böylece SEVII ADALARI balık turumu\n"
+    .string "tamamlamış olacağım.\p"
+    .string "Ama önce biraz POKé TOPU stoklasam iyi\n"
+    .string "olur.$"
 

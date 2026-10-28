@@ -1,93 +1,90 @@
 ViridianCity_School_Text_TryingToMemorizeNotes::
-    .string "Whew! I'm trying to memorize all my\n"
-    .string "notes.$"
+    .string "Of! Tüm notlarımı ezberlemeye\n"
+    .string "çalışıyorum.$"
 
 ViridianCity_School_Text_ReadBlackboardCarefully::
-    .string "Okay!\p"
-    .string "Be sure to read what's on the\n"
-    .string "blackboard carefully!$"
+    .string "Tamam!\p"
+    .string "Karatahtadakileri dikkatle okuduğundan\n"
+    .string "emin ol!$"
 
 ViridianCity_School_Text_NotebookFirstPage::
-    .string "Let's check out the notebook.\p"
-    .string "First page…\p"
-    .string "POKé BALLS are used to catch\n"
-    .string "POKéMON.\p"
-    .string "Up to six POKéMON can be carried\n"
-    .string "in your party.\p"
-    .string "People who raise and battle\n"
-    .string "with POKéMON are called TRAINERS.$"
+    .string "Deftere bir bakalım.\p"
+    .string "Birinci sayfa…\p"
+    .string "POKé TOPLARI POKéMON yakalamak için\n"
+    .string "kullanılır.\p"
+    .string "Takımında en fazla altı POKéMON\n"
+    .string "taşıyabilirsin.\p"
+    .string "POKéMON yetiştirip onlarla savaşan\n"
+    .string "kişilere EĞİTMEN denir.$"
 
 ViridianCity_School_Text_NotebookSecondPage::
-    .string "Second page…\p"
-    .string "A healthy POKéMON may be hard to\n"
-    .string "catch, so weaken it first.\p"
-    .string "Poison, burn, or cause another\n"
-    .string "status problem to weaken it.$"
+    .string "İkinci sayfa…\p"
+    .string "Sağlıklı bir POKéMON'u yakalamak zor\n"
+    .string "olabilir, önce zayıflat.\p"
+    .string "Zayıflatmak için zehirle, yak ya da\n"
+    .string "başka bir durum sorunu yarat.$"
 
 ViridianCity_School_Text_NotebookThirdPage::
-    .string "Third page…\p"
-    .string "POKéMON TRAINERS seek others to\n"
-    .string "engage in POKéMON battles.\p"
-    .string "To TRAINERS, the taste of victory\n"
-    .string "is sweet, indeed.\p"
-    .string "Battles are constantly waged at\n"
-    .string "POKéMON GYMS everywhere.$"
+    .string "Üçüncü sayfa…\p"
+    .string "POKéMON EĞİTMENLERİ POKéMON savaşı\n"
+    .string "yapacak rakipler arar.\p"
+    .string "EĞİTMENLER için zaferin tadı gerçekten\n"
+    .string "tatlıdır.\p"
+    .string "Her yerdeki POKéMON SALONLARI'nda\n"
+    .string "sürekli savaşlar yapılır.$"
 
 ViridianCity_School_Text_NotebookFourthPage::
-    .string "Fourth page…\p"
-    .string "The ultimate goal for all POKéMON\n"
-    .string "TRAINERS is simple.\p"
-    .string "It is to defeat the top eight\n"
-    .string "POKéMON GYM LEADERS.\p"
-    .string "Do so to earn the right to face…\p"
-    .string "The ELITE FOUR of the POKéMON\n"
-    .string "LEAGUE!$"
+    .string "Dördüncü sayfa…\p"
+    .string "Tüm POKéMON EĞİTMENLERİ'nin nihai\n"
+    .string "hedefi basittir.\p"
+    .string "En iyi sekiz POKéMON SALON LİDERİ'ni\n"
+    .string "yenmek.\p"
+    .string "Böylece şununla yüzleşme hakkını\n"
+    .string "kazanırsın…\p"
+    .string "POKéMON LİGİ'nin ELİT DÖRTLÜ'sü!$"
 
 ViridianCity_School_Text_TurnThePage::
-    .string "Turn the page?$"
+    .string "Sayfayı çevireyim mi?$"
 
 ViridianCity_School_Text_HeyDontLookAtMyNotes::
-    .string "GIRL: Hey!\n"
-    .string "Don't look at my notes!$"
+    .string "KIZ: Hey!\n"
+    .string "Notlarıma bakma!$"
 
 ViridianCity_School_Text_BlackboardListsStatusProblems::
-    .string "The blackboard lists POKéMON\n"
-    .string "STATUS problems during battles.$"
+    .string "Karatahtada savaşlardaki POKéMON\n"
+    .string "DURUM sorunları yazıyor.$"
 
 ViridianCity_School_Text_ReadWhichTopic::
-    .string "Which topic do you want to read?$"
+    .string "Hangi konuyu okumak istersin?$"
 
 ViridianCity_School_Text_ExplainSleep::
-    .string "A POKéMON can't attack if it's\n"
-    .string "asleep.\p"
-    .string "POKéMON will stay asleep even\n"
-    .string "after battles.\p"
-    .string "Use AWAKENING to awaken one\n"
-    .string "from sleep.$"
+    .string "Uyuyan bir POKéMON saldıramaz.\p"
+    .string "POKéMON savaşlardan sonra da uyumaya\n"
+    .string "devam eder.\p"
+    .string "Uyandırmak için UYANDIRICI kullan.$"
 
 ViridianCity_School_Text_ExplainBurn::
-    .string "A burn reduces ATTACK power.\n"
-    .string "It also causes ongoing HP loss.\p"
-    .string "A burn remains after a battle.\n"
-    .string "Use BURN HEAL to cure a burn.$"
+    .string "Yanık SALDIRI gücünü düşürür.\n"
+    .string "Ayrıca sürekli HP kaybına yol açar.\p"
+    .string "Yanık savaştan sonra da sürer.\n"
+    .string "İyileştirmek için YANIK İLACI kullan.$"
 
 ViridianCity_School_Text_ExplainPoison::
-    .string "When poisoned, a POKéMON's health\n"
-    .string "steadily drops.\p"
-    .string "Poison lingers after battles.\n"
-    .string "Use an ANTIDOTE to cure poison!$"
+    .string "Zehirlenen POKéMON'un sağlığı giderek\n"
+    .string "azalır.\p"
+    .string "Zehir savaştan sonra da sürer.\n"
+    .string "İyileştirmek için PANZEHİR kullan!$"
 
 ViridianCity_School_Text_ExplainFreeze::
-    .string "A frozen POKéMON becomes\n"
-    .string "helplessly immobile.\p"
-    .string "It stays frozen even after the\n"
-    .string "battle ends.\p"
-    .string "Use ICE HEAL to thaw out the\n"
-    .string "suffering POKéMON.$"
+    .string "Donmuş bir POKéMON çaresizce\n"
+    .string "hareketsiz kalır.\p"
+    .string "Savaş bittikten sonra da donmuş kalır.\p"
+    .string "Acı çeken POKéMON'u çözmek için BUZ\n"
+    .string "İLACI kullan.$"
 
 ViridianCity_School_Text_ExplainParalysis::
-    .string "Paralysis reduces SPEED and may\n"
-    .string "prevent the POKéMON from moving.\p"
-    .string "Paralysis remains after battles.\n"
-    .string "Use PARLYZ HEAL for treatment.$"
+    .string "Felç HIZI düşürür ve POKéMON'un\n"
+    .string "hareket etmesini engelleyebilir.\p"
+    .string "Felç savaştan sonra da sürer.\n"
+    .string "Tedavi için FELÇ İLACI kullan.$"
 

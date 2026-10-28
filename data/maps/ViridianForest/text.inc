@@ -1,105 +1,104 @@
 ViridianForest_Text_FriendsItchingToBattle::
-    .string "I came here with some friends to\n"
-    .string "catch us some BUG POKéMON!\p"
-    .string "They're all itching to get into\n"
-    .string "some POKéMON battles!$"
+    .string "Buraya arkadaşlarla BÖCEK POKéMON\n"
+    .string "yakalamaya geldim!\p"
+    .string "Hepsi POKéMON savaşına girmek için can\n"
+    .string "atıyor!$"
 
 ViridianForest_Text_RickIntro::
-    .string "Hey! You have POKéMON!\n"
-    .string "Come on!\l"
-    .string "Let's battle 'em!$"
+    .string "Hey! POKéMON'ların var!\n"
+    .string "Hadi!\l"
+    .string "Savaşalım!$"
 
 ViridianForest_Text_RickDefeat::
-    .string "No!\nCATERPIE can't hack it!$"
+    .string "Hayır!\n"
+    .string "CATERPIE başa çıkamıyor!$"
 
 ViridianForest_Text_RickPostBattle::
-    .string "Ssh! You'll scare the bugs away.\n"
-    .string "Another time, okay?$"
+    .string "Şşş! Böcekleri korkutacaksın.\n"
+    .string "Başka zaman, tamam mı?$"
 
 ViridianForest_Text_DougIntro::
-    .string "Yo!\n"
-    .string "You can't jam out if you're a\l"
-    .string "POKéMON TRAINER!$"
+    .string "Hey!\n"
+    .string "POKéMON EĞİTMENİ'ysen kaçamazsın!$"
 
 ViridianForest_Text_DougDefeat::
-    .string "Huh?\n"
-    .string "I ran out of POKéMON!$"
+    .string "Ha?\n"
+    .string "POKéMON'um kalmadı!$"
 
 ViridianForest_Text_DougPostBattle::
-    .string "That totally stinks! I'm going to\n"
-    .string "catch some stronger ones!$"
+    .string "Bu tamamen berbat! Daha güçlülerini\n"
+    .string "yakalayacağım!$"
 
 ViridianForest_Text_SammyIntro::
-    .string "Hey, wait up!\n"
-    .string "What's the hurry? Why the rush?$"
+    .string "Hey, bekle!\n"
+    .string "Ne bu acele? Niye bu telaş?$"
 
 ViridianForest_Text_SammyDefeat::
-    .string "I give!\n"
-    .string "You're good at this!$"
+    .string "Pes ediyorum!\n"
+    .string "Bunda iyisin!$"
 
 ViridianForest_Text_SammyPostBattle::
-    .string "Sometimes, you can find stuff on\n"
-    .string "the ground.\p"
-    .string "I'm looking for the stuff I\n"
-    .string "dropped. Can you help me?$"
+    .string "Bazen yerde bir şeyler bulabilirsin.\p"
+    .string "Düşürdüğüm şeyleri arıyorum. Yardım\n"
+    .string "eder misin?$"
 
 ViridianForest_Text_AnthonyIntro::
-    .string "I might be little, but I won't like\n"
-    .string "it if you go easy on me!$"
+    .string "Küçük olabilirim ama bana yüklenmezsen\n"
+    .string "hoşuma gitmez!$"
 
 ViridianForest_Text_AnthonyDefeat::
-    .string "Oh, boo.\n"
-    .string "Nothing went right.$"
+    .string "Ah, öf.\n"
+    .string "Hiçbir şey yolunda gitmedi.$"
 
 ViridianForest_Text_AnthonyPostBattle::
-    .string "I lost some of my allowance…$"
+    .string "Harçlığımın bir kısmını kaybettim…$"
 
 ViridianForest_Text_CharlieIntro::
-    .string "Did you know that POKéMON evolve?$"
+    .string "POKéMON'ların evrimleştiğini biliyor muydun?$"
 
 ViridianForest_Text_CharlieDefeat::
-    .string "Oh!\n"
-    .string "I lost!$"
+    .string "Ah!\n"
+    .string "Kaybettim!$"
 
 ViridianForest_Text_CharliePostBattle::
-    .string "BUG POKéMON evolve quickly.\n"
-    .string "They're a lot of fun!$"
+    .string "BÖCEK POKéMON'lar hızlı evrimleşir.\n"
+    .string "Çok eğlencelidirler!$"
 
 ViridianForest_Text_RanOutOfPokeBalls::
-    .string "I was throwing POKé BALLS to\n"
-    .string "catch POKéMON, and I ran out.\p"
-    .string "That's why you can never have too\n"
-    .string "many POKé BALLS.$"
+    .string "POKéMON yakalamak için POKé TOPU\n"
+    .string "atıyordum ve bitti.\p"
+    .string "İşte bu yüzden POKé TOPU asla fazla\n"
+    .string "gelmez.$"
 
 ViridianForest_Text_AvoidGrassyAreasWhenWeak::
-    .string "TRAINER TIPS\p"
-    .string "If your POKéMON are weak and you\n"
-    .string "want to avoid battles, stay away\l"
-    .string "from grassy areas!$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "POKéMON'ların zayıfsa ve savaşlardan\n"
+    .string "kaçınmak istiyorsan çimenlik alanlardan\l"
+    .string "uzak dur!$"
 
 ViridianForest_Text_UseAntidoteForPoison::
-    .string "For poison, use ANTIDOTE!\n"
-    .string "Get it at POKéMON MARTS!$"
+    .string "Zehir için PANZEHİR kullan!\n"
+    .string "POKéMON MARKETLERİ'nden al!$"
 
 ViridianForest_Text_ContactOakViaPCToRatePokedex::
-    .string "TRAINER TIPS\p"
-    .string "Contact PROF. OAK via a PC to\n"
-    .string "get your POKéDEX evaluated!$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "POKéDEX'ini değerlendirtmek için bir PC\n"
+    .string "üzerinden PROF. OAK'la iletişime geç!$"
 
 ViridianForest_Text_CantCatchOwnedMons::
-    .string "TRAINER TIPS\p"
-    .string "You can't catch a POKéMON that\n"
-    .string "belongs to someone else.\p"
-    .string "Throw POKé BALLS only at wild\n"
-    .string "POKéMON to catch them!$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "Başkasına ait bir POKéMON'u\n"
+    .string "yakalayamazsın.\p"
+    .string "POKé TOPLARI'nı yalnızca vahşi\n"
+    .string "POKéMON'lara at!$"
 
 ViridianForest_Text_WeakenMonsBeforeCapture::
-    .string "TRAINER TIPS\p"
-    .string "Weaken POKéMON before attempting\n"
-    .string "capture!\p"
-    .string "When healthy, they may escape!$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "Yakalamaya çalışmadan önce POKéMON'u\n"
+    .string "zayıflat!\p"
+    .string "Sağlıklıyken kaçabilirler!$"
 
 ViridianForest_Text_LeavingViridianForest::
-    .string "LEAVING VIRIDIAN FOREST\n"
-    .string "PEWTER CITY AHEAD$"
+    .string "VIRIDIAN ORMANI'NDAN ÇIKIŞ\n"
+    .string "İLERİDE PEWTER ŞEHRİ$"
 

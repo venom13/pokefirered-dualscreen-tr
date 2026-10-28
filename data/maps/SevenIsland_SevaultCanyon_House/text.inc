@@ -1,22 +1,22 @@
 SevenIsland_SevaultCanyon_House_Text_ChanseyDanceJoinIn::
-    .string "Dance, dance!\n"
-    .string "CHANSEY Dance!\p"
-    .string "You join in, too!\n"
-    .string "Dance, dance!$"
+    .string "Dans, dans!\n"
+    .string "CHANSEY Dansı!\p"
+    .string "Sen de katıl!\n"
+    .string "Dans, dans!$"
 
 SevenIsland_SevaultCanyon_House_Text_WouldYouLikeToDance::
-    .string "Would you like to dance?$"
+    .string "Dans etmek ister misin?$"
 
 SevenIsland_SevaultCanyon_House_Text_ComeOnDance::
-    .string "Come on, dance!$"
+    .string "Hadi, dans et!$"
 
 SevenIsland_SevaultCanyon_House_Text_DancedChanseyDance::
-    .string "{PLAYER} danced the CHANSEY Dance!$"
+    .string "{PLAYER} CHANSEY Dansı yaptı!$"
 
 SevenIsland_SevaultCanyon_House_Text_YoureAllChipperNow::
     .string "Ahahahaha!\p"
-    .string "There, you're all chipper now!\n"
-    .string "Lucky!$"
+    .string "İşte, şimdi neşe doldun!\n"
+    .string "Şanslısın!$"
 
 SevenIsland_SevaultCanyon_House_Text_Chansey::
-    .string "CHANSEY: Chansi! Chansi!$"
+    .string "CHANSEY: Çansi! Çansi!$"

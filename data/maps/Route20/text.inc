@@ -1,120 +1,118 @@
 Route20_Text_BarryIntro::
-    .string "The water is shallow here.\n"
-    .string "There are many people swimming.$"
+    .string "Burada su sığ.\n"
+    .string "Yüzen bir sürü insan var.$"
 
 Route20_Text_BarryDefeat::
-    .string "Splash!$"
+    .string "Şıp!$"
 
 Route20_Text_BarryPostBattle::
-    .string "I wish I could ride my POKéMON.\n"
-    .string "I bet you're not tired.$"
+    .string "Keşke POKéMON'uma binebilsem.\n"
+    .string "Eminim sen yorgun değilsin.$"
 
 Route20_Text_ShirleyIntro::
-    .string "SEAFOAM is a quiet getaway.\n"
-    .string "I'm vacationing here.$"
+    .string "KÖPÜK ADALARI sakin bir kaçış yeri.\n"
+    .string "Burada tatil yapıyorum.$"
 
 Route20_Text_ShirleyDefeat::
-    .string "Quit it!$"
+    .string "Kes şunu!$"
 
 Route20_Text_ShirleyPostBattle::
-    .string "There's a huge cavern underneath\n"
-    .string "this island.$"
+    .string "Bu adanın altında kocaman bir mağara\n"
+    .string "var.$"
 
 Route20_Text_TiffanyIntro::
-    .string "I love floating with the fishes\n"
-    .string "here among the waves.$"
+    .string "Burada dalgaların arasında balıklarla\n"
+    .string "süzülmeye bayılırım.$"
 
 Route20_Text_TiffanyDefeat::
-    .string "Yowch!$"
+    .string "Ayy!$"
 
 Route20_Text_TiffanyPostBattle::
-    .string "Want to float with me?$"
+    .string "Benimle süzülmek ister misin?$"
 
 Route20_Text_IreneIntro::
-    .string "Are you on vacation, too?$"
+    .string "Sen de mi tatildesin?$"
 
 Route20_Text_IreneDefeat::
-    .string "No mercy at all!$"
+    .string "Hiç merhamet yok!$"
 
 Route20_Text_IrenePostBattle::
-    .string "SEAFOAM used to be a single island\n"
-    .string "in the distant past.$"
+    .string "KÖPÜK ADALARI çok eski zamanlarda tek\n"
+    .string "bir adaymış.$"
 
 Route20_Text_DeanIntro::
-    .string "Check out my buff physique!$"
+    .string "Şu kaslı fiziğe bak!$"
 
 Route20_Text_DeanDefeat::
-    .string "Wimpy!$"
+    .string "Çelimsiz!$"
 
 Route20_Text_DeanPostBattle::
-    .string "I should've been buffing up my\n"
-    .string "POKéMON, not me!$"
+    .string "Kendimi değil, POKéMON'larımı\n"
+    .string "geliştirmeliydim!$"
 
 Route20_Text_DarrinIntro::
-    .string "Why are you riding a POKéMON?\n"
-    .string "Can't you swim?$"
+    .string "Neden bir POKéMON'a biniyorsun?\n"
+    .string "Yüzemiyor musun?$"
 
 Route20_Text_DarrinDefeat::
-    .string "Ouch!\n"
-    .string "Torpedoed!$"
+    .string "Ay!\n"
+    .string "Torpidolandım!$"
 
 Route20_Text_DarrinPostBattle::
-    .string "Riding a POKéMON sure looks fun!$"
+    .string "POKéMON'a binmek çok eğlenceli görünüyor!$"
 
 Route20_Text_RogerIntro::
-    .string "I rode my bird POKéMON here.$"
+    .string "Buraya kuş POKéMON'uma binerek geldim.$"
 
 Route20_Text_RogerDefeat::
-    .string "Oh, no!\n"
-    .string "Now what am I to do?$"
+    .string "Ah, hayır!\n"
+    .string "Şimdi ne yapacağım?$"
 
 Route20_Text_RogerPostBattle::
-    .string "My birds are exhausted.\n"
-    .string "They can't FLY me back!$"
+    .string "Kuşlarım bitkin.\n"
+    .string "Beni geri UÇURAMAZLAR!$"
 
 Route20_Text_NoraIntro::
-    .string "My boyfriend gave me big pearls.$"
+    .string "Erkek arkadaşım bana büyük inciler verdi.$"
 
 Route20_Text_NoraDefeat::
-    .string "Oh, no!\n"
-    .string "My pearls were in them!$"
+    .string "Ah, hayır!\n"
+    .string "İncilerim onların içindeydi!$"
 
 Route20_Text_NoraPostBattle::
-    .string "Will my pearls grow bigger inside\n"
-    .string "CLOYSTER?$"
+    .string "İncilerim CLOYSTER'ın içinde büyür mü?$"
 
 Route20_Text_MissyIntro::
-    .string "I swam here from CINNABAR ISLAND.\n"
-    .string "It wasn't easy, I tell you.$"
+    .string "CINNABAR ADASI'ndan buraya yüzdüm.\n"
+    .string "Kolay değildi, söyleyeyim.$"
 
 Route20_Text_MissyDefeat::
-    .string "I'm so disappointed!$"
+    .string "Hayal kırıklığına uğradım!$"
 
 Route20_Text_MissyPostBattle::
-    .string "POKéMON have taken over an\n"
-    .string "abandoned mansion on CINNABAR.\p"
-    .string "They call it the POKéMON MANSION\n"
-    .string "now.$"
+    .string "CINNABAR'daki terk edilmiş bir konağı\n"
+    .string "POKéMON'lar ele geçirmiş.\p"
+    .string "Artık oraya POKéMON KONAĞI diyorlar.$"
 
 Route20_Text_MelissaIntro::
-    .string "CINNABAR, in the west, has a LAB\n"
-    .string "for POKéMON.\p"
-    .string "My daddy works there.$"
+    .string "Batıdaki CINNABAR'da POKéMON için bir\n"
+    .string "LAB var.\p"
+    .string "Babam orada çalışıyor.$"
 
 Route20_Text_MelissaDefeat::
-    .string "Wait!\n"
-    .string "You're supposed to wait!$"
+    .string "Dur!\n"
+    .string "Beklemen gerekiyordu!$"
 
 Route20_Text_MelissaPostBattle::
-    .string "CINNABAR is a volcanic island.\p"
-    .string "I heard it rose out of the sea\n"
-    .string "when a volcano erupted.$"
+    .string "CINNABAR volkanik bir adadır.\p"
+    .string "Bir volkan patladığında denizden\n"
+    .string "yükseldiğini duydum.$"
 
 Route20_Text_SeafoamIslands::
-    .string "SEAFOAM ISLANDS$"
+    .string "KÖPÜK ADALARI$"
 
 Route20_Text_MistyTrainsHere::
-    .string "Strong TRAINERS and WATER POKéMON\n"
-    .string "are common sights in these parts.\p"
-    .string "They say that MISTY of the\n"
-    .string "CERULEAN GYM trains here.$"
+    .string "Güçlü EĞİTMENLER ve SU POKéMON'ları\n"
+    .string "buralarda sık görülür.\p"
+    .string "CERULEAN SALONU'ndan MISTY'nin burada\n"
+    .string "antrenman yaptığı söylenir.$"

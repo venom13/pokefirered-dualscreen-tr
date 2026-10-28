@@ -1,10 +1,10 @@
 FiveIsland_PokemonCenter_1F_Text_OnMyWayToPrepareMeal::
-    .string "I'm on my way to prepare a meal\n"
-    .string "for a certain high-society person.$"
+    .string "Yüksek sosyeteden birine yemek\n"
+    .string "hazırlamaya gidiyorum.$"
 
 FiveIsland_PokemonCenter_1F_Text_YoureOnQuestToCatchEveryMon::
-    .string "You're on a quest to catch every\n"
-    .string "single kind of POKéMON?\p"
-    .string "…How incredible. Please tell me if\n"
-    .string "you catch a strong one!$"
+    .string "Her türden POKéMON'u yakalama\n"
+    .string "görevinde misin?\p"
+    .string "…Ne inanılmaz. Güçlü bir tane\n"
+    .string "yakalarsan lütfen bana söyle!$"
 

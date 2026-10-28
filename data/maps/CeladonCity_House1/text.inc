@@ -1,18 +1,15 @@
 CeladonCity_House1_Text_SlotsReelInTheDough::
     .string "Hehehe!\p"
-    .string "The slots just reel in the dough,\n"
-    .string "big-time!$"
+    .string "Slotlar parayı çuvalla getiriyor!$"
 
 CeladonCity_House1_Text_ShippedMonsAsSlotPrizes::
-    .string "CHIEF!\p"
-    .string "We just shipped two thousand\n"
-    .string "more POKéMON as slot prizes\l"
-    .string "again today!$"
+    .string "ŞEFİM!\p"
+    .string "Bugün yine slot ödülü olarak iki bin\n"
+    .string "POKéMON daha gönderdik!$"
 
 CeladonCity_House1_Text_DontTouchGameCornerPoster::
-    .string "Don't touch the poster at the GAME\n"
-    .string "CORNER!\p"
-    .string "There's no secret switch behind it!$"
+    .string "OYUN SALONU'ndaki afişe dokunma!\p"
+    .string "Arkasında gizli bir düğme falan yok!$"
 
 @ Text for the replaced altars in the rocket chiefs house / celadon mansion
 @ In English RB, this is westernized as "It's a sculpture of DIGLETT.", and is removed altogether in FRLG

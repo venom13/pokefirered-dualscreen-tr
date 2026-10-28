@@ -1,0 +1,21 @@
+{
+ "48": "Bu ağaç KESİLEBİLİR gibi görünüyor!\\pKES kullanmak ister misin?$",
+ "53": "{STR_VAR_1}, {STR_VAR_2} kullandı!$",
+ "56": "Bu ağaç KESİLEBİLİR gibi görünüyor!$",
+ "112": "Bu kaya kırılabilir gibi görünüyor.\\nKAYA KIRMA kullanmak ister misin?$",
+ "116": "Sert bir kaya ama bir POKéMON onu parçalayabilir.$",
+ "161": "Büyük bir kaya ama bir POKéMON onu kenara itebilir.\\pGÜÇ kullanmak ister misin?$",
+ "166": "{STR_VAR_1}, GÜÇ kullandı!\\p{STR_VAR_1} GÜÇ ile kayaları hareket ettirmeyi mümkün kıldı!$",
+ "171": "Büyük bir kaya ama bir POKéMON onu kenara itebilir.$",
+ "175": "GÜÇ sayesinde kayaları hareket ettirmek mümkün.$",
+ "200": "Bir su duvarı güçlü bir gürültüyle aşağı dökülüyor.$",
+ "204": "Büyük bir şelale.\\nŞELALE kullanmak ister misin?$",
+ "208": "{STR_VAR_1}, ŞELALE kullandı.$",
+ "258": "Deniz burada derin. Bir POKéMON suyun altına inebilir.$",
+ "262": "Deniz burada derin.\\nDALIŞ kullanmak ister misin?$",
+ "266": "{STR_VAR_1}, DALIŞ kullandı.$",
+ "269": "Yukarıdan ışık süzülüyor.\\nBir POKéMON yüzeye çıkabilir.$",
+ "273": "Yukarıdan ışık süzülüyor.\\nDALIŞ kullanmak ister misin?$",
+ "277": "Yukarıda bir engel var.\\nDALIŞ burada kullanılamaz.$",
+ "285": "Burada hiçbir şey yok gibi…$"
+}

@@ -1,14 +1,13 @@
 SSAnne_1F_Corridor_Text_LeStrongSilentType::
     .string "Bonjour!\n"
-    .string "I am le waiter on this ship!\p"
-    .string "I will be happy to serve you\n"
-    .string "anything you please!\p"
+    .string "Ben bu gemideki le garsonum!\p"
+    .string "İstediğin her şeyi sana servis etmekten\n"
+    .string "mutluluk duyarım!\p"
     .string "… … …\n"
-    .string "Ah! Le strong silent type!$"
+    .string "Ah! Le güçlü, sessiz tip!$"
 
 SSAnne_1F_Corridor_Text_PassengersAreRestless::
-    .string "The passengers are restless from\n"
-    .string "this long voyage.\p"
-    .string "You might be challenged by the\n"
-    .string "more bored ones!$"
+    .string "Yolcular bu uzun yolculuktan huzursuz.\p"
+    .string "Daha çok sıkılanlar sana meydan\n"
+    .string "okuyabilir!$"
 

@@ -1,40 +1,40 @@
 Route18_Text_WiltonIntro::
-    .string "I always check every grassy area\n"
-    .string "for new POKéMON.$"
+    .string "Yeni POKéMON için her çimenli alanı hep\n"
+    .string "kontrol ederim.$"
 
 Route18_Text_WiltonDefeat::
-    .string "Tch!$"
+    .string "Tüh!$"
 
 Route18_Text_WiltonPostBattle::
-    .string "I wish I had a BIKE!$"
+    .string "Keşke BİSİKLETİM olsa!$"
 
 Route18_Text_RamiroIntro::
-    .string "Kurukkoo!\n"
-    .string "How do you like my birdcall?$"
+    .string "Kurukkuu!\n"
+    .string "Kuş taklidimi nasıl buldun?$"
 
 Route18_Text_RamiroDefeat::
-    .string "I had to bug you!$"
+    .string "Seni rahatsız etmek zorundaydım!$"
 
 Route18_Text_RamiroPostBattle::
-    .string "I collect sea POKéMON on weekends\n"
-    .string "because the sea is so close.$"
+    .string "Deniz çok yakın olduğu için hafta\n"
+    .string "sonları deniz POKéMON'ları toplarım.$"
 
 Route18_Text_JacobIntro::
-    .string "This is my turf!\n"
-    .string "Get out of here!$"
+    .string "Burası benim bölgem!\n"
+    .string "Defol buradan!$"
 
 Route18_Text_JacobDefeat::
-    .string "Darn!$"
+    .string "Hay aksi!$"
 
 Route18_Text_JacobPostBattle::
-    .string "This is my fave area for catching\n"
-    .string "POKéMON.$"
+    .string "POKéMON yakalamak için en sevdiğim yer\n"
+    .string "burası.$"
 
 Route18_Text_RouteSign::
-    .string "ROUTE 18\n"
-    .string "CELADON CITY - FUCHSIA CITY$"
+    .string "ROTA 18\n"
+    .string "CELADON ŞEHRİ - FUCHSIA ŞEHRİ$"
 
 Route18_Text_CyclingRoadSign::
-    .string "CYCLING ROAD\n"
-    .string "No pedestrians permitted!$"
+    .string "BİSİKLET YOLU\n"
+    .string "Yayalar giremez!$"
 

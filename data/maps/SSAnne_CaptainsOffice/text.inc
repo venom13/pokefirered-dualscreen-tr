@@ -1,53 +1,50 @@
 SSAnne_CaptainsOffice_Text_CaptainIFeelSeasick::
-    .string "CAPTAIN: Ooargh…\n"
-    .string "I feel hideous…\l"
-    .string "Urrp! Seasick…$"
+    .string "KAPTAN: Ooargh…\n"
+    .string "Berbat hissediyorum…\l"
+    .string "Urrp! Deniz tuttu…$"
 
 SSAnne_CaptainsOffice_Text_RubbedCaptainsBack::
-    .string "{PLAYER} rubbed the CAPTAIN's\n"
-    .string "back!\p"
-    .string "Rub-rub…\n"
-    .string "Rub-rub…$"
+    .string "{PLAYER} KAPTAN'ın sırtını ovdu!\p"
+    .string "Ovala-ovala…\n"
+    .string "Ovala-ovala…$"
 
 SSAnne_CaptainsOffice_Text_ThankYouHaveHMForCut::
-    .string "CAPTAIN: Whew! Thank you!\n"
-    .string "I'm feeling much better now.\p"
-    .string "You want to see my hidden CUT\n"
-    .string "technique?\p"
-    .string "I could show you my prized CUT\n"
-    .string "technique if I weren't so ill…\p"
-    .string "I know! You can have this!\n"
-    .string "This HIDDEN MACHINE!\p"
-    .string "Teach CUT to your POKéMON, and\n"
-    .string "you can see it CUT anytime!$"
+    .string "KAPTAN: Oh! Teşekkürler!\n"
+    .string "Şimdi çok daha iyiyim.\p"
+    .string "Gizli KES tekniğimi görmek ister misin?\p"
+    .string "Bu kadar hasta olmasaydım gözde KES\n"
+    .string "tekniğimi gösterebilirdim…\p"
+    .string "Buldum! Bunu alabilirsin!\n"
+    .string "Bu GİZLİ MAKİNE'yi!\p"
+    .string "POKéMON'una KES öğret, istediğin zaman\n"
+    .string "KESTİĞİNİ görebilirsin!$"
 
 SSAnne_CaptainsOffice_Text_ObtainedHM01FromCaptain::
-    .string "{PLAYER} obtained HM01\n"
-    .string "from the CAPTAIN!$"
+    .string "{PLAYER}, KAPTAN'dan GM01 aldı!$"
 
 SSAnne_CaptainsOffice_Text_ExplainCut::
-    .string "Using CUT, you can chop down\n"
-    .string "small trees.\p"
-    .string "Why not try it with the trees\n"
-    .string "around VERMILION CITY?$"
+    .string "KES kullanarak küçük ağaçları\n"
+    .string "kesebilirsin.\p"
+    .string "Neden VERMILION ŞEHRİ'nin etrafındaki\n"
+    .string "ağaçlarda denemiyorsun?$"
 
 SSAnne_CaptainsOffice_Text_SSAnneWillSetSailSoon::
-    .string "CAPTAIN: …Whew!\p"
-    .string "Now that I'm not sick anymore,\n"
-    .string "I guess it's time.\p"
-    .string "The S.S. ANNE will set sail soon!\p"
-    .string "Farewell, until our return to\n"
-    .string "VERMILION CITY!$"
+    .string "KAPTAN: …Oh!\p"
+    .string "Artık hasta olmadığıma göre sanırım\n"
+    .string "vakit geldi.\p"
+    .string "S.S. ANNE yakında yelken açacak!\p"
+    .string "VERMILION ŞEHRİ'ne dönüşümüze kadar\n"
+    .string "hoşça kal!$"
 
 SSAnne_CaptainsOffice_Text_YouHaveNoRoomForThis::
-    .string "Oh, no!\n"
-    .string "You have no room for this!$"
+    .string "Ah, hayır!\n"
+    .string "Buna yerin yok!$"
 
 SSAnne_CaptainsOffice_Text_YuckShouldntHaveLooked::
-    .string "Yuck!\n"
-    .string "Shouldn't have looked!$"
+    .string "Iyy!\n"
+    .string "Bakmamalıydım!$"
 
 SSAnne_CaptainsOffice_Text_HowToConquerSeasickness::
-    .string "How to Conquer Seasickness…\n"
-    .string "The CAPTAIN's reading this!$"
+    .string "Deniz Tutmasını Yenmenin Yolları…\n"
+    .string "KAPTAN bunu okuyormuş!$"
 

@@ -1,74 +1,73 @@
 SilphCo_2F_Text_ConnorIntro::
-    .string "Help!\n"
-    .string "I'm a SILPH employee.$"
+    .string "İmdat!\n"
+    .string "Ben bir SILPH çalışanıyım.$"
 
 SilphCo_2F_Text_ConnorDefeat::
-    .string "How did you know\n"
-    .string "I was a ROCKET?$"
+    .string "ROCKET olduğumu nasıl anladın?$"
 
 SilphCo_2F_Text_ConnorPostBattle::
-    .string "I work for both SILPH and TEAM\n"
-    .string "ROCKET.$"
+    .string "Hem SILPH hem ROCKET TAKIMI için\n"
+    .string "çalışıyorum.$"
 
 SilphCo_2F_Text_JerryIntro::
-    .string "It's off-limits here!\n"
-    .string "Go home!$"
+    .string "Buraya giriş yasak!\n"
+    .string "Evine git!$"
 
 SilphCo_2F_Text_JerryDefeat::
-    .string "You're good.$"
+    .string "İyisin.$"
 
 SilphCo_2F_Text_JerryPostBattle::
-    .string "Can you solve the maze in here?\n"
-    .string "It's not easy, I tell you!$"
+    .string "Buradaki labirenti çözebilir misin?\n"
+    .string "Kolay değil, söyleyeyim!$"
 
 SilphCo_2F_Text_Grunt1Intro::
-    .string "No kids are allowed in here!$"
+    .string "Buraya çocuklar giremez!$"
 
 SilphCo_2F_Text_Grunt1Defeat::
-    .string "Tough!$"
+    .string "Sert!$"
 
 SilphCo_2F_Text_Grunt1PostBattle::
-    .string "Diamond-shaped tiles are teleport\n"
-    .string "blocks.\p"
-    .string "They're transporters for this\n"
-    .string "high-tech building.$"
+    .string "Elmas şeklindeki karolar ışınlanma\n"
+    .string "bloklarıdır.\p"
+    .string "Bu yüksek teknolojili binanın\n"
+    .string "taşıyıcılarıdır.$"
 
 SilphCo_2F_Text_Grunt2Intro::
-    .string "Hey, kid!\n"
-    .string "What are you wandering here for?$"
+    .string "Hey, ufaklık!\n"
+    .string "Burada ne dolaşıyorsun?$"
 
 SilphCo_2F_Text_Grunt2Defeat::
-    .string "I goofed!$"
+    .string "Çuvalladım!$"
 
 SilphCo_2F_Text_Grunt2PostBattle::
-    .string "SILPH CO. will be associated with\n"
-    .string "TEAM ROCKET!$"
+    .string "SILPH ŞİRKETİ ROCKET TAKIMI ile ortak\n"
+    .string "olacak!$"
 
 Text_ThunderWaveTeach::
-    .string "Eeek!\n"
-    .string "No! Stop! Help!\p"
-    .string "Oh, you're not with TEAM ROCKET.\n"
-    .string "I'm sorry, I thought…\p"
-    .string "Will you forgive me if I teach\n"
-    .string "you the THUNDER WAVE technique?$"
+    .string "Iiik!\n"
+    .string "Hayır! Dur! İmdat!\p"
+    .string "Ah, sen ROCKET TAKIMI'ndan değilsin.\n"
+    .string "Özür dilerim, sandım ki…\p"
+    .string "Sana ŞİMŞEK DALGA tekniğini öğretirsem\n"
+    .string "beni affeder misin?$"
 
 Text_ThunderWaveDeclined::
-    .string "Oh…\n"
-    .string "But THUNDER WAVE is convenient…$"
+    .string "Ah…\n"
+    .string "Ama ŞİMŞEK DALGA çok kullanışlı…$"
 
 Text_ThunderWaveWhichMon::
-    .string "Which POKéMON should I teach\n"
-    .string "THUNDER WAVE?$"
+    .string "ŞİMŞEK DALGA'yı hangi POKéMON'a\n"
+    .string "öğreteyim?$"
 
 Text_ThunderWaveTaught::
-    .string "THUNDER WAVE causes paralysis in\n"
-    .string "the target POKéMON.\p"
-    .string "A paralyzed POKéMON may be unable\n"
-    .string "to move in battle.\p"
-    .string "It's an ELECTRIC-type move, so it\n"
-    .string "won't work on some POKéMON.$"
+    .string "ŞİMŞEK DALGA hedef POKéMON'u felç\n"
+    .string "eder.\p"
+    .string "Felçli bir POKéMON savaşta hareket\n"
+    .string "edemeyebilir.\p"
+    .string "ELEKTR türü bir hareket olduğundan\n"
+    .string "bazı POKéMON'larda işe yaramaz.$"
 
 SilphCo_2F_Text_FloorSign::
-    .string "SILPH CO. HEAD OFFICE\n"
-    .string "2F$"
+    .string "SILPH ŞİRKETİ MERKEZ OFİSİ\n"
+    .string "2. KAT$"
 

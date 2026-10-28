@@ -1,73 +1,74 @@
 Route6_Text_RickyIntro::
-    .string "Who's there?\n"
-    .string "Quit listening in on us!$"
+    .string "Kim var orada?\n"
+    .string "Bizi dinlemeyi bırak!$"
 
 Route6_Text_RickyDefeat::
-    .string "I just can't win!$"
+    .string "Bir türlü kazanamıyorum!$"
 
 Route6_Text_RickyPostBattle::
-    .string "Whisper…\n"
-    .string "Whisper…$"
+    .string "Fısır…\n"
+    .string "Fısır…$"
 
 Route6_Text_NancyIntro::
-    .string "Excuse me!\n"
-    .string "This is a private conversation!$"
+    .string "Affedersin!\n"
+    .string "Bu özel bir konuşma!$"
 
 Route6_Text_NancyDefeat::
-    .string "Ugh!\n"
-    .string "I hate losing.$"
+    .string "Ahh!\n"
+    .string "Kaybetmekten nefret ederim.$"
 
 Route6_Text_NancyPostBattle::
-    .string "Whisper…\n"
-    .string "Whisper…$"
+    .string "Fısır…\n"
+    .string "Fısır…$"
 
 Route6_Text_KeigoIntro::
-    .string "There aren't many bugs out here.$"
+    .string "Burada pek böcek yok.$"
 
 Route6_Text_KeigoDefeat::
-    .string "No!\n"
-    .string "You're kidding!$"
+    .string "Hayır!\n"
+    .string "Şaka yapıyorsun!$"
 
 Route6_Text_KeigoPostBattle::
-    .string "I like bugs, so I'm going back to\n"
-    .string "VIRIDIAN FOREST.$"
+    .string "Böcekleri sevdiğim için VIRIDIAN\n"
+    .string "ORMANI'na geri dönüyorum.$"
 
 Route6_Text_JeffIntro::
-    .string "Huh?\n"
-    .string "You want to talk to me?$"
+    .string "Hı?\n"
+    .string "Benimle mi konuşmak istiyorsun?$"
 
 Route6_Text_JeffDefeat::
-    .string "This stinks…\n"
-    .string "I couldn't beat your challenge…$"
+    .string "Berbat…\n"
+    .string "Meydan okumanı yenemedim…$"
 
 Route6_Text_JeffPostBattle::
-    .string "I should bring more POKéMON with\n"
-    .string "me. I'll feel safer that way.$"
+    .string "Yanıma daha çok POKéMON almalıyım.\n"
+    .string "Böylece kendimi daha güvende\l"
+    .string "hissederim.$"
 
 Route6_Text_IsabelleIntro::
-    .string "Me?\n"
-    .string "Well, okay. I'll play!$"
+    .string "Ben mi?\n"
+    .string "Peki, tamam. Oynarım!$"
 
 Route6_Text_IsabelleDefeat::
-    .string "Things just didn't work…$"
+    .string "İşler yolunda gitmedi…$"
 
 Route6_Text_IsabellePostBattle::
-    .string "I want to get stronger.\n"
-    .string "What's your secret?$"
+    .string "Daha güçlü olmak istiyorum.\n"
+    .string "Sırrın ne?$"
 
 Route6_Text_ElijahIntro::
-    .string "I've never seen you around.\n"
-    .string "Are you good?$"
+    .string "Seni buralarda hiç görmedim.\n"
+    .string "İyi misin?$"
 
 Route6_Text_ElijahDefeat::
-    .string "You're too good!$"
+    .string "Çok iyisin!$"
 
 Route6_Text_ElijahPostBattle::
-    .string "Are my POKéMON weak?\n"
-    .string "Or, am I just bad?\l"
-    .string "Which do you think?$"
+    .string "POKéMON'larım mı zayıf?\n"
+    .string "Yoksa ben mi kötüyüm?\l"
+    .string "Sence hangisi?$"
 
 Route6_Text_UndergroundPathSign::
-    .string "UNDERGROUND PATH\n"
-    .string "CERULEAN CITY - VERMILION CITY$"
+    .string "YERALTI GEÇİDİ\n"
+    .string "CERULEAN ŞEHRİ - VERMILION ŞEHRİ$"
 

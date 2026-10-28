@@ -1,20 +1,19 @@
 Route2_ViridianForest_NorthEntrance_Text_ManyMonsOnlyInForests::
-    .string "Many POKéMON live only in forests \n"
-    .string "and caves.\p"
-    .string "You need to be persistent and look\n"
-    .string "everywhere to get different kinds.$"
+    .string "Pek çok POKéMON yalnızca ormanlarda\n"
+    .string "ve mağaralarda yaşar.\p"
+    .string "Farklı türler bulmak için azimli olmalı\n"
+    .string "ve her yere bakmalısın.$"
 
 Route2_ViridianForest_NorthEntrance_Text_CanCutSkinnyTrees::
-    .string "Have you noticed the skinny trees\n"
-    .string "on the roadside?\p"
-    .string "They can be cut down by a special\n"
-    .string "POKéMON move, I hear.$"
+    .string "Yol kenarındaki ince ağaçları fark ettin\n"
+    .string "mi?\p"
+    .string "Özel bir POKéMON hareketiyle\n"
+    .string "kesilebiliyorlarmış, duydum.$"
 
 Route2_ViridianForest_NorthEntrance_Text_CanCancelEvolution::
-    .string "Do you know the evolution-cancel\n"
-    .string "technique?\p"
-    .string "When a POKéMON is evolving, you\n"
-    .string "can stop the process.\p"
-    .string "It's a technique for raising\n"
-    .string "POKéMON the way they are.$"
+    .string "Evrim iptal tekniğini biliyor musun?\p"
+    .string "Bir POKéMON evrimleşirken süreci\n"
+    .string "durdurabilirsin.\p"
+    .string "POKéMON'ları olduğu gibi yetiştirmek\n"
+    .string "için bir tekniktir.$"
 

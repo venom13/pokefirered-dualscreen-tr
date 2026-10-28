@@ -1,94 +1,91 @@
 SilphCo_11F_Text_ThanksForSavingMeDearBoy::
-    .string "PRESIDENT: Oh, dear boy!\n"
-    .string "Thank you for saving SILPH.\p"
-    .string "I will never forget you saved us in\n"
-    .string "our moment of peril.\p"
-    .string "I have to thank you in some way.\p"
-    .string "Because I am rich, I can give you\n"
-    .string "anything.\p"
-    .string "Here, maybe this will do.$"
+    .string "BAŞKAN: Ah, sevgili evlat!\n"
+    .string "SILPH'i kurtardığın için teşekkürler.\p"
+    .string "Tehlikeli anımızda bizi kurtardığını\n"
+    .string "asla unutmayacağım.\p"
+    .string "Sana bir şekilde teşekkür etmeliyim.\p"
+    .string "Zengin olduğum için sana her şeyi\n"
+    .string "verebilirim.\p"
+    .string "Al, belki bu olur.$"
 
 SilphCo_11F_Text_ThanksForSavingMeDearGirl::
-    .string "PRESIDENT: Oh, dear girl!\n"
-    .string "Thank you for saving SILPH.\p"
-    .string "I will never forget you saved us in\n"
-    .string "our moment of peril.\p"
-    .string "I have to thank you in some way.\p"
-    .string "Because I am rich, I can give you\n"
-    .string "anything.\p"
-    .string "Here, maybe this will do.$"
+    .string "BAŞKAN: Ah, sevgili kızım!\n"
+    .string "SILPH'i kurtardığın için teşekkürler.\p"
+    .string "Tehlikeli anımızda bizi kurtardığını\n"
+    .string "asla unutmayacağım.\p"
+    .string "Sana bir şekilde teşekkür etmeliyim.\p"
+    .string "Zengin olduğum için sana her şeyi\n"
+    .string "verebilirim.\p"
+    .string "Al, belki bu olur.$"
 
 SilphCo_11F_Text_ObtainedMasterBallFromPresident::
-    .string "{PLAYER} obtained a MASTER BALL\n"
-    .string "from the PRESIDENT!$"
+    .string "{PLAYER}, BAŞKAN'dan bir USTA TOP\n"
+    .string "aldı!$"
 
 SilphCo_11F_Text_ThatsOurSecretPrototype::
-    .string "PRESIDENT: You can't buy that\n"
-    .string "anywhere.\p"
-    .string "It's our secret prototype MASTER\n"
-    .string "BALL.\p"
-    .string "It will catch any POKéMON without\n"
-    .string "fail!\p"
-    .string "You should be quiet about using it,\n"
-    .string "though.$"
+    .string "BAŞKAN: Onu hiçbir yerden satın\n"
+    .string "alamazsın.\p"
+    .string "Gizli prototip USTA TOP'umuz.\p"
+    .string "Her POKéMON'u kaçırmadan yakalar!\p"
+    .string "Ama onu kullandığını pek dile\n"
+    .string "getirmesen iyi olur.$"
 
 SilphCo_11F_Text_YouHaveNoRoomForThis::
-    .string "You have no room for this.$"
+    .string "Buna yerin yok.$"
 
 SilphCo_11F_Text_ThanksForRescuingUs::
-    .string "SECRETARY: Thank you for rescuing\n"
-    .string "all of us.\p"
-    .string "We, from the PRESIDENT down,\n"
-    .string "are indebted to you.$"
+    .string "SEKRETER: Hepimizi kurtardığın için\n"
+    .string "teşekkürler.\p"
+    .string "BAŞKAN'dan başlayarak hepimiz sana\n"
+    .string "borçluyuz.$"
 
 SilphCo_11F_Text_GiovanniIntro::
     .string "Ah, {PLAYER}!\n"
-    .string "So we meet again!\p"
-    .string "The PRESIDENT and I are discussing\n"
-    .string "a vital business proposition.\p"
-    .string "Keep your nose out of grown-up\n"
-    .string "matters…\p"
-    .string "Or, experience a world of pain!$"
+    .string "Yine karşılaştık!\p"
+    .string "BAŞKAN ile hayati bir iş teklifini\n"
+    .string "görüşüyoruz.\p"
+    .string "Büyüklerin işine burnunu sokma…\p"
+    .string "Yoksa dünyanın acısını çekersin!$"
 
 SilphCo_11F_Text_GiovanniDefeat::
     .string "Arrgh!!\n"
-    .string "I lost again!?$"
+    .string "Yine mi kaybettim!?$"
 
 SilphCo_11F_Text_GiovanniPostBattle::
-    .string "Blast it all!\n"
-    .string "You ruined our plans for SILPH!\p"
-    .string "But, TEAM ROCKET will never fall!\p"
-    .string "{PLAYER}! Never forget that all\n"
-    .string "POKéMON exist for TEAM ROCKET!\p"
-    .string "I must go, but I shall return!$"
+    .string "Lanet olsun!\n"
+    .string "SILPH için planlarımızı mahvettin!\p"
+    .string "Ama ROCKET TAKIMI asla yıkılmayacak!\p"
+    .string "{PLAYER}! Tüm POKéMON'ların ROCKET\n"
+    .string "TAKIMI için var olduğunu asla unutma!\p"
+    .string "Gitmeliyim ama geri döneceğim!$"
 
 SilphCo_11F_Text_Grunt2Intro::
-    .string "Stop right there!\n"
-    .string "Don't you move!$"
+    .string "Olduğun yerde dur!\n"
+    .string "Kıpırdama!$"
 
 SilphCo_11F_Text_Grunt2Defeat::
-    .string "Don't…\n"
-    .string "Please!$"
+    .string "Yapma…\n"
+    .string "Lütfen!$"
 
 SilphCo_11F_Text_Grunt2PostBattle::
-    .string "So, you want to see my BOSS?$"
+    .string "Demek PATRON'umu görmek istiyorsun?$"
 
 SilphCo_11F_Text_Grunt1Intro::
-    .string "Halt! Do you have an appointment\n"
-    .string "with my BOSS?$"
+    .string "Dur! PATRON'umla randevun var mı?$"
 
 SilphCo_11F_Text_Grunt1Defeat::
     .string "Gaah!\n"
-    .string "Demolished!$"
+    .string "Yerle bir oldum!$"
 
 SilphCo_11F_Text_Grunt1PostBattle::
-    .string "Watch your step…\n"
-    .string "My BOSS likes his POKéMON tough!$"
+    .string "Adımına dikkat et…\n"
+    .string "PATRON'um POKéMON'larının güçlü\l"
+    .string "olmasını sever!$"
 
 SilphCo_11F_Text_MonitorHasMonsOnIt::
-    .string "The monitor has POKéMON on it!$"
+    .string "Ekranda POKéMON'lar var!$"
 
 SilphCo_11F_Text_FloorSign::
-    .string "SILPH CO. HEAD OFFICE\n"
-    .string "11F$"
+    .string "SILPH ŞİRKETİ MERKEZ OFİSİ\n"
+    .string "11. KAT$"
 

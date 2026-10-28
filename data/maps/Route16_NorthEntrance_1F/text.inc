@@ -1,16 +1,15 @@
 Route16_NorthEntrance_1F_Text_NoPedestriansOnCyclingRoad::
-    .string "No pedestrians are allowed on\n"
-    .string "CYCLING ROAD!$"
+    .string "BİSİKLET YOLU'na yayalar giremez!$"
 
 Route16_NorthEntrance_1F_Text_CyclingRoadIsDownhillCourse::
-    .string "CYCLING ROAD is a downhill course\n"
-    .string "by the sea. It's a great ride.$"
+    .string "BİSİKLET YOLU deniz kenarında bir\n"
+    .string "yokuş aşağı parkur. Harika bir sürüş.$"
 
 Route16_NorthEntrance_1F_Text_ExcuseMeWaitUp::
-    .string "Excuse me!\n"
-    .string "Wait up, please!$"
+    .string "Affedersin!\n"
+    .string "Lütfen bekle!$"
 
 Route16_NorthEntrance_1F_Text_HowdYouGetInGoodEffort::
-    .string "How'd you get in?\n"
-    .string "Good effort!$"
+    .string "Nasıl girdin?\n"
+    .string "İyi deneme!$"
 

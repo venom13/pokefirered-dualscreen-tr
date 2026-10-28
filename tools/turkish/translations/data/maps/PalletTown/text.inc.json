@@ -1,0 +1,14 @@
+{
+ "2": "OAK: Hey! Bekle!\\nDışarı çıkma!$",
+ "6": "OAK: Burası tehlikeli!\\nUzun otlarda vahşi POKéMON yaşar!\\pKendini korumak için bir POKéMON'un olmalı.\\pBuldum!\\nGel, benimle gel!$",
+ "14": "Ben de POKéMON yetiştiriyorum.\\pGüçlendiklerinde beni koruyabilirler.$",
+ "19": "Teknoloji inanılmaz!\\pArtık eşyaları ve POKéMON'ları PC'de veri olarak saklayıp geri alabilirsin.$",
+ "24": "OAK POKéMON ARAŞTIRMA LAB.$",
+ "27": "EV: {PLAYER}$",
+ "30": "EV: {RIVAL}$",
+ "33": "PALLET KASABASI\\nYolculuğunun renkleri seni bekliyor!$",
+ "37": "OAK: Ah, {PLAYER}!\\nDöndün demek!\\pPOKéDEX'ini ne kadar doldurdun?\\pBir bakabilir miyim?\\pBakalım…$",
+ "45": "{STR_VAR_2} tür yakalamışsın…\\pHmm, gerçekten emek veriyor gibisin.\\pBiraz daha doldurunca gelip bana göster, olur mu?$",
+ "52": "Yakaladığın… {STR_VAR_2} tür mü!?\\nİşte bu etkileyici!\\p{PLAYER}, senden istemek istediğim bir şey var.\\pGel.\\nBeni takip et.$",
+ "60": "OAK: Ah, {PLAYER}!\\nYolculuk yapmaktan keyif alıyor gibisin.\\p{PLAYER}, seni tanıdığım için daha da egzotik yerlere gideceğini kolayca hayal edebiliyorum.\\pAferin sana, aferin sana.\\nHohoho.$"
+}

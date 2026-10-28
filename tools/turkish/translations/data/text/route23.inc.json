@@ -1,0 +1,7 @@
+{
+ "2": "Yalnızca gerçekten yetenekli EĞİTMENLER geçebilir.\\pSende henüz {STR_VAR_1} yok!$",
+ "8": "Kural kuraldır.\\nGeçmene izin veremem.$",
+ "12": "Ah! Bu {STR_VAR_1}!\\nBuyur, geç.$",
+ "16": "Buradan yalnızca {STR_VAR_1} varsa geçebilirsin.\\pSende henüz {STR_VAR_1} yok.\\pPOKéMON LİGİ'ne gitmek için ona sahip olmalısın.$",
+ "24": "Buradan yalnızca {STR_VAR_1} varsa geçebilirsin.\\pAh! Bu {STR_VAR_1}!{PAUSE_MUSIC}{PLAY_BGM}{MUS_LEVEL_UP}{PAUSE 0x60}{RESUME_MUSIC}\\pPeki o zaman.\\nLütfen, buyur geç.$"
+}

@@ -1,35 +1,34 @@
 FuchsiaCity_House3_Text_WouldYouLikeToForgetMove::
-    .string "Uh…\n"
-    .string "Oh, yes, I'm the MOVE DELETER.\p"
-    .string "I can make POKéMON forget their\n"
-    .string "moves.\p"
-    .string "Would you like me to do that?$"
+    .string "Şey…\n"
+    .string "Ah, evet, ben HAREKET SİLİCİ'yim.\p"
+    .string "POKéMON'lara hareketlerini\n"
+    .string "unutturabilirim.\p"
+    .string "Bunu yapmamı ister misin?$"
 
 FuchsiaCity_House3_Text_WhichMonShouldForgetMove::
-    .string "Which POKéMON should forget a\n"
-    .string "move?$"
+    .string "Hangi POKéMON bir hareketi unutsun?$"
 
 FuchsiaCity_House3_Text_WhichMoveShouldBeForgotten::
-    .string "Which move should be forgotten?$"
+    .string "Hangi hareket unutulsun?$"
 
 FuchsiaCity_House3_Text_MonOnlyKnowsOneMove::
-    .string "{STR_VAR_1} seems to know only one\n"
-    .string "move…$"
+    .string "{STR_VAR_1} yalnızca tek bir hareket\n"
+    .string "biliyor gibi…$"
 
 FuchsiaCity_House3_Text_MonsMoveShouldBeForgotten::
-    .string "Hm! {STR_VAR_1}'s {STR_VAR_2}?\n"
-    .string "That move should be forgotten?$"
+    .string "Hm! {STR_VAR_1}: {STR_VAR_2}?\n"
+    .string "Bu hareket mi unutulsun?$"
 
 FuchsiaCity_House3_Text_MonHasForgottenMoveCompletely::
-    .string "It worked to perfection!\p"
-    .string "{STR_VAR_1} has forgotten\n"
-    .string "{STR_VAR_2} completely.$"
+    .string "Kusursuz işledi!\p"
+    .string "{STR_VAR_1}, {STR_VAR_2} hareketini\n"
+    .string "tamamen unuttu.$"
 
 FuchsiaCity_House3_Text_ComeAgainToForgetOtherMoves::
-    .string "Come again if there are other\n"
-    .string "moves to be forgotten.$"
+    .string "Unutulacak başka hareketler olursa\n"
+    .string "yine gel.$"
 
 FuchsiaCity_House3_Text_NoEggShouldKnowMoves::
-    .string "What?\n"
-    .string "No EGG should know any moves.$"
+    .string "Ne?\n"
+    .string "Hiçbir YUMURTA hareket bilmez.$"
 

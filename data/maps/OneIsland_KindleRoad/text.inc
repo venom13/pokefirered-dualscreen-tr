@@ -1,164 +1,159 @@
 OneIsland_KindleRoad_Text_MariaIntro::
-    .string "The weather's gorgeous!\n"
-    .string "Perfect for a battle!$"
+    .string "Hava muhteşem!\n"
+    .string "Savaş için mükemmel!$"
 
 OneIsland_KindleRoad_Text_MariaDefeat::
-    .string "Aiyeeeeh!$"
+    .string "Aiiiih!$"
 
 OneIsland_KindleRoad_Text_MariaPostBattle::
-    .string "Please don't splash my face!\n"
-    .string "You'll ruin the makeup.$"
+    .string "Lütfen yüzüme su sıçratma!\n"
+    .string "Makyajımı mahvedeceksin.$"
 
 OneIsland_KindleRoad_Text_AbigailIntro::
-    .string "I'm beginning to get a sunburn…$"
+    .string "Güneşten yanmaya başlıyorum…$"
 
 OneIsland_KindleRoad_Text_AbigailDefeat::
-    .string "Oh, you're so awful.$"
+    .string "Ah, çok kötüsün.$"
 
 OneIsland_KindleRoad_Text_AbigailPostBattle::
-    .string "I like that cap you have.\n"
-    .string "Maybe I should wear one, too…$"
+    .string "Şapkanı beğendim.\n"
+    .string "Belki ben de bir tane takmalıyım…$"
 
 OneIsland_KindleRoad_Text_FinnIntro::
-    .string "Seen from here, MT. EMBER towers\n"
-    .string "into the sky.$"
+    .string "Buradan bakınca KOR DAĞI göğe doğru\n"
+    .string "yükseliyor.$"
 
 OneIsland_KindleRoad_Text_FinnDefeat::
-    .string "Well, aren't you tough?$"
+    .string "Ne kadar da güçlüsün, değil mi?$"
 
 OneIsland_KindleRoad_Text_FinnPostBattle::
-    .string "The sky is immense around these\n"
-    .string "parts.$"
+    .string "Buralarda gökyüzü uçsuz bucaksız.$"
 
 OneIsland_KindleRoad_Text_GarrettIntro::
-    .string "I took a break from swimming,\n"
-    .string "only to have you challenge me?$"
+    .string "Yüzmeye ara verdim, sen de gelip bana\n"
+    .string "meydan mı okuyorsun?$"
 
 OneIsland_KindleRoad_Text_GarrettDefeat::
-    .string "Hey, what the…\n"
-    .string "You're good, you!$"
+    .string "Hey, bu da ne…\n"
+    .string "İyisin be sen!$"
 
 OneIsland_KindleRoad_Text_GarrettPostBattle::
-    .string "Instead of using SURF all the time,\n"
-    .string "you should swim some.$"
+    .string "Hep SÖRF kullanacağına biraz\n"
+    .string "yüzmelisin.$"
 
 OneIsland_KindleRoad_Text_TommyIntro::
-    .string "Wait! Wait a second!\n"
-    .string "I think I've hooked a big one!$"
+    .string "Dur! Bir saniye!\n"
+    .string "Sanırım büyük bir şey yakaladım!$"
 
 OneIsland_KindleRoad_Text_TommyDefeat::
-    .string "I've lost it all again…$"
+    .string "Yine her şeyi kaybettim…$"
 
 OneIsland_KindleRoad_Text_TommyPostBattle::
-    .string "Not only did I lose, the big one\n"
-    .string "got away from me, too!$"
+    .string "Kaybettiğim yetmezmiş gibi büyük balık\n"
+    .string "da elimden kaçtı!$"
 
 OneIsland_KindleRoad_Text_SharonIntro::
-    .string "Could you help me out with my\n"
-    .string "training?$"
+    .string "Antrenmanımda bana yardım edebilir\n"
+    .string "misin?$"
 
 OneIsland_KindleRoad_Text_SharonDefeat::
-    .string "You were a cut above me.$"
+    .string "Benden bir gömlek üstündün.$"
 
 OneIsland_KindleRoad_Text_SharonPostBattle::
-    .string "It's clear that you're skilled.\n"
-    .string "I like you!$"
+    .string "Yetenekli olduğun belli.\n"
+    .string "Seni sevdim!$"
 
 OneIsland_KindleRoad_Text_TanyaIntro::
-    .string "There isn't a day in which we don't\n"
-    .string "train!$"
+    .string "Antrenman yapmadığımız tek bir gün yok!$"
 
 OneIsland_KindleRoad_Text_TanyaDefeat::
-    .string "I'm such a fool!$"
+    .string "Ne aptalım!$"
 
 OneIsland_KindleRoad_Text_TanyaPostBattle::
-    .string "I'll train even harder from now on!$"
+    .string "Bundan sonra daha da sıkı çalışacağım!$"
 
 OneIsland_KindleRoad_Text_SheaIntro::
-    .string "Every morning, before breakfast,\n"
-    .string "I swim around this island.$"
+    .string "Her sabah kahvaltıdan önce bu adanın\n"
+    .string "etrafında yüzerim.$"
 
 OneIsland_KindleRoad_Text_SheaDefeat::
-    .string "Gasp…\n"
-    .string "Gasp…$"
+    .string "Hah…\n"
+    .string "Hah…$"
 
 OneIsland_KindleRoad_Text_SheaPostBattle::
-    .string "I lost because I'm pooped from all\n"
-    .string "the running I did…$"
+    .string "Bunca koşudan bitap düştüğüm için\n"
+    .string "kaybettim…$"
 
 OneIsland_KindleRoad_Text_HughIntro::
-    .string "Dress appropriately for battle!\n"
-    .string "Lose that frivolous outfit!$"
+    .string "Savaşa uygun giyin!\n"
+    .string "O saçma kıyafeti çıkar!$"
 
 OneIsland_KindleRoad_Text_HughDefeat::
-    .string "Why me?!$"
+    .string "Neden ben?!$"
 
 OneIsland_KindleRoad_Text_HughPostBattle::
-    .string "Even martial artists are becoming\n"
-    .string "fashion conscious these days…$"
+    .string "Bu günlerde dövüş sanatçıları bile\n"
+    .string "modaya önem veriyor…$"
 
 OneIsland_KindleRoad_Text_BryceIntro::
-    .string "You know, everything tastes great\n"
-    .string "when you're out in the wild.$"
+    .string "Biliyor musun, doğada her şeyin tadı\n"
+    .string "harika olur.$"
 
 OneIsland_KindleRoad_Text_BryceDefeat::
-    .string "Awww, blown!$"
+    .string "Ahh, mahvoldum!$"
 
 OneIsland_KindleRoad_Text_BrycePostBattle::
-    .string "The water in volcanic regions is\n"
-    .string "delicious.$"
+    .string "Volkanik bölgelerdeki su çok\n"
+    .string "lezzetlidir.$"
 
 OneIsland_KindleRoad_Text_ClaireIntro::
-    .string "My lunch filled us up, so will you\n"
-    .string "battle us for some exercise?$"
+    .string "Öğle yemeğim bizi doyurdu, biraz\n"
+    .string "egzersiz için bizimle savaşır mısın?$"
 
 OneIsland_KindleRoad_Text_ClaireDefeat::
-    .string "That made me all sweaty.$"
+    .string "Bu beni ter içinde bıraktı.$"
 
 OneIsland_KindleRoad_Text_ClairePostBattle::
-    .string "What should I do?\n"
-    .string "I feel famished again.$"
+    .string "Ne yapsam?\n"
+    .string "Yine karnım zil çalıyor.$"
 
 OneIsland_KindleRoad_Text_KiaIntro::
-    .string "KIA: My big brother and I make\n"
-    .string "an awesome combination!$"
+    .string "KIA: Abimle ben müthiş bir ikiliyiz!$"
 
 OneIsland_KindleRoad_Text_KiaDefeat::
-    .string "KIA: Huh?!\n"
-    .string "I can't believe it!$"
+    .string "KIA: Hı?!\n"
+    .string "İnanamıyorum!$"
 
 OneIsland_KindleRoad_Text_KiaPostBattle::
-    .string "KIA: How could there be anyone\n"
-    .string "better than my big brother?$"
+    .string "KIA: Abimden daha iyi biri nasıl\n"
+    .string "olabilir?$"
 
 OneIsland_KindleRoad_Text_KiaNotEnoughMons::
-    .string "KIA: If you want to battle with\n"
-    .string "us, you have to bring at least two\l"
-    .string "POKéMON with you.$"
+    .string "KIA: Bizimle savaşmak istiyorsan\n"
+    .string "yanında en az iki POKéMON getirmelisin.$"
 
 OneIsland_KindleRoad_Text_MikIntro::
-    .string "MIK: Together with KIA, I'm afraid\n"
-    .string "of nothing!$"
+    .string "MIK: KIA ile birlikteyken hiçbir şeyden\n"
+    .string "korkmam!$"
 
 OneIsland_KindleRoad_Text_MikDefeat::
-    .string "MIK: Whoa!\n"
-    .string "That's too much!$"
+    .string "MIK: Vay!\n"
+    .string "Bu çok fazla!$"
 
 OneIsland_KindleRoad_Text_MikPostBattle::
-    .string "MIK: How could my combination\n"
-    .string "with KIA fail?$"
+    .string "MIK: KIA ile ikilimiz nasıl başarısız\n"
+    .string "olabilir?$"
 
 OneIsland_KindleRoad_Text_MikNotEnoughMons::
-    .string "MIK: Hey, do you want to battle\n"
-    .string "with us two?\p"
-    .string "Bring two or more POKéMON with\n"
-    .string "you, then.$"
+    .string "MIK: Hey, ikimizle savaşmak ister misin?\p"
+    .string "O zaman yanında iki ya da daha fazla\n"
+    .string "POKéMON getir.$"
 
 OneIsland_KindleRoad_Text_RouteSign::
-    .string "This is KINDLE ROAD.\p"
-    .string "Go straight for MT. EMBER.$"
+    .string "Burası KIVILCIM YOLU.\p"
+    .string "Doğruca KOR DAĞI'na git.$"
 
 OneIsland_KindleRoad_Text_EmberSpaSign::
-    .string "Light the Fire in Your Heart!\n"
-    .string "EMBER SPA$"
+    .string "Yüreğindeki Ateşi Yak!\n"
+    .string "KOR KAPLICASI$"
 

@@ -1,23 +1,19 @@
 CeladonCity_DepartmentStore_5F_Text_ExplainStatEnhancers::
-    .string "POKéMON stat enhancers can be\n"
-    .string "bought only here.\p"
-    .string "HP UP increases the base HP of a\n"
-    .string "POKéMON.\p"
-    .string "CALCIUM raises the base SP. ATK\n"
-    .string "stat of one POKéMON.\p"
-    .string "ZINC boosts the base SP. DEF stat\n"
-    .string "of one POKéMON.\p"
-    .string "CARBOS enhances the base SPEED\n"
-    .string "stat.$"
+    .string "POKéMON değer artırıcıları yalnızca\n"
+    .string "burada satılır.\p"
+    .string "HP ARTIRICI bir POKéMON'un temel\n"
+    .string "HP'sini artırır.\p"
+    .string "KALSİYUM bir POKéMON'un temel Ö.SALD\n"
+    .string "değerini yükseltir.\p"
+    .string "ÇİNKO bir POKéMON'un temel Ö.SAV\n"
+    .string "değerini artırır.\p"
+    .string "KARBOS temel HIZ değerini geliştirir.$"
 
 CeladonCity_DepartmentStore_5F_Text_HereForStatEnhancers::
-    .string "I'm here for POKéMON stat\n"
-    .string "enhancers.\p"
-    .string "PROTEIN increases the base ATTACK\n"
-    .string "power.\p"
-    .string "IRON increases the base DEFENSE\n"
-    .string "stat.$"
+    .string "POKéMON değer artırıcıları için geldim.\p"
+    .string "PROTEİN temel SALDIRI gücünü artırır.\p"
+    .string "DEMİR temel SAVUNMA değerini artırır.$"
 
 CeladonCity_DepartmentStore_5F_Text_Drugstore::
-    .string "5F: DRUGSTORE$"
+    .string "5. KAT: ECZANE$"
 

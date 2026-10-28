@@ -1,0 +1,6 @@
+{
+ "2": "Ah! Seni duymuştum, {PLAYER}!\\pELİT DÖRTLÜ'ye ben liderlik ederim.\\pBana ejderha EĞİTMENİ LANCE diyebilirsin.\\pEjderhaların efsanevi POKéMON olduğunu biliyorsun.\\pYakalaması ve yetiştirmesi zordur ama güçleri üstündür.\\pNeredeyse yok edilemezler.\\nOnlara karşı kurnazlık işe yaramaz.\\pPeki, kaybetmeye hazır mısın?\\pLİG serüvenin benimle sona eriyor, {PLAYER}!{PLAY_BGM}{MUS_ENCOUNTER_GYM_LEADER}$",
+ "18": "Ah!\\nDemek geri döndün, {PLAYER}!\\pELİT DÖRTLÜ'ye ben liderlik ederim.\\pBana ejderha EĞİTMENİ LANCE diyebilirsin.\\pEjderhaların efsanevi POKéMON olduğunu biliyorsun.\\pYakalaması ve yetiştirmesi zordur ama güçleri üstündür.\\pNeredeyse yok edilemezler.\\nOnlara karşı kurnazlık işe yaramaz.\\pPeki, kaybetmeye hazır mısın?\\pLİG serüvenin benimle sona eriyor, {PLAYER}!{PLAY_BGM}{MUS_ENCOUNTER_GYM_LEADER}$",
+ "34": "İşte bu!\\pKabul etmekten nefret ediyorum ama sen bir POKéMON ustasısın!$",
+ "39": "Ejderhalarımın sana kaybettiğine hâlâ inanamıyorum, {PLAYER}.\\pArtık POKéMON LİGİ ŞAMPİYONU sensin!\\p…Ya da öyle olacaktın ama önünde bir meydan okuma daha var.\\pYüzleşmen gereken bir EĞİTMEN daha var!\\nAdı…\\p{RIVAL}!\\pELİT DÖRTLÜ'yü senden önce yendi.\\pGerçek POKéMON LİGİ ŞAMPİYONU o.$"
+}

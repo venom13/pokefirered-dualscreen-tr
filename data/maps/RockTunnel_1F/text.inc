@@ -1,83 +1,82 @@
 RockTunnel_1F_Text_LennyIntro::
-    .string "This tunnel goes a long way, kid!$"
+    .string "Bu tünel çok uzun, evlat!$"
 
 RockTunnel_1F_Text_LennyDefeat::
-    .string "Doh!\n"
-    .string "You win!$"
+    .string "Off!\n"
+    .string "Sen kazandın!$"
 
 RockTunnel_1F_Text_LennyPostBattle::
-    .string "Watch for ONIX.\n"
-    .string "They appear only occasionally.\p"
-    .string "High-level ones can put the\n"
-    .string "squeeze on you!$"
+    .string "ONIX'lere dikkat et.\n"
+    .string "Sadece ara sıra ortaya çıkarlar.\p"
+    .string "Yüksek seviyeli olanlar seni sıkıştırıp\n"
+    .string "ezebilir!$"
 
 RockTunnel_1F_Text_OliverIntro::
     .string "Hmm.\n"
-    .string "Maybe I'm lost in here…$"
+    .string "Galiba burada kayboldum…$"
 
 RockTunnel_1F_Text_OliverDefeat::
-    .string "Ease up!\n"
-    .string "What am I doing?\l"
-    .string "Which way is out?$"
+    .string "Sakin ol!\n"
+    .string "Ne yapıyorum ben?\l"
+    .string "Çıkış ne tarafta?$"
 
 RockTunnel_1F_Text_OliverPostBattle::
-    .string "That sleeping POKéMON on ROUTE 12\n"
-    .string "forced me to take this detour.$"
+    .string "ROTA 12'deki o uyuyan POKéMON beni bu\n"
+    .string "dolambaçlı yola girmek zorunda bıraktı.$"
 
 RockTunnel_1F_Text_LucasIntro::
-    .string "Outsiders like you need to show me\n"
-    .string "some respect!$"
+    .string "Senin gibi yabancılar bana biraz saygı\n"
+    .string "göstermeli!$"
 
 RockTunnel_1F_Text_LucasDefeat::
-    .string "I give!$"
+    .string "Pes ediyorum!$"
 
 RockTunnel_1F_Text_LucasPostBattle::
-    .string "You're talented enough to hike!$"
+    .string "Dağcılık yapacak kadar yeteneklisin!$"
 
 RockTunnel_1F_Text_AshtonIntro::
-    .string "POKéMON fight!\n"
-    .string "Ready, go!$"
+    .string "POKéMON dövüşü!\n"
+    .string "Hazır, başla!$"
 
 RockTunnel_1F_Text_AshtonDefeat::
-    .string "Game over!$"
+    .string "Oyun bitti!$"
 
 RockTunnel_1F_Text_AshtonPostBattle::
-    .string "Oh well, I'll get a ZUBAT as I go!$"
+    .string "Neyse, giderken bir ZUBAT yakalarım!$"
 
 RockTunnel_1F_Text_LeahIntro::
-    .string "Eek!\p"
-    .string "Don't try anything funny in the\n"
-    .string "dark!$"
+    .string "Iyy!\p"
+    .string "Karanlıkta tuhaflık yapmaya kalkma!$"
 
 RockTunnel_1F_Text_LeahDefeat::
-    .string "It was too dark…$"
+    .string "Çok karanlıktı…$"
 
 RockTunnel_1F_Text_LeahPostBattle::
-    .string "I saw a MACHOP in this tunnel.$"
+    .string "Bu tünelde bir MACHOP gördüm.$"
 
 RockTunnel_1F_Text_DanaIntro::
-    .string "I came this far looking for wild\n"
-    .string "POKéMON.$"
+    .string "Vahşi POKéMON ararken buraya kadar\n"
+    .string "geldim.$"
 
 RockTunnel_1F_Text_DanaDefeat::
-    .string "I'm out of POKéMON!$"
+    .string "POKéMON'um kalmadı!$"
 
 RockTunnel_1F_Text_DanaPostBattle::
-    .string "You looked cute and harmless.\n"
-    .string "Was I ever wrong!$"
+    .string "Sevimli ve zararsız görünüyordun.\n"
+    .string "Ne kadar yanılmışım!$"
 
 RockTunnel_1F_Text_ArianaIntro::
-    .string "You have POKéMON!\n"
-    .string "Let's start!$"
+    .string "POKéMON'un var!\n"
+    .string "Başlayalım!$"
 
 RockTunnel_1F_Text_ArianaDefeat::
-    .string "You play hard!$"
+    .string "Sert oynuyorsun!$"
 
 RockTunnel_1F_Text_ArianaPostBattle::
-    .string "Whew!\n"
-    .string "I'm all sweaty now.$"
+    .string "Of!\n"
+    .string "Ter içinde kaldım.$"
 
 RockTunnel_1F_Text_RouteSign::
-    .string "ROCK TUNNEL\n"
-    .string "CERULEAN CITY - LAVENDER TOWN$"
+    .string "KAYA TÜNELİ\n"
+    .string "CERULEAN ŞEHRİ - LAVENDER KÖYÜ$"
 

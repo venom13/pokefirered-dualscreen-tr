@@ -1,70 +1,68 @@
 CeladonCity_DepartmentStore_3F_Text_OTStandsForOriginalTrainer::
-    .string "Captured POKéMON are registered\n"
-    .string "with an ID No. and the OT.\p"
-    .string "OT stands for “Original TRAINER” -\n"
-    .string "the TRAINER that caught it first.$"
+    .string "Yakalanan POKéMON bir KİMLİK No. ve\n"
+    .string "AS ile kaydedilir.\p"
+    .string "AS, “Asıl Sahibi” demektir, yani onu\n"
+    .string "ilk yakalayan EĞİTMEN.$"
 
 CeladonCity_DepartmentStore_3F_Text_BuddyTradingKangaskhanForHaunter::
-    .string "All right!\p"
-    .string "My buddy's going to trade me his\n"
-    .string "KANGASKHAN for my HAUNTER!$"
+    .string "Pekala!\p"
+    .string "Arkadaşım HAUNTER'ıma karşılık bana\n"
+    .string "KANGASKHAN'ını verecek!$"
 
 CeladonCity_DepartmentStore_3F_Text_HaunterEvolvedOnTrade::
-    .string "Come on, HAUNTER!\p"
-    .string "I love HAUNTER!\n"
-    .string "I collect them!\p"
-    .string "Huh?\p"
-    .string "HAUNTER turned into a different\n"
-    .string "POKéMON while being traded!$"
+    .string "Hadi, HAUNTER!\p"
+    .string "HAUNTER'ı severim!\n"
+    .string "Onları biriktiriyorum!\p"
+    .string "Hı?\p"
+    .string "HAUNTER takas edilirken başka bir\n"
+    .string "POKéMON'a dönüştü!$"
 
 CeladonCity_DepartmentStore_3F_Text_CanIdentifyTradeMonsByID::
-    .string "You can identify POKéMON you get\n"
-    .string "in trades by their ID Numbers.$"
+    .string "Takasla aldığın POKéMON'ları KİMLİK\n"
+    .string "Numaralarından tanıyabilirsin.$"
 
 CeladonCity_DepartmentStore_3F_Text_ItsSuperNES::
-    .string "It's a Super NES.$"
+    .string "Bu bir Super NES.$"
 
 CeladonCity_DepartmentStore_3F_Text_AnRPG::
-    .string "An RPG!\n"
-    .string "There's no time for that!$"
+    .string "Bir RYO!\n"
+    .string "Buna hiç vakit yok!$"
 
 CeladonCity_DepartmentStore_3F_Text_SportsGame::
-    .string "A sports game!\n"
-    .string "Dad'll like that!$"
+    .string "Bir spor oyunu!\n"
+    .string "Babam buna bayılır!$"
 
 CeladonCity_DepartmentStore_3F_Text_PuzzleGame::
-    .string "A puzzle game!\n"
-    .string "Looks addictive!$"
+    .string "Bir bulmaca oyunu!\n"
+    .string "Bağımlılık yapacak gibi!$"
 
 CeladonCity_DepartmentStore_3F_Text_FightingGame::
-    .string "A fighting game!\n"
-    .string "Looks tough!$"
+    .string "Bir dövüş oyunu!\n"
+    .string "Zor görünüyor!$"
 
 CeladonCity_DepartmentStore_3F_Text_TVGameShop::
-    .string "3F: TV GAME SHOP$"
+    .string "3. KAT: TV OYUN MAĞAZASI$"
 
 CeladonCity_DepartmentStore_3F_Text_RedGreenBothArePokemon::
-    .string "Red and Green!\n"
-    .string "Both are POKéMON!$"
+    .string "Kırmızı ve Yeşil!\n"
+    .string "İkisi de POKéMON!$"
 
 Text_CounterTeach::
-    .string "Oh, hi!\n"
-    .string "I finally finished POKéMON.\p"
-    .string "Not done yet? How about I teach\n"
-    .string "you a good move?\p"
-    .string "The move I have in mind is\n"
-    .string "COUNTER.\p"
-    .string "Not like the one I'm leaning on,\n"
-    .string "mind you!$"
+    .string "Ah, selam!\n"
+    .string "Sonunda POKéMON'u bitirdim.\p"
+    .string "Sen daha bitirmedin mi? Sana iyi bir\n"
+    .string "hareket öğreteyim mi?\p"
+    .string "Aklımdaki hareket KARŞILIK.\p"
+    .string "Üstüne yaslandığım tezgah değil ama,\n"
+    .string "haberin olsun!$"
 
 Text_CounterDeclined::
-    .string "You're not interested? Come see\n"
-    .string "me if you change your mind.$"
+    .string "İlgilenmiyor musun? Fikrin değişirse\n"
+    .string "gel.$"
 
 Text_CounterWhichMon::
-    .string "Which POKéMON should I teach\n"
-    .string "COUNTER to?$"
+    .string "KARŞILIK hangi POKéMON'a öğretilsin?$"
 
 Text_CounterTaught::
-    .string "Are you using that COUNTER move\n"
-    .string "I taught your POKéMON?$"
+    .string "POKéMON'una öğrettiğim KARŞILIK\n"
+    .string "hareketini kullanıyor musun?$"

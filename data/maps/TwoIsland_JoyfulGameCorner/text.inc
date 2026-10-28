@@ -1,113 +1,106 @@
 TwoIsland_JoyfulGameCorner_Text_WhereHasLostelleGottenTo::
-    .string "Now, where's LOSTELLE gotten to\n"
-    .string "today?\p"
-    .string "She always brings me lunch every\n"
-    .string "day right about now…$"
+    .string "Bugün LOSTELLE nereye kayboldu?\p"
+    .string "Her gün tam bu saatlerde bana öğle\n"
+    .string "yemeği getirir…$"
 
 TwoIsland_JoyfulGameCorner_Text_PleaseHelpFindLostelle::
-    .string "Hm? You, there!\n"
-    .string "Are you a friend of LOSTELLE's?\p"
-    .string "Have you seen LOSTELLE around?\n"
-    .string "I don't know where she might be.\l"
-    .string "She should've been here long ago.\p"
-    .string "LOSTELLE's a cutie - she got my\n"
-    .string "looks - so what if someone…\p"
-    .string "What if something's happened to\n"
-    .string "my LOSTELLE?!\p"
-    .string "Please, help me find her!\n"
-    .string "Please go search THREE ISLAND!$"
+    .string "Hm? Sen, oradaki!\n"
+    .string "LOSTELLE'in arkadaşı mısın?\p"
+    .string "LOSTELLE'i buralarda gördün mü?\n"
+    .string "Nerede olabileceğini bilmiyorum.\l"
+    .string "Çoktan burada olmalıydı.\p"
+    .string "LOSTELLE çok tatlıdır, bana çekmiş, ya\n"
+    .string "biri…\p"
+    .string "Ya LOSTELLE'ime bir şey olduysa?!\p"
+    .string "Lütfen onu bulmama yardım et!\n"
+    .string "Lütfen ÜÇÜNCÜ ADA'yı ara!$"
 
 TwoIsland_JoyfulGameCorner_Text_IsThisOnlyThreeIsland::
-    .string "Hah? What is this GAME CORNER?\n"
-    .string "How much sadder can this get?\p"
-    .string "Those clowns…\p"
-    .string "They said they'd be waiting on the\n"
-    .string "island, so where are they?\p"
-    .string "Hey, you! Is this the only THREE\n"
-    .string "ISLAND around here?$"
+    .string "Ha? Bu OYUN SALONU da ne?\n"
+    .string "Bundan daha acıklı ne olabilir?\p"
+    .string "O soytarılar…\p"
+    .string "Adada bekleyeceklerini söylediler,\n"
+    .string "nerede bunlar?\p"
+    .string "Hey, sen! Buralardaki tek ÜÇÜNCÜ ADA\n"
+    .string "bu mu?$"
 
 TwoIsland_JoyfulGameCorner_Text_ThisIsTwoIslandMoveIt::
-    .string "Try waking up before you crawl out\n"
-    .string "of bed, you punk.\p"
-    .string "This is TWO ISLAND!\p"
-    .string "Move it! Get your filthy motorbike\n"
-    .string "out of my place!$"
+    .string "Yataktan çıkmadan önce uyanmayı dene,\n"
+    .string "seni serseri.\p"
+    .string "Burası İKİNCİ ADA!\p"
+    .string "Yürü! Pis motorunu mekânımdan çıkar!$"
 
 TwoIsland_JoyfulGameCorner_Text_TheseIslandsAreConfusing::
-    .string "Huh…\n"
-    .string "Oh, oh, gotcha.\p"
-    .string "Tch…\n"
-    .string "These islands are confusing…$"
+    .string "Hı…\n"
+    .string "Ah, ah, anladım.\p"
+    .string "Tüh…\n"
+    .string "Bu adalar kafa karıştırıcı…$"
 
 TwoIsland_JoyfulGameCorner_Text_PunkScuffedUpMyFloor::
-    .string "Would you look at that?\n"
-    .string "That punk scuffed up my floor.$"
+    .string "Şuna bak!\n"
+    .string "O serseri yerimi çizdi.$"
 
 TwoIsland_JoyfulGameCorner_Text_PleaseGoToThreeIsland::
-    .string "Hey, but listen! I'm begging you,\n"
-    .string "you have to go to THREE ISLAND.\p"
-    .string "If anything were to happen to my\n"
-    .string "LOSTELLE…\p"
-    .string "My place is the house with the red\n"
-    .string "roof on THREE ISLAND.\p"
-    .string "She may just show up late here,\n"
-    .string "so I can't run off anywhere.\p"
-    .string "That's why I have to get you to do\n"
-    .string "me this big favor.$"
+    .string "Hey, ama dinle! Sana yalvarıyorum,\n"
+    .string "ÜÇÜNCÜ ADA'ya gitmelisin.\p"
+    .string "LOSTELLE'ime bir şey olursa…\p"
+    .string "Evim ÜÇÜNCÜ ADA'daki kırmızı çatılı ev.\p"
+    .string "Buraya geç de gelebilir, o yüzden\n"
+    .string "hiçbir yere kaçamam.\p"
+    .string "Bu yüzden bana bu büyük iyiliği\n"
+    .string "yapmanı istiyorum.$"
 
 TwoIsland_JoyfulGameCorner_Text_NotRunningAnyGamesToday::
-    .string "I'm sorry.\n"
-    .string "We're not running any games today.$"
+    .string "Üzgünüm.\n"
+    .string "Bugün hiç oyun çalıştırmıyoruz.$"
 
 TwoIsland_JoyfulGameCorner_Text_GetGamesGoingSoon::
-    .string "We'll get the games going soon\n"
-    .string "for you!$"
+    .string "Oyunları yakında senin için\n"
+    .string "başlatacağız!$"
 
 TwoIsland_JoyfulGameCorner_Text_YouRescuedLostelle::
-    .string "So you rescued LOSTELLE?\n"
-    .string "How can I thank you?\p"
-    .string "LOSTELLE, darling, forgive me!\p"
-    .string "Daddy didn't know you were scared\n"
-    .string "and in trouble!$"
+    .string "Demek LOSTELLE'i kurtardın?\n"
+    .string "Sana nasıl teşekkür edebilirim?\p"
+    .string "LOSTELLE, canım, affet beni!\p"
+    .string "Baban korktuğunu ve başının dertte\n"
+    .string "olduğunu bilmiyordu!$"
 
 TwoIsland_JoyfulGameCorner_Text_LostelleItsOkayDaddy::
-    .string "LOSTELLE: It's okay, Daddy.\n"
-    .string "I got to be friends with {PLAYER}!$"
+    .string "LOSTELLE: Sorun değil, babacığım.\n"
+    .string "{PLAYER} ile arkadaş oldum!$"
 
 TwoIsland_JoyfulGameCorner_Text_ThisIsForMe::
-    .string "Oh, what's that?\n"
-    .string "You're saying that this is for me?\p"
-    .string "How did you know that I love rare\n"
-    .string "rocks and gems?\p"
-    .string "You sure know how to make a guy\n"
-    .string "happy.$"
+    .string "Ah, o ne?\n"
+    .string "Bunun benim için olduğunu mu\l"
+    .string "söylüyorsun?\p"
+    .string "Nadir taşlara ve mücevherlere\n"
+    .string "bayıldığımı nereden bildin?\p"
+    .string "Bir insanı mutlu etmeyi gerçekten\n"
+    .string "biliyorsun.$"
 
 TwoIsland_JoyfulGameCorner_Text_HandedMeteoriteToLostellesDaddy::
-    .string "{PLAYER} handed the METEORITE\n"
-    .string "to LOSTELLE's daddy.$"
+    .string "{PLAYER}, GÖKTAŞI'nı LOSTELLE'in\n"
+    .string "babasına verdi.$"
 
 TwoIsland_JoyfulGameCorner_Text_OhThisIsFromBill::
-    .string "Oh, I see, this is from BILL!\n"
-    .string "You have to thank him for me!\p"
-    .string "You know, you've been fantastic.\n"
-    .string "I want you to have this.$"
+    .string "Ah, anlıyorum, bu BILL'den!\n"
+    .string "Benim yerime ona teşekkür etmelisin!\p"
+    .string "Biliyor musun, harikaydın.\n"
+    .string "Bunu almanı istiyorum.$"
 
 TwoIsland_JoyfulGameCorner_Text_ReceivedMoonStoneFromLostellesDaddy::
-    .string "{PLAYER} received a MOON STONE\n"
-    .string "from LOSTELLE's daddy.$"
+    .string "{PLAYER}, LOSTELLE'in babasından bir AY\n"
+    .string "TAŞI aldı.$"
 
 TwoIsland_JoyfulGameCorner_Text_NotGoingToFitInBag::
-    .string "Your BAG's not going to fit another\n"
-    .string "thing…$"
+    .string "ÇANTANA başka bir şey sığmayacak…$"
 
 TwoIsland_JoyfulGameCorner_Text_IllGetGameCornerRunning::
-    .string "All right, I'll get the GAME CORNER\n"
-    .string "running right away.\p"
-    .string "You have to come visit with a\n"
-    .string "friend.$"
+    .string "Pekala, OYUN SALONU'nu hemen\n"
+    .string "çalıştırıyorum.\p"
+    .string "Bir arkadaşınla ziyarete gelmelisin.$"
 
 TwoIsland_JoyfulGameCorner_Text_PleaseShowMeYouBeingCool::
-    .string "Listen, listen!\p"
-    .string "Please show me you being cool\n"
-    .string "again!$"
+    .string "Dinle, dinle!\p"
+    .string "Lütfen bana yine havalılığını göster!$"
 

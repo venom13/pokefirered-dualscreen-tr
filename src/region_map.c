@@ -640,79 +640,79 @@ static const union AnimCmd *const sAnims_SwitchMapCursor[] = {
 static const struct DungeonMapInfo sDungeonInfo[] = {
     {
         .id = MAPSEC_VIRIDIAN_FOREST,
-        .name = sMapsecName_VIRIDIAN_FOREST,
+        .name = sMapsecNameOf_MAPSEC_VIRIDIAN_FOREST,
         .desc = gText_RegionMap_AreaDesc_ViridianForest
     }, {
         .id = MAPSEC_MT_MOON,
-        .name = sMapsecName_MT__MOON,
+        .name = sMapsecNameOf_MAPSEC_MT_MOON,
         .desc = gText_RegionMap_AreaDesc_MtMoon
     }, {
         .id = MAPSEC_DIGLETTS_CAVE,
-        .name = sMapsecName_DIGLETT_S_CAVE,
+        .name = sMapsecNameOf_MAPSEC_DIGLETTS_CAVE,
         .desc = gText_RegionMap_AreaDesc_DiglettsCave
     }, {
         .id = MAPSEC_KANTO_VICTORY_ROAD,
-        .name = sMapsecName_VICTORY_ROAD,
+        .name = sMapsecNameOf_MAPSEC_KANTO_VICTORY_ROAD,
         .desc = gText_RegionMap_AreaDesc_VictoryRoad
     }, {
         .id = MAPSEC_POKEMON_MANSION,
-        .name = sMapsecName_POK__MON_MANSION,
+        .name = sMapsecNameOf_MAPSEC_POKEMON_MANSION,
         .desc = gText_RegionMap_AreaDesc_PokemonMansion
     }, {
         .id = MAPSEC_KANTO_SAFARI_ZONE,
-        .name = sMapsecName_SAFARI_ZONE,
+        .name = sMapsecNameOf_MAPSEC_KANTO_SAFARI_ZONE,
         .desc = gText_RegionMap_AreaDesc_SafariZone
     }, {
         .id = MAPSEC_ROCK_TUNNEL,
-        .name = sMapsecName_ROCK_TUNNEL,
+        .name = sMapsecNameOf_MAPSEC_ROCK_TUNNEL,
         .desc = gText_RegionMap_AreaDesc_RockTunnel
     }, {
         .id = MAPSEC_SEAFOAM_ISLANDS,
-        .name = sMapsecName_SEAFOAM_ISLANDS,
+        .name = sMapsecNameOf_MAPSEC_SEAFOAM_ISLANDS,
         .desc = gText_RegionMap_AreaDesc_SeafoamIslands
     }, {
         .id = MAPSEC_POKEMON_TOWER,
-        .name = sMapsecName_POK__MON_TOWER,
+        .name = sMapsecNameOf_MAPSEC_POKEMON_TOWER,
         .desc = gText_RegionMap_AreaDesc_PokemonTower
     }, {
         .id = MAPSEC_CERULEAN_CAVE,
-        .name = sMapsecName_CERULEAN_CAVE,
+        .name = sMapsecNameOf_MAPSEC_CERULEAN_CAVE,
         .desc = gText_RegionMap_AreaDesc_CeruleanCave
     }, {
         .id = MAPSEC_POWER_PLANT,
-        .name = sMapsecName_POWER_PLANT,
+        .name = sMapsecNameOf_MAPSEC_POWER_PLANT,
         .desc = gText_RegionMap_AreaDesc_PowerPlant
     }, {
         .id = MAPSEC_MT_EMBER,
-        .name = sMapsecName_MT__EMBER,
+        .name = sMapsecNameOf_MAPSEC_MT_EMBER,
         .desc = gText_RegionMap_AreaDesc_MtEmber
     }, {
         .id = MAPSEC_BERRY_FOREST,
-        .name = sMapsecName_BERRY_FOREST,
+        .name = sMapsecNameOf_MAPSEC_BERRY_FOREST,
         .desc = gText_RegionMap_AreaDesc_BerryForest
     }, {
         .id = MAPSEC_ICEFALL_CAVE,
-        .name = sMapsecName_ICEFALL_CAVE,
+        .name = sMapsecNameOf_MAPSEC_ICEFALL_CAVE,
         .desc = gText_RegionMap_AreaDesc_IcefallCave
     }, {
         .id = MAPSEC_LOST_CAVE,
-        .name = sMapsecName_LOST_CAVE,
+        .name = sMapsecNameOf_MAPSEC_LOST_CAVE,
         .desc = gText_RegionMap_AreaDesc_LostCave
     }, {
         .id = MAPSEC_TANOBY_CHAMBERS,
-        .name = sMapsecName_TANOBY_CHAMBERS,
+        .name = sMapsecNameOf_MAPSEC_TANOBY_CHAMBERS,
         .desc = gText_RegionMap_AreaDesc_TanobyRuins
     }, {
         .id = MAPSEC_ALTERING_CAVE,
-        .name = sMapsecName_ALTERING_CAVE,
+        .name = sMapsecNameOf_MAPSEC_ALTERING_CAVE,
         .desc = gText_RegionMap_AreaDesc_AlteringCave
     }, {
         .id = MAPSEC_PATTERN_BUSH,
-        .name = sMapsecName_PATTERN_BUSH,
+        .name = sMapsecNameOf_MAPSEC_PATTERN_BUSH,
         .desc = gText_RegionMap_AreaDesc_PatternBush
     }, {
         .id = MAPSEC_DOTTED_HOLE,
-        .name = sMapsecName_DOTTED_HOLE,
+        .name = sMapsecNameOf_MAPSEC_DOTTED_HOLE,
         .desc = gText_RegionMap_AreaDesc_DottedHole
     }
 };
@@ -3892,7 +3892,7 @@ u8 *GetMapName(u8 *dst0, u16 mapsec, u16 fill)
     if ((idx = mapsec - KANTO_MAPSEC_START) < MAPSEC_NONE - KANTO_MAPSEC_START)
     {
         if (IsCeladonDeptStoreMapsec(mapsec) == TRUE)
-            dst = StringCopy(dst0, sMapsecName_CELADON_DEPT_);
+            dst = StringCopy(dst0, sMapsecNameOf_MAPSEC_SPECIAL_AREA);
         else
             dst = StringCopy(dst0, sMapNames[idx]);
     }

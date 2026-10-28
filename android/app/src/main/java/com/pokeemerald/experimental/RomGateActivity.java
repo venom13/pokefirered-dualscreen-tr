@@ -43,21 +43,21 @@ public final class RomGateActivity extends Activity {
                 new File(getFilesDir(), "asset_manifest.bin").delete();
                 launchGame();
             } else {
-                showError("Missing release asset manifest. Reinstall the official release APK.");
+                showError("Sürüm varlık bildirimi eksik. Resmi sürüm APK'sını yeniden yükleyin.");
             }
             return;
         }
         if (manifest.length < 44 || (manifest.length - 44) % 12 != 0
                 || ByteBuffer.wrap(manifest, 40, 4).order(ByteOrder.LITTLE_ENDIAN).getInt()
                 != (manifest.length - 44) / 12 || manifest.length == 44) {
-            showError("Invalid release asset manifest. Reinstall the release APK.");
+            showError("Geçersiz sürüm varlık bildirimi. Sürüm APK'sını yeniden yükleyin.");
             return;
         }
         try {
             // The internal manifest must always match this exact APK.
             writeFile(new File(getFilesDir(), "asset_manifest.bin"), manifest);
         } catch (IOException e) {
-            showError("Could not prepare game data: " + e.getMessage());
+            showError("Oyun verileri hazırlanamadı: " + e.getMessage());
             return;
         }
 
@@ -106,11 +106,11 @@ public final class RomGateActivity extends Activity {
         status.setTextSize(18);
         status.setGravity(Gravity.CENTER);
         status.setPadding(48, 0, 48, 32);
-        status.setText("Your own Pokémon FireRed Rev 1 (USA/Europe) ROM is required.\n\n"
-                + "Select the extracted 16 MiB .gba file (not a ZIP), or place it at\n"
+        status.setText("Kendi Pokémon FireRed Rev 1 (ABD/Avrupa) ROM dosyanız gerekiyor.\n\n"
+                + "Çıkarılmış 16 MiB .gba dosyasını seçin (ZIP değil) ya da şuraya koyun:\n"
                 + "Android/data/" + getPackageName() + "/files/baserom.gba");
         Button pick = new Button(this);
-        pick.setText("Select ROM");
+        pick.setText("ROM Seç");
         pick.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -128,23 +128,23 @@ public final class RomGateActivity extends Activity {
         if (requestCode != PICK_ROM || resultCode != RESULT_OK || data == null) return;
         try {
             if (manifest == null || manifest.length < 44) {
-                showError("Invalid release package. Reinstall the release APK.");
+                showError("Geçersiz sürüm paketi. Sürüm APK'sını yeniden yükleyin.");
                 return;
             }
             byte[] rom = readFully(getContentResolver().openInputStream(data.getData()));
             if (rom.length != ROM_SIZE) {
-                showError("That file is not a 16 MiB GBA ROM. Extract ZIP files first.");
+                showError("Bu dosya 16 MiB GBA ROM değil. Önce ZIP dosyalarını çıkarın.");
                 return;
             }
             if (!validate(rom)) {
-                showError("ROM hash mismatch. This build requires the exact"
-                        + " USA/Europe FireRed Rev 1 ROM.");
+                showError("ROM özeti uyuşmuyor. Bu sürüm tam olarak"
+                        + " ABD/Avrupa FireRed Rev 1 ROM'unu gerektirir.");
                 return;
             }
             writeFile(new File(getFilesDir(), "baserom.gba"), rom);
             fillAndLaunch();
         } catch (Exception e) {
-            showError("Could not read that file: " + e.getMessage());
+            showError("Dosya okunamadı: " + e.getMessage());
         }
     }
 
@@ -153,12 +153,12 @@ public final class RomGateActivity extends Activity {
             System.loadLibrary("SDL2");
             System.loadLibrary("main");
             if (!DualScreenBridge.nativeFillAssets(getFilesDir().getAbsolutePath())) {
-                showError("Could not restore game data. Restart the app or reinstall the release APK.");
+                showError("Oyun verileri geri yüklenemedi. Uygulamayı yeniden başlatın ya da sürüm APK'sını yeniden yükleyin.");
                 return;
             }
             launchGame();
         } catch (LinkageError e) {
-            showError("Could not load the game libraries. This APK requires 32-bit ARM support.");
+            showError("Oyun kütüphaneleri yüklenemedi. Bu APK 32 bit ARM desteği gerektirir.");
         }
     }
 

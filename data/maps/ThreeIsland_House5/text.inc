@@ -1,12 +1,12 @@
 ThreeIsland_House5_Text_ImNotLostelle::
-    .string "Me?\n"
-    .string "I'm not LOSTELLE.\p"
-    .string "She's probably gone to the\n"
-    .string "BERRY FOREST, I think.\p"
-    .string "She picks BERRIES there for making\n"
-    .string "lunch.$"
+    .string "Ben mi?\n"
+    .string "Ben LOSTELLE değilim.\p"
+    .string "Sanırım muhtemelen DUT ORMANI'na\n"
+    .string "gitmiştir.\p"
+    .string "Öğle yemeği yapmak için orada DUT\n"
+    .string "toplar.$"
 
 ThreeIsland_House5_Text_IllGoPlayWithLostelle::
-    .string "I think I'll go play with LOSTELLE\n"
-    .string "today.$"
+    .string "Sanırım bugün LOSTELLE ile oynamaya\n"
+    .string "gideceğim.$"
 

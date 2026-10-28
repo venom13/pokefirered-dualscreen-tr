@@ -1,33 +1,33 @@
 SilphCo_10F_Text_GruntIntro::
-    .string "Welcome to 10F!\n"
-    .string "So good of you to join me!$"
+    .string "10. Kat'a hoş geldin!\n"
+    .string "Bana katılman ne güzel!$"
 
 SilphCo_10F_Text_GruntDefeat::
-    .string "I'm stunned!$"
+    .string "Şaşkına döndüm!$"
 
 SilphCo_10F_Text_GruntPostBattle::
-    .string "Nice try, but the boardroom is up\n"
-    .string "one more floor.$"
+    .string "İyi denemeydi ama yönetim odası bir\n"
+    .string "kat yukarıda.$"
 
 SilphCo_10F_Text_TravisIntro::
-    .string "Enough of your silly games!$"
+    .string "Saçma oyunlarına yeter!$"
 
 SilphCo_10F_Text_TravisDefeat::
-    .string "No continues left!$"
+    .string "Devam hakkı kalmadı!$"
 
 SilphCo_10F_Text_TravisPostBattle::
-    .string "Are you satisfied with beating me?\n"
-    .string "Then go on home!$"
+    .string "Beni yenmek seni tatmin etti mi?\n"
+    .string "O zaman evine git!$"
 
 SilphCo_10F_Text_WaaaImScared::
-    .string "Waaaaa!\n"
-    .string "I'm scared!$"
+    .string "Vaaaaa!\n"
+    .string "Korkuyorum!$"
 
 SilphCo_10F_Text_KeepMeCryingASecret::
-    .string "About me crying…\n"
-    .string "Please keep it a secret.$"
+    .string "Ağlamam hakkında…\n"
+    .string "Lütfen bunu sır olarak sakla.$"
 
 SilphCo_10F_Text_FloorSign::
-    .string "SILPH CO. HEAD OFFICE\n"
-    .string "10F$"
+    .string "SILPH ŞİRKETİ MERKEZ OFİSİ\n"
+    .string "10. KAT$"
 

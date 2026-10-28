@@ -1,87 +1,80 @@
 SixIsland_RuinValley_Text_CantFigureOutHowToGetInside::
-    .string "I can't figure out how I'm supposed\n"
-    .string "to get inside.$"
+    .string "İçeri nasıl gireceğimi çözemiyorum.$"
 
 SixIsland_RuinValley_Text_IFoundThisPlace::
-    .string "Let me tell you, I found this\n"
-    .string "place.\p"
-    .string "Don't look so envious, will you?$"
+    .string "Söyleyeyim, burayı ben buldum.\p"
+    .string "Öyle kıskanç bakma, olur mu?$"
 
 SixIsland_RuinValley_Text_CheckDoorMoreThoroughly::
-    .string "The door doesn't budge at all.\n"
-    .string "Check it more thoroughly?$"
+    .string "Kapı hiç kımıldamıyor.\n"
+    .string "Daha dikkatli incelensin mi?$"
 
 SixIsland_RuinValley_Text_LeftDoorAlone::
-    .string "{PLAYER} left the door alone.$"
+    .string "{PLAYER} kapıya dokunmadı.$"
 
 SixIsland_RuinValley_Text_SeveralDotsOnTheDoor::
-    .string "On closer inspection, there are\n"
-    .string "several dots on the door…$"
+    .string "Yakından bakınca kapıda birkaç nokta\n"
+    .string "var…$"
 
 SixIsland_RuinValley_Text_DoorIsOpen::
-    .string "The door is open.$"
+    .string "Kapı açık.$"
 
 SixIsland_RuinValley_Text_StanlyIntro::
-    .string "There appear to be many secrets\n"
-    .string "still unsolved in this world.$"
+    .string "Bu dünyada hâlâ çözülmemiş pek çok sır\n"
+    .string "var gibi.$"
 
 SixIsland_RuinValley_Text_StanlyDefeat::
     .string "Hmm…$"
 
 SixIsland_RuinValley_Text_StanlyPostBattle::
-    .string "I suggest to you that you, too,\n"
-    .string "give a thought to the secrets and\l"
-    .string "mysteries of our world once a day.$"
+    .string "Sana da günde bir kez dünyamızın\n"
+    .string "sırlarını ve gizemlerini düşünmeni\l"
+    .string "öneririm.$"
 
 SixIsland_RuinValley_Text_FosterIntro::
-    .string "I'm curious, what compelled you to\n"
-    .string "come here?$"
+    .string "Merak ediyorum, seni buraya gelmeye ne\n"
+    .string "itti?$"
 
 SixIsland_RuinValley_Text_FosterDefeat::
-    .string "It's been so long since I battled,\n"
-    .string "my instincts are off.$"
+    .string "Uzun zamandır savaşmadığım için\n"
+    .string "içgüdülerim körelmiş.$"
 
 SixIsland_RuinValley_Text_FosterPostBattle::
-    .string "There are several ruins on the\n"
-    .string "SEVII ISLANDS.\p"
-    .string "The majority of them date back\n"
-    .string "a long way.$"
+    .string "SEVII ADALARI'nda birkaç harabe var.\p"
+    .string "Çoğu çok eskilere dayanıyor.$"
 
 SixIsland_RuinValley_Text_LarryIntro::
-    .string "It's been said that there are\n"
-    .string "mysterious stones on this island.\p"
-    .string "I suspect it has something to do\n"
-    .string "with the ruins here.$"
+    .string "Bu adada gizemli taşlar olduğu\n"
+    .string "söyleniyor.\p"
+    .string "Buradaki harabelerle bir ilgisi\n"
+    .string "olduğundan şüpheleniyorum.$"
 
 SixIsland_RuinValley_Text_LarryDefeat::
-    .string "Oh, interesting.$"
+    .string "Ah, ilginç.$"
 
 SixIsland_RuinValley_Text_LarryPostBattle::
-    .string "Those ruins over there…\p"
-    .string "I haven't had any luck in finding\n"
-    .string "how I can get inside.$"
+    .string "Şuradaki harabeler…\p"
+    .string "İçeri nasıl gireceğimi bulmakta hiç\n"
+    .string "şansım olmadı.$"
 
 SixIsland_RuinValley_Text_DarylIntro::
-    .string "A battle with you, so high up!$"
+    .string "Bu kadar yüksekte seninle bir savaş!$"
 
 SixIsland_RuinValley_Text_DarylDefeat::
-    .string "Oh, the heartbreak of losing so\n"
-    .string "easily to you!$"
+    .string "Ah, sana bu kadar kolay kaybetmenin\n"
+    .string "hüznü!$"
 
 SixIsland_RuinValley_Text_DarylPostBattle::
-    .string "Experience the joy of climbing!$"
+    .string "Tırmanmanın keyfini yaşa!$"
 
 SixIsland_RuinValley_Text_HectorIntro::
-    .string "I'm pretty familiar with the land\n"
-    .string "around these parts.$"
+    .string "Buralardaki araziyi epey iyi bilirim.$"
 
 SixIsland_RuinValley_Text_HectorDefeat::
-    .string "You don't need to be so pushy.\n"
-    .string "I'll be happy to tell you.$"
+    .string "Bu kadar ısrarcı olmana gerek yok.\n"
+    .string "Sana memnuniyetle anlatırım.$"
 
 SixIsland_RuinValley_Text_HectorPostBattle::
-    .string "The door to the ruins…\n"
-    .string "It has these strange patterns\l"
-    .string "engraved on the outside.\p"
-    .string "I don't know what they mean,\n"
-    .string "though.$"
+    .string "Harabelerin kapısı…\n"
+    .string "Dışına tuhaf desenler kazınmış.\p"
+    .string "Ama ne anlama geldiklerini bilmiyorum.$"

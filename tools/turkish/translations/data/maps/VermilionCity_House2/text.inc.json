@@ -1,0 +1,7 @@
+{
+ "2": "Selam!\\n{STR_VAR_1} var mı sende?\\pBenim {STR_VAR_2} ile takas etmek ister misin?$",
+ "8": "Ne yazık.$",
+ "11": "…Bu bir {STR_VAR_1} değil.\\pBir tane bulursan lütfen benimle takas et!$",
+ "16": "Teşekkürler!$",
+ "19": "Eski {STR_VAR_2} nasıl?\\pBenim {STR_VAR_1} gayet iyi!$"
+}

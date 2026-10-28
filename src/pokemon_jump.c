@@ -3342,7 +3342,7 @@ static void PrintPrizeMessage(u16 itemId, u16 quantity)
     ConvertIntToDecimalStringN(sPokemonJumpGfx->itemQuantityStr, quantity, STR_CONV_MODE_LEFT_ALIGN, 1);
     if (itemId >= FIRST_BERRY_INDEX && itemId < LAST_BERRY_INDEX)
     {
-        if (quantity > 1)
+        if (FALSE) // Turkish: no plural after a count
         {
             int endi = StringLength(sPokemonJumpGfx->itemName);
             if (endi != 0)

@@ -1,156 +1,149 @@
 SixIsland_PatternBush_Text_BethanyIntro::
-    .string "I'm curious, how do you raise your\n"
-    .string "POKéMON?$"
+    .string "Merak ediyorum, POKéMON'larını nasıl\n"
+    .string "yetiştiriyorsun?$"
 
 SixIsland_PatternBush_Text_BethanyDefeat::
-    .string "You raise your POKéMON with a\n"
-    .string "whole lot of love!$"
+    .string "POKéMON'larını bolca sevgiyle\n"
+    .string "yetiştiriyorsun!$"
 
 SixIsland_PatternBush_Text_BethanyPostBattle::
-    .string "In the same way your mother raised\n"
-    .string "you full of love, you should raise\l"
-    .string "your POKéMON.$"
+    .string "Annenin seni sevgiyle büyüttüğü gibi\n"
+    .string "sen de POKéMON'larını öyle\l"
+    .string "yetiştirmelisin.$"
 
 SixIsland_PatternBush_Text_AllisonIntro::
-    .string "I'm working to preserve the natural\n"
-    .string "ecology of POKéMON here.$"
+    .string "Buradaki POKéMON'ların doğal\n"
+    .string "ekolojisini korumak için çalışıyorum.$"
 
 SixIsland_PatternBush_Text_AllisonDefeat::
-    .string "Oh, for someone so young, you are\n"
-    .string "tremendous!$"
+    .string "Ah, bu kadar genç biri için\n"
+    .string "muhteşemsin!$"
 
 SixIsland_PatternBush_Text_AllisonPostBattle::
-    .string "I'm not saying that you shouldn't\n"
-    .string "catch POKéMON.\p"
-    .string "I just want people to raise their\n"
-    .string "POKéMON responsibly.$"
+    .string "POKéMON yakalamamalısın demiyorum.\p"
+    .string "Sadece insanların POKéMON'larını\n"
+    .string "sorumlulukla yetiştirmesini istiyorum.$"
 
 SixIsland_PatternBush_Text_GarretIntro::
-    .string "I caught a BUG POKéMON that lives\n"
-    .string "only around here!$"
+    .string "Sadece buralarda yaşayan bir BÖCEK\n"
+    .string "POKéMON'u yakaladım!$"
 
 SixIsland_PatternBush_Text_GarretDefeat::
-    .string "Heheh…\n"
-    .string "Isn't my POKéMON awesome?$"
+    .string "Hehe…\n"
+    .string "POKéMON'um müthiş değil mi?$"
 
 SixIsland_PatternBush_Text_GarretPostBattle::
-    .string "There's a girl near the BUSH who\n"
-    .string "measures HERACROSS for TRAINERS.$"
+    .string "ÇALILIK'ın yakınında EĞİTMENLER için\n"
+    .string "HERACROSS ölçen bir kız var.$"
 
 SixIsland_PatternBush_Text_JonahIntro::
-    .string "You know, it just doesn't feel right\n"
-    .string "if I don't use BUG POKéMON.$"
+    .string "Biliyor musun, BÖCEK POKéMON'u\n"
+    .string "kullanmazsam içim rahat etmiyor.$"
 
 SixIsland_PatternBush_Text_JonahDefeat::
-    .string "It's okay, losing is a fun part of\n"
-    .string "POKéMON's appeal, too.$"
+    .string "Sorun değil, kaybetmek de POKéMON'un\n"
+    .string "çekiciliğinin eğlenceli bir parçası.$"
 
 SixIsland_PatternBush_Text_JonahPostBattle::
-    .string "By the way, “appeal” is a weird\n"
-    .string "word, if you think about it.\p"
-    .string "Like, is it like an orange peel?\n"
-    .string "Or like a ringing bell?$"
+    .string "Bu arada, düşününce “çekicilik” tuhaf\n"
+    .string "bir kelime.\p"
+    .string "Yani, çekiçle bir ilgisi var mı?\n"
+    .string "Yoksa çekilişle mi?$"
 
 SixIsland_PatternBush_Text_VanceIntro::
-    .string "Yeah, yeah, yeah!\n"
-    .string "Look at all the BUG POKéMON!$"
+    .string "Evet, evet, evet!\n"
+    .string "Şu BÖCEK POKéMON'larına bak!$"
 
 SixIsland_PatternBush_Text_VanceDefeat::
-    .string "I got beat while I was still busy\n"
-    .string "celebrating!$"
+    .string "Daha kutlamakla meşgulken yenildim!$"
 
 SixIsland_PatternBush_Text_VancePostBattle::
-    .string "I'm going to bring my little brother\n"
-    .string "here next time.$"
+    .string "Bir dahaki sefere küçük kardeşimi de\n"
+    .string "buraya getireceğim.$"
 
 SixIsland_PatternBush_Text_NashIntro::
-    .string "Look, look! There are funny\n"
-    .string "patterns on the ground.$"
+    .string "Bak, bak! Yerde komik desenler var.$"
 
 SixIsland_PatternBush_Text_NashDefeat::
-    .string "Super awesome!$"
+    .string "Süper müthiş!$"
 
 SixIsland_PatternBush_Text_NashPostBattle::
-    .string "The funny patterns on the ground…\p"
-    .string "They look like the patterns on my\n"
-    .string "grandpa's clothes.$"
+    .string "Yerdeki komik desenler…\p"
+    .string "Dedemin kıyafetlerindeki desenlere\n"
+    .string "benziyor.$"
 
 SixIsland_PatternBush_Text_CordellIntro::
-    .string "I bet you think I'm just some guy,\n"
-    .string "don't you, eh?$"
+    .string "Beni sıradan biri sanıyorsun, değil mi,\n"
+    .string "eh?$"
 
 SixIsland_PatternBush_Text_CordellDefeat::
-    .string "I bet you think I'm weak,\n"
-    .string "don't you, eh?$"
+    .string "Beni zayıf sanıyorsun, değil mi, eh?$"
 
 SixIsland_PatternBush_Text_CordellPostBattle::
-    .string "Ayup, you townies come around all\n"
-    .string "so dandy with a hat that flashy…\p"
-    .string "How about giving me that?$"
+    .string "Hı-hı, siz şehirliler o gösterişli\n"
+    .string "şapkalarla bir hoş gelirsiniz…\p"
+    .string "Şunu bana versene?$"
 
 SixIsland_PatternBush_Text_DaliaIntro::
-    .string "Take a deep breath.\n"
-    .string "Isn't the air delicious?$"
+    .string "Derin bir nefes al.\n"
+    .string "Hava enfes değil mi?$"
 
 SixIsland_PatternBush_Text_DaliaDefeat::
-    .string "If you'd like, I can teach you how\n"
-    .string "to breathe properly.$"
+    .string "İstersen sana doğru nefes almayı\n"
+    .string "öğretebilirim.$"
 
 SixIsland_PatternBush_Text_DaliaPostBattle::
-    .string "First, exhale.\n"
-    .string "Blow everything out.\p"
-    .string "When you can't exhale anymore,\n"
-    .string "inhale the clean air!\p"
-    .string "Isn't it refreshing?$"
+    .string "Önce nefes ver.\n"
+    .string "Her şeyi dışarı üfle.\p"
+    .string "Daha fazla nefes veremeyince temiz\n"
+    .string "havayı içine çek!\p"
+    .string "Ferahlatıcı değil mi?$"
 
 SixIsland_PatternBush_Text_JoanaIntro::
-    .string "I love BUG POKéMON.\n"
-    .string "That's why I'm here all the time.\p"
-    .string "Am I the only girl like that?$"
+    .string "BÖCEK POKéMON'larını severim.\n"
+    .string "Bu yüzden hep buradayım.\p"
+    .string "Böyle olan tek kız ben miyim?$"
 
 SixIsland_PatternBush_Text_JoanaDefeat::
-    .string "I lost, but I'm still laughing.\n"
-    .string "Am I the only girl like that?$"
+    .string "Kaybettim ama hâlâ gülüyorum.\n"
+    .string "Böyle olan tek kız ben miyim?$"
 
 SixIsland_PatternBush_Text_JoanaPostBattle::
-    .string "I'm going to keep on collecting\n"
-    .string "BUG POKéMON.\p"
-    .string "Am I the only girl like that?$"
+    .string "BÖCEK POKéMON'u toplamaya devam\n"
+    .string "edeceğim.\p"
+    .string "Böyle olan tek kız ben miyim?$"
 
 SixIsland_PatternBush_Text_RileyIntro::
-    .string "This is a good spot.\n"
-    .string "I'll pitch my tent here.$"
+    .string "Burası iyi bir yer.\n"
+    .string "Çadırımı buraya kuracağım.$"
 
 SixIsland_PatternBush_Text_RileyDefeat::
-    .string "Wimped out…$"
+    .string "Pes ettim…$"
 
 SixIsland_PatternBush_Text_RileyPostBattle::
-    .string "I'm going to observe the night sky\n"
-    .string "here.$"
+    .string "Gece gökyüzünü buradan\n"
+    .string "gözlemleyeceğim.$"
 
 SixIsland_PatternBush_Text_MarcyIntro::
-    .string "Oh, yuck!\n"
-    .string "I think a bug stung me!$"
+    .string "Iyy!\n"
+    .string "Sanırım bir böcek soktu!$"
 
 SixIsland_PatternBush_Text_MarcyDefeat::
-    .string "It wasn't a bug.\n"
-    .string "I cut my shin on some grass.$"
+    .string "Böcek değilmiş.\n"
+    .string "Bacağımı otlara kestirmişim.$"
 
 SixIsland_PatternBush_Text_MarcyPostBattle::
-    .string "A little cut like that…\n"
-    .string "A little spit's enough to cure it!$"
+    .string "Böyle küçük bir kesik…\n"
+    .string "Biraz tükürük iyileştirmeye yeter!$"
 
 SixIsland_PatternBush_Text_LaytonIntro::
-    .string "Have you noticed something odd\n"
-    .string "about these parts?$"
+    .string "Buralarda tuhaf bir şey fark ettin mi?$"
 
 SixIsland_PatternBush_Text_LaytonDefeat::
-    .string "Have you taken a good look around\n"
-    .string "your feet?$"
+    .string "Ayaklarının etrafına iyice baktın mı?$"
 
 SixIsland_PatternBush_Text_LaytonPostBattle::
-    .string "There are places here in PATTERN\n"
-    .string "BUSH where grass won't grow.\p"
-    .string "What could be the cause of such\n"
-    .string "a phenomenon?$"
+    .string "DESENLİ ÇALILIK'ta otun bitmediği\n"
+    .string "yerler var.\p"
+    .string "Böyle bir olayın nedeni ne olabilir?$"
 

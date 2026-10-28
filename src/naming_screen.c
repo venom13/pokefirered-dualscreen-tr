@@ -389,23 +389,23 @@ static const u8 sKeyboardChars[KBPAGE_COUNT][KBROW_COUNT][KBCOL_COUNT] = {
         __("TUVWXYZ"),
     },
     [KEYBOARD_SYMBOLS] = {
-        __("01234"),
-        __("56789"),
-        __("!?♂♀/-"),
-        __("…“”‘'"),
+        __("01234çöü"),
+        __("56789ğış"),
+        __("!?♂♀/-ÇÖ"),
+        __("…“”'ÜĞİŞ"),
     }
 };
 
 static const u8 sPageColumnCounts[] = {
     [KEYBOARD_LETTERS_LOWER] = KBCOL_COUNT,
     [KEYBOARD_LETTERS_UPPER] = KBCOL_COUNT,
-    [KEYBOARD_SYMBOLS]       = 6
+    [KEYBOARD_SYMBOLS]       = 8
 };
 
 static const u8 sPageColumnXPos[KBPAGE_COUNT][KBCOL_COUNT] = {
     [KEYBOARD_LETTERS_LOWER] = {0, 12, 24, 56, 68, 80, 92, 123},
     [KEYBOARD_LETTERS_UPPER] = {0, 12, 24, 56, 68, 80, 92, 123},
-    [KEYBOARD_SYMBOLS]       = {0, 22, 44, 66, 88, 110}
+    [KEYBOARD_SYMBOLS]       = {0, 16, 32, 48, 64, 80, 96, 112}
 };
 
 void DoNamingScreen(u8 templateNum, u8 *destBuffer, u16 monSpecies, u16 monGender, u32 monPersonality, MainCallback returnCallback)

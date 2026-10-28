@@ -1,29 +1,27 @@
 FourIsland_LoreleisHouse_Text_IfAnythingWereToHappenToIsland::
-    .string "LORELEI: There's something weighing\n"
-    .string "heavily on my mind.\p"
-    .string "If anything were to happen on\n"
-    .string "the island where I was born…\p"
-    .string "I wouldn't know about it if I were\n"
-    .string "in the POKéMON LEAGUE.\p"
-    .string "I wonder if that would make me\n"
-    .string "irresponsible to my home…$"
+    .string "LORELEI: Aklımı epey meşgul eden bir\n"
+    .string "şey var.\p"
+    .string "Doğduğum adada bir şey olsa…\p"
+    .string "POKéMON LİGİ'ndeyken bundan haberim\n"
+    .string "olmazdı.\p"
+    .string "Acaba bu, memleketime karşı\n"
+    .string "sorumsuzluk olur mu…$"
 
 FourIsland_LoreleisHouse_Text_IllReturnToLeagueInShortWhile::
-    .string "LORELEI: So, you managed to solve\n"
-    .string "all the problems here?\p"
-    .string "That's wonderful.\p"
-    .string "That means there isn't any reason\n"
-    .string "for me to be here all the time.\p"
-    .string "Thank you…\p"
-    .string "I'll return to the POKéMON LEAGUE\n"
-    .string "in a short while.$"
+    .string "LORELEI: Demek buradaki bütün\n"
+    .string "sorunları çözmeyi başardın?\p"
+    .string "Bu harika.\p"
+    .string "Demek ki sürekli burada olmam için bir\n"
+    .string "neden kalmadı.\p"
+    .string "Teşekkürler…\p"
+    .string "Kısa süre içinde POKéMON LİGİ'ne\n"
+    .string "döneceğim.$"
 
 FourIsland_LoreleisHouse_Text_WillDoWhatICanHereAndNow::
-    .string "I don't know what will happen in\n"
-    .string "the future, but…\p"
-    .string "I will do what I can here and now.\n"
-    .string "That's all I can do.$"
+    .string "Gelecekte ne olacağını bilmiyorum ama…\p"
+    .string "Şu an burada elimden geleni yapacağım.\n"
+    .string "Yapabileceğim tek şey bu.$"
 
 FourIsland_LoreleisHouse_Text_StuffedMonDollsGalore::
-    .string "Stuffed POKéMON dolls galore!$"
+    .string "Bir sürü peluş POKéMON bebeği!$"
 

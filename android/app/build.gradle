@@ -5,8 +5,9 @@ plugins {
 // Public release numbering resumed at 0.1.1 after local test builds through
 // 0.1.4 (10400). Keep versionCode independent and increase it on every release
 // so those installations can update in place without losing saves/settings.
-def dualScreenVersion = '0.2.0'
-def dualScreenVersionCode = 10404
+// Turkish edition: own package id, own numbering (first release 0.5.0).
+def dualScreenVersion = '0.5.0'
+def dualScreenVersionCode = 10500
 
 android {
     buildFeatures { buildConfig true }
@@ -20,7 +21,8 @@ android {
         // com.pokeemerald.experimental: sharing an applicationId with a
         // differently signed APK makes each refuse to install over the other,
         // so both ports can be installed side by side.
-        applicationId 'com.pokefirered.dualscreen'
+        // Turkish edition: its own id, so it installs beside the English one.
+        applicationId 'com.pokefirered.dualscreen.tr'
         minSdk 21
         targetSdk 36
         versionCode dualScreenVersionCode

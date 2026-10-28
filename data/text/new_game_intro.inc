@@ -1,5 +1,5 @@
 gOtherText_NewName::
-    .string "NEW NAME$"
+    .string "YENİ AD$"
 
 gNameChoice_Green::
     .string "GREEN$"
@@ -125,119 +125,121 @@ gNameChoice_Suzi::
     .string "SUZI$"
 
 gControlsGuide_Text_Intro::
-    .string "The various buttons will be explained in\n"
-    .string "the order of their importance.$"
+    .string "Çeşitli tuşlar önem sırasına göre\n"
+    .string "açıklanacak.$"
 
 gControlsGuide_Text_DPad::
-    .string "Moves the main character.\n"
-    .string "Also used to choose various data\n"
-    .string "headings.$"
+    .string "Ana karakteri hareket ettirir.\n"
+    .string "Çeşitli veri başlıklarını seçmek için\n"
+    .string "de kullanılır.$"
 
 gControlsGuide_Text_AButton::
-    .string "Used to confirm a choice, check\n"
-    .string "things, chat, and scroll text.$"
+    .string "Seçimi onaylamak, bir şeye bakmak,\n"
+    .string "konuşmak ve metni ilerletmek içindir.$"
 
 gControlsGuide_Text_BButton::
-    .string "Used to exit, cancel a choice,\n"
-    .string "and cancel a mode.$"
+    .string "Çıkmak, seçimden vazgeçmek ve bir\n"
+    .string "moddan çıkmak için kullanılır.$"
 
 gControlsGuide_Text_StartButton::
-    .string "Press this button to open the\n"
-    .string "MENU.$"
+    .string "MENÜ'yü açmak için bu tuşa bas.$"
 
 gControlsGuide_Text_SelectButton::
-    .string "Used to shift items and to use\n"
-    .string "a registered item.$"
+    .string "Eşyaların yerini değiştirmek ve kayıtlı\n"
+    .string "eşyayı kullanmak için kullanılır.$"
 
 gControlsGuide_Text_LRButtons::
-    .string "If you need help playing the\n"
-    .string "game, or on how to do things,\n"
-    .string "press the L or R Button.$"
+    .string "Oyunu oynarken ya da bir şeyi nasıl\n"
+    .string "yapacağın konusunda yardım gerekirse\n"
+    .string "L ya da R Tuşuna bas.$"
 
 gOakSpeech_Text_AskPlayerGender::
-    .string "Now tell me. Are you a boy?\n"
-    .string "Or are you a girl?$"
+    .string "Şimdi söyle bakalım. Erkek misin?\n"
+    .string "Yoksa kız mısın?$"
 
 gPikachuIntro_Text_Page1::
-    .string "In the world which you are about to\n"
-    .string "enter, you will embark on a grand\n"
-    .string "adventure with you as the hero.\n"
+    .string "Gireceğin bu dünyada, kahramanı sen\n"
+    .string "olduğun büyük bir maceraya\n"
+    .string "atılacaksın.\n"
     .string "\n"
-    .string "Speak to people and check things\n"
-    .string "wherever you go, be it towns, roads,\n"
-    .string "or caves. Gather information and\n"
-    .string "hints from every source.$"
+    .string "Gittiğin her yerde, kasaba, yol ya da\n"
+    .string "mağara fark etmez, insanlarla konuş ve\n"
+    .string "etrafı incele. Her kaynaktan bilgi ve\n"
+    .string "ipucu topla.$"
 
 gPikachuIntro_Text_Page2::
-    .string "New paths will open to you by helping\n"
-    .string "people in need, overcoming challenges,\n"
-    .string "and solving mysteries.\n"
+    .string "Zor durumdakilere yardım ederek,\n"
+    .string "engelleri aşarak ve gizemleri çözerek\n"
+    .string "yeni yollar açacaksın.\n"
     .string "\n"
-    .string "At times, you will be challenged by\n"
-    .string "others and attacked by wild creatures.\n"
-    .string "Be brave and keep pushing on.$"
+    .string "Zaman zaman başkaları sana meydan\n"
+    .string "okuyacak, vahşi yaratıklar saldıracak.\n"
+    .string "Cesur ol ve ilerlemeye devam et.$"
 
 gPikachuIntro_Text_Page3::
-    .string "Through your adventure, we hope\n"
-    .string "that you will interact with all sorts\n"
-    .string "of people and achieve personal growth.\n"
-    .string "That is our biggest objective.\n"
+    .string "Macerandaki her türden insanla\n"
+    .string "kaynaşmanı ve kendini geliştirmeni\n"
+    .string "umuyoruz. En büyük hedefimiz bu.\n"
     .string "\n"
-    .string "Press the A Button, and let your\n"
-    .string "adventure begin!$"
+    .string "A Tuşuna bas ve maceran başlasın!$"
 
 gOakSpeech_Text_WelcomeToTheWorld::
-    .string "Hello, there!\n"
-    .string "Glad to meet you!\p"
-    .string "Welcome to the world of POKéMON!\p"
-    .string "My name is OAK.\p"
-    .string "People affectionately refer to me\n"
-    .string "as the POKéMON PROFESSOR.\p$"
+    .string "Merhaba!\n"
+    .string "Tanıştığıma memnun oldum!\p"
+    .string "POKéMON dünyasına hoş geldin!\p"
+    .string "Benim adım OAK.\p"
+    .string "İnsanlar bana sevgiyle POKéMON\n"
+    .string "PROFESÖRÜ der.\p"
+    .string "$"
 
 gOakSpeech_Text_ThisWorld::
-    .string "This world…$"
+    .string "Bu dünyada…$"
 
 gOakSpeech_Text_IsInhabitedFarAndWide::
-    .string "…is inhabited far and wide by\n"
-    .string "creatures called POKéMON.\p$"
+    .string "…her yerde POKéMON denen yaratıklar\n"
+    .string "yaşar.\p"
+    .string "$"
 
 gOakSpeech_Text_IStudyPokemon::
-    .string "For some people, POKéMON are pets.\n"
-    .string "Others use them for battling.\p"
-    .string "As for myself…\p"
-    .string "I study POKéMON as a profession.\p$"
+    .string "Bazıları için POKéMON evcil hayvandır.\n"
+    .string "Bazıları da onları savaşmak için\l"
+    .string "kullanır.\p"
+    .string "Bana gelince…\p"
+    .string "Ben POKéMON'ları meslek olarak\n"
+    .string "inceliyorum.\p"
+    .string "$"
 
 gOakSpeech_Text_TellMeALittleAboutYourself::
-    .string "But first, tell me a little about\n"
-    .string "yourself.\p$"
+    .string "Ama önce bana biraz kendinden bahset.\p"
+    .string "$"
 
 gOakSpeech_Text_YourNameWhatIsIt::
-    .string "Let's begin with your name.\n"
-    .string "What is it?\p$"
+    .string "Adınla başlayalım.\n"
+    .string "Adın ne?\p"
+    .string "$"
 
 gOakSpeech_Text_SoYourNameIsPlayer::
-    .string "Right…\n"
-    .string "So your name is {PLAYER}.$"
+    .string "Peki…\n"
+    .string "Demek adın {PLAYER}.$"
 
 gOakSpeech_Text_WhatWasHisName::
-    .string "This is my grandson.\p"
-    .string "He's been your rival since you both\n"
-    .string "were babies.\p"
-    .string "…Erm, what was his name now?$"
+    .string "Bu benim torunum.\p"
+    .string "İkiniz bebekliğinizden beri rakipsiniz.\p"
+    .string "…Şey, onun adı neydi?$"
 
 gOakSpeech_Text_YourRivalsNameWhatWasIt::
-    .string "Your rival's name, what was it now?$"
+    .string "Rakibinin adı neydi?$"
 
 gOakSpeech_Text_ConfirmRivalName::
-    .string "…Er, was it {RIVAL}?$"
+    .string "…Şey, {RIVAL} mıydı?$"
 
 gOakSpeech_Text_RememberRivalsName::
-    .string "That's right! I remember now!\n"
-    .string "His name is {RIVAL}!\p$"
+    .string "Doğru! Şimdi hatırladım!\n"
+    .string "Onun adı {RIVAL}!\p"
+    .string "$"
 
 gOakSpeech_Text_LetsGo::
     .string "{PLAYER}!\p"
-    .string "Your very own POKéMON legend is\n"
-    .string "about to unfold!\p"
-    .string "A world of dreams and adventures\n"
-    .string "with POKéMON awaits! Let's go!$"
+    .string "Kendi POKéMON efsanen başlamak üzere!\p"
+    .string "POKéMON'larla dolu bir rüya ve macera\n"
+    .string "dünyası seni bekliyor! Haydi!$"

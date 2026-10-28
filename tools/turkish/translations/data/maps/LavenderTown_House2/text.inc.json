@@ -1,0 +1,11 @@
+{
+ "2": "Merhaba, merhaba!\\nBen resmi AD DEĞERLENDİRİCİ'yim!\\pPOKéMON'larının lakaplarını değerlendirmemi ister misin?$",
+ "8": "Hangi POKéMON'un lakabını eleştireyim?$",
+ "12": "{STR_VAR_1}, öyle mi?\\nFena olmayan bir lakap!\\pAma ona daha güzel bir ad vermemi ister misin?\\pNe dersin?$",
+ "19": "Ah, güzel. O halde yeni lakap ne olsun?$",
+ "23": "Tamamdır! Bundan sonra bu POKéMON'un adı {STR_VAR_1}!\\pÖncekinden daha iyi bir ad!\\nNe şanslısın!$",
+ "29": "Anlıyorum.\\nYine ziyarete gel.$",
+ "33": "Tamamdır! Bundan sonra bu POKéMON'un adı {STR_VAR_1}!\\pÖncekinden hiç farkı yok gibi ama yine de çok daha üstün!\\pNe şanslısın!$",
+ "40": "{STR_VAR_1}, öyle mi?\\nGerçekten kusursuz bir ad!\\p{STR_VAR_1} adlı POKéMON'una iyi bak!$",
+ "45": "Yok, yok.\\nO sadece bir YUMURTA!$"
+}

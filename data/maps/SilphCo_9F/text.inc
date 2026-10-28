@@ -1,47 +1,47 @@
 SilphCo_9F_Text_YouShouldTakeQuickNap::
-    .string "You look tired.\n"
-    .string "You should take a quick nap.$"
+    .string "Yorgun görünüyorsun.\n"
+    .string "Biraz kestirmelisin.$"
 
 SilphCo_9F_Text_DontGiveUp::
-    .string "Don't give up!$"
+    .string "Pes etme!$"
 
 SilphCo_9F_Text_ThankYouSoMuch::
-    .string "Thank you so much.$"
+    .string "Çok teşekkürler.$"
 
 SilphCo_9F_Text_Grunt1Intro::
-    .string "Your POKéMON seem to adore you,\n"
-    .string "kid!$"
+    .string "POKéMON'ların sana bayılıyor gibi,\n"
+    .string "evlat!$"
 
 SilphCo_9F_Text_Grunt1Defeat::
-    .string "Ghaaah!$"
+    .string "Gaaah!$"
 
 SilphCo_9F_Text_Grunt1PostBattle::
-    .string "If I had started as a TRAINER at\n"
-    .string "your age…$"
+    .string "Senin yaşında EĞİTMEN olmaya\n"
+    .string "başlasaydım…$"
 
 SilphCo_9F_Text_EdIntro::
-    .string "Your POKéMON have weak points!\n"
-    .string "I can nail them!$"
+    .string "POKéMON'larının zayıf noktaları var!\n"
+    .string "Onları yakalayabilirim!$"
 
 SilphCo_9F_Text_EdDefeat::
-    .string "You hammered me!$"
+    .string "Beni yerle bir ettin!$"
 
 SilphCo_9F_Text_EdPostBattle::
-    .string "Exploiting weak spots does work.\n"
-    .string "Think about type advantages.$"
+    .string "Zayıf noktalardan yararlanmak işe\n"
+    .string "yarar.\l"
+    .string "Tür avantajlarını düşün.$"
 
 SilphCo_9F_Text_Grunt2Intro::
-    .string "I am one of the four ROCKET\n"
-    .string "BROTHERS!$"
+    .string "Dört ROCKET KARDEŞ'ten biriyim!$"
 
 SilphCo_9F_Text_Grunt2Defeat::
-    .string "Warg!\n"
-    .string "Brothers, I lost!$"
+    .string "Varg!\n"
+    .string "Kardeşlerim, kaybettim!$"
 
 SilphCo_9F_Text_Grunt2PostBattle::
-    .string "My brothers will avenge me!$"
+    .string "Kardeşlerim intikamımı alacak!$"
 
 SilphCo_9F_Text_FloorSign::
-    .string "SILPH CO. HEAD OFFICE\n"
-    .string "9F$"
+    .string "SILPH ŞİRKETİ MERKEZ OFİSİ\n"
+    .string "9. KAT$"
 

@@ -1,27 +1,26 @@
 ThreeIsland_DunsparceTunnel_Text_ProspectingForGold::
-    .string "Hey, there!\n"
-    .string "How's it going?\p"
-    .string "What am I doing here, you ask?\n"
-    .string "Why, I'm prospecting for gold!\p"
-    .string "When I strike it rich, I'm buying\n"
-    .string "a house in KANTO.$"
+    .string "Hey, selam!\n"
+    .string "Nasıl gidiyor?\p"
+    .string "Burada ne mi yapıyorum?\n"
+    .string "Altın arıyorum tabii ki!\p"
+    .string "Zengin olunca KANTO'da bir ev\n"
+    .string "alacağım.$"
 
 ThreeIsland_DunsparceTunnel_Text_StruckGoldThisIsForYou::
-    .string "Hey, there! How's it going?\n"
-    .string "Did you hear? I've struck gold!\p"
-    .string "You remembered that I was\n"
-    .string "prospecting, didn't you?\p"
-    .string "You can't begin to imagine just\n"
-    .string "how happy I am.\p"
-    .string "So, I'll show you!\n"
-    .string "This is for you!$"
+    .string "Hey, selam! Nasıl gidiyor?\n"
+    .string "Duydun mu? Altın buldum!\p"
+    .string "Altın aradığımı hatırlıyorsun, değil mi?\p"
+    .string "Ne kadar mutlu olduğumu hayal bile\n"
+    .string "edemezsin.\p"
+    .string "O yüzden göstereceğim!\n"
+    .string "Bu senin için!$"
 
 ThreeIsland_DunsparceTunnel_Text_ThatsANugget::
-    .string "That's a NUGGET!\p"
-    .string "I can't give you any nuggets of\n"
-    .string "wisdom, so that'll have to do!$"
+    .string "Bu bir KÜLÇE!\p"
+    .string "Sana altın değerinde öğütler veremem,\n"
+    .string "o yüzden bu olsun!$"
 
 ThreeIsland_DunsparceTunnel_Text_WhoopsBagCrammedFull::
-    .string "Whoops, your BAG is crammed full!\n"
-    .string "I'll give this to you later.$"
+    .string "Hoppala, ÇANTAN tıka basa dolu!\n"
+    .string "Bunu sana sonra veririm.$"
 

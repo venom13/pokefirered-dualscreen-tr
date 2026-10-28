@@ -1,0 +1,8 @@
+{
+ "2": "{STR_VAR_2} Birinin PC'sine aktarıldı.\\p“{STR_VAR_1}” KUTUSU'na kondu.$",
+ "8": "{STR_VAR_2} BILL'İN PC'sine aktarıldı.\\p“{STR_VAR_1}” KUTUSU'na kondu.$",
+ "14": "Birinin PC'sindeki “{STR_VAR_3}” KUTUSU doluydu.\\p{STR_VAR_2}, “{STR_VAR_1}” KUTUSU'na aktarıldı.$",
+ "20": "BILL'İN PC'sindeki “{STR_VAR_3}” KUTUSU doluydu.\\p{STR_VAR_2}, “{STR_VAR_1}” KUTUSU'na aktarıldı.$",
+ "26": "{PLAYER}\\n{STR_VAR_1} aldı!$",
+ "37": "POKéMON için daha fazla yer yok!\\pPOKéMON KUTULARI dolu ve daha fazlasını kabul edemiyor!$"
+}

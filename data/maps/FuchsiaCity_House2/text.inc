@@ -1,37 +1,37 @@
 FuchsiaCity_House2_Text_DoYouLikeToFish::
-    .string "I'm the FISHING GURU's older\n"
-    .string "brother.\p"
-    .string "I simply looove fishing!\n"
-    .string "I can't bear to go without.\p"
-    .string "Tell me, do you like to fish?$"
+    .string "Ben BALIKÇI GURU'nun ağabeyiyim.\p"
+    .string "Balık tutmaya bayılırımmm!\n"
+    .string "Onsuz yapamam.\p"
+    .string "Söyle bakalım, balık tutmayı sever\n"
+    .string "misin?$"
 
 FuchsiaCity_House2_Text_LikeYourStyleTakeThis::
-    .string "Grand! I like your style.\n"
-    .string "I think we can be friends.\p"
-    .string "Take this and fish, young friend!$"
+    .string "Harika! Tarzını sevdim.\n"
+    .string "Bence arkadaş olabiliriz.\p"
+    .string "Bunu al ve balık tut, genç dostum!$"
 
 FuchsiaCity_House2_Text_ReceivedGoodRod::
-    .string "{PLAYER} received a GOOD ROD from\n"
-    .string "the FISHING GURU's brother.$"
+    .string "{PLAYER}, BALIKÇI GURU'nun ağabeyinden\n"
+    .string "bir İYİ OLTA aldı.$"
 
 FuchsiaCity_House2_Text_GoodRodCanCatchBetterMons::
-    .string "Fishing is a way of life!\n"
-    .string "It is like the finest poetry.\p"
-    .string "A crummy OLD ROD could only catch\n"
-    .string "MAGIKARP, yes?\p"
-    .string "But with a GOOD ROD, you can\n"
-    .string "catch much better POKéMON.$"
+    .string "Balık tutmak bir yaşam biçimidir!\n"
+    .string "En güzel şiir gibidir.\p"
+    .string "Kötü bir ESKİ OLTA ancak MAGIKARP\n"
+    .string "yakalar, değil mi?\p"
+    .string "Ama İYİ OLTA ile çok daha iyi POKéMON\n"
+    .string "yakalayabilirsin.$"
 
 FuchsiaCity_House2_Text_OhThatsDisappointing::
-    .string "Oh…\n"
-    .string "That's so disappointing…$"
+    .string "Ah…\n"
+    .string "Ne hayal kırıklığı…$"
 
 FuchsiaCity_House2_Text_HowAreTheFishBiting::
-    .string "Hello there, {PLAYER}!\p"
-    .string "How are the fish biting?$"
+    .string "Merhaba, {PLAYER}!\p"
+    .string "Balıklar oltaya geliyor mu?$"
 
 FuchsiaCity_House2_Text_YouHaveNoRoomForGift::
-    .string "Oh, no!\p"
-    .string "I had a gift for you, but you have\n"
-    .string "no room for it!$"
+    .string "Ah, hayır!\p"
+    .string "Sana bir hediyem vardı ama ona yerin\n"
+    .string "yok!$"
 

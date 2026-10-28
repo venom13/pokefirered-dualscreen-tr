@@ -1,123 +1,116 @@
 PokedexRating_Text_HowIsPokedexComingAlong::
-	.string "OAK: Good to see you!\n"
-	.string "How is your POKéDEX coming along?\p"
-	.string "Here, let me take a look.$"
+	.string "OAK: Seni görmek güzel!\n"
+	.string "POKéDEX'in nasıl gidiyor?\p"
+	.string "Ver, bir bakayım.$"
 
 PokedexRating_Text_SeenXOwnedY::
-	.string "The amount of progress you've made\n"
-	.string "on your POKéDEX is:\p"
-	.string "{STR_VAR_1} POKéMON seen and\n"
-	.string "{STR_VAR_2} POKéMON owned.\p"
-	.string "{FONT_NORMAL}PROF. OAK's rating:$"
+	.string "POKéDEX'inde kaydettiğin ilerleme:\p"
+	.string "{STR_VAR_1} POKéMON görüldü ve\n"
+	.string "{STR_VAR_2} POKéMON yakalandı.\p"
+	.string "{FONT_NORMAL}PROF. OAK'ın değerlendirmesi:$"
 
 PokedexRating_Text_LessThan10::
-	.string "You still have lots to do.\p"
-	.string "Go into every patch of grass you\n"
-	.string "see and look for POKéMON!$"
+	.string "Daha yapacak çok işin var.\p"
+	.string "Gördüğün her çimenliğe gir ve POKéMON\n"
+	.string "ara!$"
 
 PokedexRating_Text_LessThan20::
-	.string "It looks as if you're getting on\n"
-	.string "the right track!\p"
-	.string "I've given one of my AIDES a FLASH\n"
-	.string "HM. Make sure you go get it!$"
+	.string "Doğru yolda gibisin!\p"
+	.string "YARDIMCILARIMDAN birine FLAŞ GM'si\n"
+	.string "verdim. Gidip almayı unutma!$"
 
 PokedexRating_Text_LessThan30::
-	.string "Your POKéDEX could use a bit more\n"
-	.string "volume still!\p"
-	.string "Try to catch other species of\n"
-	.string "POKéMON!$"
+	.string "POKéDEX'in hâlâ biraz daha dolabilir!\p"
+	.string "Başka POKéMON türleri yakalamaya\n"
+	.string "çalış!$"
 
 PokedexRating_Text_LessThan40::
-	.string "Good, it's apparent that you're\n"
-	.string "trying hard!\p"
-	.string "I've given one of my AIDES an\n"
-	.string "ITEMFINDER. Be sure to collect it!$"
+	.string "Güzel, çok çabaladığın belli!\p"
+	.string "YARDIMCILARIMDAN birine EŞYA BULUCU\n"
+	.string "verdim. Almayı unutma!$"
 
 PokedexRating_Text_LessThan50::
-	.string "Your POKéDEX is coming along quite\n"
-	.string "well!\p"
-	.string "I've given one of my AIDES an\n"
-	.string "AMULET COIN. Be sure to get it!$"
+	.string "POKéDEX'in epey iyi gidiyor!\p"
+	.string "YARDIMCILARIMDAN birine TILSIMLI PARA\n"
+	.string "verdim. Almayı unutma!$"
 
 PokedexRating_Text_LessThan60::
-	.string "Ah, you've finally topped 50\n"
-	.string "species!\p"
-	.string "I've given one of my AIDES an EXP.\n"
-	.string "SHARE. Be sure to go get it!$"
+	.string "Ah, sonunda 50 türü geçtin!\p"
+	.string "YARDIMCILARIMDAN birine TP PAYLAŞIM\n"
+	.string "verdim. Gidip almayı unutma!$"
 
 PokedexRating_Text_LessThan70::
-	.string "Hoho! This is turning into quite the\n"
-	.string "respectable POKéDEX!$"
+	.string "Hoho! Bu epey saygın bir POKéDEX\n"
+	.string "olmaya başladı!$"
 
 PokedexRating_Text_LessThan80::
-	.string "Very good!\p"
-	.string "I think you'll collect even more\n"
-	.string "POKéMON by going fishing!$"
+	.string "Çok güzel!\p"
+	.string "Balık tutarak daha da fazla POKéMON\n"
+	.string "toplayacağını düşünüyorum!$"
 
 PokedexRating_Text_LessThan90::
-	.string "Wonderful! Let me guess… You\n"
-	.string "like to collect things, don't you?$"
+	.string "Harika! Tahmin edeyim… Bir şeyler\n"
+	.string "biriktirmeyi seviyorsun, değil mi?$"
 
 PokedexRating_Text_LessThan100::
-	.string "I'm impressed!\n"
-	.string "It must have been difficult to do!$"
+	.string "Etkilendim!\n"
+	.string "Bunu yapmak zor olmuş olmalı!$"
 
 PokedexRating_Text_LessThan110::
-	.string "You've finally hit 100 species!\n"
-	.string "I can't believe how good you are!$"
+	.string "Sonunda 100 türe ulaştın!\n"
+	.string "Ne kadar iyi olduğuna inanamıyorum!$"
 
 PokedexRating_Text_LessThan120::
-	.string "You even have the evolved forms\n"
-	.string "of POKéMON! Super!$"
+	.string "POKéMON'ların evrimleşmiş hâlleri bile\n"
+	.string "sende var! Süper!$"
 
 PokedexRating_Text_LessThan130::
-	.string "Excellent! Trade with friends to\n"
-	.string "get some more!$"
+	.string "Mükemmel! Daha fazlası için\n"
+	.string "arkadaşlarınla takas yap!$"
 
 PokedexRating_Text_LessThan140::
-	.string "Outstanding!\n"
-	.string "You've become a real pro at this!$"
+	.string "Olağanüstü!\n"
+	.string "Bu işte gerçek bir profesyonel oldun!$"
 
 PokedexRating_Text_LessThan150::
-	.string "I have nothing left to say!\n"
-	.string "You're the POKéMON PROFESSOR now!$"
+	.string "Söyleyecek bir şeyim kalmadı!\n"
+	.string "Artık POKéMON PROFESÖRÜ sensin!$"
 
 PokedexRating_Text_Complete::
-	.string "Your POKéDEX is entirely complete!\n"
-	.string "Congratulations!!$"
+	.string "POKéDEX'in tamamen eksiksiz!\n"
+	.string "Tebrikler!!$"
 
 PokedexRating_Text_NationalDexSeenXOwnedY::
-	.string "And your NATIONAL POKéDEX is:\p"
-	.string "{STR_VAR_1} POKéMON seen and\n"
-	.string "{STR_VAR_2} POKéMON owned.$"
+	.string "ULUSAL POKéDEX'in ise:\p"
+	.string "{STR_VAR_1} POKéMON görüldü ve\n"
+	.string "{STR_VAR_2} POKéMON yakalandı.$"
 
 PokedexRating_Text_LookForwardToFilledNationalDex::
-	.string "I'll be looking forward to seeing\n"
-	.string "you fill the NATIONAL POKéDEX!$"
+	.string "ULUSAL POKéDEX'i doldurduğunu görmeyi\n"
+	.string "dört gözle bekleyeceğim!$"
 
 PokedexRating_Text_YouveCompletedDex::
-	.string "Finally…\p"
-	.string "You've finally completed the\n"
-	.string "POKéDEX!\p"
-	.string "It's magnificent!\n"
-	.string "Truly, this is a fantastic feat!$"
+	.string "Sonunda…\p"
+	.string "Sonunda POKéDEX'i tamamladın!\p"
+	.string "Muhteşem!\n"
+	.string "Gerçekten harika bir başarı!$"
 
 PokedexRating_Text_Wroooaaarrr::
-	.string "Wroooooooaaaaaarrrr!$"
+	.string "Vuooooooaaaaaarrrr!$"
 
 PokedexRating_Text_HaHa::
 	.string "はあ はあ‥$"
 
 PokedexRating_Text_ThankYouMadeDreamReality::
-	.string "Thank you, {PLAYER}!\n"
-	.string "Sincerely, thank you!\l"
-	.string "You've made my dream a reality!$"
+	.string "Teşekkürler, {PLAYER}!\n"
+	.string "İçtenlikle teşekkür ederim!\l"
+	.string "Hayalimi gerçeğe dönüştürdün!$"
 
 PokedexRating_Text_LoveSeeingYourPokedex::
-	.string "OAK: Ah, welcome!\p"
-	.string "Tell me, how is your POKéDEX\n"
-	.string "coming along?\p"
-	.string "Wahaha!\p"
-	.string "Actually, I know how it is, but I\n"
-	.string "love seeing it anyway!\p"
-	.string "Let's see…$"
+	.string "OAK: Ah, hoş geldin!\p"
+	.string "Söyle bakalım, POKéDEX'in nasıl\n"
+	.string "gidiyor?\p"
+	.string "Vahaha!\p"
+	.string "Aslında nasıl olduğunu biliyorum ama\n"
+	.string "yine de görmeyi seviyorum!\p"
+	.string "Bakalım…$"

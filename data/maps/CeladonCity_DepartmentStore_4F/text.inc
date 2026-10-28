@@ -1,18 +1,17 @@
 CeladonCity_DepartmentStore_4F_Text_GettingPokeDollAsPresent::
-    .string "I'm getting a present for my\n"
-    .string "girlfriend.\p"
-    .string "I guess a POKé DOLL will be it.\n"
-    .string "It's the popular thing.$"
+    .string "Kız arkadaşıma hediye alıyorum.\p"
+    .string "Sanırım bir POKé BEBEK olacak.\n"
+    .string "Şu an popüler olan bu.$"
 
 CeladonCity_DepartmentStore_4F_Text_CanRunAwayWithPokeDoll::
-    .string "I heard something useful.\p"
-    .string "If a wild POKéMON appears, you can\n"
-    .string "distract it with a POKé DOLL.\p"
-    .string "You can run away while the wild\n"
-    .string "POKéMON is distracted.$"
+    .string "İşe yarar bir şey duydum.\p"
+    .string "Vahşi bir POKéMON çıkarsa POKé BEBEK\n"
+    .string "ile dikkatini dağıtabilirsin.\p"
+    .string "Vahşi POKéMON'un dikkati dağılmışken\n"
+    .string "kaçabilirsin.$"
 
 CeladonCity_DepartmentStore_4F_Text_FloorSign::
-    .string "Express yourself with gifts!\n"
-    .string "4F: WISE MAN GIFTS\p"
-    .string "Evolution Special!\n"
-    .string "Element STONES on sale now!$"
+    .string "Kendini hediyelerle ifade et!\n"
+    .string "4. KAT: BİLGE ADAM HEDİYELİK\p"
+    .string "Evrim Özel!\n"
+    .string "Element TAŞLARI şimdi indirimde!$"

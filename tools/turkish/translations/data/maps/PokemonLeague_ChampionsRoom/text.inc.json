@@ -1,0 +1,10 @@
+{
+ "2": "{RIVAL}: Hey, {PLAYER}!\\pSeni görmeyi dört gözle bekliyordum, {PLAYER}.\\pBeni keskin tutması için rakibim güçlü olmalı.\\pPOKéDEX'im üzerinde çalışırken her yerde POKéMON aradım.\\pSadece bu da değil, her POKéMON türünü yenecek takımlar kurdum.\\pVe şimdi…\\pPOKéMON LİGİ ŞAMPİYONU benim!\\p{PLAYER}!\\nBunun ne anlama geldiğini biliyor musun?\\pSöyleyeyim.\\pDünyanın en güçlü EĞİTMENİ benim!$",
+ "20": "{RIVAL}: Hey, {PLAYER}!\\pGeri geldin, {PLAYER}!\\nHahah, bu çok harika!\\pBeni keskin tutması için rakibim güçlü olmalı.\\pPOKéDEX'im üzerinde çalışırken her yerde POKéMON aradım.\\pSadece bu da değil, her POKéMON türünü yenecek takımlar kurdum.\\pVe şimdi…\\pPOKéMON LİGİ ŞAMPİYONU benim!\\p{PLAYER}!\\nBunun ne anlama geldiğini biliyor musun?\\pSöyleyeyim.\\pDünyanın en güçlü EĞİTMENİ benim!$",
+ "38": "HAYIR!\\nOlamaz!\\lEn iyi hâlimdeyken beni yendin!\\pLİG ŞAMPİYONU olmak için onca emekten sonra mı?\\pSaltanatım şimdiden bitti mi?\\nBu haksızlık!$",
+ "58": "Neden?\\nNeden kaybettim?\\pPOKéMON'larımı yetiştirirken hiç hata yapmadım…\\pLanet olsun! Yeni POKéMON LİGİ ŞAMPİYONU sensin!\\pKabul etmekten hoşlanmasam da…$",
+ "67": "OAK: {PLAYER}!$",
+ "70": "OAK: Demek kazandın!\\nİçtenlikle tebrik ederim!\\pYeni POKéMON LİGİ ŞAMPİYONU sensin!\\pPOKéDEX üzerinde çalışmak için {STR_VAR_1} ile yola çıktığından beri çok büyüdün.\\p{PLAYER}, artık olgunlaştın!$",
+ "80": "OAK: {RIVAL}…\\nSenden hayal kırıklığına uğradım.\\pELİT DÖRTLÜ'yü yendiğini duyunca geldim.\\pAma buraya vardığımda çoktan kaybetmiştin!\\p{RIVAL}, neden kaybettiğini anlıyor musun?\\pPOKéMON'larına sevgi ve güvenle davranmayı unuttun.\\pOnlar olmadan asla yeniden ŞAMPİYON olamazsın!$",
+ "94": "OAK: {PLAYER}.\\pZaferinin yalnızca senin eserin olmadığını anlıyorsun.\\pPOKéMON'larınla aranızdaki bağ harika.\\p{PLAYER}!\\nBenimle gel!$"
+}

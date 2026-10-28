@@ -1,27 +1,25 @@
 CeruleanCity_PokemonCenter_1F_Text_BillDoesWhateverForRareMons::
-    .string "That BILL!\p"
-    .string "I heard that he'll do whatever it\n"
-    .string "takes to get rare POKéMON.\p"
-    .string "He's not above doing all sorts\n"
-    .string "of things, I've heard.$"
+    .string "Şu BILL!\p"
+    .string "Nadir POKéMON elde etmek için her şeyi\n"
+    .string "yaparmış, duydum.\p"
+    .string "Her türlü şeyi yapmaktan çekinmezmiş,\n"
+    .string "öyle duydum.$"
 
 CeruleanCity_PokemonCenter_1F_Text_EveryoneCallsBillPokemaniac::
-    .string "Have you heard about BILL?\p"
-    .string "Everyone calls him a POKéMANIAC!\p"
-    .string "I think people are just jealous of\n"
-    .string "BILL, though.\p"
-    .string "Who wouldn't want to boast about\n"
-    .string "their POKéMON?$"
+    .string "BILL'i duydun mu?\p"
+    .string "Herkes ona POKéMANYAK diyor!\p"
+    .string "Ama bence insanlar BILL'i kıskanıyor.\p"
+    .string "Kim POKéMON'larıyla övünmek istemez ki?$"
 
 CeruleanCity_PokemonCenter_1F_Text_BillCollectsRareMons::
-    .string "BILL has lots of POKéMON!\n"
-    .string "He collects rare ones, too!$"
+    .string "BILL'in bir sürü POKéMON'u var!\n"
+    .string "Nadir olanları da topluyor!$"
 
 CeruleanCity_PokemonCenter_1F_Text_TryTradingUpstairs::
-    .string "Why don't you go upstairs and try\n"
-    .string "trading POKéMON with your friends?\p"
-    .string "You could get a lot more variety\n"
-    .string "by trading.\p"
-    .string "The POKéMON you get in trades grow\n"
-    .string "quickly, too.$"
+    .string "Neden üst kata çıkıp arkadaşlarınla\n"
+    .string "POKéMON takas etmeyi denemiyorsun?\p"
+    .string "Takasla çok daha fazla çeşit elde\n"
+    .string "edebilirsin.\p"
+    .string "Takasla aldığın POKéMON'lar da hızlı\n"
+    .string "büyür.$"
 

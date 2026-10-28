@@ -1,104 +1,100 @@
 Route3_Text_TunnelFromCeruleanTiring::
-    .string "Whew… I better take a rest…\n"
-    .string "Groan…\p"
-    .string "That tunnel from CERULEAN takes a\n"
-    .string "lot out of you!$"
+    .string "Of… Biraz dinlensem iyi olur…\n"
+    .string "Ahh…\p"
+    .string "CERULEAN'dan gelen o tünel insanı çok\n"
+    .string "yoruyor!$"
 
 Route3_Text_ColtonIntro::
     .string "Hey!\n"
-    .string "I saw you in VIRIDIAN FOREST!$"
+    .string "Seni VIRIDIAN ORMANI'nda görmüştüm!$"
 
 Route3_Text_ColtonDefeat::
-    .string "You beat me again!$"
+    .string "Beni yine yendin!$"
 
 Route3_Text_ColtonPostBattle::
-    .string "There are other kinds of POKéMON\n"
-    .string "than the ones you find in forests.$"
+    .string "Ormanlarda bulduklarının dışında başka\n"
+    .string "türde POKéMON'lar da var.$"
 
 Route3_Text_BenIntro::
-    .string "Hi!\n"
-    .string "I like shorts!\p"
-    .string "They're delightfully comfy and\n"
-    .string "easy to wear!$"
+    .string "Selam!\n"
+    .string "Şortları severim!\p"
+    .string "Çok rahat ve giymesi kolay!$"
 
 Route3_Text_BenDefeat::
-    .string "I don't believe it!$"
+    .string "İnanamıyorum!$"
 
 Route3_Text_BenPostBattle::
-    .string "Are you using a POKéMON CENTER's\n"
-    .string "PC for storing your POKéMON?\p"
-    .string "Each BOX can hold up to\n"
-    .string "30 POKéMON.$"
+    .string "POKéMON'larını saklamak için POKéMON\n"
+    .string "MERKEZİ'nin PC'sini kullanıyor musun?\p"
+    .string "Her KUTU en fazla 30 POKéMON alır.$"
 
 Route3_Text_JaniceIntro::
-    .string "Excuse me!\n"
-    .string "You looked at me, didn't you?$"
+    .string "Affedersin!\n"
+    .string "Bana baktın, değil mi?$"
 
 Route3_Text_JaniceDefeat::
-    .string "You're mean!$"
+    .string "Çok kabasın!$"
 
 Route3_Text_JanicePostBattle::
-    .string "You shouldn't be staring if you\n"
-    .string "don't want to battle!$"
+    .string "Savaşmak istemiyorsan dik dik\n"
+    .string "bakmamalısın!$"
 
 Route3_Text_GregIntro::
-    .string "Are you a TRAINER?\n"
-    .string "Let's get with it right away!$"
+    .string "EĞİTMEN misin?\n"
+    .string "Hemen başlayalım!$"
 
 Route3_Text_GregDefeat::
-    .string "If I had new POKéMON, I would've\n"
-    .string "won!$"
+    .string "Yeni POKéMON'larım olsaydı kazanırdım!$"
 
 Route3_Text_GregPostBattle::
-    .string "If a POKéMON BOX on the PC gets\n"
-    .string "full, just switch to another BOX.$"
+    .string "PC'deki bir POKéMON KUTUSU dolarsa\n"
+    .string "başka bir KUTU'ya geç.$"
 
 Route3_Text_SallyIntro::
-    .string "That look you gave me…\n"
-    .string "It's so intriguing!$"
+    .string "Bana bakışın…\n"
+    .string "Çok ilgi çekici!$"
 
 Route3_Text_SallyDefeat::
-    .string "Be nice!$"
+    .string "Kibar ol!$"
 
 Route3_Text_SallyPostBattle::
-    .string "You can avoid battles by not\n"
-    .string "letting TRAINERS see you.$"
+    .string "EĞİTMENLERE görünmeyerek savaşlardan\n"
+    .string "kaçınabilirsin.$"
 
 Route3_Text_CalvinIntro::
-    .string "Hey! You're not wearing shorts!\n"
-    .string "What's wrong with you?$"
+    .string "Hey! Şort giymiyorsun!\n"
+    .string "Senin derdin ne?$"
 
 Route3_Text_CalvinDefeat::
-    .string "Lost!\n"
-    .string "Lost! Lost!$"
+    .string "Kaybettim!\n"
+    .string "Kaybettim! Kaybettim!$"
 
 Route3_Text_CalvinPostBattle::
-    .string "I always wear shorts, even in\n"
-    .string "winter. That's my policy.$"
+    .string "Kışın bile hep şort giyerim. Benim ilkem\n"
+    .string "bu.$"
 
 Route3_Text_JamesIntro::
-    .string "I'll battle you with the POKéMON\n"
-    .string "I just caught.$"
+    .string "Seninle yeni yakaladığım POKéMON ile\n"
+    .string "savaşacağım.$"
 
 Route3_Text_JamesDefeat::
-    .string "Done like dinner!$"
+    .string "Pişip kızardım!$"
 
 Route3_Text_JamesPostBattle::
-    .string "Trained POKéMON are stronger than\n"
-    .string "the wild ones.$"
+    .string "Eğitilmiş POKéMON'lar vahşi olanlardan\n"
+    .string "daha güçlüdür.$"
 
 Route3_Text_RobinIntro::
-    .string "Eek!\n"
-    .string "Did you touch me?$"
+    .string "Iyy!\n"
+    .string "Bana dokundun mu?$"
 
 Route3_Text_RobinDefeat::
-    .string "That's it?$"
+    .string "Bu kadar mı?$"
 
 Route3_Text_RobinPostBattle::
-    .string "ROUTE 4 is at the foot of\n"
-    .string "MT. MOON.$"
+    .string "ROTA 4, AY DAĞI'nın eteğinde.$"
 
 Route3_Text_RouteSign::
-    .string "ROUTE 3\n"
-    .string "MT. MOON AHEAD$"
+    .string "ROTA 3\n"
+    .string "İLERİDE AY DAĞI$"
 

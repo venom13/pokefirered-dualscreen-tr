@@ -1,4 +1,12 @@
-# Pokémon FireRed Dual Screen
+# Pokémon FireRed Dual Screen — Türkçe
+
+> **Türkçe sürüm, v0.5.0.** Bu repo, [venom13/pokefirered-dualscreen](https://github.com/venom13/pokefirered-dualscreen)
+> projesinin Türkçe çevirisidir: oyun metinleri, Android arayüzü ve üzerinde yazı olan
+> grafikler Türkçeleştirildi (Pokémon adları özgün kaldı). Paket adı
+> `com.pokefirered.dualscreen.tr`, İngilizce sürümle yan yana kurulabilir.
+> Kurulum için yine kendi İngilizce FireRed Rev 1 ROM'unuz gerekir.
+> Çeviri araçları ve terimler: [`tools/turkish/`](tools/turkish/).
+
 
 <img src="android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" alt="FireRed Dual Screen icon" width="96">
 

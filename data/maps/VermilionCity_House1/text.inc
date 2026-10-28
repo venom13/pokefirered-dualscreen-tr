@@ -1,34 +1,35 @@
 VermilionCity_House1_Text_ImFishingGuruDoYouLikeToFish::
-    .string "I'm the FISHING GURU!\p"
-    .string "I simply looove fishing!\n"
-    .string "I can't bear to go without.\p"
-    .string "Tell me, do you like to fish?$"
+    .string "Ben BALIKÇI ÜSTAT'ım!\p"
+    .string "Balık tutmaya bayılırım!\n"
+    .string "Onsuz yapamam.\p"
+    .string "Söyle bakalım, balık tutmayı sever\n"
+    .string "misin?$"
 
 VermilionCity_House1_Text_TakeThisAndFish::
-    .string "Grand! I like your style.\n"
-    .string "I think we can be friends.\p"
-    .string "Take this and fish, young friend!$"
+    .string "Harika! Tarzını beğendim.\n"
+    .string "Bence arkadaş olabiliriz.\p"
+    .string "Al bunu ve balık tut, genç dostum!$"
 
 VermilionCity_House1_Text_ReceivedOldRodFromFishingGuru::
-    .string "{PLAYER} received an OLD ROD from\n"
-    .string "the FISHING GURU.$"
+    .string "{PLAYER}, BALIKÇI ÜSTAT'tan bir ESKİ\n"
+    .string "OLTA aldı.$"
 
 VermilionCity_House1_Text_FishingIsAWayOfLife::
-    .string "Fishing is a way of life!\n"
-    .string "It is like the finest poetry.\p"
-    .string "From the seas to rivers, go out\n"
-    .string "and land the big one, my friend.$"
+    .string "Balıkçılık bir yaşam biçimidir!\n"
+    .string "En güzel şiir gibidir.\p"
+    .string "Denizlerden nehirlere, çık ve büyük\n"
+    .string "balığı yakala, dostum.$"
 
 VermilionCity_House1_Text_OhThatsSoDisappointing::
-    .string "Oh…\n"
-    .string "That's so disappointing…$"
+    .string "Ah…\n"
+    .string "Bu çok hayal kırıcı…$"
 
 VermilionCity_House1_Text_HowAreTheFishBiting::
-    .string "Hello there, {PLAYER}!\p"
-    .string "How are the fish biting?$"
+    .string "Merhaba, {PLAYER}!\p"
+    .string "Balıklar nasıl, vuruyor mu?$"
 
 VermilionCity_House1_Text_NoRoomForNiceGift::
-    .string "Oh, no!\p"
-    .string "I had a nice gift for you, but you\n"
-    .string "have no room for it!$"
+    .string "Ah, hayır!\p"
+    .string "Sana güzel bir hediyem vardı ama yerin\n"
+    .string "yok!$"
 

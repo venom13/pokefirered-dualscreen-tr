@@ -1,11 +1,11 @@
 PewterCity_Mart_Text_BoughtWeirdFishFromShadyGuy::
-    .string "A shady old guy sucked me into\n"
-    .string "buying this weird fish POKéMON!\p"
-    .string "It's totally weak and it cost ¥500!$"
+    .string "Şüpheli yaşlı bir adam bana bu tuhaf\n"
+    .string "balık POKéMON'unu kakaladı!\p"
+    .string "Tamamen zayıf ve ¥500 tuttu!$"
 
 PewterCity_Mart_Text_GoodThingsIfRaiseMonsDiligently::
-    .string "Good things can happen if you raise\n"
-    .string "POKéMON diligently.\p"
-    .string "Even the weak ones can surprise\n"
-    .string "you if you don't give up on them.$"
+    .string "POKéMON'ları özenle yetiştirirsen güzel\n"
+    .string "şeyler olabilir.\p"
+    .string "Pes etmezsen zayıf olanlar bile seni\n"
+    .string "şaşırtabilir.$"
 

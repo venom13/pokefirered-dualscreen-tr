@@ -1,0 +1,19 @@
+{
+ "2": "Demek geldin. Ben BROCK.\\nPEWTER'ın SALON LİDERİYİM.\\pKaya gibi sert irade gücüm POKéMON'larımda bile belli.\\pPOKéMON'larımın hepsi kaya gibi serttir ve gerçek bir azme sahiptir.\\pDoğru, POKéMON'larımın hepsi KAYA türü!\\pFuhaha! Kaybedeceğini bile bile bana meydan mı okuyacaksın?\\pSeni bana meydan okumaya iten şey EĞİTMEN onurun.\\pPekala o zaman!\\nEn iyini göster!{PLAY_BGM}{MUS_ENCOUNTER_GYM_LEADER}$",
+ "21": "Seni hafife aldım, bu yüzden kaybettim.\\pZaferinin kanıtı olarak sana bunu veriyorum…resmi POKéMON LİGİ KAYA ROZETİ.\\p{FONT_NORMAL}{PLAYER}, BROCK'tan KAYA ROZETİ'ni aldı!{PAUSE_MUSIC}{PLAY_BGM}{MUS_OBTAIN_BADGE}{PAUSE 0xFE}{PAUSE 0x56}{RESUME_MUSIC}\\p{FONT_MALE}KAYA ROZETİ'ne sahip olmak bile POKéMON'larını güçlendirir.\\pAyrıca savaş dışında FLAŞ hareketini kullanmanı sağlar.\\pTabii ki POKéMON'un kullanmak için FLAŞ hareketini bilmeli.$",
+ "36": "Dur!\\nBunu da yanına al.$",
+ "40": "{PLAYER}, BROCK'tan TM39 aldı.$",
+ "44": "TM, yani Teknik Makine, POKéMON için bir teknik içerir.\\pTM kullanmak içindeki hareketi bir POKéMON'a öğretir.\\pBir TM yalnızca bir kez kullanılabilir.\\pBu yüzden kullanırken POKéMON'u dikkatle seç.\\pNeyse…\\nTM39'da KAYA MEZARI var.\\pRakibe kayalar fırlatır ve HIZINI düşürür.$",
+ "57": "Bu koca dünyamızda her türlü EĞİTMEN var.\\pPOKéMON EĞİTMENİ olarak çok yetenekli görünüyorsun.\\pO yüzden sana bir önerim var.\\pCERULEAN'daki SALON'a git ve yeteneklerini sına.$",
+ "66": "Buna yerin yok.$",
+ "69": "Olduğun yerde dur, ufaklık!\\pBROCK'la yüzleşmekten on bin ışık yılı uzaksın!$",
+ "74": "Hay aksi!\\pIşık yılı zaman değil…\\nMesafe ölçer!$",
+ "79": "Epey ateşlisin.\\n…Ama BROCK kadar değil!$",
+ "83": "Selam!\\nBüyük hayaller kurmak ister misin?\\pPOKéMON şampiyonu olmayı hayal etmeye cesaretin var mı?\\pEĞİTMEN değilim ama nasıl kazanacağın konusunda tavsiye verebilirim.\\pSeni zirveye taşıyayım!$",
+ "92": "Pekala!\\nHadi başlayalım!$",
+ "96": "Bir maçta ilk çıkan POKéMON, POKéMON LİSTESİ'nin en başındakidir.\\pPOKéMON'ların sırasını değiştirerek avantaj kazanabilirsin.\\pRakibinin takımına göre farklı sıralamalar dene.$",
+ "104": "Ücretsiz hizmet!\\nHadi başlayalım!$",
+ "108": "Tam düşündüğüm gibi!\\nSende POKéMON şampiyonu cevheri var!$",
+ "112": "PEWTER POKéMON SALONU\\nLİDER: BROCK\\pKAZANAN EĞİTMENLER:\\n{RIVAL}$",
+ "118": "PEWTER POKéMON SALONU\\nLİDER: BROCK\\pKAZANAN EĞİTMENLER:\\n{RIVAL}, {PLAYER}$"
+}

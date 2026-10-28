@@ -32,10 +32,10 @@ MysteryEventScript_StampCard::
 	end
 
 sText_MysteryGiftStampCard:
-	.string "Thank you for using the STAMP CARD\n"
-	.string "System.\p"
-	.string "You have {STR_VAR_1} more to collect to\n"
-	.string "fill your STAMP CARD.$"
+	.string "DAMGA KARTI Sistemini kullandığın için\n"
+	.string "teşekkürler.\p"
+	.string "DAMGA KARTI'nı doldurmak için toplaman\n"
+	.string "gereken kalan sayı: {STR_VAR_1}$"
 
 MysteryEventScript_SurfPichu::
 	setvaddress MysteryEventScript_SurfPichu
@@ -98,17 +98,16 @@ SurfPichu_Slot5:
 	return
 
 sText_MysteryGiftEgg:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.\p"
-	.string "From the POKéMON CENTER we\n"
-	.string "have a gift - a POKéMON EGG!\p"
-	.string "Please raise it with love and\n"
-	.string "kindness.$"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.\p"
+	.string "POKéMON MERKEZİ'nden bir hediyemiz\n"
+	.string "var: bir POKéMON YUMURTASI!\p"
+	.string "Lütfen onu sevgi ve şefkatle büyüt.$"
 
 sText_FullParty:
-	.string "Oh, your party appears to be full.\p"
-	.string "Please come see me after storing\n"
-	.string "a POKéMON on a PC.$"
+	.string "Ah, takımın dolu görünüyor.\p"
+	.string "Bir POKéMON'u PC'de depoladıktan sonra\n"
+	.string "yanıma gel.$"
 
 MysteryEventScript_VisitingTrainer::
 	setvaddress MysteryEventScript_VisitingTrainer
@@ -132,32 +131,30 @@ MysteryEventScript_VisitingTrainerArrived:
 	end
 
 sText_MysteryGiftVisitingTrainer:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.\p"
-	.string "By holding this WONDER CARD, you\n"
-	.string "may take part in a survey at a\l"
-	.string "POKéMON MART.\p"
-	.string "Use these surveys to invite\n"
-	.string "TRAINERS to the SEVII ISLANDS.\p"
-	.string "…Let me give you a secret\n"
-	.string "password for a survey:\p"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.\p"
+	.string "Bu HARİKA KART'ı taşıyarak bir POKéMON\n"
+	.string "MARKET'teki ankete katılabilirsin.\p"
+	.string "Bu anketlerle EĞİTMENLERİ SEVII\n"
+	.string "ADALARI'na davet et.\p"
+	.string "…Sana anket için gizli bir şifre\n"
+	.string "vereyim:\p"
 	.string "“GIVE ME\n"
 	.string "AWESOME TRAINER”\p"
-	.string "Write that in on a survey and send\n"
-	.string "it to the WIRELESS\l"
-	.string "COMMUNICATION SYSTEM.$"
+	.string "Bunu bir ankete yaz ve KABLOSUZ\n"
+	.string "İLETİŞİM SİSTEMİ'ne gönder.$"
 
 sText_MysteryGiftVisitingTrainer_2:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.\p"
-	.string "A TRAINER has arrived in the SEVII\n"
-	.string "ISLANDS looking for you.\p"
-	.string "We hope you will enjoy\n"
-	.string "battling the visiting TRAINER.\p"
-	.string "You may invite other TRAINERS by\n"
-	.string "entering other passwords.\p"
-	.string "Try looking for other passwords\n"
-	.string "that may work.$"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.\p"
+	.string "SEVII ADALARI'na seni arayan bir\n"
+	.string "EĞİTMEN geldi.\p"
+	.string "Ziyaretçi EĞİTMENLE savaşmanın keyfini\n"
+	.string "çıkarmanı dileriz.\p"
+	.string "Başka şifreler girerek başka\n"
+	.string "EĞİTMENLER davet edebilirsin.\p"
+	.string "İşe yarayabilecek başka şifreler\n"
+	.string "aramayı dene.$"
 
 MysteryEventScript_BattleCard::
 	setvaddress MysteryEventScript_BattleCard
@@ -185,25 +182,24 @@ MysteryEventScript_BattleCardInfo:
 	end
 
 sText_MysteryGiftBattleCountCard:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.\p"
-	.string "Your BATTLE COUNT CARD keeps\n"
-	.string "track of your battle record against\l"
-	.string "TRAINERS with the same CARD.\p"
-	.string "Look for and battle TRAINERS who\n"
-	.string "have the same CARD as you.\p"
-	.string "You may check the overall rankings\n"
-	.string "by reading the NEWS.\p"
-	.string "Please do give it a try!$"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.\p"
+	.string "SAVAŞ SAYACI KARTI'n aynı KARTA sahip\n"
+	.string "EĞİTMENLERE karşı savaş kaydını tutar.\p"
+	.string "Seninle aynı KARTA sahip EĞİTMENLERİ\n"
+	.string "bul ve onlarla savaş.\p"
+	.string "HABERLER'i okuyarak genel sıralamaya\n"
+	.string "bakabilirsin.\p"
+	.string "Lütfen bir dene!$"
 
 sText_MysteryGiftBattleCountCard_2:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.\p"
-	.string "Congratulations!\p"
-	.string "You have won a prize for winning\n"
-	.string "three battles!\p"
-	.string "We hope you will be inspired to\n"
-	.string "battle some more.$"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.\p"
+	.string "Tebrikler!\p"
+	.string "Üç savaş kazandığın için bir ödül\n"
+	.string "kazandın!\p"
+	.string "Daha çok savaşmak için ilham almanı\n"
+	.string "dileriz.$"
 
 MysteryEventScript_AuroraTicket::
 	setvaddress MysteryEventScript_AuroraTicket
@@ -242,26 +238,26 @@ AuroraTicket_Obtained:
 	end
 
 sText_AuroraTicket1:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.\p"
-	.string "You must be {PLAYER}.\n"
-	.string "There is a ticket here for you.$"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.\p"
+	.string "Sen {PLAYER} olmalısın.\n"
+	.string "Burada senin için bir bilet var.$"
 
 sText_AuroraTicket2:
-	.string "It appears to be for use at the\n"
-	.string "VERMILION CITY port.\p"
-	.string "Why not give it a try and see what\n"
-	.string "it is about?$"
+	.string "VERMILION ŞEHRİ limanında kullanılacak\n"
+	.string "gibi görünüyor.\p"
+	.string "Neden denemiyor ve ne işe yaradığını\n"
+	.string "görmüyorsun?$"
 
 sText_AuroraTicketGot:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.$"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.$"
 
 sText_AuroraTicketNoPlace:
-	.string "Oh, I'm sorry, {PLAYER}. Your BAG's\n"
-	.string "KEY ITEMS POCKET is full.\p"
-	.string "Please store something on your PC,\n"
-	.string "then come back for this.$"
+	.string "Ah, üzgünüm {PLAYER}. ÇANTANIN ÖNEMLİ\n"
+	.string "EŞYALAR CEBİ dolu.\p"
+	.string "Lütfen PC'nde bir şey depola, sonra\n"
+	.string "bunun için geri gel.$"
 
 MysteryEventScript_MysticTicket::
 	setvaddress MysteryEventScript_MysticTicket
@@ -301,26 +297,26 @@ MysticTicket_Obtained:
 	end
 
 sText_MysticTicket2:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.\p"
-	.string "You must be {PLAYER}.\n"
-	.string "There is a ticket here for you.$"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.\p"
+	.string "Sen {PLAYER} olmalısın.\n"
+	.string "Burada senin için bir bilet var.$"
 
 sText_MysticTicket1:
-	.string "It appears to be for use at the\n"
-	.string "VERMILION CITY port.\p"
-	.string "Why not give it a try and see what\n"
-	.string "it is about?$"
+	.string "VERMILION ŞEHRİ limanında kullanılacak\n"
+	.string "gibi görünüyor.\p"
+	.string "Neden denemiyor ve ne işe yaradığını\n"
+	.string "görmüyorsun?$"
 
 sText_MysticTicketGot:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.$"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.$"
 
 sText_MysticTicketNoPlace:
-	.string "Oh, I'm sorry, {PLAYER}. Your BAG's\n"
-	.string "KEY ITEMS POCKET is full.\p"
-	.string "Please store something on your PC,\n"
-	.string "then come back for this.$"
+	.string "Ah, üzgünüm {PLAYER}. ÇANTANIN ÖNEMLİ\n"
+	.string "EŞYALAR CEBİ dolu.\p"
+	.string "Lütfen PC'nde bir şey depola, sonra\n"
+	.string "bunun için geri gel.$"
 
 MysteryEventScript_AlteringCave::
 	setvaddress MysteryEventScript_AlteringCave
@@ -337,11 +333,11 @@ MysteryEventScript_AlteringCave_:
 	end
 
 sText_MysteryGiftAlteringCave:
-	.string "Thank you for using the MYSTERY\n"
-	.string "GIFT System.\p"
-	.string "Recently, there have been rumors\n"
-	.string "of rare POKéMON appearances.\p"
-	.string "The rumors are about ALTERING\n"
-	.string "CAVE on OUTCAST ISLAND.\p"
-	.string "Why not visit there and check if\n"
-	.string "the rumors are indeed true?$"
+	.string "GİZEMLİ HEDİYE Sistemini kullandığın\n"
+	.string "için teşekkürler.\p"
+	.string "Son zamanlarda nadir POKéMON\n"
+	.string "görüldüğüne dair söylentiler var.\p"
+	.string "Söylentiler SÜRGÜN ADASI'ndaki DEĞİŞEN\n"
+	.string "MAĞARA hakkında.\p"
+	.string "Neden oraya gidip söylentilerin doğru\n"
+	.string "olup olmadığına bakmıyorsun?$"

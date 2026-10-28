@@ -1,70 +1,66 @@
 CeruleanCity_House1_Text_AnyInterestInBerries::
-    .string "I concoct a variety of medicine\n"
-    .string "from BERRY POWDER.\p"
-    .string "Using good BERRY POWDER, I can\n"
-    .string "make any kind of medicine.\p"
-    .string "Now tell me, have you any interest\n"
-    .string "in BERRIES?$"
+    .string "DUT TOZU'ndan çeşit çeşit ilaç\n"
+    .string "hazırlarım.\p"
+    .string "İyi DUT TOZU ile her türlü ilacı\n"
+    .string "yapabilirim.\p"
+    .string "Şimdi söyle bakalım, DUTLARA ilgin var\n"
+    .string "mı?$"
 
 CeruleanCity_House1_Text_HaveJustTheThing::
-    .string "Ah, good! For you, then, I have\n"
-    .string "just the thing.$"
+    .string "Ah, güzel! O halde sana göre bir şeyim\n"
+    .string "var.$"
 
 CeruleanCity_House1_Text_GoCrushBerriesAtDirectCorner::
-    .string "There's something new on the second\n"
-    .string "floor of POKéMON CENTERS, at the\l"
-    .string "DIRECT CORNER.\p"
-    .string "They installed a Wireless Adapter\n"
-    .string "machine for crushing BERRIES.\p"
-    .string "This is where you come in.\p"
-    .string "I have a favor to ask, one that\n"
-    .string "I can entrust only to you.\p"
-    .string "Could you make BERRY POWDER for\n"
-    .string "me using that machine?\p"
-    .string "Don't forget, the machine is at the\n"
-    .string "DIRECT CORNER of POKéMON CENTERS.\p"
-    .string "I'll concoct medicine for you if\n"
-    .string "you bring me some BERRY POWDER.\p"
-    .string "Don't forget, crush BERRIES into\n"
-    .string "BERRY POWDER and bring it to me.$"
+    .string "POKéMON MERKEZLERİ'nin ikinci katındaki\n"
+    .string "DOĞRUDAN KÖŞE'de yeni bir şey var.\p"
+    .string "DUT ezmek için Kablosuz Adaptörlü bir\n"
+    .string "makine kurmuşlar.\p"
+    .string "İşte burada sen devreye giriyorsun.\p"
+    .string "Yalnızca sana emanet edebileceğim bir\n"
+    .string "ricam var.\p"
+    .string "O makineyi kullanarak bana DUT TOZU\n"
+    .string "yapar mısın?\p"
+    .string "Unutma, makine POKéMON MERKEZLERİ'nin\n"
+    .string "DOĞRUDAN KÖŞE'sinde.\p"
+    .string "Bana DUT TOZU getirirsen senin için\n"
+    .string "ilaç hazırlarım.\p"
+    .string "Unutma, DUTLARI ezip DUT TOZU yap ve\n"
+    .string "bana getir.$"
 
 CeruleanCity_House1_Text_WhyMustYouLieNoBerries::
-    .string "Why must you lie to me?\p"
-    .string "How many BERRIES do you have?\n"
-    .string "Not a one!$"
+    .string "Neden bana yalan söylüyorsun?\p"
+    .string "Kaç DUT'un var?\n"
+    .string "Bir tane bile yok!$"
 
 CeruleanCity_House1_Text_TakeInterestInAllSortsOfThings::
-    .string "You have no interest in BERRIES?\p"
-    .string "Young one, it's important to take an\n"
-    .string "interest in all sorts of things.$"
+    .string "DUTLARA ilgin yok mu?\p"
+    .string "Genç dostum, her türlü şeye ilgi\n"
+    .string "duymak önemlidir.$"
 
 CeruleanCity_House1_Text_HaveYouBroughtBerryPowder::
-    .string "Er-hem! Have you brought me some\n"
-    .string "BERRY POWDER?$"
+    .string "Öhöm! Bana DUT TOZU getirdin mi?$"
 
 CeruleanCity_House5_Text_ExchangeWithWhat::
-    .string "With what would you like to \n"
-    .string "exchange it?$"
+    .string "Neyle değiştirmek istersin?$"
 
 CeruleanCity_House1_Text_YoullExchangeBerryPowderForItem::
-    .string "Fine, you'll exchange your BERRY\n"
-    .string "POWDER for one {STR_VAR_1}?$"
+    .string "Peki, DUT TOZU'nu bir {STR_VAR_1} ile\n"
+    .string "mi değiştireceksin?$"
 
 CeruleanCity_House1_Text_DontHaveEnoughBerryPowder::
-    .string "Hm? You don't have enough\n"
-    .string "BERRY POWDER.$"
+    .string "Hı? Yeterli DUT TOZU'n yok.$"
 
 CeruleanCity_House1_Text_TradeMoreBerryPowder::
-    .string "This is fine BERRY POWDER indeed.\n"
-    .string "It will make excellent medicine.\p"
-    .string "Would you like to trade more BERRY\n"
-    .string "POWDER for something else?$"
+    .string "Bu gerçekten kaliteli DUT TOZU.\n"
+    .string "Mükemmel ilaç olacak.\p"
+    .string "Başka bir şey için daha fazla DUT TOZU\n"
+    .string "takas etmek ister misin?$"
 
 CeruleanCity_House1_Text_HopeToSeeYouAgain::
-    .string "That's fine, then.\n"
-    .string "I'll hope to see you back again.$"
+    .string "Peki o zaman.\n"
+    .string "Umarım yine gelirsin.$"
 
 CeruleanCity_House1_Text_SeeMeIfYoudLikeToTradePowder::
-    .string "Come see me if you'd like to trade\n"
-    .string "your BERRY POWDER.$"
+    .string "DUT TOZU'nu takas etmek istersen bana\n"
+    .string "gel.$"
 

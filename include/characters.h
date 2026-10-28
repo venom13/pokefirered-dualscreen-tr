@@ -69,6 +69,13 @@
 #define CHAR_LEFT_PAREN        0x5C
 #define CHAR_RIGHT_PAREN       0x5D
 //
+#define CHAR_G_BREVE           0x60 // Turkish letters, see tools/turkish
+#define CHAR_g_BREVE           0x61
+#define CHAR_I_DOT             0x62
+#define CHAR_i_DOTLESS         0x63
+#define CHAR_S_CEDILLA         0x64
+#define CHAR_s_CEDILLA         0x65
+//
 #define CHAR_a_CIRCUMFLEX      0x68
 //
 #define CHAR_i_ACUTE           0x6F

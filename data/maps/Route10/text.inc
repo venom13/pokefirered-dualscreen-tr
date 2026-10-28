@@ -1,86 +1,84 @@
 Route10_Text_MarkIntro::
-    .string "Wow, you came all the way here?\n"
-    .string "Maybe you're a POKéMANIAC, too?\l"
-    .string "Want to see my collection?$"
+    .string "Vay, buraya kadar mı geldin?\n"
+    .string "Yoksa sen de mi POKéMANYAKSIN?\l"
+    .string "Koleksiyonumu görmek ister misin?$"
 
 Route10_Text_MarkDefeat::
-    .string "Humph.\n"
-    .string "I'm not angry!$"
+    .string "Hıh.\n"
+    .string "Kızgın değilim!$"
 
 Route10_Text_MarkPostBattle::
-    .string "I have more rare POKéMON at home!$"
+    .string "Evde daha nadir POKéMON'larım var!$"
 
 Route10_Text_ClarkIntro::
     .string "Ha-hahah-ah-ha!$"
 
 Route10_Text_ClarkDefeat::
     .string "Ha-haha!\n"
-    .string "Not laughing!\l"
-    .string "Ha-hay fever! Haha-ha-choo!$"
+    .string "Gülmüyorum!\l"
+    .string "Sa-saman nezlesi! Haha-hapşu!$"
 
 Route10_Text_ClarkPostBattle::
-    .string "Haha-ha-choo!\n"
-    .string "Ha-choo!\l"
-    .string "Snort! Snivel!$"
+    .string "Haha-hapşu!\n"
+    .string "Hapşu!\l"
+    .string "Fırt! Hıçk!$"
 
 Route10_Text_HermanIntro::
-    .string "Hi, kid!\n"
-    .string "Want to see my POKéMON?$"
+    .string "Selam, evlat!\n"
+    .string "POKéMON'umu görmek ister misin?$"
 
 Route10_Text_HermanDefeat::
-    .string "Oh, no!\n"
-    .string "My POKéMON!$"
+    .string "Ah, hayır!\n"
+    .string "POKéMON'um!$"
 
 Route10_Text_HermanPostBattle::
-    .string "I don't like you.\n"
-    .string "I don't like anyone better than me!$"
+    .string "Senden hoşlanmıyorum.\n"
+    .string "Benden iyi olan kimseden hoşlanmam!$"
 
 Route10_Text_HeidiIntro::
-    .string "I've been out at a POKéMON GYM\n"
-    .string "a few times.\p"
-    .string "…But I always lose.$"
+    .string "Birkaç kez POKéMON SALONU'na gittim.\p"
+    .string "…Ama hep kaybediyorum.$"
 
 Route10_Text_HeidiDefeat::
     .string "Ohh!\n"
-    .string "After all my training!$"
+    .string "Onca antrenmandan sonra!$"
 
 Route10_Text_HeidiPostBattle::
-    .string "I noticed some POKéMANIACS\n"
-    .string "prowling around.\p"
-    .string "Can you imagine? Them?\n"
-    .string "Up here in the mountains?$"
+    .string "Etrafta dolaşan bazı POKéMANYAKLAR\n"
+    .string "gördüm.\p"
+    .string "Düşünebiliyor musun? Onlar?\n"
+    .string "Burada, dağlarda?$"
 
 Route10_Text_TrentIntro::
     .string "Ah!\n"
-    .string "This mountain air is delicious!$"
+    .string "Bu dağ havası enfes!$"
 
 Route10_Text_TrentDefeat::
-    .string "That cleared my head!$"
+    .string "Kafam açıldı!$"
 
 Route10_Text_TrentPostBattle::
-    .string "I feel bloated on mountain air!$"
+    .string "Dağ havasından şiştim!$"
 
 Route10_Text_CarolIntro::
-    .string "I'm feeling a bit faint.\n"
-    .string "I haven't hiked in some time.$"
+    .string "Biraz başım dönüyor.\n"
+    .string "Uzun zamandır yürüyüş yapmamıştım.$"
 
 Route10_Text_CarolDefeat::
-    .string "I'm too tired.\n"
-    .string "I wasn't up for it.$"
+    .string "Çok yorgunum.\n"
+    .string "Hazır değildim.$"
 
 Route10_Text_CarolPostBattle::
-    .string "The POKéMON here in the mountains\n"
-    .string "are so chunky…\p"
-    .string "I wish there were pink POKéMON\n"
-    .string "with a floral pattern!$"
+    .string "Buradaki dağ POKéMON'ları çok tombul…\p"
+    .string "Keşke çiçek desenli pembe POKéMON'lar\n"
+    .string "olsa!$"
 
 Route10_Text_RockTunnelDetourToLavender::
-    .string "ROCK TUNNEL\n"
-    .string "Detour to LAVENDER TOWN$"
+    .string "KAYA TÜNELİ\n"
+    .string "LAVENDER KÖYÜ'ne dolambaçlı yol$"
 
 Route10_Text_RockTunnel::
-    .string "ROCK TUNNEL$"
+    .string "KAYA TÜNELİ$"
 
 Route10_Text_PowerPlant::
-    .string "POWER PLANT$"
+    .string "SANTRAL$"
 

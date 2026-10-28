@@ -1,21 +1,21 @@
 @ The 5 texts below are supposed to be in FourIsland_House1
 Text_BodySlamTeach::
-    .string "Ready?\n"
+    .string "Hazır mısın?\n"
     .string "Boing!\p"
-    .string "We're having a BODY SLAM match\n"
-    .string "to see who wimps out first.\p"
-    .string "If you were to join us, you'd be\n"
-    .string "squashed like a bug, though…\p"
-    .string "How about I teach BODY SLAM to\n"
-    .string "a POKéMON of yours instead?$"
+    .string "Kimin önce pes edeceğini görmek için\n"
+    .string "GÖVDE ÇARPMA maçı yapıyoruz.\p"
+    .string "Ama bize katılırsan böcek gibi\n"
+    .string "ezilirsin…\p"
+    .string "Onun yerine POKéMON'larından birine\n"
+    .string "GÖVDE ÇARPMA öğreteyim mi?$"
 
 Text_BodySlamDeclined::
-    .string "Come again!\n"
+    .string "Yine gel!\n"
     .string "Boing!$"
 
 Text_BodySlamWhichMon::
-    .string "Which POKéMON wants to learn how\n"
-    .string "to BODY SLAM?$"
+    .string "Hangi POKéMON GÖVDE ÇARPMA öğrenmek\n"
+    .string "istiyor?$"
 
 Text_BodySlamTaught::
     .string "Boioing!$"
@@ -25,21 +25,21 @@ FourIsland_House1_Text_FatMan::
     .string "おまえ　おもいなあー！$"
 
 FourIsland_PokemonCenter_1F_Text_RareIceMonsInCave::
-    .string "There's a rare kind of ICE POKéMON\n"
-    .string "that lives in the cave.\p"
-    .string "We get a lot of visitors hoping to\n"
-    .string "see that POKéMON.$"
+    .string "Mağarada nadir bir BUZ POKéMON'u\n"
+    .string "yaşıyor.\p"
+    .string "O POKéMON'u görmeyi umut eden çok\n"
+    .string "ziyaretçimiz oluyor.$"
 
 FourIsland_PokemonCenter_1F_Text_DayCarePeopleFoundEggBefore::
-    .string "Oh? A POKéMON EGG?\n"
-    .string "…I have no idea.\p"
-    .string "…Oh, wait. The DAY-CARE people\n"
-    .string "in town were saying something.\p"
-    .string "They said that they'd found EGGS\n"
-    .string "before on their property.$"
+    .string "Hı? POKéMON YUMURTASI mı?\n"
+    .string "…Hiçbir fikrim yok.\p"
+    .string "…Ah, dur. Kasabadaki KREŞ'tekiler bir\n"
+    .string "şey söylüyordu.\p"
+    .string "Daha önce arazilerinde YUMURTA\n"
+    .string "bulduklarını söylediler.$"
 
 FourIsland_PokemonCenter_1F_Text_NewPokemonJournalHasntArrived::
-    .string "What's this?\p"
-    .string "The new POKéMON JOURNAL hasn't\n"
-    .string "arrived on this island?$"
+    .string "Bu ne?\p"
+    .string "Yeni POKéMON DERGİSİ bu adaya gelmedi\n"
+    .string "mi?$"
 

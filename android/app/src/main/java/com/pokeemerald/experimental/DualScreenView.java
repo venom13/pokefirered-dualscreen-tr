@@ -21,12 +21,12 @@ public final class DualScreenView extends View {
     public static final int TAB_BAG = 2;
     public static final int TAB_CARD = 3;
     public static final int TAB_SETTINGS = 4;
-    private static final String[] TAB_NAMES = {"PARTY", "MAP", "BAG", "CARD", null}; // null = cog icon
+    private static final String[] TAB_NAMES = {"TAKIM", "HARİTA", "ÇANTA", "KART", null}; // null = cog icon
 
     private static final String[] TYPE_NAMES = {
-        "NORMAL", "FIGHT", "FLYING", "POISON", "GROUND", "ROCK", "BUG", "GHOST",
-        "STEEL", "???", "FIRE", "WATER", "GRASS", "ELECTR", "PSYCHC", "ICE",
-        "DRAGON", "DARK"
+        "NORMAL", "DÖVÜŞ", "UÇAN", "ZEHİR", "TOPRAK", "KAYA", "BÖCEK", "HAYALT",
+        "ÇELİK", "???", "ATEŞ", "SU", "ÇİMEN", "ELEKTR", "PSİŞİK", "BUZ",
+        "EJDER", "KARA"
     };
     private static final int[] TYPE_COLORS = {
         0xFFA8A878, 0xFFC03028, 0xFFA890F0, 0xFFA040A0, 0xFFE0C068, 0xFFB8A038,
@@ -204,7 +204,7 @@ public final class DualScreenView extends View {
     private String battleNotice = "";
     private long battleNoticeMs;
     private static final String[][] BATTLE_BAG_GROUP_LABELS = {
-        {"HP / PP", "RESTORE"}, {"POKé BALLS"}, {"STATUS", "HEALERS"}, {"BATTLE", "ITEMS"}
+        {"HP / PP", "YENİLE"}, {"POKé TOPLARI"}, {"DURUM", "İLAÇLARI"}, {"SAVAŞ", "EŞYALARI"}
     };
     private static final int[] BATTLE_BAG_GROUP_FILL = {
         0xFFE87848, 0xFFE8A83C, 0xFFC85868, 0xFF4E80C8
@@ -568,9 +568,9 @@ public final class DualScreenView extends View {
             lastSubSeq = state.battleSubSeq;
             freshWait = state.battleSubResult == 0;
             switch (state.battleSubResult) {
-            case 2:  battleNotice = "It won't have any effect."; break;
-            case 3:  battleNotice = "It can't be used now."; break;
-            case 4:  battleNotice = "Can't choose that POKéMON."; break;
+            case 2:  battleNotice = "Hiçbir etkisi olmaz."; break;
+            case 3:  battleNotice = "Şu an kullanılamaz."; break;
+            case 4:  battleNotice = "O POKéMON seçilemez."; break;
             default: battleNotice = ""; break;
             }
             if (!battleNotice.isEmpty()) {
@@ -980,7 +980,7 @@ public final class DualScreenView extends View {
         return false;
     }
 
-    private static final String[] POCKET_NAMES = {"ITEMS", "POKé BALLS", "TMs-HMs", "BERRIES", "KEY ITEMS"};
+    private static final String[] POCKET_NAMES = {"EŞYALAR", "POKé TOPLARI", "TM VE GM", "DUTLAR", "ÖNEMLİ EŞYA"};
     // Per-pocket accent colors, like the GBA bag's pocket theming.
     private static final int[] POCKET_ACCENTS = {
         0xFFE06858, 0xFFE8A030, HEADER_RED, 0xFF5880C8, 0xFFA068C8
@@ -2027,12 +2027,12 @@ public final class DualScreenView extends View {
     }
 
     private String statusLabel(long status, int hp) {
-        if (hp == 0) return "FNT";
-        if ((status & 0x7) != 0) return "SLP";
-        if ((status & 0x8) != 0 || (status & 0x80) != 0) return "PSN";
-        if ((status & 0x10) != 0) return "BRN";
-        if ((status & 0x20) != 0) return "FRZ";
-        if ((status & 0x40) != 0) return "PAR";
+        if (hp == 0) return "BYL";
+        if ((status & 0x7) != 0) return "UYK";
+        if ((status & 0x8) != 0 || (status & 0x80) != 0) return "ZHR";
+        if ((status & 0x10) != 0) return "YNK";
+        if ((status & 0x20) != 0) return "DNM";
+        if ((status & 0x40) != 0) return "FLÇ";
         return null;
     }
 
@@ -2239,7 +2239,7 @@ public final class DualScreenView extends View {
                 }
             }
 
-            String title = mon.isEgg ? "EGG" : mon.nick;
+            String title = mon.isEgg ? "YUMURTA" : mon.nick;
             f.draw(canvas, title, wx + 24 * sx, wy + 11 * sy, nameScale,
                     PARTY_TEXT, PARTY_TEXT_SHADOW);
             if (mon.isEgg) continue;
@@ -2248,7 +2248,7 @@ public final class DualScreenView extends View {
             float subY = wy + 20 * sy;
             int statusIdx = statusIconIndex(mon.status, mon.hp);
             if (statusIdx < 0) {
-                f.draw(canvas, "Lv" + mon.level, wx + 32 * sx, subY,
+                f.draw(canvas, "Sv" + mon.level, wx + 32 * sx, subY,
                         subScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
                 if (mon.gender == 0) {
                     f.draw(canvas, "♂", wx + 64 * sx, subY,
@@ -2287,7 +2287,7 @@ public final class DualScreenView extends View {
 
     // Stat rows in the summary screen's Skills-page order, mapping into
     // the snapshot's [atk, def, speed, spatk, spdef] array.
-    private static final String[] STAT_NAMES = {"ATTACK", "DEFENSE", "SP. ATK", "SP. DEF", "SPEED"};
+    private static final String[] STAT_NAMES = {"SALDIRI", "SAVUNMA", "Ö.SALD", "Ö.SAV", "HIZ"};
     private static final int[] STAT_ORDER = {0, 1, 3, 4, 2};
 
     /** A white panel with a blue title strip, like the summary screen pages. */
@@ -2408,10 +2408,10 @@ public final class DualScreenView extends View {
         }
 
         float textLeft = iconRect.right + inset;
-        String title = mon.isEgg ? "EGG" : mon.nick;
+        String title = mon.isEgg ? "YUMURTA" : mon.nick;
         f.draw(canvas, title, textLeft, header.top + inset, scale * 1.15f, PARTY_TEXT, SUMMARY_BLUE_DARK);
         if (mon.isEgg) {
-            f.draw(canvas, "What will hatch from this?", textLeft,
+            f.draw(canvas, "Bundan ne çıkacak?", textLeft,
                     header.top + inset + GbaFont.LINE_HEIGHT * scale * 1.4f,
                     scale * 0.9f, PARTY_TEXT, SUMMARY_BLUE_DARK);
             drawPartyDetailFooter(canvas, f, mon, itemBox, scale, pad);
@@ -2425,7 +2425,7 @@ public final class DualScreenView extends View {
             f.draw(canvas, "♀", textLeft + nameW + 12, header.top + inset,
                     scale * 1.15f, PARTY_FEMALE, PARTY_FEMALE_SHADOW);
         }
-        f.draw(canvas, "Lv" + mon.level + "  " + mon.name, textLeft,
+        f.draw(canvas, "Sv" + mon.level + "  " + mon.name, textLeft,
                 header.top + inset + GbaFont.LINE_HEIGHT * scale * 1.35f,
                 scale * 0.9f, PARTY_TEXT, SUMMARY_BLUE_DARK);
         f.draw(canvas, mon.nature + "  " + mon.ability, textLeft,
@@ -2445,8 +2445,8 @@ public final class DualScreenView extends View {
         RectF skillsBox = new RectF(pad, columnsTop, pad + colW,
                 itemTop - gap);
         RectF movesBox = new RectF(pad * 2 + colW, columnsTop, getWidth() - pad, skillsBox.bottom);
-        drawSummaryPanel(canvas, skillsBox, "SKILLS", stripH, scale);
-        drawSummaryPanel(canvas, movesBox, "MOVES", stripH, scale);
+        drawSummaryPanel(canvas, skillsBox, "DEĞERLER", stripH, scale);
+        drawSummaryPanel(canvas, movesBox, "HAREKETLER", stripH, scale);
 
         // HP with the bar, five stats, then the EXP bar: seven rows.
         float left = skillsBox.left + pad;
@@ -2459,7 +2459,7 @@ public final class DualScreenView extends View {
         float hpW = f.measure(hpText, scale);
         f.draw(canvas, hpText, right - hpW, y, scale, TEXT_DARK, TEXT_SHADOW);
         int level = hpBarLevel(mon.hp, mon.maxHp);
-        float barLeft = left + f.measure("SP. ATK", scale) + 16;
+        float barLeft = left + f.measure("SAVUNMA", scale) + 16;
         float barH = rowStep * 0.32f;
         drawGbaBar(canvas, barLeft, y + (GbaFont.LINE_HEIGHT * scale - barH) / 2,
                 right - hpW - 16 - barLeft, barH,
@@ -2472,7 +2472,7 @@ public final class DualScreenView extends View {
             f.draw(canvas, v, right - f.measure(v, scale), y, scale, TEXT_DARK, TEXT_SHADOW);
         }
         y = rowsTop + 6 * rowStep + (rowStep - GbaFont.LINE_HEIGHT * scale) / 2;
-        f.draw(canvas, "EXP", left, y, scale, TEXT_DARK, TEXT_SHADOW);
+        f.draw(canvas, "TP", left, y, scale, TEXT_DARK, TEXT_SHADOW);
         drawGbaBar(canvas, barLeft, y + (GbaFont.LINE_HEIGHT * scale - barH) / 2,
                 right - barLeft, barH, mon.expPct / 100f, PARTY_MALE, SUMMARY_BLUE);
 
@@ -2493,8 +2493,8 @@ public final class DualScreenView extends View {
                                        RectF itemBox, float scale, float pad) {
         drawBar(canvas, itemBox, false, null, scale);
         float itemY = itemBox.centerY() - GbaFont.LINE_HEIGHT * scale / 2;
-        f.draw(canvas, "ITEM", itemBox.left + pad, itemY, scale, TEXT_DARK, TEXT_SHADOW);
-        float itemTextLeft = itemBox.left + pad + f.measure("ITEM", scale) + 18;
+        f.draw(canvas, "EŞYA", itemBox.left + pad, itemY, scale, TEXT_DARK, TEXT_SHADOW);
+        float itemTextLeft = itemBox.left + pad + f.measure("EŞYA", scale) + 18;
         if (mon.item > 0) {
             Bitmap itemGfx = itemIcon(mon.item);
             float iconH = itemBox.height() * 0.8f;
@@ -2506,7 +2506,7 @@ public final class DualScreenView extends View {
             }
             f.draw(canvas, mon.itemName, itemTextLeft, itemY, scale, TEXT_DARK, TEXT_SHADOW);
         } else {
-            f.draw(canvas, "NONE", itemTextLeft, itemY, scale, TEXT_DARK, TEXT_SHADOW);
+            f.draw(canvas, "YOK", itemTextLeft, itemY, scale, TEXT_DARK, TEXT_SHADOW);
         }
         drawBackButton(canvas, partyDetailBack, partyDetailBackPressed);
     }
@@ -2534,7 +2534,7 @@ public final class DualScreenView extends View {
                               rect.left + inset + iconSize, rect.centerY() + iconSize / 2), pixelPaint);
         }
         float textLeft = rect.left + inset + iconSize + inset;
-        String header = namePrefix + mon.nick + "  Lv" + mon.level
+        String header = namePrefix + mon.nick + "  Sv" + mon.level
                 + (mon.gender == 0 ? " ♂" : mon.gender == 1 ? " ♀" : "");
         f.draw(canvas, header, textLeft, rect.top + inset, scale, TEXT_DARK, TEXT_SHADOW);
 
@@ -2558,8 +2558,8 @@ public final class DualScreenView extends View {
                     textLeft + Math.max(expFullW * mon.expPct / 100f, 4), underBarTop + 8), 4, 4, paint);
 
             String nextLevel = mon.level >= 100
-                    ? "Next Level: MAX"
-                    : "Next Level: " + mon.expProgress + " / " + mon.expNeeded;
+                    ? "Sonraki Sv.: MAKS"
+                    : "Sonraki Sv.: " + mon.expProgress + " / " + mon.expNeeded;
             float nextLevelScale = scale * 0.7f;
             float minScale = scale * 0.45f;
             while (nextLevelScale > minScale && f.measure(nextLevel, nextLevelScale) > expFullW) {
@@ -2600,7 +2600,7 @@ public final class DualScreenView extends View {
         float band = bottom - top;
         float maxIconH = Math.min(band, badgeHeight);
         float labelScale = scale * 0.7f;
-        float labelW = f.measure("WEAK", labelScale) + maxIconH * 0.25f;
+        float labelW = f.measure("ZAYIF", labelScale) + maxIconH * 0.25f;
 
         // Entry widths, in icon-heights: the type icon (2:1, or 3.1:1 for the
         // drawn-badge fallback when the icon sheet is unavailable), a gap, and
@@ -2618,7 +2618,7 @@ public final class DualScreenView extends View {
             return; // not even one icon fits
         }
 
-        f.draw(canvas, "WEAK", left, top + (band - GbaFont.LINE_HEIGHT * labelScale) / 2f,
+        f.draw(canvas, "ZAYIF", left, top + (band - GbaFont.LINE_HEIGHT * labelScale) / 2f,
                 labelScale, 0xFF70707A, TEXT_SHADOW);
         float x = left + labelW;
         float y = top + (band - iconH) / 2f;
@@ -2643,7 +2643,7 @@ public final class DualScreenView extends View {
         battleUseButton.setEmpty();
         battleButtonsMenu = 0;
         if (!state.inBattle || state.battlePlayerMon == null || f == null) {
-            drawCenteredMessage(canvas, state.inBattle ? "Battle starting..." : "Not in battle");
+            drawCenteredMessage(canvas, state.inBattle ? "Savaş başlıyor..." : "Savaşta değil");
             return;
         }
         float contentHeight = getHeight(); // battle owns the full screen
@@ -2734,7 +2734,7 @@ public final class DualScreenView extends View {
         float contentHeight = getHeight();
         DualScreenState.Mon self = state.battlePlayerMon;
         DualScreenState.Mon enemy = state.battleEnemyMon;
-        String foePrefix = state.battleKind == 1 ? "FOE " : "WILD ";
+        String foePrefix = state.battleKind == 1 ? "RAKİP " : "VAHŞİ ";
         float cardH = (contentHeight - pad * 3) / 2;
         boolean four = state.battleDouble
                 && (state.battlePlayerMon2 != null || state.battleEnemyMon2 != null);
@@ -2771,7 +2771,7 @@ public final class DualScreenView extends View {
     // DP-layout command screen: FIGHT dominant on top, BAG / POKéMON / RUN
     // in a row below, each in its own accent family. All shapes and glyphs
     // are drawn from scratch on the Canvas.
-    private static final String[] CMD_LABELS = {"FIGHT", "BAG", "POKéMON", "RUN"};
+    private static final String[] CMD_LABELS = {"SAVAŞ", "ÇANTA", "POKéMON", "KAÇ"};
     private static final int[] CMD_FILL  = {0xFFE05838, 0xFFE8B030, HEADER_RED, 0xFF4878C8};
     private static final int[] CMD_LIGHT = {0xFFF88860, 0xFFF8D060, HEADER_RED_LIGHT, 0xFF78A8E8};
     private static final int[] CMD_DARK  = {0xFFA03820, 0xFFA87818, HEADER_RED_DARK, 0xFF285090};
@@ -2837,7 +2837,7 @@ public final class DualScreenView extends View {
                         new RectF(left, top, left + iconSize, top + iconSize), pixelPaint);
             }
             float textLeft = left + iconSize + pad * 0.3f;
-            f.draw(canvas, mon.nick + "  Lv" + mon.level, textLeft, top,
+            f.draw(canvas, mon.nick + "  Sv" + mon.level, textLeft, top,
                     textScale, TEXT_WHITE, 0xFF303840);
             float barTop = top + GbaFont.LINE_HEIGHT * textScale + 4;
             float barW = left + half - textLeft;
@@ -2926,8 +2926,8 @@ public final class DualScreenView extends View {
         f.draw(canvas, move.name, inner.left + inset, inner.top + inset + shift,
                 nameScale, TEXT_DARK, TEXT_SHADOW);
 
-        String info = "PWR " + (move.power == 0 ? "—" : Integer.toString(move.power))
-                + "   ACC " + (move.accuracy == 0 ? "—" : Integer.toString(move.accuracy));
+        String info = "GÜÇ " + (move.power == 0 ? "—" : Integer.toString(move.power))
+                + "   İSB " + (move.accuracy == 0 ? "—" : Integer.toString(move.accuracy));
         f.draw(canvas, info, inner.left + inset,
                 inner.top + inset + GbaFont.LINE_HEIGHT * nameScale + 6 + shift,
                 scale * 0.85f, 0xFF606068, TEXT_SHADOW);
@@ -2975,7 +2975,7 @@ public final class DualScreenView extends View {
         if (f == null) {
             return;
         }
-        String label = "CANCEL";
+        String label = "VAZGEÇ";
         float width = f.measure(label, labelScale);
         float shift = pressed ? 3 : 0;
         f.draw(canvas, label, inner.centerX() - width / 2,
@@ -3058,11 +3058,11 @@ public final class DualScreenView extends View {
         float pad = getWidth() * 0.03f;
         float scale = getWidth() / 460f;
         float titleH = getHeight() * 0.14f;
-        String title = "Restore PP: " + mon.nick;
+        String title = "PP Yenile: " + mon.nick;
         float titleScale = Math.min(scale, (getWidth() - 2 * pad) / f.measure(title, 1));
         f.draw(canvas, title, pad, pad, titleScale, TEXT_WHITE, TEXT_RED_SHADOW);
         battleCancel.set(pad, getHeight() * 0.90f, getWidth() - pad, getHeight() - pad);
-        drawBar(canvas, battleCancel, false, "BACK", scale);
+        drawBar(canvas, battleCancel, false, "GERİ", scale);
         float rowH = (battleCancel.top - titleH - pad) / 4;
         for (int i = 0; i < battlePpCards.length; i++) {
             RectF card = battlePpCards[i];
@@ -3110,7 +3110,7 @@ public final class DualScreenView extends View {
             canvas.drawLine(0, y, width, y, paint);
         }
 
-        String[] labels = {"Switch POKéMON", "Keep battling"};
+        String[] labels = {"POKéMON değiştir", "Savaşa devam"};
         int[] fills = {HEADER_RED, CMD_FILL[3]};
         int[] lights = {HEADER_RED_LIGHT, CMD_LIGHT[3]};
         int[] darks = {HEADER_RED_DARK, CMD_DARK[3]};
@@ -3153,7 +3153,7 @@ public final class DualScreenView extends View {
         float pad = width * 0.025f;
         float scale = width / 460f;
         float headerBottom = height * 0.115f;
-        drawBattleBagTitle(canvas, f, "BATTLE BAG", headerBottom, scale);
+        drawBattleBagTitle(canvas, f, "SAVAŞ ÇANTASI", headerBottom, scale);
 
         if (!battleBagGroupHasItems(battleBagGroup)) {
             battleBagGroup = firstBattleBagGroup();
@@ -3193,7 +3193,7 @@ public final class DualScreenView extends View {
                         enabled ? TEXT_WHITE : 0xFFE0E2E4, dark);
             }
             int itemCount = groupItems.size();
-            String count = enabled ? itemCount + (itemCount == 1 ? " ITEM" : " ITEMS") : "EMPTY";
+            String count = enabled ? itemCount + " EŞYA" : "BOŞ";
             float countScale = scale * 0.72f;
             f.draw(canvas, count, inner.centerX() - f.measure(count, countScale) / 2,
                     inner.bottom - inner.height() * 0.13f - GbaFont.LINE_HEIGHT * countScale / 2,
@@ -3202,7 +3202,7 @@ public final class DualScreenView extends View {
                 drawCursorRing(canvas, card, 16);
             }
         }
-        drawBattleBagFooter(canvas, f, "Choose a category", scale, pad);
+        drawBattleBagFooter(canvas, f, "Bir kategori seç", scale, pad);
     }
 
     /** Second BAG screen: a touch-scrollable, two-column grid of item cards. */
@@ -3295,7 +3295,7 @@ public final class DualScreenView extends View {
                     ready ? HEADER_RED_LIGHT : 0xFFA8ADB1,
                     ready ? HEADER_RED_DARK : 0xFF555B61, false);
             float useScale = scale * 1.05f;
-            f.draw(canvas, "USE", useInner.centerX() - f.measure("USE", useScale) / 2,
+            f.draw(canvas, "KULLAN", useInner.centerX() - f.measure("KULLAN", useScale) / 2,
                     useInner.centerY() - GbaFont.LINE_HEIGHT * useScale / 2,
                     useScale, TEXT_WHITE, ready ? TEXT_RED_SHADOW : 0xFF555B61);
 
@@ -3473,7 +3473,7 @@ public final class DualScreenView extends View {
             contentHeight = height - pad * 0.5f;
         } else {
             battleCancel.set(cancel);
-            drawBar(canvas, cancel, false, battlePanel == 3 ? "BACK" : "CANCEL", scale * 0.9f);
+            drawBar(canvas, cancel, false, battlePanel == 3 ? "GERİ" : "VAZGEÇ", scale * 0.9f);
             contentHeight = cancel.top - pad * 0.5f;
         }
         int s = (int) Math.min(getWidth() / 240f, contentHeight / 160f);
@@ -3510,7 +3510,7 @@ public final class DualScreenView extends View {
                 canvas.drawBitmap(icon, null, new RectF(ix, iy, ix + 32 * s, iy + 32 * s), pixelPaint);
             }
 
-            String title = mon.isEgg ? "EGG" : mon.nick;
+            String title = mon.isEgg ? "YUMURTA" : mon.nick;
             float nickX = wx + (lead ? 24 : 22) * s;
             float nickY = wy + (lead ? 11 : 3) * s;
             f.draw(canvas, title, nickX, nickY, nameScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
@@ -3518,7 +3518,7 @@ public final class DualScreenView extends View {
                 float subY = wy + (lead ? 20 : 12) * s;
                 int statusIdx = statusIconIndex(mon.status, mon.hp);
                 if (statusIdx < 0) {
-                    f.draw(canvas, "Lv" + mon.level, wx + (lead ? 32 : 30) * s, subY,
+                    f.draw(canvas, "Sv" + mon.level, wx + (lead ? 32 : 30) * s, subY,
                             subScale, PARTY_TEXT, PARTY_TEXT_SHADOW);
                     if (mon.gender == 0) {
                         f.draw(canvas, "♂", wx + (lead ? 64 : 62) * s, subY,
@@ -3571,15 +3571,15 @@ public final class DualScreenView extends View {
         if (f != null) {
             String message;
             if (battlePanel == 3) {
-                message = "Use on which POKéMON?";
+                message = "Hangi POKéMON'da kullanılsın?";
             } else if (sendOut) {
-                message = "Send out which POKéMON?";
+                message = "Hangi POKéMON gönderilsin?";
             } else if (state.battleSubCase == 2) {
-                message = "Can't switch out now!";
+                message = "Şu an değiştirilemez!";
             } else if (state.battleSubCase == 4) {
-                message = "An ability prevents switching!";
+                message = "Bir yetenek değişimi engelliyor!";
             } else {
-                message = "Switch to which POKéMON?";
+                message = "Hangi POKéMON'a geçilsin?";
             }
             f.draw(canvas, message, ox + 10 * s, oy + 134 * s,
                     s * 0.9f, TEXT_WHITE, TEXT_RED_SHADOW);
@@ -3628,7 +3628,7 @@ public final class DualScreenView extends View {
         }
 
         if (regionMap == null) {
-            drawCenteredMessage(canvas, "Map unavailable");
+            drawCenteredMessage(canvas, "Harita kullanılamıyor");
             return;
         }
 
@@ -3801,7 +3801,7 @@ public final class DualScreenView extends View {
         int headerFill = blendColor(BAR_CREAM, POCKET_ACCENTS[0], 0.18f);
         RectF headerInner = drawBeveledSurface(canvas, header, headerFill,
                 blendColor(headerFill, 0xFFFFFFFF, 0.52f), PANEL_BORDER, false);
-        String title = "BAG";
+        String title = "ÇANTA";
         float titleScale = scale * 1.12f;
         f.draw(canvas, title, headerInner.centerX() - f.measure(title, titleScale) / 2,
                 headerInner.centerY() - GbaFont.LINE_HEIGHT * titleScale / 2,
@@ -3834,7 +3834,7 @@ public final class DualScreenView extends View {
             float labelScale = Math.min(scale,
                     (inner.width() - pad * 1.2f) / Math.max(1f, f.measure(label, 1f)));
             labelScale = Math.max(scale * 0.78f, labelScale);
-            String count = bagPocketCount(i) == 0 ? "EMPTY" : bagPocketCount(i) + " ITEMS";
+            String count = bagPocketCount(i) == 0 ? "BOŞ" : bagPocketCount(i) + " EŞYA";
             float countScale = scale * 0.76f;
             float totalTextH = GbaFont.LINE_HEIGHT * (labelScale + countScale) + pad * 0.35f;
             float textTop = inner.centerY() - totalTextH / 2;
@@ -3894,7 +3894,7 @@ public final class DualScreenView extends View {
         java.util.List<DualScreenState.BagItem> items = bagItems();
         if (items.isEmpty()) {
             float messageY = (bagListTop + bagListBottom) / 2 - GbaFont.LINE_HEIGHT * scale / 2;
-            String message = "Empty pocket";
+            String message = "Boş cep";
             f.draw(canvas, message, (getWidth() - f.measure(message, scale)) / 2, messageY,
                     scale, TEXT_DARK, TEXT_SHADOW);
             return;
@@ -4017,13 +4017,13 @@ public final class DualScreenView extends View {
     }
 
     private final SettingRow[] settingRows = {
-        new SettingRow("WIDESCREEN", DualScreenBridge.SETTING_WIDESCREEN, 1, "OFF", "ON"),
-        new SettingRow("TOUCH CONTROLS", DualScreenBridge.SETTING_TOUCH_CONTROLS, 1, "OFF", "ON"),
-        new SettingRow("BATTLE MENUS", DualScreenBridge.SETTING_BATTLE_UI_TOP, 1, "BOTTOM", "TOP"),
-        new SettingRow("FAST FORWARD", DualScreenBridge.SETTING_FAST_FORWARD, 1, "OFF", "2X", "3X", "4X"),
-        new SettingRow("FF MUSIC", DualScreenBridge.SETTING_FF_AUDIO, 1, "NORMAL", "SPED UP"),
-        new SettingRow("VOLUME", DualScreenBridge.SETTING_VOLUME, 2, "0", "2", "4", "6", "8", "10"),
-        new SettingRow("HINTS", DualScreenBridge.SETTING_BATTLE_HINTS, 1, "OFF", "ON"),
+        new SettingRow("GENİŞ EKRAN", DualScreenBridge.SETTING_WIDESCREEN, 1, "KAPALI", "AÇIK"),
+        new SettingRow("EKRAN TUŞLARI", DualScreenBridge.SETTING_TOUCH_CONTROLS, 1, "KAPALI", "AÇIK"),
+        new SettingRow("SAVAŞ MENÜSÜ", DualScreenBridge.SETTING_BATTLE_UI_TOP, 1, "ALTTA", "ÜSTTE"),
+        new SettingRow("HIZLANDIRMA", DualScreenBridge.SETTING_FAST_FORWARD, 1, "KAPALI", "2X", "3X", "4X"),
+        new SettingRow("HIZLI MÜZİK", DualScreenBridge.SETTING_FF_AUDIO, 1, "NORMAL", "HIZLI"),
+        new SettingRow("SES", DualScreenBridge.SETTING_VOLUME, 2, "0", "2", "4", "6", "8", "10"),
+        new SettingRow("İPUÇLARI", DualScreenBridge.SETTING_BATTLE_HINTS, 1, "KAPALI", "AÇIK"),
     };
     private float settingsScroll;
     private float settingsTouchDownY;
@@ -4093,7 +4093,7 @@ public final class DualScreenView extends View {
         }
 
         // Header drawn last so rows scroll underneath it.
-        drawHeader(canvas, "SETTINGS", scale);
+        drawHeader(canvas, "AYARLAR", scale);
     }
 
     private Bitmap[] badgeSprites;
@@ -4161,16 +4161,16 @@ public final class DualScreenView extends View {
 
         // Title chip + ID number.
         RectF chip = new RectF(body.left + inset, body.top + inset,
-                body.left + inset + f.measure("TRAINER CARD", scale) + 40,
+                body.left + inset + f.measure("EĞİTMEN KARTI", scale) + 40,
                 body.top + inset + GbaFont.LINE_HEIGHT * scale + 16);
         paint.setColor(0xFF68A8E0);
         canvas.drawRoundRect(chip, 8, 8, paint);
-        f.draw(canvas, "TRAINER CARD", chip.left + 20, chip.top + 8, scale, TEXT_DARK, 0xFF4880B8);
-        float idLeft = body.right - inset - f.measure("IDNo.00000", scale);
+        f.draw(canvas, "EĞİTMEN KARTI", chip.left + 20, chip.top + 8, scale, TEXT_DARK, 0xFF4880B8);
+        float idLeft = body.right - inset - f.measure("KİMLİK 00000", scale);
         paint.setColor(panel);
         canvas.drawRoundRect(new RectF(idLeft - 12, chip.top,
                 body.right - inset + 12, chip.bottom), 8, 8, paint);
-        f.draw(canvas, "IDNo." + String.format("%05d", state.trainerId),
+        f.draw(canvas, "KİMLİK " + String.format("%05d", state.trainerId),
                 idLeft, chip.top + 8, scale, TEXT_DARK, TEXT_SHADOW);
 
         // Trainer portrait, right side.
@@ -4196,7 +4196,7 @@ public final class DualScreenView extends View {
                 nameY - GbaFont.LINE_HEIGHT * scale * 0.3f,
                 body.left + body.width() * 0.58f,
                 nameY + GbaFont.LINE_HEIGHT * scale * 1.4f), 8, 8, paint);
-        f.draw(canvas, "NAME: " + state.playerName, body.left + inset, nameY,
+        f.draw(canvas, "İSİM: " + state.playerName, body.left + inset, nameY,
                 scale * 1.1f, TEXT_DARK, TEXT_SHADOW);
         float underlineY = nameY + GbaFont.LINE_HEIGHT * scale * 1.1f + 6;
         paint.setColor(0xAA606060);
@@ -4209,9 +4209,9 @@ public final class DualScreenView extends View {
 
         // Info rows, values right-aligned like the real card.
         String[][] rowsData = {
-            {"MONEY", "$" + state.money},
+            {"PARA", "$" + state.money},
             {"POKéDEX", Integer.toString(state.dexCaught)},
-            {"TIME", state.hours + ":" + String.format("%02d", state.minutes)},
+            {"SÜRE", state.hours + ":" + String.format("%02d", state.minutes)},
         };
         float rowY = underlineY + body.height() * 0.06f;
         float rowStep = body.height() * 0.135f;
@@ -4242,7 +4242,7 @@ public final class DualScreenView extends View {
                 badgeLabelY - GbaFont.LINE_HEIGHT * badgeLabelScale * 0.3f,
                 body.right - inset * 0.55f,
                 badgesY + badgeSize * 1.12f), 8, 8, paint);
-        f.draw(canvas, "BADGES", body.left + inset, badgeLabelY,
+        f.draw(canvas, "ROZETLER", body.left + inset, badgeLabelY,
                 badgeLabelScale, TEXT_DARK, TEXT_SHADOW);
         float badgeStep = (body.width() - inset * 2) / 8f;
         for (int i = 0; i < 8; i++) {

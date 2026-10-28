@@ -1,29 +1,27 @@
 PokemonTower_1F_Text_ErectedInMemoryOfDeadMons::
-    .string "POKéMON TOWER was erected in the\n"
-    .string "memory of POKéMON that died.$"
+    .string "POKéMON KULESİ ölen POKéMON'ların\n"
+    .string "anısına dikildi.$"
 
 PokemonTower_1F_Text_ComeToPayRespectsSon::
-    .string "Did you come to pay respects?\p"
-    .string "Bless your POKéMON-loving heart,\n"
-    .string "son.$"
+    .string "Saygılarını sunmaya mı geldin?\p"
+    .string "POKéMON seven yüreğine sağlık, evlat.$"
 
 PokemonTower_1F_Text_ComeToPayRespectsGirl::
-    .string "Did you come to pay respects?\p"
-    .string "Bless your POKéMON-loving heart,\n"
-    .string "girl.$"
+    .string "Saygılarını sunmaya mı geldin?\p"
+    .string "POKéMON seven yüreğine sağlık, kızım.$"
 
 PokemonTower_1F_Text_CameToPrayForDepartedClefairy::
-    .string "I came to pray for my dearly\n"
-    .string "departed CLEFAIRY.\p"
-    .string "Sniff!\n"
-    .string "I'm awash in tears…$"
+    .string "Ebediyete uğurladığım sevgili\n"
+    .string "CLEFAIRY'm için dua etmeye geldim.\p"
+    .string "Hık!\n"
+    .string "Gözyaşlarına boğuldum…$"
 
 PokemonTower_1F_Text_GrowlitheWhyDidYouDie::
-    .string "My GROWLITHE…\n"
-    .string "Why did you die?$"
+    .string "GROWLITHE'ım…\n"
+    .string "Neden öldün?$"
 
 PokemonTower_1F_Text_SenseSpiritsUpToMischief::
-    .string "I am a CHANNELER.\p"
-    .string "There are spirits up to mischief.\n"
-    .string "I sense them high in the TOWER.$"
+    .string "Ben bir RUHÇAĞIRAN'ım.\p"
+    .string "Yaramazlık peşinde ruhlar var.\n"
+    .string "Onları KULE'nin yukarılarında seziyorum.$"
 

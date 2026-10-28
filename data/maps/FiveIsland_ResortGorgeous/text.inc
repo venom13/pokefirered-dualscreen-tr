@@ -1,93 +1,92 @@
 FiveIsland_ResortGorgeous_Text_DaisyIntro::
-    .string "With these hands, I will create\n"
-    .string "my victory!$"
+    .string "Zaferimi bu ellerle yaratacağım!$"
 
 FiveIsland_ResortGorgeous_Text_DaisyDefeat::
-    .string "The shame of this…\n"
-    .string "I'm red-faced…$"
+    .string "Ne utanç…\n"
+    .string "Yüzüm kıpkırmızı…$"
 
 FiveIsland_ResortGorgeous_Text_DaisyPostBattle::
-    .string "Uh-oh, my paint tubes have\n"
-    .string "scattered everywhere!$"
+    .string "Eyvah, boya tüplerim her yere saçıldı!$"
 
 FiveIsland_ResortGorgeous_Text_CelinaIntro::
-    .string "Excuse me!\n"
-    .string "I'm trying to paint.\l"
-    .string "Please keep out of my sight!$"
+    .string "Affedersin!\n"
+    .string "Resim yapmaya çalışıyorum.\l"
+    .string "Lütfen gözümün önünden çekil!$"
 
 FiveIsland_ResortGorgeous_Text_CelinaDefeat::
-    .string "This loss…\n"
-    .string "I feel like I'm whiting out…$"
+    .string "Bu yenilgi…\n"
+    .string "Bayılacak gibiyim…$"
 
 FiveIsland_ResortGorgeous_Text_CelinaPostBattle::
     .string "GILLIAN?\n"
-    .string "Please tilt your head slightly…\l"
-    .string "There! That's the look I want!$"
+    .string "Lütfen başını hafifçe eğ…\l"
+    .string "İşte! İstediğim bakış bu!$"
 
 FiveIsland_ResortGorgeous_Text_RaynaIntro::
     .string "Hmm…\n"
-    .string "The angle, it is not quite there…$"
+    .string "Açı, tam olmadı…$"
 
 FiveIsland_ResortGorgeous_Text_RaynaDefeat::
-    .string "Oh…\n"
-    .string "My feelings, they are blue…$"
+    .string "Ah…\n"
+    .string "Duygularım masmavi, kederli…$"
 
 FiveIsland_ResortGorgeous_Text_RaynaPostBattle::
-    .string "The sky and the sea…\n"
-    .string "They are so fickle.\p"
-    .string "Their changing expressions make\n"
-    .string "them difficult to capture.$"
+    .string "Gökyüzü ve deniz…\n"
+    .string "Çok değişkenler.\p"
+    .string "Değişen ifadeleri onları resmetmeyi\n"
+    .string "zorlaştırıyor.$"
 
 FiveIsland_ResortGorgeous_Text_JackiIntro::
-    .string "I am visiting my friend's retreat,\n"
-    .string "if you must know.$"
+    .string "Bilmek istiyorsan, arkadaşımın tatil\n"
+    .string "evini ziyaret ediyorum.$"
 
 FiveIsland_ResortGorgeous_Text_JackiDefeat::
-    .string "Oh, my, so strong.$"
+    .string "Aman, ne güçlü.$"
 
 FiveIsland_ResortGorgeous_Text_JackiPostBattle::
-    .string "I find it pleasurable to leisurely\n"
-    .string "battle in the gentle sea breeze.$"
+    .string "Hafif deniz meltemi altında ağır ağır\n"
+    .string "savaşmak hoşuma gidiyor.$"
 
 FiveIsland_ResortGorgeous_Text_GillianIntro::
-    .string "I'm thinking of having a pool\n"
-    .string "made specially for POKéMON.$"
+    .string "POKéMON'lar için özel bir havuz\n"
+    .string "yaptırmayı düşünüyorum.$"
 
 FiveIsland_ResortGorgeous_Text_GillianDefeat::
-    .string "Oh, my goodness gracious!$"
+    .string "Aman tanrım!$"
 
 FiveIsland_ResortGorgeous_Text_GillianPostBattle::
-    .string "A pool would be nice, but I must\n"
-    .string "say, a sun-room may be sublime.$"
+    .string "Havuz güzel olurdu ama şunu\n"
+    .string "söylemeliyim, bir kış bahçesi muhteşem\l"
+    .string "olabilir.$"
 
 FiveIsland_ResortGorgeous_Text_DestinIntro::
-    .string "I'm a good runner.\n"
-    .string "I'm really fast!$"
+    .string "İyi bir koşucuyum.\n"
+    .string "Gerçekten çok hızlıyım!$"
 
 FiveIsland_ResortGorgeous_Text_DestinDefeat::
-    .string "Oops!\n"
-    .string "I rushed things!$"
+    .string "Hoppala!\n"
+    .string "Aceleye getirdim!$"
 
 FiveIsland_ResortGorgeous_Text_DestinPostBattle::
-    .string "When I run with the wind, it feels\n"
-    .string "like I could fly!$"
+    .string "Rüzgarla birlikte koşunca\n"
+    .string "uçabilecekmişim gibi geliyor!$"
 
 FiveIsland_ResortGorgeous_Text_TobyIntro::
-    .string "I say, this marine life here at\n"
-    .string "this resort agrees with me.$"
+    .string "Doğrusu bu tatil köyündeki deniz hayatı\n"
+    .string "bana çok iyi geliyor.$"
 
 FiveIsland_ResortGorgeous_Text_TobyDefeat::
-    .string "That's a shocker!\n"
-    .string "You must be joking.$"
+    .string "Bu ne şok!\n"
+    .string "Şaka yapıyor olmalısın.$"
 
 FiveIsland_ResortGorgeous_Text_TobyPostBattle::
-    .string "Getting so serious over this…\n"
-    .string "How nonsensical.$"
+    .string "Bu kadar ciddiye almak…\n"
+    .string "Ne saçmalık.$"
 
 FiveIsland_ResortGorgeous_Text_SelphyThanksYouMayGoNow::
-    .string "SELPHY: Thank you.\p"
-    .string "You may go now.$"
+    .string "SELPHY: Teşekkürler.\p"
+    .string "Artık gidebilirsin.$"
 
 FiveIsland_ResortGorgeous_Text_SelphysHouse::
-    .string "SELPHY'S HOUSE$"
+    .string "SELPHY'NİN EVİ$"
 

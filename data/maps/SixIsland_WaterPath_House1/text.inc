@@ -1,51 +1,52 @@
 SixIsland_WaterPath_House1_Text_LoveItNeedItHeracross::
     .string "Hera, hera, HERACROSS!\n"
-    .string "Big and shiny, it's the bug boss!\l"
-    .string "Love it, need it, HERACROSS!$"
-
-SixIsland_WaterPath_House1_Text_MayIMeasureHeracross::
-    .string "Eeeeek!\n"
-    .string "That's a HERACROSS!\p"
-    .string "Please, please, may I measure how\n"
-    .string "big it is?$"
-
-SixIsland_WaterPath_House1_Text_ItsXInchesDeserveReward::
-    .string "Eeeek, it's {STR_VAR_2} inches!\n"
-    .string "I've never seen anything like this!\l"
-    .string "You deserve a reward!$"
-
-SixIsland_WaterPath_House1_Text_WantToSeeBiggerOne::
-    .string "I want to see a much, much bigger\n"
-    .string "HERACROSS than that one.\p"
-    .string "Oh, how I adore them, big\n"
+    .string "Kocaman, parlak, böceklerin patronu!\l"
+    .string "Seviyorum onu, istiyorum onu,\l"
     .string "HERACROSS!$"
 
+SixIsland_WaterPath_House1_Text_MayIMeasureHeracross::
+    .string "Iiiik!\n"
+    .string "Bu bir HERACROSS!\p"
+    .string "Lütfen, lütfen, ne kadar büyük\n"
+    .string "olduğunu ölçebilir miyim?$"
+
+SixIsland_WaterPath_House1_Text_ItsXInchesDeserveReward::
+    .string "Iiiik, {STR_VAR_2} inç!\n"
+    .string "Böyle bir şeyi hiç görmedim!\l"
+    .string "Bir ödülü hak ettin!$"
+
+SixIsland_WaterPath_House1_Text_WantToSeeBiggerOne::
+    .string "Bundan çok ama çok daha büyük bir\n"
+    .string "HERACROSS görmek istiyorum.\p"
+    .string "Ah, onlara nasıl bayılıyorum, büyük\n"
+    .string "HERACROSS'lara!$"
+
 SixIsland_WaterPath_House1_Text_ItsXInchesSameAsBefore::
-    .string "Huh? This {STR_VAR_2}-inch measurement…\n"
-    .string "Oh, boo! It's the same as before.$"
+    .string "Hı? Bu {STR_VAR_2} inçlik ölçü…\n"
+    .string "Ah, tüh! Öncekiyle aynı.$"
 
 SixIsland_WaterPath_House1_Text_ItsXInchesYInchesWasBiggest::
-    .string "Oh, it's just {STR_VAR_2} inches.\n"
-    .string "The HERACROSS before was bigger.\p"
-    .string "It was {STR_VAR_3} inches, the biggest\n"
-    .string "HERACROSS you've brought me.$"
+    .string "Ah, sadece {STR_VAR_2} inç.\n"
+    .string "Önceki HERACROSS daha büyüktü.\p"
+    .string "Bana getirdiğin en büyük HERACROSS\n"
+    .string "{STR_VAR_3} inçti.$"
 
 SixIsland_WaterPath_House1_Text_ThisWontDo::
-    .string "Oh, no! This won't do!\p"
-    .string "HERACROSS looks much more macho\n"
-    .string "and cool, and has a lovely horn!$"
+    .string "Ah, hayır! Bu olmaz!\p"
+    .string "HERACROSS çok daha maço ve havalı\n"
+    .string "görünür, güzel bir boynuzu vardır!$"
 
 SixIsland_WaterPath_House1_Text_YourBagIsFull::
-    .string "Your BAG is full.\n"
-    .string "My reward won't fit.$"
+    .string "ÇANTAN dolu.\n"
+    .string "Ödülüm sığmıyor.$"
 
 SixIsland_WaterPath_House1_Text_BiggestHeracrossIsXInches::
-    .string "The biggest HERACROSS that I have\n"
-    .string "ever seen measured so far is:\p"
-    .string "{STR_VAR_3} inches!$"
+    .string "Şimdiye kadar ölçtüğüm en büyük\n"
+    .string "HERACROSS:\p"
+    .string "{STR_VAR_3} inç!$"
 
 SixIsland_WaterPath_House1_Text_BlankChartOfSomeSort::
-    .string "It's a blank chart of some sort.\p"
-    .string "It has spaces for writing in\n"
-    .string "records of some kind.$"
+    .string "Bir tür boş çizelge.\p"
+    .string "Bir tür rekorların yazılacağı yerler\n"
+    .string "var.$"
 

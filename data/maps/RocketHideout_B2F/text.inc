@@ -1,12 +1,12 @@
 RocketHideout_B2F_Text_GruntIntro::
-    .string "BOSS said you can see ghosts with\n"
-    .string "the SILPH SCOPE.$"
+    .string "PATRON, SILPH DÜRBÜNÜ ile hayaletleri\n"
+    .string "görebileceğini söyledi.$"
 
 RocketHideout_B2F_Text_GruntDefeat::
-    .string "I surrender!$"
+    .string "Teslim oluyorum!$"
 
 RocketHideout_B2F_Text_GruntPostBattle::
-    .string "The TEAM ROCKET HQ has four\n"
-    .string "underground floors.\p"
-    .string "Think you can reach the BOSS?$"
+    .string "ROCKET TAKIMI MERKEZİ dört yeraltı\n"
+    .string "katından oluşur.\p"
+    .string "PATRON'a ulaşabileceğini mi sanıyorsun?$"
 

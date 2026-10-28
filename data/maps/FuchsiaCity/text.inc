@@ -1,112 +1,110 @@
 FuchsiaCity_Text_DidYouTrySafariGame::
-    .string "Did you try the SAFARI GAME?\p"
-    .string "There are some rare POKéMON that\n"
-    .string "can only be caught there.$"
+    .string "SAFARİ OYUNU'nu denedin mi?\p"
+    .string "Yalnızca orada yakalanabilen bazı nadir\n"
+    .string "POKéMON'lar var.$"
 
 FuchsiaCity_Text_SafariZoneZooInFront::
-    .string "The SAFARI ZONE has a zoo in front\n"
-    .string "of the entrance.\p"
-    .string "Out back is the SAFARI GAME for\n"
-    .string "catching POKéMON.$"
+    .string "SAFARİ BÖLGESİ'nin girişinin önünde bir\n"
+    .string "hayvanat bahçesi var.\p"
+    .string "Arkada da POKéMON yakalamak için\n"
+    .string "SAFARİ OYUNU var.$"
 
 FuchsiaCity_Text_WheresSara::
-    .string "ERIK: Where's SARA?\n"
-    .string "I said I'd meet her here.$"
+    .string "ERIK: SARA nerede?\n"
+    .string "Onunla burada buluşacağımızı\l"
+    .string "söylemiştim.$"
 
 FuchsiaCity_Text_ItemBallInThere::
-    .string "That item ball in there…\n"
-    .string "Were you wanting that?\p"
-    .string "Me, too!\n"
-    .string "…Huh? That's a POKéMON?$"
+    .string "Oradaki eşya topu…\n"
+    .string "Sen de mi onu istiyordun?\p"
+    .string "Ben de!\n"
+    .string "…Hı? O bir POKéMON mu?$"
 
 FuchsiaCity_Text_CitySign::
-    .string "FUCHSIA CITY\n"
-    .string "Behold! It's Passion Pink!$"
+    .string "FUCHSIA ŞEHRİ\n"
+    .string "İşte! Tutku Pembesi!$"
 
 FuchsiaCity_Text_SafariZoneSign::
-    .string "POKéMON PARADISE\n"
-    .string "SAFARI ZONE$"
+    .string "POKéMON CENNETİ\n"
+    .string "SAFARİ BÖLGESİ$"
 
 FuchsiaCity_Text_SafariGameSign::
-    .string "SAFARI GAME\n"
-    .string "POKéMON-U-CATCH!$"
+    .string "SAFARİ OYUNU\n"
+    .string "POKéMON-YAKALA!$"
 
 FuchsiaCity_Text_WardensHomeSign::
-    .string "SAFARI ZONE\n"
-    .string "WARDEN'S HOME$"
+    .string "SAFARİ BÖLGESİ\n"
+    .string "BEKÇİNİN EVİ$"
 
 FuchsiaCity_Text_SafariZoneOfficeSign::
-    .string "POKéMON PARADISE!\n"
-    .string "Welcome to the SAFARI ZONE!\l"
-    .string "SAFARI ZONE OFFICE$"
+    .string "POKéMON CENNETİ!\n"
+    .string "SAFARİ BÖLGESİ'ne hoş geldin!\l"
+    .string "SAFARİ BÖLGESİ OFİSİ$"
 
 FuchsiaCity_Text_GymSign::
-    .string "FUCHSIA CITY POKéMON GYM\n"
-    .string "LEADER: KOGA\l"
-    .string "The Poisonous Ninja Master$"
+    .string "FUCHSIA ŞEHRİ POKéMON SALONU\n"
+    .string "LİDER: KOGA\l"
+    .string "Zehirli Ninja Ustası$"
 
 FuchsiaCity_Text_ChanseySign::
-    .string "Name: CHANSEY\n"
-    .string "Catching one is all up to chance.$"
+    .string "Ad: CHANSEY\n"
+    .string "Yakalamak tamamen şansa bağlı.$"
 
 FuchsiaCity_Text_VoltorbSign::
-    .string "Name: VOLTORB\n"
-    .string "The very image of a POKé BALL.$"
+    .string "Ad: VOLTORB\n"
+    .string "Tıpkı bir POKé TOPU.$"
 
 FuchsiaCity_Text_KangaskhanSign::
-    .string "Name: KANGASKHAN\p"
-    .string "A maternal POKéMON that raises its\n"
-    .string "young in a pouch on its belly.$"
+    .string "Ad: KANGASKHAN\p"
+    .string "Yavrusunu karnındaki kesede büyüten\n"
+    .string "şefkatli bir POKéMON.$"
 
 FuchsiaCity_Text_SlowpokeSign::
-    .string "Name: SLOWPOKE\n"
-    .string "Friendly and very slow moving.$"
+    .string "Ad: SLOWPOKE\n"
+    .string "Dost canlısı ve çok yavaş.$"
 
 FuchsiaCity_Text_LaprasSign::
-    .string "Name: LAPRAS\n"
-    .string "AKA the king of the seas.$"
+    .string "Ad: LAPRAS\n"
+    .string "Nam-ı diğer denizlerin kralı.$"
 
 FuchsiaCity_Text_OmanyteSign::
-    .string "Name: OMANYTE\n"
-    .string "An extremely rare POKéMON that was\l"
-    .string "regenerated from a fossil.$"
+    .string "Ad: OMANYTE\n"
+    .string "Fosilden yeniden canlandırılmış son\l"
+    .string "derece nadir bir POKéMON.$"
 
 FuchsiaCity_Text_KabutoSign::
-    .string "Name: KABUTO\n"
-    .string "An extremely rare POKéMON that was\l"
-    .string "regenerated from a fossil.$"
+    .string "Ad: KABUTO\n"
+    .string "Fosilden yeniden canlandırılmış son\l"
+    .string "derece nadir bir POKéMON.$"
 
 @ Unused. May have been meant to be the placeholder text for the zoo mons, similar to RB's "!" text
 FuchsiaCity_Text_Ellipsis::
     .string "……$"
 
 Text_SubstituteTeach::
-    .string "Aww, I wish I was a KANGASKHAN\n"
-    .string "baby.\p"
-    .string "I'd love to be a substitute for the\n"
-    .string "baby…\p"
-    .string "And snuggle in the mother\n"
-    .string "KANGASKHAN's belly pouch.\p"
-    .string "But only POKéMON can use the\n"
-    .string "technique SUBSTITUTE…\p"
-    .string "Want me to teach SUBSTITUTE to\n"
-    .string "one of your POKéMON?$"
+    .string "Ahh, keşke bir KANGASKHAN yavrusu\n"
+    .string "olsaydım.\p"
+    .string "Yavrunun YEDEK'i olmayı çok isterdim…\p"
+    .string "Ve anne KANGASKHAN'ın karnındaki keseye\n"
+    .string "sokulmayı.\p"
+    .string "Ama YEDEK tekniğini yalnızca\n"
+    .string "POKéMON'lar kullanabilir…\p"
+    .string "POKéMON'larından birine YEDEK öğretmemi\n"
+    .string "ister misin?$"
 
 Text_SubstituteDeclined::
-    .string "Oh, really?\n"
-    .string "SUBSTITUTE seems so fun…$"
+    .string "Ah, öyle mi?\n"
+    .string "YEDEK çok eğlenceli görünüyor oysa…$"
 
 Text_SubstituteWhichMon::
-    .string "Which POKéMON wants to learn\n"
-    .string "SUBSTITUTE?$"
+    .string "Hangi POKéMON YEDEK öğrenmek istiyor?$"
 
 Text_SubstituteTaught::
-    .string "Boy, what I'd give to crawl inside\n"
-    .string "a KANGASKHAN belly pouch…$"
+    .string "Ah, bir KANGASKHAN kesesinin içine\n"
+    .string "girmek için neler vermezdim…$"
 
 FuchsiaCity_Text_MyFatherIsGymLeader::
-    .string "My father is the GYM LEADER of\n"
-    .string "this town.\p"
-    .string "I'm training to use POISON POKéMON\n"
-    .string "as well as my father.$"
+    .string "Babam bu kasabanın SALON LİDERİ.\p"
+    .string "Babam gibi ZEHİR POKéMON'u kullanmak\n"
+    .string "için antrenman yapıyorum.$"
 

@@ -1,131 +1,129 @@
 Route17_Text_RaulIntro::
-    .string "There's no getting rich quick in\n"
-    .string "battling kids.$"
+    .string "Çocuklarla savaşarak çabucak zengin\n"
+    .string "olunmaz.$"
 
 Route17_Text_RaulDefeat::
-    .string "Burned out!$"
+    .string "Tükendim!$"
 
 Route17_Text_RaulPostBattle::
-    .string "You can find good stuff lying\n"
-    .string "around on CYCLING ROAD.\p"
-    .string "There's good money in picking them\n"
-    .string "up and selling them.$"
+    .string "BİSİKLET YOLU'nda etrafta güzel şeyler\n"
+    .string "bulabilirsin.\p"
+    .string "Onları toplayıp satmak iyi para eder.$"
 
 Route17_Text_IsaiahIntro::
-    .string "I'm mighty proud of my bod, kiddo.\n"
-    .string "Come on!$"
+    .string "Vücudumla çok gurur duyuyorum, evlat.\n"
+    .string "Hadi gel!$"
 
 Route17_Text_IsaiahDefeat::
-    .string "Whoo!$"
+    .string "Vuhu!$"
 
 Route17_Text_IsaiahPostBattle::
-    .string "I could belly-bump you outta\n"
-    .string "here!$"
+    .string "Göbeğimle seni buradan itip\n"
+    .string "çıkarabilirim!$"
 
 Route17_Text_VirgilIntro::
-    .string "You heading to FUCHSIA?$"
+    .string "FUCHSIA'ya mı gidiyorsun?$"
 
 Route17_Text_VirgilDefeat::
-    .string "Crash and burn!$"
+    .string "Çarptım ve yandım!$"
 
 Route17_Text_VirgilPostBattle::
-    .string "I love racing downhill!$"
+    .string "Yokuş aşağı yarışmaya bayılırım!$"
 
 Route17_Text_BillyIntro::
-    .string "We're BIKERS!\n"
-    .string "We rule the roads, man!$"
+    .string "Biz MOTORCULARIZ!\n"
+    .string "Yolların hakimi biziz, dostum!$"
 
 Route17_Text_BillyDefeat::
-    .string "Smoked!$"
+    .string "Toz yuttum!$"
 
 Route17_Text_BillyPostBattle::
-    .string "Are you looking for adventure?$"
+    .string "Macera mı arıyorsun?$"
 
 Route17_Text_NikolasIntro::
-    .string "Let VOLTORB electrify you!$"
+    .string "VOLTORB seni çarpsın!$"
 
 Route17_Text_NikolasDefeat::
-    .string "Grounded out!$"
+    .string "Topraklandım!$"
 
 Route17_Text_NikolasPostBattle::
-    .string "I got my VOLTORB at the abandoned\n"
-    .string "POWER PLANT.$"
+    .string "VOLTORB'umu terk edilmiş SANTRAL'de\n"
+    .string "yakaladım.$"
 
 Route17_Text_ZeekIntro::
-    .string "I leveled up my POKéMON, but it\n"
-    .string "won't evolve. Why?$"
+    .string "POKéMON'umun seviyesini artırdım ama\n"
+    .string "evrimleşmiyor. Neden?$"
 
 Route17_Text_ZeekDefeat::
-    .string "Why, you!$"
+    .string "Seni gidi!$"
 
 Route17_Text_ZeekPostBattle::
-    .string "Maybe some POKéMON need element\n"
-    .string "STONES to evolve.$"
+    .string "Belki bazı POKéMON'ların evrimleşmek\n"
+    .string "için element TAŞLARINA ihtiyacı vardır.$"
 
 Route17_Text_JamalIntro::
-    .string "I need a little exercise!$"
+    .string "Biraz egzersize ihtiyacım var!$"
 
 Route17_Text_JamalDefeat::
-    .string "Whew!\n"
-    .string "Good workout!$"
+    .string "Of!\n"
+    .string "İyi antrenmandı!$"
 
 Route17_Text_JamalPostBattle::
-    .string "I'm sure I lost weight there!$"
+    .string "Eminim kilo verdim!$"
 
 Route17_Text_CoreyIntro::
-    .string "Be a rebel!$"
+    .string "İsyankâr ol!$"
 
 Route17_Text_CoreyDefeat::
     .string "Aaaargh!$"
 
 Route17_Text_CoreyPostBattle::
-    .string "Be ready to fight for your beliefs!$"
+    .string "İnançların için savaşmaya hazır ol!$"
 
 Route17_Text_JaxonIntro::
-    .string "Nice BIKE!\n"
-    .string "How's it handle?$"
+    .string "Güzel BİSİKLET!\n"
+    .string "Nasıl sürüyor?$"
 
 Route17_Text_JaxonDefeat::
-    .string "Shoot!$"
+    .string "Tüh!$"
 
 Route17_Text_JaxonPostBattle::
-    .string "The slope makes it hard to steer.$"
+    .string "Yokuş yüzünden direksiyonu kontrol etmek zor.$"
 
 Route17_Text_WilliamIntro::
-    .string "Get lost, kid!\n"
-    .string "I'm bushed!$"
+    .string "Kaybol, ufaklık!\n"
+    .string "Çok yorgunum!$"
 
 Route17_Text_WilliamDefeat::
-    .string "Are you satisfied?$"
+    .string "Memnun musun?$"
 
 Route17_Text_WilliamPostBattle::
-    .string "I need to catch a few z's!$"
+    .string "Biraz kestirmem lazım!$"
 
 Route17_Text_WatchOutForDiscardedItems::
-    .string "It's a notice.\p"
-    .string "Watch out for discarded items.$"
+    .string "Bir duyuru.\p"
+    .string "Atılmış eşyalara dikkat edin.$"
 
 Route17_Text_SameSpeciesGrowDifferentRates::
-    .string "TRAINER TIPS\p"
-    .string "All POKéMON are unique.\p"
-    .string "Even POKéMON of the same species\n"
-    .string "and level grow at different rates.$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "Tüm POKéMON'lar eşsizdir.\p"
+    .string "Aynı tür ve seviyedeki POKéMON'lar bile\n"
+    .string "farklı hızlarda büyür.$"
 
 Route17_Text_PressBToStayInPlace::
-    .string "TRAINER TIPS\p"
-    .string "Press the B Button to stay in place\n"
-    .string "while on a slope.$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "Yokuştayken yerinde durmak için B\n"
+    .string "Tuşuna bas.$"
 
 Route17_Text_RouteSign::
-    .string "ROUTE 17\n"
-    .string "CELADON CITY - FUCHSIA CITY$"
+    .string "ROTA 17\n"
+    .string "CELADON ŞEHRİ - FUCHSIA ŞEHRİ$"
 
 Route17_Text_DontThrowGameThrowBalls::
-    .string "It's a notice!\p"
-    .string "Don't throw the game, throw POKé\n"
-    .string "BALLS instead!$"
+    .string "Bir duyuru!\p"
+    .string "Oyunu atma, onun yerine POKé TOPU at!$"
 
 Route17_Text_CyclingRoadSign::
-    .string "CYCLING ROAD\n"
-    .string "Slope ends here!$"
+    .string "BİSİKLET YOLU\n"
+    .string "Yokuş burada bitiyor!$"
 

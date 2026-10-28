@@ -1,0 +1,15 @@
+{
+ "2": "Kazanılan: {STR_VAR_2}!$",
+ "5": "ÇANTA dolu…$",
+ "8": "{PLAYER}, {STR_VAR_2} eşyasını {STR_VAR_3} cebine koydu.$",
+ "12": "{PLAYER} bir {STR_VAR_2} buldu!$",
+ "15": "Çok yazık!\\nÇANTA dolu…$",
+ "19": "{PLAYER}\\n{STR_VAR_1} {STR_VAR_2} buldu!$",
+ "23": "{PLAYER}, JETONLARI JETON KUTUSU'na koydu.$",
+ "27": "Çok yazık!\\nJETON KUTUSU dolu…$",
+ "31": "Çok yazık!\\nOnları koyacak bir şey yok…$",
+ "35": "{PLAYER}\\n{STR_VAR_1} adet {STR_VAR_2} buldu!$",
+ "39": "Kazanılan: {STR_VAR_2}!$",
+ "42": "Çok yazık! Bir {STR_VAR_2} için daha yer kalmadı…$",
+ "46": "{STR_VAR_2} PC'ye aktarıldı.$"
+}

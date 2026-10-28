@@ -1,0 +1,9 @@
+{
+ "2": "Selam! Beni hatırladın mı?\\nPROF. OAK'ın YARDIMCILARINDAN biriyim.\\pPOKéDEX'inde {STR_VAR_1} türün tam verisi varsa sana bir ödül vermem gerekiyor.\\pPROF. OAK senin için bana {STR_VAR_2} emanet etti.\\pPeki {PLAYER}, sana sorayım.\\pEn az {STR_VAR_1} tür POKéMON'un verisini topladın mı?$",
+ "14": "Harika! {STR_VAR_3} tür POKéMON yakalamış ya da sahiplenmişsin!\\pTebrikler!\\nBuyur!$",
+ "20": "{PLAYER}, YARDIMCI'dan {STR_VAR_2} aldı.$",
+ "24": "Yerde gözden gizlenmiş eşyalar olabilir.\\pYakınındaki gizli eşyaları bulmak için EŞYA BULUCU'yu kullan.\\pMakinenin biraz sınırı var.\\nEşyanın yerini tam gösteremez.\\pYaptığı şey eşyanın olduğu yönü göstermek.\\pYönünü bulmak için kullan, sonra şüpheli alanı elle ara.$",
+ "36": "Bakalım dürbün ne gösterecek…\\pYolda büyük bir POKéMON uyuyor!$",
+ "41": "Bakalım dürbün ne gösterecek…\\pNefes kesici bir manzara!$",
+ "46": "Bakalım dürbün ne gösterecek…\\pCERULEAN ŞEHRİ'nden LAVENDER KÖYÜ'ne gitmek için…\\pKAYA TÜNELİ iyi bir yol gibi görünüyor.$"
+}

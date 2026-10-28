@@ -1,63 +1,62 @@
 Route5_PokemonDayCare_Text_WantMeToRaiseMon::
-	.string "I run the DAY-CARE service.\p"
-	.string "Would you like me to raise one of\n"
-	.string "your POKéMON?$"
+	.string "KREŞ hizmetini ben işletiyorum.\p"
+	.string "POKéMON'larından birini yetiştirmemi\n"
+	.string "ister misin?$"
 
 Route5_PokemonDayCare_Text_ComeAgain::
-	.string "Come again.$"
+	.string "Yine gel.$"
 
 Route5_PokemonDayCare_Text_WhichMonShouldIRaise::
-	.string "Which POKéMON should I raise?$"
+	.string "Hangi POKéMON'u yetiştireyim?$"
 
 Route5_PokemonDayCare_Text_ComeAnytimeYouLike::
-	.string "Fine.\n"
-	.string "Come anytime you like.$"
+	.string "Peki.\n"
+	.string "Ne zaman istersen gel.$"
 
 Route5_PokemonDayCare_Text_LookAfterMonForAWhile::
-	.string "Fine, I'll look after your\n"
-	.string "{STR_VAR_1} for a while.$"
+	.string "Peki, {STR_VAR_1} bir süre bende\n"
+	.string "kalsın.$"
 
 Route5_PokemonDayCare_Text_ComeSeeMeInAWhile::
-	.string "Come see me in a while.$"
+	.string "Bir süre sonra gel.$"
 
 Route5_PokemonDayCare_Text_MonNeedsToSpendMoreTime::
-	.string "You're back already?\p"
-	.string "Your {STR_VAR_1} needs to spend\n"
-	.string "some more time with me.$"
+	.string "Hemen mi döndün?\p"
+	.string "{STR_VAR_1} adlı POKéMON'unun benimle\n"
+	.string "biraz daha vakit geçirmesi lazım.$"
 
 Route5_PokemonDayCare_Text_OweMeXForMonsReturn::
-	.string "You owe me ¥{STR_VAR_2} for the return\n"
-	.string "of this POKéMON.$"
+	.string "Bu POKéMON'u geri almak için bana\n"
+	.string "¥{STR_VAR_2} borçlusun.$"
 
 Route5_PokemonDayCare_Text_ThankYouHeresMon::
-	.string "Thank you!\n"
-	.string "Here's your POKéMON.$"
+	.string "Teşekkürler!\n"
+	.string "İşte POKéMON'un.$"
 
 Route5_PokemonDayCare_Text_PlayerGotMonBack::
-	.string "{PLAYER} got {STR_VAR_1} back\n"
-	.string "from the DAY-CARE MAN.$"
+	.string "{PLAYER}, KREŞ AMCASINDAN {STR_VAR_1}\n"
+	.string "adlı POKéMON'unu geri aldı.$"
 
 Route5_PokemonDayCare_Text_OnlyHaveOneMonWithYou::
-	.string "Oh? You only have one POKéMON\n"
-	.string "with you.$"
+	.string "Hı? Yanında sadece bir POKéMON var.$"
 
 Route5_PokemonDayCare_Text_WhatWillYouBattleWith::
-	.string "If you leave me that POKéMON,\n"
-	.string "what will you battle with?$"
+	.string "O POKéMON'u bana bırakırsan neyle\n"
+	.string "savaşacaksın?$"
 
 Route5_PokemonDayCare_Text_MonHasGrownByXLevels::
-	.string "Your {STR_VAR_1} has grown a lot.\n"
-	.string "Yes, quite a lot, I'd say.\p"
-	.string "Let me see…\n"
-	.string "By level, it's grown by {STR_VAR_2}.\p"
-	.string "Aren't I great?$"
+	.string "{STR_VAR_1} çok büyüdü.\n"
+	.string "Evet, epey büyüdü diyebilirim.\p"
+	.string "Bakalım…\n"
+	.string "Seviye olarak {STR_VAR_2} büyümüş.\p"
+	.string "Harika değil miyim?$"
 
 Route5_PokemonDayCare_Text_YouveGotNoRoomForIt::
-	.string "You can't take this POKéMON back\n"
-	.string "if you've got no room for it.$"
+	.string "Yerin yoksa bu POKéMON'u geri\n"
+	.string "alamazsın.$"
 
 Route5_PokemonDayCare_Text_DontHaveEnoughMoney::
-	.string "You don't have enough money.$"
+	.string "Yeterli paran yok.$"
 
 Route5_PokemonDayCare_Text_WantMeToTakeALookAtYours::
     .string "きみの\n"

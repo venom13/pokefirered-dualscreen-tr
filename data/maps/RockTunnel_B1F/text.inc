@@ -1,95 +1,91 @@
 RockTunnel_B1F_Text_SofiaIntro::
-    .string "Do you know how you can avoid\n"
-    .string "getting lost in the mountains?\p"
-    .string "You can bend twigs as trail\n"
-    .string "markers.$"
+    .string "Dağlarda kaybolmamanın yolunu biliyor\n"
+    .string "musun?\p"
+    .string "Dalları bükerek iz bırakabilirsin.$"
 
 RockTunnel_B1F_Text_SofiaDefeat::
     .string "Ohhh!\n"
-    .string "I did my best!$"
+    .string "Elimden geleni yaptım!$"
 
 RockTunnel_B1F_Text_SofiaPostBattle::
-    .string "I want to go home!$"
+    .string "Eve gitmek istiyorum!$"
 
 RockTunnel_B1F_Text_DudleyIntro::
     .string "Hahaha!\n"
-    .string "Can you beat my power?$"
+    .string "Gücümü yenebilir misin?$"
 
 RockTunnel_B1F_Text_DudleyDefeat::
-    .string "Oops!\n"
-    .string "Outmuscled!$"
+    .string "Hoppala!\n"
+    .string "Kas gücünde yenildim!$"
 
 RockTunnel_B1F_Text_DudleyPostBattle::
-    .string "I go for power because I hate\n"
-    .string "thinking.$"
+    .string "Düşünmekten nefret ettiğim için güce\n"
+    .string "yöneliyorum.$"
 
 RockTunnel_B1F_Text_CooperIntro::
-    .string "You have a POKéDEX?\n"
-    .string "I want one, too.$"
+    .string "POKéDEX'in mi var?\n"
+    .string "Ben de bir tane istiyorum.$"
 
 RockTunnel_B1F_Text_CooperDefeat::
-    .string "Shoot!\n"
-    .string "I am so jealous!$"
+    .string "Tüh!\n"
+    .string "Çok kıskanıyorum!$"
 
 RockTunnel_B1F_Text_CooperPostBattle::
-    .string "When you finish your POKéDEX,\n"
-    .string "can I have it?$"
+    .string "POKéDEX'ini bitirince onu bana verir\n"
+    .string "misin?$"
 
 RockTunnel_B1F_Text_SteveIntro::
-    .string "Um… Do you know about POKéMON\n"
-    .string "cosplay?$"
+    .string "Şey… POKéMON kostümünü biliyor musun?$"
 
 RockTunnel_B1F_Text_SteveDefeat::
-    .string "Well, that's that.$"
+    .string "Eh, bu kadar.$"
 
 RockTunnel_B1F_Text_StevePostBattle::
-    .string "POKéMON cosplay is dressing up as\n"
-    .string "POKéMON for fun.\p"
-    .string "CLEFAIRY is a favorite.$"
+    .string "POKéMON kostümü, eğlence için POKéMON\n"
+    .string "gibi giyinmektir.\p"
+    .string "CLEFAIRY en sevilenlerden.$"
 
 RockTunnel_B1F_Text_AllenIntro::
-    .string "My POKéMON techniques will leave\n"
-    .string "you crying!$"
+    .string "POKéMON tekniklerim seni ağlatacak!$"
 
 RockTunnel_B1F_Text_AllenDefeat::
-    .string "I give!\n"
-    .string "You're a better technician!$"
+    .string "Pes ediyorum!\n"
+    .string "Daha iyi bir teknisyensin!$"
 
 RockTunnel_B1F_Text_AllenPostBattle::
-    .string "In mountains, you'll often find\n"
-    .string "ROCK-type POKéMON.$"
+    .string "Dağlarda sık sık KAYA türü POKéMON\n"
+    .string "bulursun.$"
 
 RockTunnel_B1F_Text_MarthaIntro::
-    .string "I don't often come here, but I will\n"
-    .string "battle you.$"
+    .string "Buraya pek gelmem ama seninle\n"
+    .string "savaşırım.$"
 
 RockTunnel_B1F_Text_MarthaDefeat::
-    .string "Oh!\n"
-    .string "I lost!$"
+    .string "Ah!\n"
+    .string "Kaybettim!$"
 
 RockTunnel_B1F_Text_MarthaPostBattle::
-    .string "I like tiny POKéMON.\n"
-    .string "Big ones are too scary!$"
+    .string "Minik POKéMON'ları severim.\n"
+    .string "Büyükler çok korkutucu!$"
 
 RockTunnel_B1F_Text_EricIntro::
-    .string "Hit me with your best shot!$"
+    .string "En iyi atışını yap!$"
 
 RockTunnel_B1F_Text_EricDefeat::
-    .string "Fired away!$"
+    .string "Ateş edildi!$"
 
 RockTunnel_B1F_Text_EricPostBattle::
-    .string "I'll raise my POKéMON to beat\n"
-    .string "yours, kid.$"
+    .string "POKéMON'larımı seninkileri yenecek\n"
+    .string "şekilde yetiştireceğim, evlat.$"
 
 RockTunnel_B1F_Text_WinstonIntro::
-    .string "I draw illustrations of POKéMON\n"
-    .string "when I'm home.$"
+    .string "Evdeyken POKéMON resimleri çizerim.$"
 
 RockTunnel_B1F_Text_WinstonDefeat::
-    .string "Whew…\n"
-    .string "I'm exhausted…$"
+    .string "Of…\n"
+    .string "Bitkinim…$"
 
 RockTunnel_B1F_Text_WinstonPostBattle::
-    .string "I'm an artist, not a fighter.\n"
-    .string "I'll go home to draw.$"
+    .string "Ben sanatçıyım, savaşçı değil.\n"
+    .string "Eve gidip resim çizeceğim.$"
 

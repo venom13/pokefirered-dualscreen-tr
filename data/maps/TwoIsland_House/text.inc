@@ -1,47 +1,48 @@
 TwoIsland_House_Text_TeachMonMoveForMushroom::
-    .string "I'm the POKéMON MOVE MANIAC.\p"
-    .string "I know every single move that\n"
-    .string "POKéMON learn growing up.\p"
-    .string "I'm also a mushroom maniac.\p"
-    .string "Bring me two TINYMUSHROOMS,\n"
-    .string "or one BIG MUSHROOM.\p"
-    .string "If you do that for me, I'll teach\n"
-    .string "a move to one POKéMON.$"
+    .string "Ben POKéMON HAREKET MANYAĞI'yım.\p"
+    .string "POKéMON'ların büyürken öğrendiği her\n"
+    .string "hareketi bilirim.\p"
+    .string "Aynı zamanda bir mantar manyağıyım.\p"
+    .string "Bana iki MİNİK MANTAR ya da bir BÜYÜK\n"
+    .string "MANTAR getir.\p"
+    .string "Bunu yaparsan bir POKéMON'a bir\n"
+    .string "hareket öğretirim.$"
 
 TwoIsland_House_Text_WantMeToTeachMove::
-    .string "Sniff, sniff…\n"
-    .string "Hm! You smell of MUSHROOMS!\p"
-    .string "Do you want me to teach a move\n"
-    .string "to a POKéMON of yours?$"
+    .string "Fırt, fırt…\n"
+    .string "Hm! MANTAR kokuyorsun!\p"
+    .string "POKéMON'larından birine hareket\n"
+    .string "öğretmemi ister misin?$"
 
 TwoIsland_House_Text_TutorWhichMon::
-    .string "Which POKéMON needs tutoring?$"
+    .string "Hangi POKéMON'un derse ihtiyacı var?$"
 
 TwoIsland_House_Text_TeachWhichMove::
-    .string "Which move should I teach?$"
+    .string "Hangi hareketi öğreteyim?$"
 
 TwoIsland_House_Text_NoMoveICanTeachThatMon::
-    .string "Sorry…\p"
-    .string "It doesn't appear as if I have a\n"
-    .string "move I can teach that POKéMON.$"
+    .string "Üzgünüm…\p"
+    .string "O POKéMON'a öğretebileceğim bir\n"
+    .string "hareketim yok gibi.$"
 
 TwoIsland_House_Text_IllNeedMushroomOrTwo::
-    .string "Then, I'll need a MUSHROOM or two.\n"
-    .string "What are you going to give me?$"
+    .string "O zaman bir iki MANTAR lazım.\n"
+    .string "Bana ne vereceksin?$"
 
 TwoIsland_House_Text_HandedOverTwoTinyMushrooms::
-    .string "{PLAYER} handed over two\n"
-    .string "TINYMUSHROOMS in exchange.$"
+    .string "{PLAYER} karşılığında iki MİNİK MANTAR\n"
+    .string "verdi.$"
 
 TwoIsland_House_Text_HandedOverOneBigMushroom::
-    .string "{PLAYER} handed over one\n"
-    .string "BIG MUSHROOM in exchange.$"
+    .string "{PLAYER} karşılığında bir BÜYÜK MANTAR\n"
+    .string "verdi.$"
 
 TwoIsland_House_Text_NeedMushroomOrTwoToLearnMove::
-    .string "If your POKéMON need to learn a\n"
-    .string "move, I need a MUSHROOM or two.$"
+    .string "POKéMON'larının hareket öğrenmesi\n"
+    .string "gerekiyorsa bir iki MANTAR'a ihtiyacım\l"
+    .string "var.$"
 
 TwoIsland_House_Text_CantTeachAnEgg::
-    .string "Hunh? There isn't a single move\n"
-    .string "that I can teach an EGG.$"
+    .string "Hıh? Bir YUMURTA'ya öğretebileceğim\n"
+    .string "tek bir hareket yok.$"
 

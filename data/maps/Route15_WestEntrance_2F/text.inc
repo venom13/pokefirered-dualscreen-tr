@@ -1,41 +1,37 @@
 Route15_WestEntrance_2F_Text_GiveItemIfCaughtEnough::
-    .string "Hi! Remember me?\n"
-    .string "I'm one of PROF. OAK's AIDES.\p"
-    .string "If your POKéDEX has complete data\n"
-    .string "on {STR_VAR_1} species, I'm supposed to\l"
-    .string "give you a reward.\p"
-    .string "PROF. OAK entrusted me with the\n"
-    .string "{STR_VAR_2} for you.\p"
-    .string "So, {PLAYER}, let me ask you.\p"
-    .string "Have you gathered data on at least\n"
-    .string "{STR_VAR_1} kinds of POKéMON?$"
+    .string "Selam! Beni hatırladın mı?\n"
+    .string "PROF. OAK'ın YARDIMCILARINDAN biriyim.\p"
+    .string "POKéDEX'inde {STR_VAR_1} türün tam\n"
+    .string "verisi varsa sana bir ödül vermem\l"
+    .string "gerekiyor.\p"
+    .string "PROF. OAK senin için bana {STR_VAR_2}\n"
+    .string "emanet etti.\p"
+    .string "Peki {PLAYER}, sana sorayım.\p"
+    .string "En az {STR_VAR_1} tür POKéMON'un\n"
+    .string "verisini topladın mı?$"
 
 Route15_WestEntrance_2F_Text_GreatHereYouGo::
-    .string "Great! You have caught or owned\n"
-    .string "{STR_VAR_3} kinds of POKéMON!\p"
-    .string "Congratulations!\n"
-    .string "Here you go!$"
+    .string "Harika! {STR_VAR_3} tür POKéMON\n"
+    .string "yakalamış ya da sahiplenmişsin!\p"
+    .string "Tebrikler!\n"
+    .string "Buyur!$"
 
 Route15_WestEntrance_2F_Text_ReceivedItemFromAide::
-    .string "{PLAYER} received the {STR_VAR_2}\n"
-    .string "from the AIDE.$"
+    .string "{PLAYER}, YARDIMCI'dan {STR_VAR_2}\n"
+    .string "aldı.$"
 
 Route15_WestEntrance_2F_Text_ExplainExpShare::
-    .string "EXP. SHARE is an item to be held\n"
-    .string "by a POKéMON.\p"
-    .string "The POKéMON will receive a share\n"
-    .string "of the EXP. Points without having\l"
-    .string "to battle.$"
+    .string "TP PAYLAŞIM, POKéMON'a taşıtılan bir\n"
+    .string "eşyadır.\p"
+    .string "POKéMON savaşmak zorunda kalmadan\n"
+    .string "TP'den pay alır.$"
 
 Route15_WestEntrance_2F_Text_LargeShiningBird::
-    .string "Let's see what the binoculars have\n"
-    .string "to show…\p"
-    .string "A large, shining bird is flying\n"
-    .string "toward the sea.$"
+    .string "Bakalım dürbün ne gösterecek…\p"
+    .string "Büyük, parlak bir kuş denize doğru\n"
+    .string "uçuyor.$"
 
 Route15_WestEntrance_2F_Text_SmallIslandOnHorizon::
-    .string "Let's see what the binoculars have\n"
-    .string "to show…\p"
-    .string "It looks like a small island on\n"
-    .string "the horizon!$"
+    .string "Bakalım dürbün ne gösterecek…\p"
+    .string "Ufukta küçük bir ada var gibi!$"
 

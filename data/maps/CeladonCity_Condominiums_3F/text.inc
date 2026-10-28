@@ -1,42 +1,41 @@
 CeladonCity_Condominiums_3F_Text_ImTheProgrammer::
-    .string "Me?\n"
-    .string "I'm the programmer!$"
+    .string "Ben mi?\n"
+    .string "Ben programcıyım!$"
 
 CeladonCity_Condominiums_3F_Text_ImTheGraphicArtist::
-    .string "I'm the graphic artist!\n"
-    .string "I drew you!$"
+    .string "Ben grafik sanatçısıyım!\n"
+    .string "Seni ben çizdim!$"
 
 CeladonCity_Condominiums_3F_Text_IWroteTheStory::
-    .string "I wrote the story!\n"
-    .string "Isn't ERIKA cute?\p"
-    .string "I like MISTY a lot, too!\n"
-    .string "Oh, and SABRINA, I like her!$"
+    .string "Hikâyeyi ben yazdım!\n"
+    .string "ERIKA tatlı değil mi?\p"
+    .string "MISTY'yi de çok severim!\n"
+    .string "Ah, bir de SABRINA, onu da severim!$"
 
 CeladonCity_Condominiums_3F_Text_ImGameDesignerShowMeFinishedPokedex::
-    .string "Is that right?\p"
-    .string "I'm the game designer!\p"
-    .string "Filling up your POKéDEX is tough,\n"
-    .string "but don't quit!\p"
-    .string "When you finish, come tell me!$"
+    .string "Öyle mi?\p"
+    .string "Ben oyun tasarımcısıyım!\p"
+    .string "POKéDEX'ini doldurmak zor ama pes\n"
+    .string "etme!\p"
+    .string "Bitirince gelip bana söyle!$"
 
 CeladonCity_Condominiums_3F_Text_CompletedPokedexCongratulations::
-    .string "Wow! Excellent!\n"
-    .string "You completed your POKéDEX!\l"
-    .string "Congratulations!\l"
+    .string "Vay! Mükemmel!\n"
+    .string "POKéDEX'ini tamamladın!\l"
+    .string "Tebrikler!\l"
     .string "…$"
 
 CeladonCity_Condominiums_3F_Text_ItsTheGameProgram::
-    .string "It's the game program! Messing with\n"
-    .string "it could bug out the game!$"
+    .string "Bu oyunun programı! Kurcalarsan oyun\n"
+    .string "bozulabilir!$"
 
 CeladonCity_Condominiums_3F_Text_SomeonesPlayingGame::
-    .string "Someone's playing a game instead of\n"
-    .string "working!$"
+    .string "Birisi çalışacağına oyun oynuyor!$"
 
 CeladonCity_Condominiums_3F_Text_ItsScriptBetterNotLookAtEnding::
-    .string "It's the script!\n"
-    .string "Better not look at the ending!$"
+    .string "Bu senaryo!\n"
+    .string "Sonuna bakmasam iyi olur!$"
 
 CeladonCity_Condominiums_3F_Text_GameFreakDevelopmentRoom::
-    .string "GAME FREAK Development Room$"
+    .string "GAME FREAK Geliştirme Odası$"
 

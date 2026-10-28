@@ -1,156 +1,152 @@
 FuchsiaCity_Gym_Text_KogaIntro::
-    .string "KOGA: Fwahahaha!\p"
-    .string "A mere child like you dares to\n"
-    .string "challenge me?\p"
-    .string "The very idea makes me shiver\n"
-    .string "with mirth!\p"
-    .string "Very well, I shall show you true\n"
-    .string "terror as a ninja master.\p"
-    .string "Poison brings steady doom.\n"
-    .string "Sleep renders foes helpless.\p"
-    .string "Despair to the creeping horror of\n"
-    .string "POISON-type POKéMON!{PLAY_BGM}{MUS_ENCOUNTER_GYM_LEADER}$"
+    .string "KOGA: Fuhahahaha!\p"
+    .string "Senin gibi bir çocuk bana meydan\n"
+    .string "okumaya mı cüret ediyor?\p"
+    .string "Bu düşünce bile beni kahkahadan\n"
+    .string "titretiyor!\p"
+    .string "Pekala, sana bir ninja ustası olarak\n"
+    .string "gerçek dehşeti göstereceğim.\p"
+    .string "Zehir yavaş ama kesin bir son getirir.\n"
+    .string "Uyku rakipleri çaresiz bırakır.\p"
+    .string "ZEHİR türü POKéMON'ların sinsi dehşeti\n"
+    .string "karşısında umutsuzluğa kapıl!{PLAY_BGM}{MUS_ENCOUNTER_GYM_LEADER}$"
 
 FuchsiaCity_Gym_Text_KogaDefeat::
-    .string "Humph!\n"
-    .string "You have proven your worth!\p"
-    .string "Here!\n"
-    .string "Take the SOULBADGE!$"
+    .string "Hıh!\n"
+    .string "Değerini kanıtladın!\p"
+    .string "Al!\n"
+    .string "RUH ROZETİ'ni al!$"
 
 FuchsiaCity_Gym_Text_KogaPostBattle::
-    .string "When afflicted by TOXIC, a POKéMON\n"
-    .string "suffers more and more.\p"
-    .string "It suffers worsening damage as the\n"
-    .string "battle wears on!\p"
-    .string "It will surely terrorize foes!$"
+    .string "TOKSİK'e maruz kalan POKéMON giderek\n"
+    .string "daha çok acı çeker.\p"
+    .string "Savaş uzadıkça gördüğü hasar artar!\p"
+    .string "Rakiplerini kesinlikle dehşete\n"
+    .string "düşürecektir!$"
 
 FuchsiaCity_Gym_Text_KogaExplainSoulBadge::
-    .string "Now that you have the SOULBADGE,\n"
-    .string "the DEFENSE of your POKéMON rises.\p"
-    .string "It also lets you SURF outside of\n"
-    .string "battle.\p"
+    .string "Artık RUH ROZETİ'n olduğuna göre\n"
+    .string "POKéMON'larının SAVUNMASI artar.\p"
+    .string "Ayrıca savaş dışında SÖRF yapabilmeni\n"
+    .string "sağlar.\p"
     .string "Ah!\n"
-    .string "Take this, too!$"
+    .string "Bunu da al!$"
 
 FuchsiaCity_Gym_Text_ReceivedTM06FromKoga::
-    .string "{PLAYER} received TM06\n"
-    .string "from KOGA.$"
+    .string "{PLAYER}, KOGA'dan TM06 aldı.$"
 
 FuchsiaCity_Gym_Text_KogaExplainTM06::
-    .string "Sealed within that TM06 lies\n"
-    .string "TOXIC!\p"
-    .string "It is a secret technique dating\n"
-    .string "back some four hundred years.$"
+    .string "TM06'nın içinde TOKSİK mühürlüdür!\p"
+    .string "Yaklaşık dört yüz yıl öncesine dayanan\n"
+    .string "gizli bir tekniktir.$"
 
 FuchsiaCity_Gym_Text_MakeSpaceForThis::
-    .string "Make space for this, child!$"
+    .string "Buna yer aç, evlat!$"
 
 FuchsiaCity_Gym_Text_KaydenIntro::
-    .string "Strength isn't the key for POKéMON.\n"
-    .string "Do you understand this?\p"
-    .string "POKéMON is about strategy!\p"
-    .string "I'll show you how strategy can\n"
-    .string "beat brute strength.$"
+    .string "POKéMON'da anahtar güç değildir.\n"
+    .string "Bunu anlıyor musun?\p"
+    .string "POKéMON stratejiyle ilgilidir!\p"
+    .string "Sana stratejinin kaba kuvveti nasıl\n"
+    .string "yenebileceğini göstereceğim.$"
 
 FuchsiaCity_Gym_Text_KaydenDefeat::
-    .string "What?\n"
-    .string "Extraordinary!$"
+    .string "Ne?\n"
+    .string "Olağanüstü!$"
 
 FuchsiaCity_Gym_Text_KaydenPostBattle::
-    .string "So, you mix brawn with brains?\n"
-    .string "Good strategy!\p"
-    .string "That's remarkable for a child\n"
-    .string "TRAINER.$"
+    .string "Demek gücü zekayla birleştiriyorsun?\n"
+    .string "İyi strateji!\p"
+    .string "Çocuk bir EĞİTMEN için dikkat çekici.$"
 
 FuchsiaCity_Gym_Text_KirkIntro::
-    .string "I was a magician once upon a time.\p"
-    .string "But I dreamt of becoming a ninja,\n"
-    .string "so I joined this GYM.$"
+    .string "Bir zamanlar sihirbazdım.\p"
+    .string "Ama ninja olmayı hayal ettim, bu\n"
+    .string "yüzden bu SALON'a katıldım.$"
 
 FuchsiaCity_Gym_Text_KirkDefeat::
-    .string "I'm done for!$"
+    .string "İşim bitti!$"
 
 FuchsiaCity_Gym_Text_KirkPostBattle::
-    .string "Even though I've lost, I will keep\n"
-    .string "training according to the teachings\l"
-    .string "of KOGA, my ninja master.$"
+    .string "Kaybetsem de ninja ustam KOGA'nın\n"
+    .string "öğretilerine göre antrenmana devam\l"
+    .string "edeceğim.$"
 
 FuchsiaCity_Gym_Text_NateIntro::
-    .string "Let's see you beat my special\n"
-    .string "techniques!$"
+    .string "Bakalım özel tekniklerimi yenebilecek\n"
+    .string "misin!$"
 
 FuchsiaCity_Gym_Text_NateDefeat::
-    .string "You had me fooled!$"
+    .string "Beni kandırdın!$"
 
 FuchsiaCity_Gym_Text_NatePostBattle::
-    .string "I like poison and sleep techniques,\n"
-    .string "as they linger after battle!$"
+    .string "Zehir ve uyku tekniklerini severim,\n"
+    .string "savaştan sonra da etkileri sürer!$"
 
 FuchsiaCity_Gym_Text_PhilIntro::
-    .string "Stop right there!\p"
-    .string "The famed invisible walls of\n"
-    .string "FUCHSIA GYM have you frustrated?$"
+    .string "Olduğun yerde dur!\p"
+    .string "FUCHSIA SALONU'nun ünlü görünmez\n"
+    .string "duvarları seni sinir mi ediyor?$"
 
 FuchsiaCity_Gym_Text_PhilDefeat::
-    .string "Whoa!\n"
-    .string "You've got it!$"
+    .string "Vay!\n"
+    .string "Çözdün!$"
 
 FuchsiaCity_Gym_Text_PhilPostBattle::
-    .string "You impressed me!\n"
-    .string "Here's a hint!\p"
-    .string "Look very closely for gaps in the\n"
-    .string "invisible walls!$"
+    .string "Beni etkiledin!\n"
+    .string "Al sana bir ipucu!\p"
+    .string "Görünmez duvarlardaki boşluklara çok\n"
+    .string "dikkatli bak!$"
 
 FuchsiaCity_Gym_Text_EdgarIntro::
-    .string "I also study the way of the ninja\n"
-    .string "with Master KOGA!\p"
-    .string "Ninja have a long history of using\n"
-    .string "animals!$"
+    .string "Ben de Usta KOGA ile ninja yolunu\n"
+    .string "öğreniyorum!\p"
+    .string "Ninjaların hayvanları kullanmakta uzun\n"
+    .string "bir geçmişi var!$"
 
 FuchsiaCity_Gym_Text_EdgarDefeat::
-    .string "Awoo!$"
+    .string "Auuu!$"
 
 FuchsiaCity_Gym_Text_EdgarPostBattle::
-    .string "I still have much to learn.$"
+    .string "Daha öğrenecek çok şeyim var.$"
 
 FuchsiaCity_Gym_Text_ShawnIntro::
-    .string "Master KOGA comes from a long line\n"
-    .string "of ninjas.\p"
-    .string "What did you descend from?$"
+    .string "Usta KOGA köklü bir ninja soyundan\n"
+    .string "geliyor.\p"
+    .string "Sen nereden geliyorsun?$"
 
 FuchsiaCity_Gym_Text_ShawnDefeat::
-    .string "You're more skilled than I'd\n"
-    .string "thought!$"
+    .string "Düşündüğümden daha yeteneklisin!$"
 
 FuchsiaCity_Gym_Text_ShawnPostBattle::
-    .string "Where there is light, there is\n"
-    .string "shadow!\p"
-    .string "Light and shadow!\n"
-    .string "Which do you choose?$"
+    .string "Işığın olduğu yerde gölge de vardır!\p"
+    .string "Işık ve gölge!\n"
+    .string "Hangisini seçiyorsun?$"
 
 FuchsiaCity_Gym_Text_GymGuyAdvice::
     .string "Yo!\n"
-    .string "Champ in the making!\p"
-    .string "FUCHSIA GYM is a tricked-up place.\n"
-    .string "It's riddled with invisible walls!\p"
-    .string "KOGA might appear close, but he's\n"
-    .string "blocked off.\p"
-    .string "You have to find gaps in the walls\n"
-    .string "to reach him.$"
+    .string "Geleceğin şampiyonu!\p"
+    .string "FUCHSIA SALONU tuzaklarla dolu bir\n"
+    .string "yer.\l"
+    .string "Görünmez duvarlarla kaplı!\p"
+    .string "KOGA yakında görünebilir ama yolu\n"
+    .string "kapalı.\p"
+    .string "Ona ulaşmak için duvarlardaki\n"
+    .string "boşlukları bulmalısın.$"
 
 FuchsiaCity_Gym_Text_GymGuyPostVictory::
-    .string "It's amazing how ninja can terrify,\n"
-    .string "even now!$"
+    .string "Ninjaların bugün bile bu kadar\n"
+    .string "korkutucu olabilmesi inanılmaz!$"
 
 FuchsiaCity_Gym_Text_GymStatue::
-    .string "FUCHSIA POKéMON GYM\n"
-    .string "LEADER: KOGA\p"
-    .string "WINNING TRAINERS:\n"
+    .string "FUCHSIA POKéMON SALONU\n"
+    .string "LİDER: KOGA\p"
+    .string "KAZANAN EĞİTMENLER:\n"
     .string "{RIVAL}$"
 
 FuchsiaCity_Gym_Text_GymStatuePlayerWon::
-    .string "FUCHSIA POKéMON GYM\n"
-    .string "LEADER: KOGA\p"
-    .string "WINNING TRAINERS:\n"
+    .string "FUCHSIA POKéMON SALONU\n"
+    .string "LİDER: KOGA\p"
+    .string "KAZANAN EĞİTMENLER:\n"
     .string "{RIVAL}, {PLAYER}$"
 

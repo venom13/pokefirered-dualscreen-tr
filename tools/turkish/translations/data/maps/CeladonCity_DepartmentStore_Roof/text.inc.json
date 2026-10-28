@@ -1,0 +1,21 @@
+{
+ "2": "Susadım!\\nİçecek bir şey istiyorum!\\p{FONT_NORMAL}Ona içecek verilsin mi?$",
+ "7": "Hangi içecek verilsin?$",
+ "10": "Yaşasın!\\pTAZE SU!\\pTeşekkürler!\\nBu da benden sana!$",
+ "16": "{PLAYER}, küçük kızdan bir {STR_VAR_2} aldı.$",
+ "20": "TM16'da IŞIK PERDESİ var.\\pRakibin özel saldırılarının gücünü zayıflatan bir hareket.$",
+ "25": "Yaşasın!\\pGAZOZ!\\pTeşekkürler!\\nBu da benden sana!$",
+ "31": "TM20'de KORUYUCU var.\\pPOKéMON'larında durum sorunlarını önleyen bir hareket.$",
+ "36": "Yaşasın!\\pLİMONATA!\\pTeşekkürler!\\nBu da benden sana!$",
+ "42": "TM33'te YANSITMA var.\\pRakibin fiziksel saldırılarının gücünü zayıflatan bir hareket.$",
+ "47": "Buna yerin yok!$",
+ "50": "Hayır, sağ ol!\\nAslında susamadım!$",
+ "54": "İster inan ister inanma, ablam bir EĞİTMEN.\\pAma o kadar çocukça ki beni deli ediyor!$",
+ "60": "Susadım!\\nİçecek bir şey istiyorum!$",
+ "64": "ÇATI MEYDANI:\\nOTOMATLAR$",
+ "68": "Bir otomat!\\nİçinde ne var?$",
+ "72": "Hay aksi, para yetmiyor!$",
+ "75": "Bir kutu {STR_VAR_1} düştü!$",
+ "78": "Eşya için yer kalmadı!$",
+ "81": "Susamadım!$"
+}

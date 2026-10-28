@@ -1,11 +1,10 @@
 SafariZone_Center_Text_RestHouse::
-    .string "REST HOUSE$"
+    .string "DİNLENME EVİ$"
 
 SafariZone_Center_Text_PressStartToCheckTime::
-    .string "TRAINER TIPS\p"
-    .string "Press START to check\n"
-    .string "remaining time.$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "Kalan süreye bakmak için START'a bas.$"
 
 SafariZone_Center_Text_CenterArea::
-    .string "CENTER AREA$"
+    .string "MERKEZ ALAN$"
 

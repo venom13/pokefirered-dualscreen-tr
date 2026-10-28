@@ -1,92 +1,91 @@
 MtMoon_1F_Text_MarcosIntro::
-    .string "WHOA!\n"
-    .string "You shocked me!\l"
-    .string "…Oh, you're just a kid!$"
+    .string "VAY!\n"
+    .string "Beni korkuttun!\l"
+    .string "…Ah, sen sadece bir çocuksun!$"
 
 MtMoon_1F_Text_MarcosDefeat::
-    .string "Wow!\n"
-    .string "Shocked again!$"
+    .string "Vay!\n"
+    .string "Yine korktum!$"
 
 MtMoon_1F_Text_MarcosPostBattle::
-    .string "Kids like you shouldn't be\n"
-    .string "wandering around here in the dark.$"
+    .string "Senin gibi çocuklar burada karanlıkta\n"
+    .string "dolaşmamalı.$"
 
 MtMoon_1F_Text_JoshIntro::
-    .string "Did you come to explore the cave,\n"
-    .string "too?$"
+    .string "Sen de mi mağarayı keşfetmeye geldin?$"
 
 MtMoon_1F_Text_JoshDefeat::
-    .string "Losing stinks!\n"
-    .string "It's so uncool.$"
+    .string "Kaybetmek berbat!\n"
+    .string "Hiç havalı değil.$"
 
 MtMoon_1F_Text_JoshPostBattle::
-    .string "I came all the way down here to\n"
-    .string "show off to girls.$"
+    .string "Buraya kadar kızlara hava atmak için\n"
+    .string "geldim.$"
 
 MtMoon_1F_Text_MiriamIntro::
-    .string "Wow! It's way bigger in here than\n"
-    .string "I thought!$"
+    .string "Vay! İçerisi düşündüğümden çok daha\n"
+    .string "büyük!$"
 
 MtMoon_1F_Text_MiriamDefeat::
-    .string "Oh!\n"
-    .string "I lost it!$"
+    .string "Ah!\n"
+    .string "Kaybettim!$"
 
 MtMoon_1F_Text_MiriamPostBattle::
-    .string "How do you get out of here?\n"
-    .string "It's so big, I may get lost.$"
+    .string "Buradan nasıl çıkılıyor?\n"
+    .string "Çok büyük, kaybolabilirim.$"
 
 MtMoon_1F_Text_JovanIntro::
-    .string "What!\n"
-    .string "Don't sneak up on me!$"
+    .string "Ne!\n"
+    .string "Arkamdan sinsice yaklaşma!$"
 
 MtMoon_1F_Text_JovanDefeat::
-    .string "My POKéMON won't do!$"
+    .string "POKéMON'larım yetmiyor!$"
 
 MtMoon_1F_Text_JovanPostBattle::
-    .string "I have to find stronger POKéMON.\n"
-    .string "Where might they be?$"
+    .string "Daha güçlü POKéMON bulmalıyım.\n"
+    .string "Nerede olabilirler?$"
 
 MtMoon_1F_Text_IrisIntro::
-    .string "What?\n"
-    .string "I'm waiting for my friends to find\l"
-    .string "me here.$"
+    .string "Ne?\n"
+    .string "Arkadaşlarımın beni burada bulmasını\l"
+    .string "bekliyorum.$"
 
 MtMoon_1F_Text_IrisDefeat::
-    .string "I lost?$"
+    .string "Kaybettim mi?$"
 
 MtMoon_1F_Text_IrisPostBattle::
-    .string "I came because I heard there are\n"
-    .string "some very rare fossils here.$"
+    .string "Burada çok nadir fosiller olduğunu\n"
+    .string "duyduğum için geldim.$"
 
 MtMoon_1F_Text_KentIntro::
-    .string "Suspicious men are in the cave.\n"
-    .string "What about you?$"
+    .string "Mağarada şüpheli adamlar var.\n"
+    .string "Ya sen?$"
 
 MtMoon_1F_Text_KentDefeat::
-    .string "You got me!$"
+    .string "Yakaladın beni!$"
 
 MtMoon_1F_Text_KentPostBattle::
-    .string "I saw them!\n"
-    .string "I'm sure they're from TEAM ROCKET!$"
+    .string "Onları gördüm!\n"
+    .string "Eminim ROCKET TAKIMI'ndandılar!$"
 
 MtMoon_1F_Text_RobbyIntro::
-    .string "You need to go through this cave\n"
-    .string "to get to CERULEAN CITY.$"
+    .string "CERULEAN ŞEHRİ'ne gitmek için bu\n"
+    .string "mağaradan geçmen gerekiyor.$"
 
 MtMoon_1F_Text_RobbyDefeat::
-    .string "I lost.$"
+    .string "Kaybettim.$"
 
 MtMoon_1F_Text_RobbyPostBattle::
-    .string "ZUBAT is tough!\n"
-    .string "But if you can catch one, you'll\l"
-    .string "be able to count on it.$"
+    .string "ZUBAT güçlüdür!\n"
+    .string "Ama bir tane yakalarsan ona\l"
+    .string "güvenebilirsin.$"
 
 MtMoon_1F_Text_ZubatIsABloodsucker::
-    .string "Beware!\n"
-    .string "ZUBAT is a bloodsucker!$"
+    .string "Dikkat et!\n"
+    .string "ZUBAT kan emicidir!$"
 
 MtMoon_1F_Text_BrockHelpsExcavateFossils::
-    .string "Hi, I'm excavating for fossils here\n"
-    .string "under MT. MOON.\p"
-    .string "Sometimes, BROCK of PEWTER GYM\n"
-    .string "lends me a hand.$"
+    .string "Selam, burada AY DAĞI'nın altında fosil\n"
+    .string "kazısı yapıyorum.\p"
+    .string "Bazen PEWTER SALONU'ndan BROCK bana\n"
+    .string "yardım eder.$"

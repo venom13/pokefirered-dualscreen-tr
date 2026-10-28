@@ -1,114 +1,106 @@
 CeladonCity_Text_GotMyKoffingInCinnabar::
-    .string "I got my KOFFING in CINNABAR.\p"
-    .string "It's usually nice, but it breathes\n"
-    .string "poison when it's angry.$"
+    .string "KOFFING'imi CINNABAR'da yakaladım.\p"
+    .string "Genelde uysaldır ama kızınca zehir\n"
+    .string "soluyor.$"
 
 CeladonCity_Text_GymIsGreatFullOfWomen::
-    .string "Heheh! This GYM is great!\n"
-    .string "It's full of women!$"
+    .string "Hehe! Bu SALON harika!\n"
+    .string "Kadınlarla dolu!$"
 
 CeladonCity_Text_GameCornerIsBadForCitysImage::
-    .string "CELADON takes pride in its efforts\n"
-    .string "to keep the city beautiful.\p"
-    .string "That's why the new GAME CORNER is\n"
-    .string "bad for our city's image.$"
+    .string "CELADON, şehri güzel tutma çabasıyla\n"
+    .string "gurur duyar.\p"
+    .string "Bu yüzden yeni OYUN SALONU şehrimizin\n"
+    .string "imajına zarar veriyor.$"
 
 CeladonCity_Text_BlewItAllAtSlots::
-    .string "Moan…\n"
-    .string "I blew it all at the slots!\p"
-    .string "I knew I should have cashed in my\n"
-    .string "COINS for prizes!$"
+    .string "Ahh…\n"
+    .string "Hepsini slot makinelerine kaptırdım!\p"
+    .string "JETONLARIMI ödüllerle\n"
+    .string "değiştirmeliydim!$"
 
 CeladonCity_Text_MyTrustedPalPoliwrath::
-    .string "This is my trusted pal, POLIWRATH.\p"
-    .string "It evolved from a POLIWHIRL when\n"
-    .string "I used a WATER STONE.$"
+    .string "Bu benim güvenilir dostum POLIWRATH.\p"
+    .string "SU TAŞI kullanınca POLIWHIRL'den\n"
+    .string "evrimleşti.$"
 
 CeladonCity_Text_Poliwrath::
     .string "POLIWRATH: Ribi ribit!$"
 
 CeladonCity_Text_GetLostOrIllPunchYou::
-    .string "What are you staring at?\n"
-    .string "Get lost, or I'll punch you.$"
+    .string "Ne bakıyorsun öyle?\n"
+    .string "Defol, yoksa yumruğu yersin.$"
 
 CeladonCity_Text_KeepOutOfTeamRocketsWay::
-    .string "Keep out of TEAM ROCKET's way!$"
+    .string "ROCKET TAKIMI'nın yoluna çıkma!$"
 
 CeladonCity_Text_ExplainXAccuracyDireHit::
-    .string "TRAINER TIPS\p"
-    .string "X ACCURACY boosts the accuracy of\n"
-    .string "techniques.\p"
-    .string "DIRE HIT jacks up the likelihood\n"
-    .string "of critical hits.\p"
-    .string "Get your items at the CELADON\n"
-    .string "DEPT. STORE!$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "X İSABET tekniklerin isabetini artırır.\p"
+    .string "KRİTİK VURUŞ kritik vuruş olasılığını\n"
+    .string "yükseltir.\p"
+    .string "Eşyalarını CELADON AVM'den al!$"
 
 CeladonCity_Text_CitySign::
-    .string "CELADON CITY\n"
-    .string "The City of Rainbow Dreams$"
+    .string "CELADON ŞEHRİ\n"
+    .string "Gökkuşağı Rüyalarının Şehri$"
 
 CeladonCity_Text_GymSign::
-    .string "CELADON CITY POKéMON GYM\n"
-    .string "LEADER: ERIKA\l"
-    .string "The Nature-Loving Princess!$"
+    .string "CELADON ŞEHRİ POKéMON SALONU\n"
+    .string "LİDER: ERIKA\l"
+    .string "Doğasever Prenses!$"
 
 CeladonCity_Text_MansionSign::
-    .string "CELADON MANSION$"
+    .string "CELADON KONAĞI$"
 
 CeladonCity_Text_DeptStoreSign::
-    .string "Find what you need at the\n"
-    .string "CELADON DEPT. STORE!$"
+    .string "Aradığın her şey CELADON AVM'de!$"
 
 CeladonCity_Text_GuardSpecProtectsFromStatus::
-    .string "TRAINER TIPS\p"
-    .string "GUARD SPEC. protects POKéMON\n"
-    .string "from status-reduction moves during\l"
-    .string "battle.\p"
-    .string "Get your items at the\n"
-    .string "CELADON DEPT. STORE!$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "ÖZEL KORUMA, POKéMON'u savaşta durum\n"
+    .string "düşüren hareketlerden korur.\p"
+    .string "Eşyalarını CELADON AVM'den al!$"
 
 CeladonCity_Text_PrizeExchangeSign::
-    .string "COINS exchanged for prizes!\n"
-    .string "PRIZE EXCHANGE$"
+    .string "JETONLAR ödüllerle değiştirilir!\n"
+    .string "ÖDÜL DEĞİŞİMİ$"
 
 CeladonCity_Text_GameCornerSign::
-    .string "ROCKET GAME CORNER\n"
-    .string "The playground for grown-ups!$"
+    .string "ROCKET OYUN SALONU\n"
+    .string "Büyüklerin oyun alanı!$"
 
 CeladonCity_Text_ScaldedTongueOnTea::
-    .string "Aaaagh, ow…\n"
-    .string "I scalded my tongue!\p"
-    .string "This nice old lady in the MANSION\n"
-    .string "gave me some TEA.\p"
-    .string "But it was boiling hot!\n"
-    .string "Gotta cool it to drink it.$"
+    .string "Ahhh, of…\n"
+    .string "Dilimi yaktım!\p"
+    .string "KONAK'taki iyi kalpli yaşlı hanım bana\n"
+    .string "biraz ÇAY verdi.\p"
+    .string "Ama kaynar sıcaktı!\n"
+    .string "İçmek için soğutmam lazım.$"
 
 Text_SoftboiledTeach::
-    .string "Hello, there!\p"
-    .string "I've seen you about, but I never\n"
-    .string "had a chance to chat.\p"
-    .string "It must be good luck that brought\n"
-    .string "us together finally.\p"
-    .string "I'd like to celebrate by teaching\n"
-    .string "you the move SOFTBOILED.$"
+    .string "Merhaba!\p"
+    .string "Seni ortalarda görüyordum ama hiç\n"
+    .string "sohbet etme fırsatım olmadı.\p"
+    .string "Sonunda bizi buluşturan şans olmalı.\p"
+    .string "Bunu kutlamak için sana RAFADAN\n"
+    .string "hareketini öğretmek istiyorum.$"
 
 Text_SoftboiledDeclined::
-    .string "I'll always be keeping an eye out\n"
-    .string "for you.\p"
-    .string "I hope we can chat again.$"
+    .string "Gözüm hep üstünde olacak.\p"
+    .string "Umarım yine sohbet ederiz.$"
 
 Text_SoftboiledWhichMon::
-    .string "So, who's the POKéMON that gets\n"
-    .string "the chance to learn SOFTBOILED?$"
+    .string "Peki, RAFADAN öğrenme şansını hangi\n"
+    .string "POKéMON yakalıyor?$"
 
 Text_SoftboiledTaught::
-    .string "I wish you the best of luck!$"
+    .string "Sana bol şans dilerim!$"
 
 CeladonCity_Text_SomeoneStoleSilphScope::
-    .string "Oh, what am I to do…\p"
-    .string "Someone stole our SILPH SCOPE.\p"
-    .string "The thief came running this way,\n"
-    .string "I'm sure of it.\p"
-    .string "But I lost sight of him!\n"
-    .string "Where'd he go?$"
+    .string "Ah, ne yapacağım şimdi…\p"
+    .string "Biri SILPH DÜRBÜNÜ'MÜZÜ çaldı.\p"
+    .string "Hırsız bu tarafa koşarak geldi, eminim.\p"
+    .string "Ama onu gözden kaybettim!\n"
+    .string "Nereye gitti?$"
 

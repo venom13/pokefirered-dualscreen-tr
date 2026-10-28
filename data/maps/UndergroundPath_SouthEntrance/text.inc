@@ -1,4 +1,5 @@
 UndergroundPath_SouthEntrance_Text_PeopleLoseThingsInTheDarkness::
-    .string "People often lose things in the\n"
-    .string "darkness of the UNDERGROUND PATH.$"
+    .string "İnsanlar YERALTI GEÇİDİ'nin\n"
+    .string "karanlığında sık sık bir şeyler\l"
+    .string "kaybeder.$"
 

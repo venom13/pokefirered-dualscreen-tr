@@ -1,130 +1,125 @@
 @ Same as Hoenn's day-care text, used by the Four Island Day-Care. Unused text translated in Emerald
 
 DayCare_Text_ImDaycareManSpeakToMyWife::
-	.string "I'm the DAY-CARE MAN.\p"
-	.string "I help take care of the precious\n"
-	.string "POKéMON of TRAINERS.\p"
-	.string "If you'd like me to raise your\n"
-	.string "POKéMON, have a word with my wife.$"
+	.string "Ben KREŞ AMCASIYIM.\p"
+	.string "EĞİTMENLERİN değerli POKéMON'larına\n"
+	.string "bakmaya yardım ederim.\p"
+	.string "POKéMON'unu yetiştirmemi istersen\n"
+	.string "karımla konuş.$"
 
 DayCare_Text_DoYouWantEgg::
-	.string "Ah, it's you!\p"
-	.string "We were raising your POKéMON, and\n"
-	.string "my goodness, were we surprised!\p"
-	.string "Your POKéMON had an EGG!\p"
-	.string "We don't know how it got there,\n"
-	.string "but your POKéMON had it.\p"
-	.string "You do want it, yes?$"
+	.string "Ah, sen misin!\p"
+	.string "POKéMON'unu yetiştiriyorduk ve aman\n"
+	.string "tanrım, çok şaşırdık!\p"
+	.string "POKéMON'unun bir YUMURTASI oldu!\p"
+	.string "Nasıl oraya geldiğini bilmiyoruz ama\n"
+	.string "POKéMON'unda vardı.\p"
+	.string "İstiyorsun, değil mi?$"
 
 DayCare_Text_YourMonIsDoingFine::
-	.string "Ah, it's you! Good to see you.\n"
-	.string "Your {STR_VAR_1}'s doing fine.$"
+	.string "Ah, sen misin! Seni görmek güzel.\n"
+	.string "{STR_VAR_1} gayet iyi.$"
 
 DayCare_Text_IllKeepIt::
-	.string "Well then, I'll keep it.\n"
-	.string "Thanks!$"
+	.string "Peki o zaman, ben saklarım.\n"
+	.string "Sağ ol!$"
 
 DayCare_Text_YouHaveNoRoomForIt::
-	.string "You have no room for it…\n"
-	.string "Come back when you've made room.$"
+	.string "Ona yerin yok…\n"
+	.string "Yer açınca tekrar gel.$"
 
 DayCare_Text_ReceivedEgg::
-	.string "{PLAYER} received the EGG from\n"
-	.string "the DAY-CARE MAN.$"
+	.string "{PLAYER}, KREŞ AMCASINDAN YUMURTAYI\n"
+	.string "aldı.$"
 
 DayCare_Text_TakeGoodCareOfIt::
-	.string "Take good care of it.$"
+	.string "Ona iyi bak.$"
 
 DayCare_Text_SeeWifeIfYouWantToPickUpMon::
 	.string "ポケモンを　ひきとりたい　ときは\n"
 	.string "ばさんに　いって　おくれ$"
 
 DayCare_Text_YourMonsAreDoingFine::
-	.string "Ah, it's you! Your {STR_VAR_1} and\n"
-	.string "{STR_VAR_2} are doing fine.$"
+	.string "Ah, sen misin! {STR_VAR_1} ve\n"
+	.string "{STR_VAR_2} gayet iyi.$"
 
 DayCare_Text_IWillKeepDoYouWantIt::
-	.string "I really will keep it.\n"
-	.string "You do want this, yes?$"
+	.string "Gerçekten saklayacağım ama.\n"
+	.string "İstiyorsun, değil mi?$"
 
 DayCare_Text_WouldYouLikeUsToRaiseMon::
-	.string "I'm the DAY-CARE LADY.\p"
-	.string "We can raise POKéMON for you.\p"
-	.string "Would you like us to raise one?$"
+	.string "Ben KREŞ TEYZESİYİM.\p"
+	.string "Senin için POKéMON yetiştirebiliriz.\p"
+	.string "Bir tane yetiştirmemizi ister misin?$"
 
 DayCare_Text_WhichMonShouldWeRaise::
-	.string "Which POKéMON should we raise for\n"
-	.string "you?$"
+	.string "Hangi POKéMON'unu yetiştirelim?$"
 
 DayCare_Text_WellRaiseYourMon::
-	.string "Fine, we'll raise your {STR_VAR_1}\n"
-	.string "for a while.\p"
-	.string "Come back for it later.$"
+	.string "Peki, {STR_VAR_1} bir süre bizde kalsın.\p"
+	.string "Sonra gelip al.$"
 
 DayCare_Text_WeCanRaiseOneMore::
-	.string "We can raise two of your POKéMON.\p"
-	.string "Would you like us to raise one\n"
-	.string "more POKéMON for you?$"
+	.string "İki POKéMON'unu yetiştirebiliriz.\p"
+	.string "Bir POKéMON daha yetiştirmemizi ister\n"
+	.string "misin?$"
 
 DayCare_Text_HusbandWasLookingForYou::
-	.string "My husband was looking for you.$"
+	.string "Kocam seni arıyordu.$"
 
 DayCare_Text_FineThenComeAgain::
-	.string "Oh, fine, then.\n"
-	.string "Come again.$"
+	.string "Ah, peki o zaman.\n"
+	.string "Yine gel.$"
 
 DayCare_Text_NotEnoughMoney::
-	.string "You don't have enough money…$"
+	.string "Yeterli paran yok…$"
 
 DayCare_Text_TakeOtherOneBackToo::
-	.string "Will you take back the other one,\n"
-	.string "too?$"
+	.string "Diğerini de geri alacak mısın?$"
 
 DayCare_Text_ComeAgain::
-	.string "Fine.\n"
-	.string "Come again.$"
+	.string "Peki.\n"
+	.string "Yine gel.$"
 
 DayCare_Text_GoodToSeeYou::
-	.string "Ah, it's you!\n"
-	.string "Good to see you.\p"
-	.string "Your POKéMON can only be doing\n"
-	.string "good!$"
+	.string "Ah, sen misin!\n"
+	.string "Seni görmek güzel.\p"
+	.string "POKéMON'un ancak iyi olabilir!$"
 
 DayCare_Text_YourMonHasGrownXLevels::
-	.string "By level, your {STR_VAR_1} has\n"
-	.string "grown by {STR_VAR_2}.$"
+	.string "{STR_VAR_1} tam {STR_VAR_2} seviye\n"
+	.string "büyüdü.$"
 
 DayCare_Text_YourPartyIsFull::
-	.string "Your POKéMON party is full.\n"
-	.string "Make room, then come see me.$"
+	.string "POKéMON takımın dolu.\n"
+	.string "Yer aç, sonra gel.$"
 
 DayCare_Text_TakeBackWhichMon::
 	.string "どっちの　ポケモンを　ひきとるかい？$"
 
 DayCare_Text_ItWillCostX::
-	.string "If you want your {STR_VAR_1} back,\n"
-	.string "it will cost ¥{STR_VAR_2}.$"
+	.string "{STR_VAR_1} geri istiyorsan ücreti\n"
+	.string "¥{STR_VAR_2}.$"
 
 DayCare_Text_HeresYourMon::
-	.string "Perfect!\n"
-	.string "Here's your POKéMON.$"
+	.string "Harika!\n"
+	.string "İşte POKéMON'un.$"
 
 DayCare_Text_TookBackMon::
-	.string "{PLAYER} took back {STR_VAR_1} from\n"
-	.string "the DAY-CARE LADY.$"
+	.string "{PLAYER}, {STR_VAR_1} adlı POKéMON'unu\n"
+	.string "KREŞ TEYZESİNDEN geri aldı.$"
 
 DayCare_Text_YouHaveJustOneMon::
-	.string "Oh? But you have just one\n"
-	.string "POKéMON.\p"
-	.string "Come back another time.$"
+	.string "Hı? Ama tek bir POKéMON'un var.\p"
+	.string "Başka zaman gel.$"
 
 DayCare_Text_TakeYourMonBack::
-	.string "Will you take your POKéMON back?$"
+	.string "POKéMON'unu geri alacak mısın?$"
 
 DayCare_Text_WhatWillYouBattleWith::
-	.string "If you leave me that POKéMON,\n"
-	.string "what will you battle with?\p"
-	.string "Come back another time.$"
+	.string "O POKéMON'u bana bırakırsan neyle\n"
+	.string "savaşacaksın?\p"
+	.string "Başka zaman gel.$"
 
 DayCare_Text_Huh::
-	.string "Huh?$"
+	.string "Hı?$"

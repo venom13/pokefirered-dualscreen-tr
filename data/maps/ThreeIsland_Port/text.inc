@@ -1,26 +1,26 @@
 ThreeIsland_Port_Text_WereKantoRiderFederation::
-    .string "We're the KANTO RIDER FEDERATION!\n"
-    .string "Vroom! Vavavavooom! Vroom!\p"
-    .string "My bike's wimpy, so I have to\n"
-    .string "make exhaust noises myself!$"
+    .string "Biz KANTO MOTORCU FEDERASYONU'yuz!\n"
+    .string "Vrumm! Vavavavuuum! Vrumm!\p"
+    .string "Motorum güçsüz, egzoz seslerini kendim\n"
+    .string "çıkarmak zorundayım!$"
 
 ThreeIsland_Port_Text_ForkOverMoney::
-    .string "Hey, hey, lady!\n"
-    .string "Fork over some spending money!$"
+    .string "Hey, hey, hanım!\n"
+    .string "Biraz harçlık sökül bakalım!$"
 
 ThreeIsland_Port_Text_IllCallThePolice::
-    .string "Aiyeeh!\p"
-    .string "Wh-who are you?!\n"
-    .string "I… I'll call the police!$"
+    .string "Aiiih!\p"
+    .string "S-sen kimsin?!\n"
+    .string "Po… Polis çağıracağım!$"
 
 ThreeIsland_Port_Text_ThankGoodnessBikersGone::
-    .string "Those BIKERS…\n"
-    .string "Are they gone?\p"
-    .string "Oh, thank goodness!\n"
-    .string "They certainly had me terrified!$"
+    .string "O MOTORCULAR…\n"
+    .string "Gittiler mi?\p"
+    .string "Ah, çok şükür!\n"
+    .string "Beni gerçekten çok korkutmuşlardı!$"
 
 ThreeIsland_Port_Text_EverythingTurnedOutForBest::
-    .string "Those BIKERS ran off, and\n"
-    .string "LOSTELLE was found safe.\p"
-    .string "Everything turned out for the best!$"
+    .string "O MOTORCULAR kaçtı ve LOSTELLE sağ\n"
+    .string "salim bulundu.\p"
+    .string "Her şey en iyi şekilde sonuçlandı!$"
 

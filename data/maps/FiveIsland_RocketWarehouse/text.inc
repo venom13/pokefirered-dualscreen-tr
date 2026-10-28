@@ -1,137 +1,137 @@
 FiveIsland_RocketWarehouse_Text_ManyMonsLockedInPen::
-    .string "There are many POKéMON locked\n"
-    .string "away in the pen…$"
+    .string "Ağılda kilitli bir sürü POKéMON var…$"
 
 FiveIsland_RocketWarehouse_Text_PenUnlockedMonsFled::
-    .string "The pen door is unlocked.\n"
-    .string "The POKéMON appear to have fled.$"
+    .string "Ağılın kapısı açık.\n"
+    .string "POKéMON'lar kaçmış gibi görünüyor.$"
 
 FiveIsland_RocketWarehouse_Text_Grunt2Intro::
-    .string "Did you come here knowing it's\n"
-    .string "TEAM ROCKET's WAREHOUSE?$"
+    .string "Buranın ROCKET TAKIMI'nın DEPOSU\n"
+    .string "olduğunu bilerek mi geldin?$"
 
 FiveIsland_RocketWarehouse_Text_Grunt2Defeat::
-    .string "What do you think you're doing?!$"
+    .string "Ne yaptığını sanıyorsun?!$"
 
 FiveIsland_RocketWarehouse_Text_Grunt2PostBattle::
-    .string "TEAM ROCKET broke up?\n"
-    .string "What planet are you from?$"
+    .string "ROCKET TAKIMI dağıldı mı?\n"
+    .string "Sen hangi gezegendensin?$"
 
 FiveIsland_RocketWarehouse_Text_Grunt1Intro::
-    .string "Oh, now your POKéMON look strong.\n"
-    .string "You're willing to sell them?\p"
-    .string "Oh?\n"
-    .string "You wanted to battle?$"
+    .string "Oh, POKéMON'ların güçlü görünüyor.\n"
+    .string "Satmaya razı mısın?\p"
+    .string "Hı?\n"
+    .string "Savaşmak mı istiyordun?$"
 
 FiveIsland_RocketWarehouse_Text_Grunt1Defeat::
-    .string "Oh, but…\n"
-    .string "Too much!$"
+    .string "Ah, ama…\n"
+    .string "Bu çok fazla!$"
 
 FiveIsland_RocketWarehouse_Text_Grunt1PostBattle::
-    .string "We can give you a great price.\n"
-    .string "Sell us your POKéMON!$"
+    .string "Sana harika bir fiyat verebiliriz.\n"
+    .string "POKéMON'larını bize sat!$"
 
 FiveIsland_RocketWarehouse_Text_Grunt3Intro::
-    .string "I got word about you from the\n"
-    .string "others.\p"
-    .string "But there's no way a kid like you'd\n"
-    .string "know our BOSS GIOVANNI!$"
+    .string "Diğerlerinden senin hakkında haber\n"
+    .string "aldım.\p"
+    .string "Ama senin gibi bir çocuğun PATRONUMUZ\n"
+    .string "GIOVANNI'yi tanıması imkansız!$"
 
 FiveIsland_RocketWarehouse_Text_Grunt3Defeat::
-    .string "Don't…you…dare…laugh…$"
+    .string "Sakın…bana…gülmeye…kalkma…$"
 
 FiveIsland_RocketWarehouse_Text_Grunt3PostBattle::
-    .string "Don't mess in the doings of adults,\n"
-    .string "you jumped-up pip-squeak!$"
+    .string "Büyüklerin işine karışma, seni kendini\n"
+    .string "bilmez bücür!$"
 
 FiveIsland_RocketWarehouse_Text_Admin1Intro::
-    .string "I don't know or care if what I'm\n"
-    .string "doing is right or wrong…\p"
-    .string "I just put my faith in GIOVANNI\n"
-    .string "and do as I am told.$"
+    .string "Yaptığımın doğru mu yanlış mı olduğunu\n"
+    .string "bilmiyorum, umurumda da değil…\p"
+    .string "Sadece GIOVANNI'ye güvenip bana\n"
+    .string "söyleneni yaparım.$"
 
 FiveIsland_RocketWarehouse_Text_Admin1Defeat::
-    .string "I…\n"
-    .string "I'm shattered…$"
+    .string "Ben…\n"
+    .string "Dağıldım…$"
 
 FiveIsland_RocketWarehouse_Text_Admin1PostBattle::
-    .string "You're doing things according to\n"
-    .string "your beliefs and morals.\p"
-    .string "I understand now…$"
+    .string "Sen inançlarına ve ahlakına göre\n"
+    .string "davranıyorsun.\p"
+    .string "Şimdi anlıyorum…$"
 
 FiveIsland_RocketWarehouse_Text_MadeItSoYouCanComeBackThrough::
-    .string "I've made it so you can come back\n"
-    .string "in through there.\p"
-    .string "Why don't you go get rested and\n"
-    .string "refreshed for what lies ahead?\p"
-    .string "The ADMIN after me outranks me\n"
-    .string "thoroughly as a TRAINER.\p"
-    .string "You'd better steel yourself for one\n"
-    .string "harsh challenge.$"
+    .string "Oradan geri gelebilmeni sağladım.\p"
+    .string "Neden gidip ilerideki şeyler için\n"
+    .string "dinlenip tazelenmiyorsun?\p"
+    .string "Benden sonraki AMİR, EĞİTMEN olarak\n"
+    .string "benden çok daha üstün.\p"
+    .string "Zorlu bir meydan okumaya kendini\n"
+    .string "hazırlasan iyi olur.$"
 
 FiveIsland_RocketWarehouse_Text_Admin2Intro::
-    .string "That's quite enough of you \n"
-    .string "playing the hero, kid.\p"
-    .string "Spreading lies about how TEAM\n"
-    .string "ROCKET has disbanded…\p"
-    .string "It's such an obvious attempt to\n"
-    .string "cause confusion in our ranks.\p"
-    .string "Fortunately, we're not so ignorant\n"
-    .string "to fall for the lies of a child!\p"
-    .string "And now, I'll show you how scary\n"
-    .string "an angry adult can be!$"
+    .string "Bu kadar kahramanlık taslaman yeter,\n"
+    .string "evlat.\p"
+    .string "ROCKET TAKIMI'nın dağıldığına dair\n"
+    .string "yalanlar yaymak…\p"
+    .string "Saflarımızda kafa karışıklığı yaratmak\n"
+    .string "için çok bariz bir girişim.\p"
+    .string "Neyse ki bir çocuğun yalanlarına\n"
+    .string "kanacak kadar cahil değiliz!\p"
+    .string "Şimdi sana kızgın bir yetişkinin ne\n"
+    .string "kadar korkutucu olabileceğini\l"
+    .string "göstereceğim!$"
 
 FiveIsland_RocketWarehouse_Text_Admin2Defeat::
-    .string "Urgh…\n"
-    .string "You were too strong…\p"
+    .string "Ahh…\n"
+    .string "Çok güçlüydün…\p"
     .string "…\n"
-    .string "Th-that's GIOVANNI's BADGE!\p"
-    .string "So it's true?\n"
-    .string "TEAM ROCKET really has disbanded?$"
+    .string "B-bu GIOVANNI'nin ROZETİ!\p"
+    .string "Demek doğru?\n"
+    .string "ROCKET TAKIMI gerçekten dağıldı mı?$"
 
 FiveIsland_RocketWarehouse_Text_Admin2PostBattle::
-    .string "We will abandon this WAREHOUSE…\p"
-    .string "But don't think this is over.\n"
-    .string "I won't let this be the end.\p"
-    .string "I will find GIOVANNI.\n"
-    .string "And I will resurrect TEAM ROCKET!\l"
-    .string "I will…\p"
-    .string "Until then, farewell!$"
+    .string "Bu DEPO'yu terk edeceğiz…\p"
+    .string "Ama bunun bittiğini sanma.\n"
+    .string "Bunun son olmasına izin vermeyeceğim.\p"
+    .string "GIOVANNI'yi bulacağım.\n"
+    .string "Ve ROCKET TAKIMI'nı yeniden\l"
+    .string "dirilteceğim!\l"
+    .string "Yapacağım…\p"
+    .string "O zamana kadar, elveda!$"
 
 FiveIsland_RocketWarehouse_Text_ReportWithGraphsAndText::
-    .string "A report with graphs and text is on\n"
-    .string "the PC monitor.\p"
-    .string "“The Influence of Magnetic Waves\n"
-    .string "on POKéMON Evolution”…\p"
+    .string "PC ekranında grafikli ve yazılı bir\n"
+    .string "rapor var.\p"
+    .string "“Manyetik Dalgaların POKéMON Evrimine\n"
+    .string "Etkisi”…\p"
     .string "… … … … … …\p"
-    .string "It's too difficult to understand…$"
+    .string "Anlaşılmayacak kadar zor…$"
 
 FiveIsland_RocketWarehouse_Text_GideonIntro::
-    .string "I almost managed to sell the\n"
-    .string "SAPPHIRE for huge money…\p"
-    .string "Then, you just had to come along\n"
-    .string "and blow the whole deal apart!\p"
+    .string "SAFİR'i neredeyse servet değerinde\n"
+    .string "satıyordum…\p"
+    .string "Sonra sen çıkageldin ve bütün anlaşmayı\n"
+    .string "mahvettin!\p"
     .string "Fufu… Fufufufu…\n"
-    .string "There's no forgiveness for you!$"
+    .string "Senin için affetmek yok!$"
 
 FiveIsland_RocketWarehouse_Text_GideonDefeat::
-    .string "Gah! Darn!\n"
-    .string "Darn! Darn!$"
+    .string "Ah! Lanet!\n"
+    .string "Lanet! Lanet!$"
 
 FiveIsland_RocketWarehouse_Text_GideonPostBattle::
-    .string "If I can't sell it, it's worthless!\n"
-    .string "Go ahead, take it!$"
+    .string "Satamazsam değersiz!\n"
+    .string "Hadi, al onu!$"
 
 FiveIsland_RocketWarehouse_Text_GetLostLeaveMeBe::
-    .string "What do you want now?\n"
-    .string "Go on, get lost, leave me be.$"
+    .string "Şimdi ne istiyorsun?\n"
+    .string "Hadi, kaybol, beni rahat bırak.$"
 
 FiveIsland_RocketWarehouse_Text_GiovannisKidHasRedHair::
-    .string "What, you again?\p"
-    .string "You… You're not GIOVANNI's kid,\n"
-    .string "are you?\p"
-    .string "No, that can't be right!\n"
-    .string "GIOVANNI's kid has red hair.\p"
-    .string "You don't have any reasons for\n"
-    .string "bugging me. Leave me alone!$"
+    .string "Ne, yine mi sen?\p"
+    .string "Sen… Sen GIOVANNI'nin çocuğu değilsin,\n"
+    .string "değil mi?\p"
+    .string "Hayır, olamaz!\n"
+    .string "GIOVANNI'nin çocuğunun saçları kızıl.\p"
+    .string "Beni rahatsız etmek için bir nedenin\n"
+    .string "yok. Beni yalnız bırak!$"
 

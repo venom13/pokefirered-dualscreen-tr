@@ -1,28 +1,30 @@
 Route1_Text_WorkAtPokeMartTakeSample::
-    .string "Hi!\n"
-    .string "I work at a POKéMON MART.\p"
-    .string "It's part of a convenient chain\n"
-    .string "selling all sorts of items.\p"
-    .string "Please, visit us in VIRIDIAN CITY.\p"
-    .string "I know, I'll give you a sample.\n"
-    .string "Here you go!$"
+    .string "Selam!\n"
+    .string "Bir POKéMON MARKET'te çalışıyorum.\p"
+    .string "Her türlü eşya satan kullanışlı bir\n"
+    .string "zincirin parçası.\p"
+    .string "Lütfen VIRIDIAN ŞEHRİ'nde bizi ziyaret\n"
+    .string "et.\p"
+    .string "Buldum, sana bir numune vereyim.\n"
+    .string "Buyur!$"
 
 Route1_Text_ComeSeeUsIfYouNeedPokeBalls::
-    .string "Please come see us if you need\n"
-    .string "POKé BALLS for catching POKéMON.$"
+    .string "POKéMON yakalamak için POKé TOPU\n"
+    .string "lazımsa lütfen bize gel.$"
 
 Route1_Text_PutPotionAway::
-    .string "{PLAYER} put the POTION away in\n"
-    .string "the BAG's ITEMS POCKET.$"
+    .string "{PLAYER}, İKSİR'i ÇANTA'nın EŞYA\n"
+    .string "CEBİ'ne koydu.$"
 
 Route1_Text_CanJumpFromLedges::
-    .string "See those ledges along the road?\p"
-    .string "It's a bit scary, but you can jump\n"
-    .string "from them.\p"
-    .string "You can get back to PALLET TOWN\n"
-    .string "quicker that way.$"
+    .string "Yol boyunca o çıkıntıları görüyor\n"
+    .string "musun?\p"
+    .string "Biraz korkutucu ama onlardan\n"
+    .string "atlayabilirsin.\p"
+    .string "Böylece PALLET KASABASI'na daha çabuk\n"
+    .string "dönebilirsin.$"
 
 Route1_Text_RouteSign::
-    .string "ROUTE 1\n"
-    .string "PALLET TOWN - VIRIDIAN CITY$"
+    .string "ROTA 1\n"
+    .string "PALLET KASABASI - VIRIDIAN ŞEHRİ$"
 

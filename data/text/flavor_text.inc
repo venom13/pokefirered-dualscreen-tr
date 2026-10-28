@@ -1,122 +1,115 @@
 @ Flavor text for interacting with various background objects
 
 Text_Bookshelf::
-	.string "It's crammed full of POKéMON\n"
-	.string "books.$"
+	.string "POKéMON kitaplarıyla tıka basa dolu.$"
 
 Text_NothingButPokemonBooks::
 	.string "ほんだなに　ならんでいるのは\n"
 	.string "ポケモンの　ほん　ばかりだ$"
 
 Text_ATownMap::
-	.string "A TOWN MAP.$"
+	.string "Bir KENT HARİTASI.$"
 
 Text_PokeMartShelf::
-	.string "Wow!\n"
-	.string "Tons of POKéMON stuff!$"
+	.string "Vay!\n"
+	.string "Bir sürü POKéMON malzemesi!$"
 
 Text_DishesPlatesNeatlyLinedUp::
-	.string "Dishes and plates are neatly\n"
-	.string "lined up.$"
+	.string "Tabaklar düzgünce dizilmiş.$"
 
 Text_Kitchen::
-	.string "It smells delicious!\n"
-	.string "Somebody's been cooking here.$"
+	.string "Nefis kokuyor!\n"
+	.string "Birisi burada yemek yapıyormuş.$"
 
 Text_Dresser::
-	.string "It's a nicely made dresser.\n"
-	.string "It will hold a lot of stuff.$"
+	.string "Güzel yapılmış bir şifonyer.\n"
+	.string "Bir sürü eşya alır.$"
 
 Text_Snacks::
-	.string "There's a pile of snacks here.$"
+	.string "Burada bir yığın atıştırmalık var.$"
 
 Text_PokemartSign::
-	.string "All your item needs fulfilled!\n"
-	.string "POKéMON MART$"
+	.string "Tüm eşya ihtiyaçların burada!\n"
+	.string "POKéMON MARKET$"
 
 Text_PokecenterSign::
-	.string "Heal Your POKéMON!\n"
-	.string "POKéMON CENTER$"
+	.string "POKéMON'larını İyileştir!\n"
+	.string "POKéMON MERKEZİ$"
 
 Text_Indigo_UltimateGoal::
-	.string "INDIGO PLATEAU\p"
-	.string "The ultimate goal of TRAINERS!\n"
-	.string "POKéMON LEAGUE HQ$"
+	.string "INDIGO PLATOSU\p"
+	.string "EĞİTMENLERİN nihai hedefi!\n"
+	.string "POKéMON LİGİ MERKEZİ$"
 
 Text_Indigo_HighestAuthority::
-	.string "INDIGO PLATEAU\p"
-	.string "The highest POKéMON authority!\n"
-	.string "POKéMON LEAGUE HQ$"
+	.string "INDIGO PLATOSU\p"
+	.string "En yüksek POKéMON otoritesi!\n"
+	.string "POKéMON LİGİ MERKEZİ$"
 
 Text_Food::
-	.string "It should be packed with all kinds\n"
-	.string "of delicious things to eat.$"
+	.string "Her türlü lezzetli yiyecekle dolu\n"
+	.string "olmalı.$"
 
 Text_Blueprints::
-	.string "It's a blueprint of some sort.\n"
-	.string "It's filled with diagrams and text.$"
+	.string "Bir tür plan.\n"
+	.string "Şemalar ve yazılarla dolu.$"
 
 Text_Painting::
-	.string "It's a pretty picture of a POKéMON.\n"
-	.string "It looks like it's feeling good.$"
+	.string "Güzel bir POKéMON resmi.\n"
+	.string "Keyfi yerinde görünüyor.$"
 
 Text_PowerPlantMachine::
-	.string "What could this machine be?\n"
-	.string "Better not mess around with it!$"
+	.string "Bu makine ne olabilir?\n"
+	.string "Kurcalamasam iyi olur!$"
 
 Text_Telephone::
-	.string "It's a telephone.\n"
-	.string "Better not use it.$"
+	.string "Bu bir telefon.\n"
+	.string "Kullanmasam iyi olur.$"
 
 Text_Computer::
-	.string "It's all complicated words and\n"
-	.string "numbers that make no sense…$"
+	.string "Hiçbir anlam ifade etmeyen karmaşık\n"
+	.string "kelimeler ve sayılar…$"
 
 Text_AdvertisingPoster::
-	.string "It's an advertising poster about\n"
-	.string "all kinds of products.$"
+	.string "Her türlü ürünün reklam afişi.$"
 
 Text_TastyFood::
-	.string "Oh, that smells tasty!\n"
-	.string "It might get the stomach growling!$"
+	.string "Oh, nefis kokuyor!\n"
+	.string "Mideyi guruldatabilir!$"
 
 Text_TrashBin::
-	.string "Inside this…\n"
+	.string "Bunun içinde…\n"
 	.string "……\p"
-	.string "There's nothing here!$"
+	.string "Hiçbir şey yok!$"
 
 Text_Cup::
-	.string "It's a cup with a POKéMON mark\n"
-	.string "on it.$"
+	.string "Üzerinde POKéMON işareti olan bir\n"
+	.string "fincan.$"
 
 Text_PolishedWindow::
-	.string "The window is very well polished.$"
+	.string "Pencere pırıl pırıl silinmiş.$"
 
 Text_BeautifulSkyWindow::
-	.string "Outside the window…\p"
-	.string "The sky looks fantastically\n"
-	.string "beautiful.$"
+	.string "Pencerenin dışında…\p"
+	.string "Gökyüzü inanılmaz güzel görünüyor.$"
 
 Text_BlinkingLights::
-	.string "Lights in different colors are\n"
-	.string "flashing on and off.$"
+	.string "Farklı renklerde ışıklar yanıp sönüyor.$"
 
 Text_NeatlyLinedUpTools::
-	.string "All sorts of tools are lined up\n"
-	.string "neatly.$"
+	.string "Her türlü alet düzgünce dizilmiş.$"
 
 Text_ImpressiveMachine::
-	.string "It's a machine of some sort.\n"
-	.string "It sure is impressive.$"
+	.string "Bir tür makine.\n"
+	.string "Gerçekten etkileyici.$"
 
 Text_VideoGame::
-	.string "It's the latest video game!\n"
-	.string "It sure looks fun!$"
+	.string "En yeni video oyunu!\n"
+	.string "Çok eğlenceli görünüyor!$"
 
 Text_Burglary::
-	.string "There are obvious signs of burglary\n"
-	.string "here…$"
+	.string "Burada belirgin hırsızlık izleri var…$"
 
 Text_PlayerFacingTVScreen::
-	.string "There's a POKéMON on TV!\n"
-	.string "It looks like it's having fun.$"
+	.string "Televizyonda bir POKéMON var!\n"
+	.string "Eğleniyor gibi görünüyor.$"

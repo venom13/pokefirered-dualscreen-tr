@@ -1,29 +1,27 @@
 Text_MayIHelpYou::
-	.string "Hi, there!\n"
-	.string "May I help you?$"
+	.string "Merhaba!\n"
+	.string "Yardımcı olabilir miyim?$"
 
 Text_FillOutQuestionnaire::
-	.string "There is a questionnaire.\n"
-	.string "Would you like to fill it out?$"
+	.string "Burada bir anket var.\n"
+	.string "Doldurmak ister misin?$"
 
 Text_QuestionnaireThankYou::
-	.string "Thank you for taking the time to\n"
-	.string "fill out our questionnaire.\p"
-	.string "Your feedback will be used for\n"
-	.string "future reference.$"
+	.string "Anketimizi doldurmaya zaman ayırdığın\n"
+	.string "için teşekkürler.\p"
+	.string "Geri bildirimin ileride\n"
+	.string "değerlendirilecek.$"
 
 Text_YouKnowThoseWords::
-	.string "Oh, hello!\n"
-	.string "You know those words?\p"
-	.string "That means you must know about\n"
-	.string "the MYSTERY GIFT.\p"
-	.string "From now on, you should be\n"
-	.string "receiving MYSTERY GIFTS!$"
+	.string "Ah, merhaba!\n"
+	.string "O kelimeleri biliyor musun?\p"
+	.string "Demek ki GİZEMLİ HEDİYE'yi biliyorsun.\p"
+	.string "Artık GİZEMLİ HEDİYELER alabilirsin!$"
 
 Text_YouCanAccessMysteryGift::
-	.string "Once you save your game, you can\n"
-	.string "access the MYSTERY GIFT.$"
+	.string "Oyununu kaydettikten sonra GİZEMLİ\n"
+	.string "HEDİYE'ye erişebilirsin.$"
 
 Text_ThankYouForAccessingMysteryGift::
-	.string "Thank you for accessing the\n"
-	.string "MYSTERY GIFT System.$"
+	.string "GİZEMLİ HEDİYE Sistemi'ne eriştiğin için\n"
+	.string "teşekkürler.$"

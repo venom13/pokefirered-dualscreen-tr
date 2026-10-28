@@ -15,10 +15,11 @@ const u8 gText_NamingScreenKeyboard_ABCDEF[] = _("{CLEAR 11}A{CLEAR 6}B{CLEAR 6}
 const u8 gText_NamingScreenKeyboard_GHIJKL[] = _("{CLEAR 11}G{CLEAR 6}H{CLEAR 6}I{CLEAR 26}J{CLEAR 6}K{CLEAR 6}L{CLEAR 6} {CLEAR 26},");
 const u8 gText_NamingScreenKeyboard_MNOPQRS[] = _("{CLEAR 11}M{CLEAR 6}N{CLEAR 6}O{CLEAR 26}P{CLEAR 6}Q{CLEAR 6}R{CLEAR 6}S{CLEAR 26} ");
 const u8 gText_NamingScreenKeyboard_TUVWXYZ[] = _("{CLEAR 11}T{CLEAR 6}U{CLEAR 6}V{CLEAR 26}W{CLEAR 6}X{CLEAR 6}Y{CLEAR 6}Z{CLEAR 26} ");
-const u8 gText_NamingScreenKeyboard_01234[] = _("{CLEAR 11}0{CLEAR 16}1{CLEAR 16}2{CLEAR 16}3{CLEAR 16}4{CLEAR 16} ");
-const u8 gText_NamingScreenKeyboard_56789[] = _("{CLEAR 11}5{CLEAR 16}6{CLEAR 16}7{CLEAR 16}8{CLEAR 16}9{CLEAR 16} ");
-const u8 gText_NamingScreenKeyboard_Symbols1[] = _("{CLEAR 11}!{CLEAR 16}?{CLEAR 16}♂{CLEAR 16}♀{CLEAR 16}/{CLEAR 16}-");
-const u8 gText_NamingScreenKeyboard_Symbols2[] = _("{CLEAR 11}…{CLEAR 16}“{CLEAR 16}”{CLEAR 18}‘{CLEAR 18}'{CLEAR 18} ");
+// Symbols page: 8 columns, 16px apart, with the Turkish letters (naming_screen.c sKeyboardChars)
+const u8 gText_NamingScreenKeyboard_01234[] = _("{CLEAR_TO 11}0{CLEAR_TO 27}1{CLEAR_TO 43}2{CLEAR_TO 59}3{CLEAR_TO 75}4{CLEAR_TO 91}ç{CLEAR_TO 107}ö{CLEAR_TO 123}ü");
+const u8 gText_NamingScreenKeyboard_56789[] = _("{CLEAR_TO 11}5{CLEAR_TO 27}6{CLEAR_TO 43}7{CLEAR_TO 59}8{CLEAR_TO 75}9{CLEAR_TO 91}ğ{CLEAR_TO 109}ı{CLEAR_TO 123}ş");
+const u8 gText_NamingScreenKeyboard_Symbols1[] = _("{CLEAR_TO 12}!{CLEAR_TO 27}?{CLEAR_TO 43}♂{CLEAR_TO 59}♀{CLEAR_TO 75}/{CLEAR_TO 91}-{CLEAR_TO 107}Ç{CLEAR_TO 123}Ö");
+const u8 gText_NamingScreenKeyboard_Symbols2[] = _("{CLEAR_TO 11}…{CLEAR_TO 27}“{CLEAR_TO 43}”{CLEAR_TO 61}'{CLEAR_TO 75}Ü{CLEAR_TO 91}Ğ{CLEAR_TO 109}İ{CLEAR_TO 123}Ş");
 
 // Union Room Chat keyboard
 const u8 gText_UnionRoomChatKeyboard_ABCDE[] = _("ABCDE");

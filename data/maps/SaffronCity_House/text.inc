@@ -1,20 +1,20 @@
 SaffronCity_House_Text_DontLookAtMyLetter::
-    .string "…Thank you for writing.\n"
-    .string "I hope to see you soon!\p"
+    .string "…Yazdığın için teşekkürler.\n"
+    .string "Umarım yakında görüşürüz!\p"
     .string "…Hey!\n"
-    .string "Don't look at my letter!$"
+    .string "Mektubuma bakma!$"
 
 SaffronCity_House_Text_Pidgey::
-    .string "PIDGEY: Kurukkoo!$"
+    .string "PIDGEY: Kurukkuu!$"
 
 SaffronCity_House_Text_GettingCopycatPokeDoll::
-    .string "The COPYCAT is cute!\n"
-    .string "I'm getting her a POKé DOLL.$"
+    .string "TAKLİTÇİ çok tatlı!\n"
+    .string "Ona bir POKé BEBEK alıyorum.$"
 
 SaffronCity_House_Text_ExplainPPUp::
-    .string "I was given a PP UP as a gift.\p"
-    .string "It's used to increase the PP of\n"
-    .string "a POKéMON's move.\p"
-    .string "I should use it on a powerful move\n"
-    .string "with only a few PP.$"
+    .string "Hediye olarak bir PP ARTIRICI verildi.\p"
+    .string "Bir POKéMON hareketinin PP'sini artırmak\n"
+    .string "için kullanılır.\p"
+    .string "Onu PP'si az olan güçlü bir harekette\n"
+    .string "kullanmalıyım.$"
 

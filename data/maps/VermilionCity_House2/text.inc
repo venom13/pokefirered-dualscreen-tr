@@ -1,20 +1,20 @@
 VermilionCity_House2_Text_DoYouHaveMonWantToTradeForMyMon::
-	.string "Hi!\n"
-	.string "Do you have a {STR_VAR_1}?\p"
-	.string "Want to trade it for my\n"
-	.string "{STR_VAR_2}?$"
+	.string "Selam!\n"
+	.string "{STR_VAR_1} var mı sende?\p"
+	.string "Benim {STR_VAR_2} ile takas etmek ister\n"
+	.string "misin?$"
 
 VermilionCity_House2_Text_ThatsTooBad::
-	.string "That's too bad.$"
+	.string "Ne yazık.$"
 
 VermilionCity_House2_Text_ThisIsNoMon::
-	.string "…This is no {STR_VAR_1}.\p"
-	.string "If you get one, please trade it\n"
-	.string "to me!$"
+	.string "…Bu bir {STR_VAR_1} değil.\p"
+	.string "Bir tane bulursan lütfen benimle takas\n"
+	.string "et!$"
 
 VermilionCity_House2_Text_ThankYou::
-	.string "Thank you!$"
+	.string "Teşekkürler!$"
 
 VermilionCity_House2_Text_HowIsMyOldMon::
-	.string "How is my old {STR_VAR_2}?\p"
-	.string "My {STR_VAR_1} is doing great!$"
+	.string "Eski {STR_VAR_2} nasıl?\p"
+	.string "Benim {STR_VAR_1} gayet iyi!$"

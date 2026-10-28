@@ -769,6 +769,47 @@ static char DecodeGbaChar(u8 c)
     return 0; // unmapped; skipped
 }
 
+// Letters outside ASCII, as UTF-8; the Java font maps them back to the
+// game's glyphs. NULL for everything else.
+static const char *DecodeGbaUtf8(u8 c)
+{
+    switch (c)
+    {
+    case CHAR_e_ACUTE:       return "\xC3\xA9"; // é
+    case CHAR_C_CEDILLA:     return "\xC3\x87"; // Ç
+    case CHAR_c_CEDILLA:     return "\xC3\xA7"; // ç
+    case CHAR_O_DIAERESIS:   return "\xC3\x96"; // Ö
+    case CHAR_o_DIAERESIS:   return "\xC3\xB6"; // ö
+    case CHAR_U_DIAERESIS:   return "\xC3\x9C"; // Ü
+    case CHAR_u_DIAERESIS:   return "\xC3\xBC"; // ü
+    case CHAR_G_BREVE:       return "\xC4\x9E"; // Ğ
+    case CHAR_g_BREVE:       return "\xC4\x9F"; // ğ
+    case CHAR_I_DOT:         return "\xC4\xB0"; // İ
+    case CHAR_i_DOTLESS:     return "\xC4\xB1"; // ı
+    case CHAR_S_CEDILLA:     return "\xC5\x9E"; // Ş
+    case CHAR_s_CEDILLA:     return "\xC5\x9F"; // ş
+    }
+    return NULL;
+}
+
+// Appends c's UTF-8 form when it has one and it fits. Returns the new length,
+// or -1 when c is not such a letter.
+static int PutGbaUtf8(char *dest, int out, int destSize, u8 c)
+{
+    const char *utf8 = DecodeGbaUtf8(c);
+    int len;
+
+    if (utf8 == NULL)
+        return -1;
+    len = strlen(utf8);
+    if (out + len < destSize)
+    {
+        memcpy(dest + out, utf8, len);
+        out += len;
+    }
+    return out;
+}
+
 static void DecodeGbaString(char *dest, int destSize, const u8 *src, int maxSrcLen)
 {
     int out = 0;
@@ -785,11 +826,9 @@ static void DecodeGbaString(char *dest, int destSize, const u8 *src, int maxSrcL
          || c == CHAR_KEYPAD_ICON || c == CHAR_EXTRA_SYMBOL
          || c == EXT_CTRL_CODE_BEGIN || c == PLACEHOLDER_BEGIN || c == CHAR_DYNAMIC)
             break;
-        if (c == CHAR_e_ACUTE && out < destSize - 2)
+        if (DecodeGbaUtf8(c) != NULL)
         {
-            // é as UTF-8; the Java font maps it back to the game's glyph.
-            dest[out++] = (char)0xC3;
-            dest[out++] = (char)0xA9;
+            out = PutGbaUtf8(dest, out, destSize, c);
             continue;
         }
         decoded = DecodeGbaChar(c);
@@ -844,10 +883,9 @@ static void DecodeGbaMenuLabel(char *dest, int destSize, const u8 *src, int maxS
         }
         if (c == PLACEHOLDER_BEGIN || c == CHAR_DYNAMIC)
             break;
-        if (c == CHAR_e_ACUTE && out < destSize - 2)
+        if (DecodeGbaUtf8(c) != NULL)
         {
-            dest[out++] = (char)0xC3;
-            dest[out++] = (char)0xA9;
+            out = PutGbaUtf8(dest, out, destSize, c);
             continue;
         }
         decoded = DecodeGbaChar(c);
@@ -886,7 +924,8 @@ static void JsonPut(struct JsonWriter *w, const char *format, ...)
     }
 }
 
-// Decoded strings are plain ASCII; only quote and backslash need escaping.
+// Decoded strings are ASCII plus UTF-8 letters; only quote and backslash
+// need escaping.
 static void JsonPutString(struct JsonWriter *w, const char *s)
 {
     JsonPut(w, "\"");
@@ -2107,9 +2146,9 @@ JNIEXPORT jintArray JNICALL Java_com_pokeemerald_experimental_DualScreenBridge_n
     return result;
 }
 
-// Item descriptions span multiple lines and use é, so DecodeGbaString (which
-// stops at the first control code) won't do: newlines become spaces (the Java
-// side re-wraps to fit) and é is emitted as UTF-8.
+// Item descriptions span multiple lines, so DecodeGbaString (which stops at
+// the first control code) won't do: newlines become spaces (the Java side
+// re-wraps to fit) and accented letters are emitted as UTF-8.
 static void DecodeItemDescription(char *dest, int destSize, const u8 *src)
 {
     int out = 0;
@@ -2130,10 +2169,9 @@ static void DecodeItemDescription(char *dest, int destSize, const u8 *src)
         if (c == CHAR_KEYPAD_ICON || c == CHAR_EXTRA_SYMBOL
          || c == EXT_CTRL_CODE_BEGIN || c == PLACEHOLDER_BEGIN || c == CHAR_DYNAMIC)
             break;
-        if (c == CHAR_e_ACUTE)
+        if (DecodeGbaUtf8(c) != NULL)
         {
-            dest[out++] = (char)0xC3;
-            dest[out++] = (char)0xA9;
+            out = PutGbaUtf8(dest, out, destSize, c);
             continue;
         }
         decoded = DecodeGbaChar(c);

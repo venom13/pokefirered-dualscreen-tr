@@ -1,84 +1,83 @@
 MtMoon_B2F_Text_MiguelIntro::
-    .string "Hey, stop!\p"
-    .string "I found these fossils!\n"
-    .string "They're both mine!$"
+    .string "Hey, dur!\p"
+    .string "Bu fosilleri ben buldum!\n"
+    .string "İkisi de benim!$"
 
 MtMoon_B2F_Text_MiguelDefeat::
-    .string "Okay!\n"
-    .string "I'll share!$"
+    .string "Tamam!\n"
+    .string "Paylaşırım!$"
 
 MtMoon_B2F_Text_WellEachTakeAFossil::
-    .string "We'll each take a fossil!\n"
-    .string "No being greedy!$"
+    .string "Herkes bir fosil alacak!\n"
+    .string "Açgözlülük yok!$"
 
 MtMoon_B2F_Text_ThenThisFossilIsMine::
-    .string "All right.\n"
-    .string "Then this fossil is mine!$"
+    .string "Pekala.\n"
+    .string "O zaman bu fosil benim!$"
 
 MtMoon_B2F_Text_LabOnCinnabarRegeneratesFossils::
-    .string "Far away, on CINNABAR ISLAND,\n"
-    .string "there's a POKéMON LAB.\p"
-    .string "They do research on regenerating\n"
-    .string "fossils.$"
+    .string "Çok uzakta, CINNABAR ADASI'nda bir\n"
+    .string "POKéMON LAB'ı var.\p"
+    .string "Fosilleri canlandırma üzerine araştırma\n"
+    .string "yapıyorlar.$"
 
 MtMoon_B2F_Text_Grunt1Intro::
-    .string "We, TEAM ROCKET, shall find the\n"
-    .string "fossils!\p"
-    .string "Reviving POKéMON from them will\n"
-    .string "earn us huge riches!$"
+    .string "Biz, ROCKET TAKIMI, fosilleri\n"
+    .string "bulacağız!\p"
+    .string "Onlardan POKéMON canlandırmak bize\n"
+    .string "servet kazandıracak!$"
 
 MtMoon_B2F_Text_Grunt1Defeat::
-    .string "Urgh!\n"
-    .string "Now I'm mad!$"
+    .string "Ahh!\n"
+    .string "Şimdi kızdım!$"
 
 MtMoon_B2F_Text_Grunt1PostBattle::
-    .string "You made me mad!\n"
-    .string "TEAM ROCKET will blacklist you!$"
+    .string "Beni kızdırdın!\n"
+    .string "ROCKET TAKIMI seni kara listeye\l"
+    .string "alacak!$"
 
 MtMoon_B2F_Text_Grunt2Intro::
-    .string "We, TEAM ROCKET, are POKéMON\n"
-    .string "gangsters!\l"
-    .string "We strike fear with our strength!$"
+    .string "Biz, ROCKET TAKIMI, POKéMON\n"
+    .string "gangsterleriyiz!\l"
+    .string "Gücümüzle korku salarız!$"
 
 MtMoon_B2F_Text_Grunt2Defeat::
-    .string "I blew it!$"
+    .string "Berbat ettim!$"
 
 MtMoon_B2F_Text_Grunt2PostBattle::
-    .string "Darn it all!\n"
-    .string "My associates won't stand for this!$"
+    .string "Hay aksi!\n"
+    .string "Ortaklarım buna göz yummaz!$"
 
 MtMoon_B2F_Text_Grunt3Intro::
-    .string "We're pulling a big job here!\n"
-    .string "Get lost, kid!$"
+    .string "Burada büyük bir iş çeviriyoruz!\n"
+    .string "Kaybol, ufaklık!$"
 
 MtMoon_B2F_Text_Grunt3Defeat::
-    .string "So, you are good…$"
+    .string "Demek iyisin…$"
 
 MtMoon_B2F_Text_Grunt3PostBattle::
-    .string "If you find a fossil, give it to me\n"
-    .string "and scram!$"
+    .string "Bir fosil bulursan bana ver ve toz ol!$"
 
 MtMoon_B2F_Text_Grunt4Intro::
-    .string "Little kids shouldn't be messing\n"
-    .string "around with grown-ups!\p"
-    .string "It could be bad news!$"
+    .string "Küçük çocuklar büyüklerle uğraşmamalı!\p"
+    .string "Başın belaya girebilir!$"
 
 MtMoon_B2F_Text_Grunt4Defeat::
-    .string "I'm steamed!$"
+    .string "Çok sinirlendim!$"
 
 MtMoon_B2F_Text_Grunt4PostBattle::
-    .string "POKéMON lived here long before\n"
-    .string "people came.$"
+    .string "POKéMON'lar insanlar gelmeden çok önce\n"
+    .string "burada yaşıyordu.$"
 
 MtMoon_B2F_Text_YouWantDomeFossil::
-    .string "Do you want the DOME FOSSIL?$"
+    .string "KUBBE FOSİL'i istiyor musun?$"
 
 MtMoon_B2F_Text_YouWantHelixFossil::
-    .string "Do you want the HELIX FOSSIL?$"
+    .string "SARMAL FOSİL'i istiyor musun?$"
 
 MtMoon_B2F_Text_ObtainedHelixFossil::
-    .string "Obtained the HELIX FOSSIL!$"
+    .string "SARMAL FOSİL alındı!$"
 
 MtMoon_B2F_Text_ObtainedDomeFossil::
-    .string "Obtained the DOME FOSSIL!$"
+    .string "KUBBE FOSİL alındı!$"
 

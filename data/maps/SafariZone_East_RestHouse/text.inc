@@ -1,12 +1,12 @@
 SafariZone_East_Text_HowManyDidYouCatch::
-    .string "How many did you catch?\n"
-    .string "I'm bushed from the effort!$"
+    .string "Kaç tane yakaladın?\n"
+    .string "Bu çabadan bitap düştüm!$"
 
 SafariZone_East_Text_CaughtChanseyAllWorthwhile::
-    .string "I caught a CHANSEY!\p"
-    .string "That makes this all worthwhile.$"
+    .string "Bir CHANSEY yakaladım!\p"
+    .string "Bu her şeye değdi.$"
 
 SafariZone_East_Text_TiredFromAllTheFun::
-    .string "Whew!\n"
-    .string "I'm tired from all the fun!$"
+    .string "Of!\n"
+    .string "Bunca eğlenceden yoruldum!$"
 

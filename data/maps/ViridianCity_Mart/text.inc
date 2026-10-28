@@ -1,26 +1,26 @@
 ViridianCity_Mart_Text_YouCameFromPallet::
     .string "Hey!\n"
-    .string "You came from PALLET TOWN?$"
+    .string "PALLET KASABASI'ndan mı geldin?$"
 
 ViridianCity_Mart_Text_TakeThisToProfOak::
-    .string "You know PROF. OAK, right?\p"
-    .string "His order came in.\n"
-    .string "Can I get you to take it to him?$"
+    .string "PROF. OAK'ı tanıyorsun, değil mi?\p"
+    .string "Siparişi geldi.\n"
+    .string "Ona götürür müsün?$"
 
 ViridianCity_Mart_Text_ReceivedOaksParcelFromClerk::
-    .string "{PLAYER} received OAK'S PARCEL\n"
-    .string "from the POKéMON MART clerk.$"
+    .string "{PLAYER}, POKéMON MARKET görevlisinden\n"
+    .string "OAK'IN PAKETİ'ni aldı.$"
 
 ViridianCity_Mart_Text_SayHiToOakForMe::
-    .string "Okay, thanks! Please say hi to\n"
-    .string "PROF. OAK for me, too.$"
+    .string "Tamam, teşekkürler! PROF. OAK'a benden\n"
+    .string "de selam söyle.$"
 
 ViridianCity_Mart_Text_ShopDoesGoodBusinessInAntidotes::
-    .string "This shop does good business in\n"
-    .string "ANTIDOTES, I've heard.$"
+    .string "Duyduğuma göre bu dükkân PANZEHİR\n"
+    .string "satışında iyi iş yapıyormuş.$"
 
 ViridianCity_Mart_Text_GotToBuySomePotions::
-    .string "I've got to buy some POTIONS.\p"
-    .string "You never know when your POKéMON\n"
-    .string "will need quick healing.$"
+    .string "Biraz İKSİR almam lazım.\p"
+    .string "POKéMON'unun ne zaman hızlı iyileşmeye\n"
+    .string "ihtiyaç duyacağı belli olmaz.$"
 

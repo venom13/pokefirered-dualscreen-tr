@@ -1,0 +1,17 @@
+{
+ "2": "{STR_VAR_1} adlı POKéMON'u arıyorum!\\pBenim {STR_VAR_2} ile takas eder misin?$",
+ "8": "Hıııh!\\nNeyse…$",
+ "12": "Ne?\\nBu bir {STR_VAR_1} değil ki!$",
+ "16": "Hey, sağ ol!$",
+ "19": "Eski {STR_VAR_2} harika değil mi?$",
+ "22": "Merhaba! Sende bir {STR_VAR_1} var mı acaba?\\pBenim {STR_VAR_2} ile takasa razı olur musun?$",
+ "28": "Peki, istemiyorsan…$",
+ "31": "Hımm?\\nBu bir {STR_VAR_1} değil.\\pBir tane bulursan beni hatırla.$",
+ "36": "Sağ ol!$",
+ "39": "Sana verdiğim {STR_VAR_2} güçlendi mi?$",
+ "43": "Selam!\\nSende {STR_VAR_1} var mı?\\pBenim {STR_VAR_2} ile takas etmek ister misin?$",
+ "49": "Çok yazık.$",
+ "52": "…Bu bir {STR_VAR_1} değil.\\pBir tane bulursan benimle takas et.$",
+ "56": "Sağ ol, sen bir dostsun!$",
+ "59": "Eski {STR_VAR_2} nasıl?\\nBenim {STR_VAR_1} harika!$"
+}

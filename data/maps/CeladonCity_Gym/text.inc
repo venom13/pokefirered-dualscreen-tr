@@ -1,152 +1,151 @@
 CeladonCity_Gym_Text_ErikaIntro::
-    .string "Hello…\n"
-    .string "Lovely weather, isn't it?\l"
-    .string "It's so pleasant…\p"
-    .string "…Oh, dear…\n"
-    .string "I must have dozed off. Welcome.\p"
-    .string "My name is ERIKA.\n"
-    .string "I am the LEADER of CELADON GYM.\p"
-    .string "I am a student of the art of\n"
-    .string "flower arranging.\p"
-    .string "My POKéMON are solely of the\n"
-    .string "GRASS type.\p"
-    .string "…Oh, I'm sorry, I had no idea that\n"
-    .string "you wished to challenge me.\p"
-    .string "Very well, but I shall not lose.{PLAY_BGM MUS_ENCOUNTER_GYM_LEADER}$"
+    .string "Merhaba…\n"
+    .string "Hava ne güzel, değil mi?\l"
+    .string "Çok hoş…\p"
+    .string "…Ah, aman…\n"
+    .string "Galiba uyuyakalmışım. Hoş geldin.\p"
+    .string "Benim adım ERIKA.\n"
+    .string "CELADON SALONU'nun LİDERİYİM.\p"
+    .string "Çiçek düzenleme sanatının öğrencisiyim.\p"
+    .string "POKéMON'larım yalnızca ÇİMEN\n"
+    .string "türündendir.\p"
+    .string "…Ah, özür dilerim, bana meydan okumak\n"
+    .string "istediğini bilmiyordum.\p"
+    .string "Pekala, ama kaybetmeyeceğim.{PLAY_BGM MUS_ENCOUNTER_GYM_LEADER}$"
 
 CeladonCity_Gym_Text_ErikaDefeat::
-    .string "Oh!\n"
-    .string "I concede defeat.\l"
-    .string "You are remarkably strong.\p"
-    .string "I must confer on you the\n"
-    .string "RAINBOWBADGE.$"
+    .string "Ah!\n"
+    .string "Yenilgiyi kabul ediyorum.\l"
+    .string "Olağanüstü güçlüsün.\p"
+    .string "Sana GÖKKUŞAĞI ROZETİ'ni vermeliyim.$"
 
 CeladonCity_Gym_Text_ErikaPostBattle::
-    .string "You are cataloging POKéMON?\n"
-    .string "I must say I'm impressed.\p"
-    .string "I would never collect POKéMON if\n"
-    .string "they were unattractive.$"
+    .string "POKéMON'ları kataloglıyor musun?\n"
+    .string "Doğrusu etkilendim.\p"
+    .string "Çekici olmasalardı asla POKéMON\n"
+    .string "toplamazdım.$"
 
 CeladonCity_Gym_Text_ExplainRainbowBadgeTakeThis::
-    .string "The RAINBOWBADGE will make\n"
-    .string "POKéMON up to Lv. 50 obey.\p"
-    .string "It also allows POKéMON to use\n"
-    .string "STRENGTH in and out of battle.\p"
-    .string "Please also take this with you.$"
+    .string "GÖKKUŞAĞI ROZETİ, Sv. 50'ye kadar\n"
+    .string "POKéMON'ların sana itaat etmesini\l"
+    .string "sağlar.\p"
+    .string "Ayrıca POKéMON'ların savaşta ve savaş\n"
+    .string "dışında GÜÇ kullanabilmesini sağlar.\p"
+    .string "Lütfen bunu da yanına al.$"
 
 CeladonCity_Gym_Text_ReceivedTM19FromErika::
-    .string "{PLAYER} received TM19\n"
-    .string "from ERIKA.$"
+    .string "{PLAYER}, ERIKA'dan TM19 aldı.$"
 
 CeladonCity_Gym_Text_ExplainTM19::
-    .string "TM19 contains GIGA DRAIN.\p"
-    .string "Half the damage it inflicts is\n"
-    .string "drained to heal your POKéMON.\p"
-    .string "Wouldn't you agree that it's a\n"
-    .string "wonderful move?$"
+    .string "TM19'da GİGA EMME var.\p"
+    .string "Verdiği hasarın yarısı emilerek\n"
+    .string "POKéMON'unu iyileştirir.\p"
+    .string "Harika bir hareket olduğuna katılmaz\n"
+    .string "mısın?$"
 
 CeladonCity_Gym_Text_ShouldMakeRoomForThis::
-    .string "You should make room for this.$"
+    .string "Buna yer açmalısın.$"
 
 CeladonCity_Gym_Text_KayIntro::
-    .string "I should tell you about this GYM.\p"
-    .string "Only real ladies are allowed in\n"
-    .string "here!$"
+    .string "Sana bu SALON hakkında bir şey\n"
+    .string "söyleyeyim.\p"
+    .string "Buraya yalnızca gerçek hanımefendiler\n"
+    .string "girebilir!$"
 
 CeladonCity_Gym_Text_KayDefeat::
-    .string "You're too rough!$"
+    .string "Çok kabasın!$"
 
 CeladonCity_Gym_Text_KayPostBattle::
-    .string "Bleaah!\n"
-    .string "I hope ERIKA wipes you out!$"
+    .string "Iyy!\n"
+    .string "Umarım ERIKA seni yerle bir eder!$"
 
 CeladonCity_Gym_Text_BridgetIntro::
-    .string "Oh, welcome.\n"
-    .string "I was getting bored.$"
+    .string "Ah, hoş geldin.\n"
+    .string "Sıkılmaya başlamıştım.$"
 
 CeladonCity_Gym_Text_BridgetDefeat::
-    .string "My makeup!$"
+    .string "Makyajım!$"
 
 CeladonCity_Gym_Text_BridgetPostBattle::
-    .string "GRASS-type POKéMON are tough\n"
-    .string "against the WATER type.\p"
-    .string "They also have an edge on ROCK-\n"
-    .string "and GROUND-type POKéMON.$"
+    .string "ÇİMEN türü POKéMON'lar SU türüne karşı\n"
+    .string "güçlüdür.\p"
+    .string "Ayrıca KAYA ve TOPRAK türü\n"
+    .string "POKéMON'lara karşı da avantajlıdır.$"
 
 CeladonCity_Gym_Text_TinaIntro::
-    .string "…Weren't you peeking in here\n"
-    .string "earlier?$"
+    .string "…Az önce buraya gizlice bakmıyor\n"
+    .string "muydun?$"
 
 CeladonCity_Gym_Text_TinaDefeat::
-    .string "You're an eye-opener!$"
+    .string "Gözümü açtın!$"
 
 CeladonCity_Gym_Text_TinaPostBattle::
-    .string "Oh, you were looking at ERIKA…\n"
-    .string "You weren't looking at me…$"
+    .string "Ah, ERIKA'ya bakıyordun…\n"
+    .string "Bana bakmıyordun…$"
 
 CeladonCity_Gym_Text_TamiaIntro::
-    .string "Look, look!\n"
-    .string "See my POKéMON!\p"
-    .string "I like the GRASS type.\n"
-    .string "I like how they're easy to raise.$"
+    .string "Bak, bak!\n"
+    .string "POKéMON'umu gör!\p"
+    .string "ÇİMEN türünü severim.\n"
+    .string "Yetiştirmeleri kolay.$"
 
 CeladonCity_Gym_Text_TamiaDefeat::
-    .string "No!$"
+    .string "Hayır!$"
 
 CeladonCity_Gym_Text_TamiaPostBattle::
-    .string "We only use GRASS-type POKéMON at\n"
-    .string "our GYM.\p"
-    .string "Why? We also use them for making\n"
-    .string "flower arrangements!$"
+    .string "SALONUMUZDA yalnızca ÇİMEN türü\n"
+    .string "POKéMON kullanırız.\p"
+    .string "Neden mi? Onları çiçek düzenlemesi için\n"
+    .string "de kullanıyoruz!$"
 
 CeladonCity_Gym_Text_LisaIntro::
-    .string "Oh, hey!\p"
-    .string "We don't like BUG- or FIRE-type\n"
-    .string "POKéMON in here!$"
+    .string "Ah, hey!\p"
+    .string "Burada BÖCEK ya da ATEŞ türü POKéMON\n"
+    .string "sevmeyiz!$"
 
 CeladonCity_Gym_Text_LisaDefeat::
-    .string "Oh!\n"
-    .string "You!$"
+    .string "Ah!\n"
+    .string "Sen!$"
 
 CeladonCity_Gym_Text_LisaPostBattle::
-    .string "Our LEADER ERIKA might be quiet,\n"
-    .string "but she's famous around here.$"
+    .string "LİDERİMİZ ERIKA sessiz olabilir ama\n"
+    .string "buralarda ünlüdür.$"
 
 CeladonCity_Gym_Text_LoriIntro::
-    .string "Pleased to meet you.\n"
-    .string "My hobby is POKéMON training.$"
+    .string "Tanıştığıma memnun oldum.\n"
+    .string "Hobim POKéMON eğitmek.$"
 
 CeladonCity_Gym_Text_LoriDefeat::
-    .string "Oh!\n"
-    .string "Splendid!$"
+    .string "Ah!\n"
+    .string "Muhteşem!$"
 
 CeladonCity_Gym_Text_LoriPostBattle::
-    .string "I have a blind date coming up.\n"
-    .string "I have to learn to be polite,\l"
-    .string "especially if I have to battle.$"
+    .string "Yakında bir görücü randevum var.\n"
+    .string "Kibar olmayı öğrenmeliyim,\l"
+    .string "özellikle savaşmam gerekirse.$"
 
 CeladonCity_Gym_Text_MaryIntro::
-    .string "Welcome to CELADON GYM!\p"
-    .string "You'd better not underestimate\n"
-    .string "the nice ladies here.$"
+    .string "CELADON SALONU'na hoş geldin!\p"
+    .string "Buradaki hoş hanımları hafife almasan\n"
+    .string "iyi olur.$"
 
 CeladonCity_Gym_Text_MaryDefeat::
-    .string "Oh!\n"
-    .string "Beaten!$"
+    .string "Ah!\n"
+    .string "Yenildim!$"
 
 CeladonCity_Gym_Text_MaryPostBattle::
-    .string "I didn't bring my best POKéMON.\n"
-    .string "Wait until next time!$"
+    .string "En iyi POKéMON'umu getirmemiştim.\n"
+    .string "Bir dahaki sefere görürsün!$"
 
 CeladonCity_Gym_Text_GymStatue::
-    .string "CELADON POKéMON GYM\n"
-    .string "LEADER: ERIKA\p"
-    .string "WINNING TRAINERS:\n"
+    .string "CELADON POKéMON SALONU\n"
+    .string "LİDER: ERIKA\p"
+    .string "KAZANAN EĞİTMENLER:\n"
     .string "{RIVAL}$"
 
 CeladonCity_Gym_Text_GymStatuePlayerWon::
-    .string "CELADON POKéMON GYM\n"
-    .string "LEADER: ERIKA\p"
-    .string "WINNING TRAINERS:\n"
+    .string "CELADON POKéMON SALONU\n"
+    .string "LİDER: ERIKA\p"
+    .string "KAZANAN EĞİTMENLER:\n"
     .string "{RIVAL}, {PLAYER}$"
 

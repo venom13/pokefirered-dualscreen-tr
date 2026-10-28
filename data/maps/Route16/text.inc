@@ -1,113 +1,112 @@
 Route16_Text_LaoIntro::
-    .string "What do you want?$"
+    .string "Ne istiyorsun?$"
 
 Route16_Text_LaoDefeat::
-    .string "Don't you dare laugh!$"
+    .string "Sakın gülmeye kalkma!$"
 
 Route16_Text_LaoPostBattle::
-    .string "We like just hanging here.\n"
-    .string "What's it to you?$"
+    .string "Burada takılmayı seviyoruz.\n"
+    .string "Sana ne?$"
 
 Route16_Text_KojiIntro::
-    .string "Nice BIKE!\n"
-    .string "Hand it over!$"
+    .string "Güzel BİSİKLET!\n"
+    .string "Ver onu!$"
 
 Route16_Text_KojiDefeat::
-    .string "Knockout!$"
+    .string "Nakavt!$"
 
 Route16_Text_KojiPostBattle::
-    .string "Forget it, who needs your BIKE!$"
+    .string "Boş ver, kim ister senin BİSİKLETİNİ!$"
 
 Route16_Text_LukeIntro::
-    .string "Come out and play, little mouse!$"
+    .string "Çık da oynayalım, küçük fare!$"
 
 Route16_Text_LukeDefeat::
-    .string "You little rat!$"
+    .string "Seni küçük sıçan!$"
 
 Route16_Text_LukePostBattle::
-    .string "I hate losing!\n"
-    .string "Get out of my face!$"
+    .string "Kaybetmekten nefret ederim!\n"
+    .string "Defol önümden!$"
 
 Route16_Text_HideoIntro::
-    .string "Hey, you just bumped me!$"
+    .string "Hey, bana çarptın!$"
 
 Route16_Text_HideoDefeat::
-    .string "Kaboom!$"
+    .string "Kabuuum!$"
 
 Route16_Text_HideoPostBattle::
-    .string "We'll always be hanging around here\n"
-    .string "even if you don't like it.\p"
-    .string "You can detour to VERMILION from\n"
-    .string "FUCHSIA going along the coast.$"
+    .string "Hoşuna gitmese de hep burada\n"
+    .string "takılacağız.\p"
+    .string "FUCHSIA'dan sahil boyunca VERMILION'a\n"
+    .string "dolaşarak gidebilirsin.$"
 
 Route16_Text_CamronIntro::
-    .string "I'm feeling hungry and mean!\n"
-    .string "I need a punching bag!$"
+    .string "Hem açım hem huysuzum!\n"
+    .string "Bir kum torbasına ihtiyacım var!$"
 
 Route16_Text_CamronDefeat::
-    .string "Bad, bad, bad!$"
+    .string "Kötü, kötü, kötü!$"
 
 Route16_Text_CamronPostBattle::
-    .string "If I'm going to have POKéMON, they\n"
-    .string "may as well be ferocious.\p"
-    .string "I'd use them to leave my enemies\n"
-    .string "in tatters.$"
+    .string "POKéMON'um olacaksa vahşi olsunlar\n"
+    .string "bari.\p"
+    .string "Onlarla düşmanlarımı paramparça\n"
+    .string "ederdim.$"
 
 Route16_Text_RubenIntro::
-    .string "Hey, there!\n"
-    .string "Let's have ourselves a good time!$"
+    .string "Hey, selam!\n"
+    .string "Hadi biraz eğlenelim!$"
 
 Route16_Text_RubenDefeat::
-    .string "Don't make me mad!$"
+    .string "Beni kızdırma!$"
 
 Route16_Text_RubenPostBattle::
-    .string "I get my kicks by harassing people\n"
-    .string "with my stinking POKéMON.\p"
-    .string "They're great for startling people.\n"
-    .string "And, they bite, too.$"
+    .string "Kokuşmuş POKéMON'larımla insanları\n"
+    .string "taciz ederek eğlenirim.\p"
+    .string "İnsanları korkutmak için harikalar.\n"
+    .string "Üstelik ısırırlar da.$"
 
 Route16_Text_MonSprawledOutInSlumber::
-    .string "A POKéMON is sprawled out in\n"
-    .string "a deep and comfortable slumber.$"
+    .string "Bir POKéMON derin ve rahat bir uykuya\n"
+    .string "dalmış, yayılmış yatıyor.$"
 
 Route16_Text_CyclingRoadSign::
-    .string "Enjoy the slope!\n"
-    .string "CYCLING ROAD$"
+    .string "Yokuşun keyfini çıkar!\n"
+    .string "BİSİKLET YOLU$"
 
 Route16_Text_RouteSign::
-    .string "ROUTE 16\n"
-    .string "CELADON CITY - FUCHSIA CITY$"
+    .string "ROTA 16\n"
+    .string "CELADON ŞEHRİ - FUCHSIA ŞEHRİ$"
 
 Route16_Text_JedIntro::
-    .string "JED: Our love knows no bounds.\n"
-    .string "We're in love and we show it!$"
+    .string "JED: Aşkımız sınır tanımaz.\n"
+    .string "Aşığız ve bunu gösteriyoruz!$"
 
 Route16_Text_JedDefeat::
-    .string "JED: Oh, no!\n"
-    .string "My love has seen me as a loser!$"
+    .string "JED: Ah, hayır!\n"
+    .string "Aşkım beni kaybeden biri olarak gördü!$"
 
 Route16_Text_JedPostBattle::
-    .string "JED: Listen, LEA.\n"
-    .string "You need to focus less on me.$"
+    .string "JED: Dinle, LEA.\n"
+    .string "Bana daha az odaklanmalısın.$"
 
 Route16_Text_JedNotEnoughMons::
-    .string "JED: You have just one POKéMON?\n"
-    .string "Is there no love in your heart?$"
+    .string "JED: Tek bir POKéMON'un mu var?\n"
+    .string "Yüreğinde hiç sevgi yok mu?$"
 
 Route16_Text_LeaIntro::
-    .string "LEA: Sometimes, the intensity of\n"
-    .string "our love scares me.$"
+    .string "LEA: Bazen aşkımızın yoğunluğu beni\n"
+    .string "korkutuyor.$"
 
 Route16_Text_LeaDefeat::
-    .string "LEA: Ohh! But JED looks cool\n"
-    .string "even in a loss!$"
+    .string "LEA: Ohh! Ama JED kaybederken bile\n"
+    .string "havalı!$"
 
 Route16_Text_LeaPostBattle::
-    .string "LEA: Ehehe, I'm sorry.\n"
-    .string "JED is so cool.$"
+    .string "LEA: Ehehe, özür dilerim.\n"
+    .string "JED çok havalı.$"
 
 Route16_Text_LeaNotEnoughMons::
-    .string "LEA: Oh, you don't have two\n"
-    .string "POKéMON with you?\p"
-    .string "Doesn't it feel lonely for you or\n"
-    .string "your POKéMON?$"
+    .string "LEA: Ah, yanında iki POKéMON yok mu?\p"
+    .string "Sen ya da POKéMON'un yalnız\n"
+    .string "hissetmiyor musunuz?$"

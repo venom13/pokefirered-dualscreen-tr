@@ -1,62 +1,58 @@
 OneIsland_Text_BillLetsGoSeeCelio::
-    .string "BILL: Here we are!\n"
-    .string "This is ONE ISLAND.\p"
-    .string "There are several islands around\n"
-    .string "here, and this is one of them.\p"
-    .string "My friend CELIO sent the boat to\n"
-    .string "fetch me here.\p"
-    .string "He's in charge of the island's PC\n"
-    .string "network by his lonesome.\p"
-    .string "…Why am I telling you this now?\n"
-    .string "Let's just go see CELIO!$"
+    .string "BILL: İşte geldik!\n"
+    .string "Burası BİRİNCİ ADA.\p"
+    .string "Buralarda birkaç ada var, bu da\n"
+    .string "onlardan biri.\p"
+    .string "Arkadaşım CELIO beni buraya getirmesi\n"
+    .string "için gemiyi gönderdi.\p"
+    .string "Adanın PC ağından tek başına o sorumlu.\p"
+    .string "…Bunu sana neden şimdi anlatıyorum ki?\n"
+    .string "Hadi CELIO'yu görmeye gidelim!$"
 
 Text_WhereDoYouWantToSail::
-    .string "Ahoy, there!\n"
-    .string "Where do you want to sail?$"
+    .string "Ahoy!\n"
+    .string "Nereye yelken açmak istersin?$"
 
 OneIsland_Text_LuckyToHaveCelioHere::
-    .string "Here we are on an island smack in\n"
-    .string "the middle of nowhere.\p"
-    .string "We're lucky to have an upstanding\n"
-    .string "young man like CELIO here.\p"
-    .string "My granddaughter was in a tizzy\n"
-    .string "over CELIO's friend.\p"
-    .string "Something about a famous\n"
-    .string "POKéMANIAC?\p"
-    .string "I'm not sure what that means, but\n"
-    .string "CELIO is quite the man!$"
+    .string "Hiçbir yerin ortasındaki bir adadayız.\p"
+    .string "CELIO gibi dürüst bir gencin burada\n"
+    .string "olması bizim şansımız.\p"
+    .string "Torunum CELIO'nun arkadaşı yüzünden\n"
+    .string "heyecandan yerinde duramıyordu.\p"
+    .string "Ünlü bir POKéMANYAK falanmış?\p"
+    .string "Bunun ne demek olduğunu bilmiyorum ama\n"
+    .string "CELIO tam bir adam!$"
 
 OneIsland_Text_HavePCLinkageWithKanto::
-    .string "My granddaughter was in a tizzy\n"
-    .string "over a new breakthrough.\p"
-    .string "She said we now have PC linkage\n"
-    .string "with people in KANTO.\p"
-    .string "I'm not sure what that means, but\n"
-    .string "CELIO is quite the man!$"
+    .string "Torunum yeni bir buluş yüzünden\n"
+    .string "heyecandan yerinde duramıyordu.\p"
+    .string "Artık KANTO'daki insanlarla PC\n"
+    .string "bağlantımız olduğunu söyledi.\p"
+    .string "Bunun ne demek olduğunu bilmiyorum ama\n"
+    .string "CELIO tam bir adam!$"
 
 OneIsland_Text_HavePCLinkageWithHoenn::
-    .string "My granddaughter was in a tizzy\n"
-    .string "over a new breakthrough.\p"
-    .string "She said we finally have PC linkage\n"
-    .string "with people in HOENN.\p"
-    .string "I'm not sure what that means, but\n"
-    .string "CELIO is quite the man.\p"
-    .string "He would make a fine husband for\n"
-    .string "my granddaughter!$"
+    .string "Torunum yeni bir buluş yüzünden\n"
+    .string "heyecandan yerinde duramıyordu.\p"
+    .string "Sonunda HOENN'deki insanlarla PC\n"
+    .string "bağlantımız olduğunu söyledi.\p"
+    .string "Bunun ne demek olduğunu bilmiyorum ama\n"
+    .string "CELIO tam bir adam.\p"
+    .string "Torunuma iyi bir koca olurdu!$"
 
 OneIsland_Text_IslandSign::
-    .string "ONE ISLAND\n"
-    .string "Friends Gather at Knot Island$"
+    .string "BİRİNCİ ADA\n"
+    .string "Dostlar Düğüm Adası'nda Buluşur$"
 
 OneIsland_Text_PokemonNetCenterSign::
-    .string "Expanding the POKéMON World!\n"
-    .string "POKéMON NET CENTER$"
+    .string "POKéMON Dünyasını Genişletiyoruz!\n"
+    .string "POKéMON AĞ MERKEZİ$"
 
 @ Unused
 OneIsland_Text_ReturnToCinnabar::
     .string "グレンタウンに　もどりますか？$"
 
 OneIsland_Text_IsntWarmClimateHereGreat::
-    .string "Hi, sight-seeing, are you?\n"
-    .string "Isn't the warm climate here great?$"
+    .string "Selam, gezmeye mi geldin?\n"
+    .string "Buranın ılık iklimi harika değil mi?$"
 

@@ -1,144 +1,139 @@
 Route12_Text_MonSprawledOutInSlumber::
-    .string "A POKéMON is sprawled out in\n"
-    .string "a deep and comfortable slumber.$"
+    .string "Bir POKéMON derin ve rahat bir uykuya\n"
+    .string "dalmış, yayılmış yatıyor.$"
 
 Text_SnorlaxWokeUp::
-    .string "SNORLAX woke up!\p"
-    .string "It attacked in a grumpy rage!$"
+    .string "SNORLAX uyandı!\p"
+    .string "Huysuz bir öfkeyle saldırdı!$"
 
 Text_SnorlaxReturnedToMountains::
-    .string "SNORLAX calmed down.\n"
-    .string "It gave a huge yawn…\l"
-    .string "And returned to the mountains.$"
+    .string "SNORLAX sakinleşti.\n"
+    .string "Kocaman esnedi…\l"
+    .string "Ve dağlara geri döndü.$"
 
 Text_WantToUsePokeFlute::
-    .string "Want to use the POKé FLUTE?$"
+    .string "POKé FLÜT kullanılsın mı?$"
 
 Text_PlayedPokeFlute::
-    .string "{PLAYER} played the POKé FLUTE.$"
+    .string "{PLAYER}, POKé FLÜT'ü çaldı.$"
 
 Route12_Text_NedIntro::
-    .string "Yeah!\n"
-    .string "I got a bite here!$"
+    .string "Evet!\n"
+    .string "Oltaya bir şey takıldı!$"
 
 Route12_Text_NedDefeat::
-    .string "Tch!\n"
-    .string "Just a small fry…$"
+    .string "Tüh!\n"
+    .string "Sadece ufak bir balık…$"
 
 Route12_Text_NedPostBattle::
-    .string "Hang on!\n"
-    .string "My line's snagged!$"
+    .string "Bekle!\n"
+    .string "Misinam takıldı!$"
 
 Route12_Text_ChipIntro::
-    .string "Be patient.\n"
-    .string "Fishing is a waiting game.$"
+    .string "Sabırlı ol.\n"
+    .string "Balık tutmak sabır işidir.$"
 
 Route12_Text_ChipDefeat::
-    .string "That one got away!$"
+    .string "O kaçtı!$"
 
 Route12_Text_ChipPostBattle::
-    .string "With a better ROD, I could catch\n"
-    .string "better POKéMON…$"
+    .string "Daha iyi bir OLTA ile daha iyi POKéMON\n"
+    .string "yakalayabilirdim…$"
 
 Route12_Text_JustinIntro::
-    .string "I'm searching for a MOON STONE.\n"
-    .string "Have you found one?$"
+    .string "AY TAŞI arıyorum.\n"
+    .string "Sen buldun mu?$"
 
 Route12_Text_JustinDefeat::
-    .string "Oww!$"
+    .string "Ay!$"
 
 Route12_Text_JustinPostBattle::
-    .string "I could have made my POKéMON\n"
-    .string "evolve with a MOON STONE.\p"
-    .string "I would have won then, I bet.$"
+    .string "AY TAŞI ile POKéMON'umu\n"
+    .string "evrimleştirebilirdim.\p"
+    .string "O zaman kazanırdım, eminim.$"
 
 Route12_Text_LucaIntro::
-    .string "Electricity is my specialty.\p"
-    .string "I don't know a thing about POKéMON\n"
-    .string "of the sea, though.$"
+    .string "Elektrik benim uzmanlık alanım.\p"
+    .string "Ama deniz POKéMON'ları hakkında hiçbir\n"
+    .string "şey bilmem.$"
 
 Route12_Text_LucaDefeat::
-    .string "Unplugged!$"
+    .string "Fişim çekildi!$"
 
 Route12_Text_LucaPostBattle::
-    .string "Water conducts electricity, so you\n"
-    .string "should zap sea POKéMON.$"
+    .string "Su elektriği iletir, yani deniz\n"
+    .string "POKéMON'larını çarpmalısın.$"
 
 Route12_Text_HankIntro::
-    .string "The FISHING FOOL versus POKéMON\n"
-    .string "KID!$"
+    .string "BALIK DELİSİ, POKéMON ÇOCUĞU'na\n"
+    .string "karşı!$"
 
 Route12_Text_HankDefeat::
-    .string "Touch too much!$"
+    .string "Bu çok fazla!$"
 
 Route12_Text_HankPostBattle::
-    .string "I guess you get to be good at\n"
-    .string "what you like.\p"
-    .string "Well, you beat me at POKéMON,\n"
-    .string "but you can't top me at fishing.$"
+    .string "Sanırım insan sevdiği şeyde iyi oluyor.\p"
+    .string "Neyse, beni POKéMON'da yendin ama\n"
+    .string "balık tutmada geçemezsin.$"
 
 Route12_Text_ElliotIntro::
-    .string "I love fishing, don't get me wrong.\p"
-    .string "But it'd be best if I also had more\n"
-    .string "work.$"
+    .string "Balık tutmayı severim, yanlış anlama.\p"
+    .string "Ama daha çok işim de olsa iyi olurdu.$"
 
 Route12_Text_ElliotDefeat::
-    .string "It's not easy…$"
+    .string "Kolay değil…$"
 
 Route12_Text_ElliotPostBattle::
-    .string "It's all right.\n"
-    .string "Losing doesn't bug me anymore.$"
+    .string "Sorun değil.\n"
+    .string "Kaybetmek artık canımı sıkmıyor.$"
 
 Route12_Text_AndrewIntro::
-    .string "What's catching?\p"
-    .string "You never know what you could\n"
-    .string "catch!$"
+    .string "Ne yakalıyor muyum?\p"
+    .string "Ne yakalayacağın hiç belli olmaz!$"
 
 Route12_Text_AndrewDefeat::
-    .string "Lost it!$"
+    .string "Kaçırdım!$"
 
 Route12_Text_AndrewPostBattle::
-    .string "What, MAGIKARP?\p"
-    .string "I catch them all the time, sure.\n"
-    .string "But, boy are they wimpy.$"
+    .string "Ne, MAGIKARP mı?\p"
+    .string "Onları her zaman yakalarım, tabii.\n"
+    .string "Ama ne kadar da güçsüzler.$"
 
 Route12_Text_RouteSign::
-    .string "ROUTE 12 \n"
-    .string "North to LAVENDER$"
+    .string "ROTA 12\n"
+    .string "Kuzeyde LAVENDER$"
 
 Route12_Text_SportfishingArea::
-    .string "SPORTFISHING AREA$"
+    .string "SPORTİF BALIKÇILIK ALANI$"
 
 Route12_Text_JesIntro::
-    .string "JES: If I win, I'm going to\n"
-    .string "propose to GIA.$"
+    .string "JES: Kazanırsam GIA'ya evlenme teklif\n"
+    .string "edeceğim.$"
 
 Route12_Text_JesDefeat::
-    .string "JES: Oh, please, why couldn't you\n"
-    .string "let us win?$"
+    .string "JES: Ah, lütfen, neden kazanmamıza izin\n"
+    .string "vermedin?$"
 
 Route12_Text_JesPostBattle::
-    .string "JES: Oh, GIA, forgive me,\n"
-    .string "my love!$"
+    .string "JES: Ah GIA, affet beni, aşkım!$"
 
 Route12_Text_JesNotEnoughMons::
-    .string "JES: GIA and I, we'll be\n"
-    .string "together forever.\p"
-    .string "We won't battle unless you have\n"
-    .string "two POKéMON of your own.$"
+    .string "JES: GIA ve ben sonsuza dek birlikte\n"
+    .string "olacağız.\p"
+    .string "Kendi iki POKéMON'un yoksa savaşmayız.$"
 
 Route12_Text_GiaIntro::
     .string "GIA: Hey, JES…\p"
-    .string "If we win, I'll marry you!$"
+    .string "Kazanırsak seninle evlenirim!$"
 
 Route12_Text_GiaDefeat::
-    .string "GIA: Oh, but why?$"
+    .string "GIA: Ah, ama neden?$"
 
 Route12_Text_GiaPostBattle::
-    .string "GIA: JES, you silly!\n"
-    .string "You ruined this!$"
+    .string "GIA: JES, seni sersem!\n"
+    .string "Berbat ettin!$"
 
 Route12_Text_GiaNotEnoughMons::
-    .string "GIA: I can't bear to battle\n"
-    .string "without my JES!\p"
-    .string "Don't you have one more POKéMON?$"
+    .string "GIA: JES'im olmadan savaşmaya\n"
+    .string "dayanamam!\p"
+    .string "Bir POKéMON'un daha yok mu?$"

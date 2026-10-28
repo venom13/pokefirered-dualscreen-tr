@@ -1,34 +1,34 @@
 SevenIsland_TrainerTower_Text_DarioIntro::
-    .string "I sensed your approach.$"
+    .string "Yaklaştığını sezdim.$"
 
 SevenIsland_TrainerTower_Text_DarioDefeat::
-    .string "Give up…$"
+    .string "Pes et…$"
 
 SevenIsland_TrainerTower_Text_DarioPostBattle::
-    .string "In your future, I sense that you\n"
-    .string "will meet many others.\p"
-    .string "I think you will be linked to each\n"
-    .string "other by a strange power.$"
+    .string "Geleceğinde pek çok kişiyle\n"
+    .string "tanışacağını seziyorum.\p"
+    .string "Sanırım birbirinize tuhaf bir güçle\n"
+    .string "bağlanacaksınız.$"
 
 SevenIsland_TrainerTower_Text_RodetteIntro::
-    .string "Somewhere on this island, peculiar\n"
-    .string "POKéMON are sleeping.$"
+    .string "Bu adada bir yerde tuhaf POKéMON'lar\n"
+    .string "uyuyor.$"
 
 SevenIsland_TrainerTower_Text_RodetteDefeat::
-    .string "What an amazing TRAINER!$"
+    .string "Ne müthiş bir EĞİTMEN!$"
 
 SevenIsland_TrainerTower_Text_RodettePostBattle::
-    .string "Somewhere on this island, peculiar\n"
-    .string "POKéMON are sleeping.\p"
-    .string "Could it be that they're waiting\n"
-    .string "for you?$"
+    .string "Bu adada bir yerde tuhaf POKéMON'lar\n"
+    .string "uyuyor.\p"
+    .string "Yoksa seni mi bekliyorlar?$"
 
 SevenIsland_TrainerTower_Text_TrainerTowerSign::
-    .string "TRAINER TOWER ENTRANCE\n"
-    .string "Rise to the Challenge, TRAINERS!$"
+    .string "EĞİTMEN KULESİ GİRİŞİ\n"
+    .string "Meydan Okumaya Hazır Olun,\l"
+    .string "EĞİTMENLER!$"
 
 SevenIsland_TrainerTower_Text_TrainerTowerAhead::
-    .string "TRAINER TOWER AHEAD$"
+    .string "İLERİDE EĞİTMEN KULESİ$"
 
 @ Unused text perhaps indicating Trainer Tower was planned to be unlocked by something
 SevenIsland_TrainerTower_Text_LooksLikeTrainerTowerIsClosed::

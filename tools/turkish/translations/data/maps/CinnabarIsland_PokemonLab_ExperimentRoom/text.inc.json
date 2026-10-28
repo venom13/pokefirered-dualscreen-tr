@@ -1,0 +1,14 @@
+{
+ "2": "Tık-tık-tık!\\nSana şık bir hareket öğreteyim.\\pBir POKéMON'a öğret ve eğlenceyi izle!\\pHareketin adı METRONOM.\\nİlgini çekti mi?$",
+ "10": "Söylüyorum sana, çok eğlenceli!$",
+ "13": "Tamam!\\nHangi POKéMON'a öğreteyim?$",
+ "17": "Tık-tık-tık!\\nBu bir METRONOM'un sesi.\\pPOKéMON'unun beynini kurcalayıp bilmediği hareketleri bile kullanmasını sağlar.$",
+ "23": "Selamlar!\\pBen önemli doktor.\\nEvet, çok çok önemli, gerçekten.\\pBurada nadir POKéMON fosillerini incelerim.\\nHep inceleme yaparım.\\pSen!\\nBana fosil var mı?$",
+ "32": "Yok!\\nÇok yazık!$",
+ "42": "Geç kaldın.\\nNeredeydin?\\pFosilin hayata döndü!\\nDüşündüğüm gibi {STR_VAR_1} çıktı!$",
+ "48": "{PLAYER}, doktordan {STR_VAR_1} aldı.$",
+ "56": "Oh!\\nBu {STR_VAR_2}, evet!\\pÇoktan soyu tükenmiş bir POKéMON olan {STR_VAR_1} fosili!\\pDiriltme Makinem o POKéMON'u yeniden yaşatacak!$",
+ "65": "Hadi!\\nAcele et, ver bana onu!\\p{FONT_NORMAL}{PLAYER}, {STR_VAR_2} eşyasını tuhaf doktora verdi.$",
+ "71": "Biraz zaman alacak!\\nSen biraz yürüyüşe çık!$",
+ "75": "Ayyaa!\\nYine geldin!$"
+}

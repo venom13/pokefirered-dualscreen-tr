@@ -1,26 +1,25 @@
 RocketHideout_B3F_Text_Grunt1Intro::
-    .string "Stop meddling in TEAM ROCKET's\n"
-    .string "affairs or else!$"
+    .string "ROCKET TAKIMI'nın işlerine burnunu\n"
+    .string "sokmayı bırak, yoksa görürsün!$"
 
 RocketHideout_B3F_Text_Grunt1Defeat::
-    .string "Oof!\n"
-    .string "Taken down!$"
+    .string "Of!\n"
+    .string "Alt edildim!$"
 
 RocketHideout_B3F_Text_Grunt1PostBattle::
-    .string "SILPH SCOPE?\n"
-    .string "Oh, that machine the BOSS stole.\p"
-    .string "It's here somewhere.$"
+    .string "SILPH DÜRBÜNÜ mü?\n"
+    .string "Ah, PATRON'un çaldığı o makine.\p"
+    .string "Buralarda bir yerde.$"
 
 RocketHideout_B3F_Text_Grunt2Intro::
-    .string "We got word from upstairs that you\n"
-    .string "were coming!$"
+    .string "Yukarıdan geleceğine dair haber aldık!$"
 
 RocketHideout_B3F_Text_Grunt2Defeat::
-    .string "What?\n"
-    .string "I lost? No!$"
+    .string "Ne?\n"
+    .string "Kaybettim mi? Hayır!$"
 
 RocketHideout_B3F_Text_Grunt2PostBattle::
-    .string "Go ahead and go!\p"
-    .string "But you can't run the elevator\n"
-    .string "without the LIFT KEY.$"
+    .string "Hadi git bakalım!\p"
+    .string "Ama ASANSÖR ANAHTARI olmadan asansörü\n"
+    .string "çalıştıramazsın.$"
 

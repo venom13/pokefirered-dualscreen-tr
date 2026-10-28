@@ -1,56 +1,57 @@
 RocketHideout_B4F_Text_GiovanniIntro::
-    .string "So! I must say, I am impressed you\n"
-    .string "got here.\p"
-    .string "TEAM ROCKET captures POKéMON from\n"
-    .string "around the world.\p"
-    .string "They're important tools for keeping\n"
-    .string "our criminal enterprise going.\p"
-    .string "I am the leader, GIOVANNI!\p"
-    .string "For your insolence, you will feel a\n"
-    .string "world of pain!$"
+    .string "Demek! Doğrusu buraya kadar gelmene\n"
+    .string "hayran kaldım.\p"
+    .string "ROCKET TAKIMI dünyanın her yerinden\n"
+    .string "POKéMON yakalar.\p"
+    .string "Onlar suç imparatorluğumuzu sürdürmek\n"
+    .string "için önemli araçlardır.\p"
+    .string "Ben lider GIOVANNI'yim!\p"
+    .string "Küstahlığın yüzünden dünyanın acısını\n"
+    .string "çekeceksin!$"
 
 RocketHideout_B4F_Text_GiovanniDefeat::
-    .string "WHAT!\n"
-    .string "This can't be!$"
+    .string "NE!\n"
+    .string "Bu olamaz!$"
 
 RocketHideout_B4F_Text_GiovanniPostBattle::
-    .string "I see that you raise POKéMON with\n"
-    .string "utmost care.\p"
-    .string "A child like you would never\n"
-    .string "understand what I hope to achieve.\p"
-    .string "I shall step aside this time!\p"
-    .string "I hope we meet again…$"
+    .string "POKéMON'ları büyük özenle yetiştirdiğini\n"
+    .string "görüyorum.\p"
+    .string "Senin gibi bir çocuk ulaşmak istediğim\n"
+    .string "şeyi asla anlayamaz.\p"
+    .string "Bu seferlik çekiliyorum!\p"
+    .string "Umarım yine karşılaşırız…$"
 
 RocketHideout_B4F_Text_Grunt2Intro::
-    .string "I know you!\n"
-    .string "You ruined our plans at MT. MOON!$"
+    .string "Seni tanıyorum!\n"
+    .string "AY DAĞI'nda planlarımızı mahvettin!$"
 
 RocketHideout_B4F_Text_Grunt2Defeat::
-    .string "Burned again!$"
+    .string "Yine yandım!$"
 
 RocketHideout_B4F_Text_Grunt2PostBattle::
-    .string "Do you have something against TEAM\n"
-    .string "ROCKET?$"
+    .string "ROCKET TAKIMI'na karşı bir derdin mi\n"
+    .string "var?$"
 
 RocketHideout_B4F_Text_Grunt3Intro::
-    .string "How can you not see the beauty of\n"
-    .string "our evil?$"
+    .string "Kötülüğümüzün güzelliğini nasıl\n"
+    .string "göremezsin?$"
 
 RocketHideout_B4F_Text_Grunt3Defeat::
     .string "Ayaya!$"
 
 RocketHideout_B4F_Text_Grunt3PostBattle::
-    .string "BOSS!\n"
-    .string "I'm sorry I failed you!$"
+    .string "PATRON!\n"
+    .string "Seni hayal kırıklığına uğrattığım için\l"
+    .string "özür dilerim!$"
 
 RocketHideout_B4F_Text_Grunt1Intro::
-    .string "The elevator doesn't work?\n"
-    .string "Who has the LIFT KEY?$"
+    .string "Asansör çalışmıyor mu?\n"
+    .string "ASANSÖR ANAHTARI kimde?$"
 
 RocketHideout_B4F_Text_Grunt1Defeat::
-    .string "No!$"
+    .string "Hayır!$"
 
 RocketHideout_B4F_Text_Grunt1PostBattle::
-    .string "Oh, no!\n"
-    .string "I dropped the LIFT KEY!$"
+    .string "Ah, hayır!\n"
+    .string "ASANSÖR ANAHTARI'nı düşürdüm!$"
 

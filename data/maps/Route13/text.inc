@@ -1,128 +1,126 @@
 Route13_Text_SebastianIntro::
-    .string "My bird POKéMON want to battle\n"
-    .string "with you!$"
+    .string "Kuş POKéMON'larım seninle savaşmak\n"
+    .string "istiyor!$"
 
 Route13_Text_SebastianDefeat::
-    .string "My PIDGEY and PIDGEOTTO combo\n"
-    .string "lost?$"
+    .string "PIDGEY ve PIDGEOTTO ikilim kaybetti\n"
+    .string "mi?$"
 
 Route13_Text_SebastianPostBattle::
-    .string "My POKéMON look happy even though\n"
-    .string "they lost.$"
+    .string "POKéMON'larım kaybetseler de mutlu\n"
+    .string "görünüyor.$"
 
 Route13_Text_SusieIntro::
-    .string "I'm told I'm good for a kid.$"
+    .string "Bir çocuğa göre iyi olduğum söylenir.$"
 
 Route13_Text_SusieDefeat::
     .string "Ohh!\n"
-    .string "I lost!$"
+    .string "Kaybettim!$"
 
 Route13_Text_SusiePostBattle::
-    .string "I want to become a good TRAINER.\n"
-    .string "I'll train hard, just watch.$"
+    .string "İyi bir EĞİTMEN olmak istiyorum.\n"
+    .string "Çok çalışacağım, görürsün.$"
 
 Route13_Text_ValerieIntro::
-    .string "Wow!\n"
-    .string "Your BADGES are too cool!$"
+    .string "Vay!\n"
+    .string "ROZETLERİN çok havalı!$"
 
 Route13_Text_ValerieDefeat::
-    .string "Not enough!$"
+    .string "Yetmedi!$"
 
 Route13_Text_ValeriePostBattle::
-    .string "You got those BADGES from GYM\n"
-    .string "LEADERS. I know!$"
+    .string "O ROZETLERİ SALON LİDERLERİNDEN\n"
+    .string "aldın. Biliyorum!$"
 
 Route13_Text_GwenIntro::
-    .string "My cute POKéMON wish to make your\n"
-    .string "acquaintance.$"
+    .string "Şirin POKéMON'larım seninle tanışmak\n"
+    .string "istiyor.$"
 
 Route13_Text_GwenDefeat::
-    .string "Good going!\n"
-    .string "You totally won!$"
+    .string "Aferin!\n"
+    .string "Tam anlamıyla kazandın!$"
 
 Route13_Text_GwenPostBattle::
-    .string "You have to make POKéMON battle\n"
-    .string "to toughen them up.$"
+    .string "POKéMON'ları güçlendirmek için\n"
+    .string "savaştırmalısın.$"
 
 Route13_Text_AlmaIntro::
-    .string "I found CARBOS in a cave once\n"
-    .string "while I was spelunking.$"
+    .string "Bir keresinde mağara keşfederken bir\n"
+    .string "mağarada KARBOS buldum.$"
 
 Route13_Text_AlmaDefeat::
-    .string "Oh, too bad!\n"
-    .string "I just messed up!$"
+    .string "Ah, çok yazık!\n"
+    .string "Az önce berbat ettim!$"
 
 Route13_Text_AlmaPostBattle::
-    .string "CARBOS boosted the SPEED of my\n"
-    .string "POKéMON.$"
+    .string "KARBOS POKéMON'umun HIZINI artırdı.$"
 
 Route13_Text_PerryIntro::
-    .string "I'm not going to lose.\n"
-    .string "Not when the wind's blowing my way!$"
+    .string "Kaybetmeyeceğim.\n"
+    .string "Rüzgar benden yana eserken asla!$"
 
 Route13_Text_PerryDefeat::
-    .string "The wind turned!$"
+    .string "Rüzgar döndü!$"
 
 Route13_Text_PerryPostBattle::
-    .string "I'm beat.\n"
-    .string "I guess I'll FLY home.$"
+    .string "Yenildim.\n"
+    .string "Sanırım eve UÇARAK döneceğim.$"
 
 Route13_Text_LolaIntro::
-    .string "Sure, I'll play with you, sweetie.$"
+    .string "Tabii, seninle oynarım, tatlım.$"
 
 Route13_Text_LolaDefeat::
-    .string "Oh!\n"
-    .string "You little beast!$"
+    .string "Ah!\n"
+    .string "Seni küçük canavar!$"
 
 Route13_Text_LolaPostBattle::
-    .string "I wonder which is stronger, male or\n"
-    .string "female POKéMON?$"
+    .string "Acaba erkek POKéMON mu güçlü, dişi mi?$"
 
 Route13_Text_SheilaIntro::
-    .string "Do you want to battle some\n"
-    .string "POKéMON with me?$"
+    .string "Benimle biraz POKéMON savaşı yapmak\n"
+    .string "ister misin?$"
 
 Route13_Text_SheilaDefeat::
-    .string "It's over already?$"
+    .string "Bitti mi bile?$"
 
 Route13_Text_SheilaPostBattle::
-    .string "I don't know anything about\n"
-    .string "POKéMON actually.\p"
-    .string "The ones I use… I picked them\n"
-    .string "for their looks!$"
+    .string "Aslında POKéMON hakkında hiçbir şey\n"
+    .string "bilmiyorum.\p"
+    .string "Kullandıklarımı… görünüşleri için\n"
+    .string "seçtim!$"
 
 Route13_Text_JaredIntro::
-    .string "What're you lookin' at?$"
+    .string "Ne bakıyorsun?$"
 
 Route13_Text_JaredDefeat::
-    .string "Dang!\n"
-    .string "Stripped gears!$"
+    .string "Hay aksi!\n"
+    .string "Vitesim boşa düştü!$"
 
 Route13_Text_JaredPostBattle::
-    .string "Get lost!$"
+    .string "Kaybol!$"
 
 Route13_Text_RobertIntro::
-    .string "I always go with bird POKéMON.\n"
-    .string "I've dedicated myself to them.$"
+    .string "Hep kuş POKéMON'larını seçerim.\n"
+    .string "Kendimi onlara adadım.$"
 
 Route13_Text_RobertDefeat::
-    .string "Out of power!$"
+    .string "Güç kalmadı!$"
 
 Route13_Text_RobertPostBattle::
-    .string "I wish I could fly like PIDGEY and\n"
-    .string "PIDGEOTTO…$"
+    .string "Keşke PIDGEY ve PIDGEOTTO gibi\n"
+    .string "uçabilsem…$"
 
 Route13_Text_LookToLeftOfThatPost::
-    .string "TRAINER TIPS\p"
-    .string "Look, look!\n"
-    .string "Look to the left of that post!$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "Bak, bak!\n"
+    .string "Şu direğin soluna bak!$"
 
 Route13_Text_SelectToSwitchItems::
-    .string "TRAINER TIPS\p"
-    .string "Use SELECT to switch items in the\n"
-    .string "ITEMS window.$"
+    .string "EĞİTMEN İPUÇLARI\p"
+    .string "EŞYALAR penceresinde eşyaların yerini\n"
+    .string "değiştirmek için SELECT kullan.$"
 
 Route13_Text_RouteSign::
-    .string "ROUTE 13\n"
-    .string "North to SILENCE BRIDGE$"
+    .string "ROTA 13\n"
+    .string "Kuzeyde SESSİZ KÖPRÜ$"
 

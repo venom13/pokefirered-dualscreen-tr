@@ -1,32 +1,29 @@
 Route2_EastBuilding_Text_GiveHM05IfSeen10Mons::
-    .string "Hi! Remember me?\n"
-    .string "I'm one of PROF. OAK's AIDES.\p"
-    .string "If your POKéDEX has complete data\n"
-    .string "on ten species, I'm supposed to\l"
-    .string "give you a reward.\p"
-    .string "PROF. OAK entrusted me with\n"
-    .string "HM05 for you.\p"
-    .string "So, {PLAYER}, let me ask you.\p"
-    .string "Have you gathered data on at least\n"
-    .string "ten kinds of POKéMON?$"
+    .string "Selam! Beni hatırladın mı?\n"
+    .string "PROF. OAK'ın YARDIMCILARINDAN biriyim.\p"
+    .string "POKéDEX'inde on türün tam verisi varsa\n"
+    .string "sana bir ödül vermem gerekiyor.\p"
+    .string "PROF. OAK senin için bana GM05'i emanet\n"
+    .string "etti.\p"
+    .string "Peki {PLAYER}, sana sorayım.\p"
+    .string "En az on tür POKéMON'un verisini\n"
+    .string "topladın mı?$"
 
 Route2_EastBuilding_Text_GreatHereYouGo::
-    .string "Great! You have caught or owned\n"
-    .string "{STR_VAR_3} kinds of POKéMON!\p"
-    .string "Congratulations!\n"
-    .string "Here you go!$"
+    .string "Harika! {STR_VAR_3} tür POKéMON\n"
+    .string "yakalamış ya da sahiplenmişsin!\p"
+    .string "Tebrikler!\n"
+    .string "Buyur!$"
 
 Route2_EastBuilding_Text_ReceivedHM05FromAide::
-    .string "{PLAYER} received HM05\n"
-    .string "from the AIDE.$"
+    .string "{PLAYER}, YARDIMCI'dan GM05 aldı.$"
 
 Route2_EastBuilding_Text_ExplainHM05::
-    .string "HM05 contains the hidden move\n"
-    .string "FLASH.\p"
-    .string "FLASH lights up even the darkest\n"
-    .string "of caves and dungeons.$"
+    .string "GM05'te gizli hareket FLAŞ var.\p"
+    .string "FLAŞ en karanlık mağaraları ve\n"
+    .string "zindanları bile aydınlatır.$"
 
 Route2_EastBuilding_Text_CanGetThroughRockTunnel::
-    .string "Once a POKéMON learns FLASH, you\n"
-    .string "can get through ROCK TUNNEL.$"
+    .string "Bir POKéMON FLAŞ öğrenince KAYA\n"
+    .string "TÜNELİ'nden geçebilirsin.$"
 

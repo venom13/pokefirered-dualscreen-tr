@@ -1,0 +1,10 @@
+{
+ "2": "Şey…\\nAh, evet, ben HAREKET SİLİCİ'yim.\\pPOKéMON'lara hareketlerini unutturabilirim.\\pBunu yapmamı ister misin?$",
+ "9": "Hangi POKéMON bir hareketi unutsun?$",
+ "13": "Hangi hareket unutulsun?$",
+ "16": "{STR_VAR_1} yalnızca tek bir hareket biliyor gibi…$",
+ "20": "Hm! {STR_VAR_1}: {STR_VAR_2}?\\nBu hareket mi unutulsun?$",
+ "24": "Kusursuz işledi!\\p{STR_VAR_1}, {STR_VAR_2} hareketini tamamen unuttu.$",
+ "29": "Unutulacak başka hareketler olursa yine gel.$",
+ "33": "Ne?\\nHiçbir YUMURTA hareket bilmez.$"
+}

@@ -809,42 +809,42 @@ gStdScriptsEnd::
 
 @ Unused
 Text_WouldYouLikeToMixRecords::
-	.string "Would you like to mix records with\n"
-	.string "other TRAINERS?$"
+	.string "Diğer EĞİTMENLERLE kayıt karıştırmak\n"
+	.string "ister misin?$"
 
 @ Unused
 Text_WeHopeToSeeYouAgain2::
-	.string "We hope to see you again!$"
+	.string "Yine görüşmek dileğiyle!$"
 
 	.include "data/text/pc.inc"
 
 @ Unused
 Text_WelcomeTradeCenter::
-	.string "Welcome to the POKéMON CABLE CLUB\n"
-	.string "TRADE CENTER.$"
+	.string "POKéMON KABLO KULÜBÜ TAKAS\n"
+	.string "MERKEZİ'ne hoş geldiniz.$"
 
 @ Unused
 Text_WelcomeColosseum::
-	.string "Welcome to the POKéMON CABLE CLUB\n"
-	.string "COLOSSEUM.$"
+	.string "POKéMON KABLO KULÜBÜ KOLOSEUM'una\n"
+	.string "hoş geldiniz.$"
 
 @ Unused
 Text_WelcomeTimeCapsule::
-	.string "Welcome to the POKéMON CABLE CLUB\n"
-	.string "TIME CAPSULE.$"
+	.string "POKéMON KABLO KULÜBÜ ZAMAN\n"
+	.string "KAPSÜLÜ'ne hoş geldiniz.$"
 
 Text_PleaseComeAgain::
-	.string "Please come again!$"
+	.string "Lütfen yine gelin!$"
 
 @ Unused
 Text_HavingDiscountSaleToday::
-	.string "Welcome!\p"
-	.string "We're having a discount sale today!$"
+	.string "Hoş geldiniz!\p"
+	.string "Bugün indirimli satışımız var!$"
 
 @ Unused
 Text_PlayerWhatCanIDoForYou::
-	.string "{PLAYER}{KUN}, welcome!\p"
-	.string "What can I do for you?$"
+	.string "{PLAYER}{KUN}, hoş geldin!\p"
+	.string "Senin için ne yapabilirim?$"
 
 	.include "data/text/obtain_item.inc"
 
@@ -852,11 +852,11 @@ Text_MakingPreparations::
 	.string "じゅんびちゅうです！$"
 
 Text_WantWhichFloor::
-	.string "Which floor do you want?$"
+	.string "Hangi kata gitmek istersin?$"
 
 Text_BagItemCanBeRegistered::
-	.string "An item in the BAG can be\n"
-	.string "registered to SELECT for easy use.$"
+	.string "ÇANTA'daki bir eşya kolay kullanım için\n"
+	.string "SELECT'e atanabilir.$"
 
 @ Unused (email from R/S Rivals computer)
 Text_TrainerSchoolEmail::
@@ -870,7 +870,7 @@ Text_TrainerSchoolEmail::
 	.string "‥‥　‥‥　‥‥$"
 
 Text_PlayerBootedUpPC::
-	.string "{PLAYER} booted up the PC.$"
+	.string "{PLAYER} PC'yi açtı.$"
 
 @ Unused
 Text_LinkWasCanceled::
@@ -878,29 +878,29 @@ Text_LinkWasCanceled::
 
 @ Unused
 Text_GiveNicknameToReceivedMon::
-	.string "Want to give a nickname to the\n"
-	.string "{STR_VAR_2} you received?$"
+	.string "Aldığın {STR_VAR_2} için bir lakap\n"
+	.string "vermek ister misin?$"
 
 gText_PkmnFainted3::
-	.string "{STR_VAR_1} fainted…\p"
+	.string "{STR_VAR_1} bayıldı…\p"
 	.string "$"
 
 Text_WelcomeWantToHealPkmn::
-	.string "Welcome to our POKéMON CENTER!\p"
-	.string "Would you like me to heal your\n"
-	.string "POKéMON back to perfect health?$"
+	.string "POKéMON MERKEZİMİZE hoş geldiniz!\p"
+	.string "POKéMON'larınızı tam sağlığına\n"
+	.string "kavuşturmamı ister misiniz?$"
 
 Text_TakeYourPkmnForFewSeconds::
-	.string "Okay, I'll take your POKéMON for a\n"
-	.string "few seconds.$"
+	.string "Tamam, POKéMON'larınızı birkaç\n"
+	.string "saniyeliğine alıyorum.$"
 
 Text_WeHopeToSeeYouAgain::
-	.string "We hope to see you again!$"
+	.string "Yine görüşmek dileğiyle!$"
 
 Text_RestoredPkmnToFullHealth::
-	.string "Thank you for waiting.\n"
-	.string "We've restored your POKéMON to\l"
-	.string "full health.$"
+	.string "Beklediğiniz için teşekkürler.\n"
+	.string "POKéMON'larınızı tam sağlığına\l"
+	.string "kavuşturduk.$"
 
 	.include "data/text/surf.inc"
 
@@ -915,21 +915,19 @@ Text_BigHoleInTheWall::
 	.string "おおきな　あなが　あいている！$"
 
 Text_WirelessClubUndergoingAdjustments::
-	.string "I'm terribly sorry.\n"
-	.string "The POKéMON WIRELESS CLUB is\l"
-	.string "undergoing adjustments now.$"
+	.string "Çok özür dilerim.\n"
+	.string "POKéMON KABLOSUZ KULÜBÜ şu an\l"
+	.string "ayarlanıyor.$"
 
 Text_AppearsToBeUndergoingAdjustments::
-	.string "It appears to be undergoing\n"
-	.string "adjustments…$"
+	.string "Ayarlanıyor gibi görünüyor…$"
 
 Text_HandedOverItem::
-	.string "{PLAYER} handed over the\n"
-	.string "{STR_VAR_1}.$"
+	.string "{PLAYER}, {STR_VAR_1} teslim etti.$"
 
 Text_GiveNicknameToThisMon::
-	.string "Do you want to give a nickname to\n"
-	.string "this {STR_VAR_1}?$"
+	.string "Bu {STR_VAR_1} için bir lakap vermek\n"
+	.string "ister misin?$"
 
 	.include "data/text/itemfinder.inc"
 	.include "data/text/route23.inc"
@@ -938,27 +936,26 @@ Text_GiveNicknameToThisMon::
 
 Text_CardKeyOpenedDoor::
 	.string "Bingo!\n"
-	.string "The CARD KEY opened the door!$"
+	.string "KART ANAHTAR kapıyı açtı!$"
 
 Text_ItNeedsCardKey::
-	.string "No!\n"
-	.string "It needs a CARD KEY!$"
+	.string "Olmaz!\n"
+	.string "KART ANAHTAR gerekiyor!$"
 
 Text_AccessedProfOaksPC::
-	.string "Accessed PROF. OAK's PC…\p"
-	.string "Accessed the POKéDEX Rating\n"
-	.string "System…$"
+	.string "PROF. OAK'ın PC'sine erişildi…\p"
+	.string "POKéDEX Değerlendirme Sistemi'ne\n"
+	.string "erişildi…$"
 
 Text_HavePokedexRated::
-	.string "Would you like to have your\n"
-	.string "POKéDEX rated?$"
+	.string "POKéDEX'ini değerlendirtmek ister misin?$"
 
 Text_ClosedLinkToProfOaksPC::
-	.string "Closed link to PROF. OAK's PC.$"
+	.string "PROF. OAK'ın PC'siyle bağlantı kapatıldı.$"
 
 Text_VoiceRangOutDontRunAway::
-	.string "Someone's voice rang out,\n"
-	.string "“Don't run away!”$"
+	.string "Birinin sesi yankılandı:\n"
+	.string "“Kaçma!”$"
 
 @ Uncear what the below unused JP texts were for
 Text_IdLikeToSeeRequest::
@@ -983,22 +980,22 @@ Text_TheDoorIsClosed::
 	.string "ドアは　しまっている‥$"
 
 Text_TheDoorIsOpen::
-	.string "The door is open…$"
+	.string "Kapı açık…$"
 
 	.include "data/text/pc_transfer.inc"
 	.include "data/text/white_out.inc"
 	.include "data/text/poke_mart.inc"
 
 Text_MonFlewAway::
-	.string "The {STR_VAR_1} flew away!$"
+	.string "{STR_VAR_1} uçup gitti!$"
 
 Text_TheresBedLetsRest::
 	.string "ベッドが　ある‥‥\n"
 	.string "やすんでいこう$"
 
 Text_FoundTMHMContainsMove::
-	.string "{PLAYER} found a {STR_VAR_2}!\n"
-	.string "It contains {STR_VAR_1}.$"
+	.string "{PLAYER} bir {STR_VAR_2} buldu!\n"
+	.string "İçinde {STR_VAR_1} var.$"
 
 	.include "data/text/seagallop.inc"
 
@@ -1007,8 +1004,8 @@ Text_Gyaoo::
 	.string "Gyaoo!$"
 
 Text_MoveCanOnlyBeLearnedOnce::
-	.string "This move can be learned only\n"
-	.string "once. Is that okay?$"
+	.string "Bu hareket yalnızca bir kez\n"
+	.string "öğrenilebilir. Olur mu?$"
 
 EventScript_ResetAllMapFlags::
 	setflag FLAG_HIDE_OAK_IN_HIS_LAB

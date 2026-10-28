@@ -74,6 +74,18 @@ public final class GbaFont {
         case '♂': return 0xB5; // male
         case '♀': return 0xB6; // female
         case 'é': return 0x1B;
+        case 'Ç': return 0x04;
+        case 'ç': return 0x19;
+        case 'Ö': return 0xF2;
+        case 'ö': return 0xF5;
+        case 'Ü': return 0xF3;
+        case 'ü': return 0xF6;
+        case 'Ğ': return 0x60; // Turkish glyphs added to the game font
+        case 'ğ': return 0x61;
+        case 'İ': return 0x62;
+        case 'ı': return 0x63;
+        case 'Ş': return 0x64;
+        case 'ş': return 0x65;
         }
         return -1;
     }

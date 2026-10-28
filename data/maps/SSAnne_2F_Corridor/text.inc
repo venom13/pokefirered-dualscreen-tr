@@ -1,24 +1,24 @@
 SSAnne_2F_Corridor_Text_ThisShipIsLuxuryLiner::
-    .string "This ship, she is a luxury liner for\n"
-    .string "TRAINERS of the world!\p"
-    .string "At every port, we hold parties with\n"
-    .string "invited TRAINERS.$"
+    .string "Bu gemi, dünyanın EĞİTMENLERİ için bir\n"
+    .string "lüks yolcu gemisi!\p"
+    .string "Her limanda davetli EĞİTMENLERLE\n"
+    .string "partiler düzenleriz.$"
 
 SSAnne_2F_Corridor_Text_RivalIntro::
     .string "{RIVAL}: Bonjour!\n"
     .string "{PLAYER}!\p"
-    .string "Imagine seeing you here!\n"
-    .string "{PLAYER}, were you really invited?\p"
-    .string "So how's your POKéDEX coming?\p"
-    .string "I already caught 40 kinds, pal.\n"
-    .string "Different kinds are everywhere.\p"
-    .string "Crawl around in grassy areas, and\n"
-    .string "look hard for them.$"
+    .string "Seni burada görmek ne tuhaf!\n"
+    .string "{PLAYER}, gerçekten davet edildin mi?\p"
+    .string "POKéDEX'in nasıl gidiyor?\p"
+    .string "Ben çoktan 40 tür yakaladım, dostum.\n"
+    .string "Farklı türler her yerde.\p"
+    .string "Çimenli alanlarda dolaş ve onları\n"
+    .string "dikkatle ara.$"
 
 SSAnne_2F_Corridor_Text_RivalDefeat::
-    .string "Humph!\p"
-    .string "At least you're raising your\n"
-    .string "POKéMON!$"
+    .string "Hıh!\p"
+    .string "En azından POKéMON'larını\n"
+    .string "yetiştiriyorsun!$"
 
 SSAnne_2F_Corridor_Text_RivalVictory::
     .string "{PLAYER}‥！\n"
@@ -27,11 +27,12 @@ SSAnne_2F_Corridor_Text_RivalVictory::
     .string "きたえた　ほうが　いいぜ！$"
 
 SSAnne_2F_Corridor_Text_RivalPostBattle::
-    .string "{RIVAL}: I heard there was a CUT\n"
-    .string "master on board.\p"
-    .string "But he was just a seasick old man!\p"
-    .string "CUT itself is really useful.\n"
-    .string "Yup, it'll be handy.\p"
-    .string "You should go see him, too.\n"
-    .string "Smell ya!$"
+    .string "{RIVAL}: Gemide bir KES ustası\n"
+    .string "olduğunu duydum.\p"
+    .string "Ama deniz tutmuş yaşlı bir adammış\n"
+    .string "sadece!\p"
+    .string "KES gerçekten çok işe yarar.\n"
+    .string "Evet, kullanışlı olacak.\p"
+    .string "Sen de gidip onu görmelisin.\n"
+    .string "Görüşürüz, ezik!$"
 

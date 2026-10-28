@@ -1,82 +1,82 @@
 CeladonCity_DepartmentStore_Roof_Text_ImThirstyGiveHerDrink::
-    .string "I'm thirsty!\n"
-    .string "I want something to drink!\p"
-    .string "{FONT_NORMAL}Give her a drink?$"
+    .string "Susadım!\n"
+    .string "İçecek bir şey istiyorum!\p"
+    .string "{FONT_NORMAL}Ona içecek verilsin mi?$"
 
 CeladonCity_DepartmentStore_Roof_Text_GiveWhichDrink::
-    .string "Give her which drink?$"
+    .string "Hangi içecek verilsin?$"
 
 CeladonCity_DepartmentStore_Roof_Text_YayFreshWaterHaveThis::
-    .string "Yay!\p"
-    .string "FRESH WATER!\p"
-    .string "Thank you!\n"
-    .string "You can have this from me!$"
+    .string "Yaşasın!\p"
+    .string "TAZE SU!\p"
+    .string "Teşekkürler!\n"
+    .string "Bu da benden sana!$"
 
 Text_ReceivedItemFromLittleGirl::
-    .string "{PLAYER} received a {STR_VAR_2}\n"
-    .string "from the little girl.$"
+    .string "{PLAYER}, küçük kızdan bir {STR_VAR_2}\n"
+    .string "aldı.$"
 
 CeladonCity_DepartmentStore_Roof_Text_ExplainTM16::
-    .string "TM16 contains LIGHT SCREEN.\p"
-    .string "It's a move that weakens the power\n"
-    .string "of special attacks by your foe.$"
+    .string "TM16'da IŞIK PERDESİ var.\p"
+    .string "Rakibin özel saldırılarının gücünü\n"
+    .string "zayıflatan bir hareket.$"
 
 CeladonCity_DepartmentStore_Roof_Text_YaySodaPopHaveThis::
-    .string "Yay!\p"
-    .string "SODA POP!\p"
-    .string "Thank you!\n"
-    .string "You can have this from me!$"
+    .string "Yaşasın!\p"
+    .string "GAZOZ!\p"
+    .string "Teşekkürler!\n"
+    .string "Bu da benden sana!$"
 
 CeladonCity_DepartmentStore_Roof_Text_ExplainTM20::
-    .string "TM20 contains SAFEGUARD.\p"
-    .string "It's a move that prevents status\n"
-    .string "problems among your POKéMON.$"
+    .string "TM20'de KORUYUCU var.\p"
+    .string "POKéMON'larında durum sorunlarını\n"
+    .string "önleyen bir hareket.$"
 
 CeladonCity_DepartmentStore_Roof_Text_YayLemonadeHaveThis::
-    .string "Yay!\p"
-    .string "LEMONADE!\p"
-    .string "Thank you!\n"
-    .string "You can have this from me!$"
+    .string "Yaşasın!\p"
+    .string "LİMONATA!\p"
+    .string "Teşekkürler!\n"
+    .string "Bu da benden sana!$"
 
 CeladonCity_DepartmentStore_Roof_Text_ExplainTM33::
-    .string "TM33 contains REFLECT.\p"
-    .string "It's a move that weakens the power\n"
-    .string "of physical attacks by your foe.$"
+    .string "TM33'te YANSITMA var.\p"
+    .string "Rakibin fiziksel saldırılarının gücünü\n"
+    .string "zayıflatan bir hareket.$"
 
 CeladonCity_DepartmentStore_Roof_Text_DontHaveSpaceForThis::
-    .string "You don't have space for this!$"
+    .string "Buna yerin yok!$"
 
 CeladonCity_DepartmentStore_Roof_Text_ImNotThirstyAfterAll::
-    .string "No, thank you!\n"
-    .string "I'm not thirsty after all!$"
+    .string "Hayır, sağ ol!\n"
+    .string "Aslında susamadım!$"
 
 CeladonCity_DepartmentStore_Roof_Text_MySisterIsImmature::
-    .string "My sister is a TRAINER, believe it\n"
-    .string "or not.\p"
-    .string "But, she's so immature, she drives\n"
-    .string "me nuts!$"
+    .string "İster inan ister inanma, ablam bir\n"
+    .string "EĞİTMEN.\p"
+    .string "Ama o kadar çocukça ki beni deli\n"
+    .string "ediyor!$"
 
 CeladonCity_DepartmentStore_Roof_Text_ImThirstyIWantDrink::
-    .string "I'm thirsty!\n"
-    .string "I want something to drink!$"
+    .string "Susadım!\n"
+    .string "İçecek bir şey istiyorum!$"
 
 CeladonCity_DepartmentStore_Roof_Text_FloorSign::
-    .string "ROOFTOP SQUARE:\n"
-    .string "VENDING MACHINES$"
+    .string "ÇATI MEYDANI:\n"
+    .string "OTOMATLAR$"
 
 CeladonCity_DepartmentStore_Roof_Text_VendingMachineWhatDoesItHave::
-    .string "A vending machine!\n"
-    .string "What does it have?$"
+    .string "Bir otomat!\n"
+    .string "İçinde ne var?$"
 
 CeladonCity_DepartmentStore_Roof_Text_NotEnoughMoney::
-    .string "Oops, not enough money!$"
+    .string "Hay aksi, para yetmiyor!$"
 
 CeladonCity_DepartmentStore_Roof_Text_DrinkCanPoppedOut::
-    .string "A can of {STR_VAR_1} popped out!$"
+    .string "Bir kutu {STR_VAR_1} düştü!$"
 
 CeladonCity_DepartmentStore_Roof_Text_NoMoreRoomForStuff::
-    .string "There's no more room for stuff!$"
+    .string "Eşya için yer kalmadı!$"
 
 CeladonCity_DepartmentStore_Roof_Text_NotThirsty::
-    .string "Not thirsty!$"
+    .string "Susamadım!$"
 

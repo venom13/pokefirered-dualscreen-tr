@@ -1,7 +1,7 @@
 SSAnne_2F_Room6_Text_CaptainIsAwfullySick::
-    .string "The CAPTAIN said he's awfully sick.\n"
-    .string "He was all pale.$"
+    .string "KAPTAN çok hasta olduğunu söyledi.\n"
+    .string "Yüzü bembeyazdı.$"
 
 SSAnne_2F_Room6_Text_ManyPeopleGetSeasick::
-    .string "I hear many people get seasick.$"
+    .string "Pek çok kişiyi deniz tuttuğunu duyuyorum.$"
 
